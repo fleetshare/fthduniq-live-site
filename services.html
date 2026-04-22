@@ -8,7 +8,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="styles.css">
+
+<style>
+  .landscape-video-card{
+    width: 100%;
+    aspect-ratio: 16 / 9 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden;
+    border-radius: 28px;
+  }
+
+  .landscape-video-card video{
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    object-fit: cover !important;
+    border-radius: 28px;
+  }
+
+  @media (max-width: 900px){
+    .landscape-video-card{
+      aspect-ratio: 16 / 9 !important;
+    }
+  }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -60,11 +85,11 @@
             <h2>Logistic Coordination</h2>
             <p>Reliable logistics support for truck movement, loading supervision, and delivery follow-through.</p>
           </div>
-          <div class="card">
-            <video autoplay muted loop playsinline controls poster="assets/logistics_truck_video_poster.jpg">
-              <source src="assets/logistics_truck_video.mp4" type="video/mp4">
-            </video>
-          </div>
+         <div class="card landscape-video-card">
+  <video autoplay muted loop playsinline controls poster="assets/logistics_truck_video_poster.jpg">
+    <source src="assets/logistics_truck_video.mp4" type="video/mp4">
+  </video>
+</div>
         </article>
 
         <article class="service-row">
