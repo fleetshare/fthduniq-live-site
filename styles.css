@@ -1252,13 +1252,9 @@ img,video{display:block;max-width:100%}
   display: inline;
 }
 .two-line-hero{
-  font-size: clamp(1.9rem, 3.8vw, 3rem) !important;
-  line-height: 1 !important;
+  font-size: clamp(2rem, 4vw, 3.1rem) !important;
+  line-height: 0.95 !important;
   letter-spacing: -0.01em !important;
   max-width: 18ch !important;
 }
 
-.two-line-hero span{
-  display: block;
-  white-space: nowrap;
-}
