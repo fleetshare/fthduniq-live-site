@@ -1196,7 +1196,7 @@ img,video{display:block;max-width:100%}
 }
 
 .two-line-hero{
-  font-size:clamp(2.2rem,4.8vw,3.7rem) !important;
+  font-size:clamp(2rem,4.2vw,3.2rem) !important;
 }
 
 .lead{
@@ -1240,4 +1240,14 @@ img,video{display:block;max-width:100%}
   .two-line-hero{
     font-size:clamp(1.9rem,7vw,2.8rem) !important;
   }
+}
+.two-line-hero{
+  font-size: clamp(2rem, 4vw, 3.2rem) !important;
+  line-height: 0.92 !important;
+  letter-spacing: -0.02em !important;
+  max-width: 12ch;
+}
+
+.two-line-hero span{
+  display: inline;
 }
