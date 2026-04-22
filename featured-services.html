@@ -31,7 +31,83 @@
       </nav>
     </div>
   </header>
+<section class="section">
+  <div class="container">
+    <div class="quote-form-shell">
+      <div class="quote-form-copy">
+        <div class="section-label">Request a Quote</div>
+        <h2 class="quote-form-title">Tell us what you need.</h2>
+        <p class="quote-form-text">
+          Request a quotation for building materials, logistic coordination, or project support.
+          Fill in your details and send your request directly.
+        </p>
+      </div>
 
+      <form class="quote-form" id="quoteForm">
+        <div class="quote-grid">
+          <label>
+            Full Name
+            <input type="text" id="qName" placeholder="Enter your full name" required>
+          </label>
+
+          <label>
+            Phone Number
+            <input type="tel" id="qPhone" placeholder="Enter your phone number" required>
+          </label>
+
+          <label>
+            Email Address
+            <input type="email" id="qEmail" placeholder="Enter your email address">
+          </label>
+
+          <label>
+            Location / Site Address
+            <input type="text" id="qLocation" placeholder="Enter project location" required>
+          </label>
+
+          <label>
+            Service Needed
+            <select id="qService" required>
+              <option value="">Select service</option>
+              <option>Building Materials Procurement</option>
+              <option>Logistic Coordination</option>
+              <option>Project Support</option>
+              <option>Custom Request</option>
+            </select>
+          </label>
+
+          <label>
+            Material / Product
+            <input type="text" id="qProduct" placeholder="e.g. Cement, Granite, Sharp Sand, Blocks">
+          </label>
+
+          <label>
+            Quantity / Tonnage
+            <input type="text" id="qQuantity" placeholder="e.g. 200 bags, 30 tons, 500 blocks">
+          </label>
+
+          <label>
+            Preferred Response
+            <select id="qResponse">
+              <option>WhatsApp</option>
+              <option>Email</option>
+              <option>Phone Call</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="quote-full">
+          Project Details
+          <textarea id="qMessage" rows="5" placeholder="Tell us what you need, timeline, delivery details, or any other note."></textarea>
+        </label>
+
+        <div class="quote-actions">
+          <button type="submit" class="btn btn-primary">Send Quote Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
   <main class="page-shell">
     <section>
       <div class="container page-intro">
@@ -56,7 +132,35 @@
     </div>
   </div>
 </section>
+<script>
+  document.getElementById("quoteForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
+    const name = document.getElementById("qName").value.trim();
+    const phone = document.getElementById("qPhone").value.trim();
+    const email = document.getElementById("qEmail").value.trim();
+    const location = document.getElementById("qLocation").value.trim();
+    const service = document.getElementById("qService").value.trim();
+    const product = document.getElementById("qProduct").value.trim();
+    const quantity = document.getElementById("qQuantity").value.trim();
+    const response = document.getElementById("qResponse").value.trim();
+    const message = document.getElementById("qMessage").value.trim();
+
+    const text = `Hello FTH D-UNIQ,%0A%0A` +
+      `I would like to request a quote.%0A%0A` +
+      `Full Name: ${name}%0A` +
+      `Phone Number: ${phone}%0A` +
+      `Email Address: ${email}%0A` +
+      `Location / Site Address: ${location}%0A` +
+      `Service Needed: ${service}%0A` +
+      `Material / Product: ${product}%0A` +
+      `Quantity / Tonnage: ${quantity}%0A` +
+      `Preferred Response: ${response}%0A` +
+      `Project Details: ${message}`;
+
+    window.open(`https://wa.me/message/VH7OMDVMXQ7YN1?text=${text}`, "_blank");
+  });
+</script>
   </main>
 
   
