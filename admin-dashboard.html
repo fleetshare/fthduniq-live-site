@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Admin Dashboard Wireframe</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      
+      <div class="eyebrow"><span></span> Admin & Operations</div>
+      <nav class="sidebar-nav" aria-label="Dashboard navigation">
+        <a class="sidebar-link active" href="dashboard.html"><span>Dashboard</span><span class="badge">01</span></a><a class="sidebar-link" href="sales-inventory.html"><span>Sales & Inventory</span><span class="badge">02</span></a><a class="sidebar-link" href="production.html"><span>Produced Products</span><span class="badge">03</span></a><a class="sidebar-link" href="invoicing.html"><span>Invoicing & Waybill</span><span class="badge">04</span></a><a class="sidebar-link" href="customers.html"><span>Customer Data</span><span class="badge">05</span></a><a class="sidebar-link" href="logistics.html"><span>Logistics Notes</span><span class="badge">06</span></a><a class="sidebar-link" href="reports.html"><span>Daily Reporting</span><span class="badge">07</span></a><a class="sidebar-link" href="messages.html"><span>Pricing Chat & Notes</span><span class="badge">08</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p><strong>Private access only</strong></p>
+        <p>Daily reports route to: faithonyenwenu@fthduniq.com</p>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="container">
+        
+<div class="topbar">
+  <div>
+    <div class="eyebrow"><span></span> Dashboard Overview</div>
+    <h1>Daily Operations Overview</h1>
+    <p>Quick visibility into sales, stock, production, workers payment, expenses, logistics, and pending follow-up items.</p>
+  </div>
+  <div class="topbar-actions">
+    <a class="btn btn-primary" href="reports.html">Generate Daily Report</a>
+    <a class="btn btn-secondary" href="invoicing.html">Create Invoice</a>
+  </div>
+</div>
+
+<section class="metrics">
+  <article class="metric-card">
+    <div class="metric-kicker">Today's Sales</div>
+    <div class="metric-value">₦0.00</div>
+    <div class="metric-copy"><p>Auto-total from all sales entries made during the day.</p></div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-kicker">Pending Invoices</div>
+    <div class="metric-value">04</div>
+    <div class="metric-copy"><p>Invoices awaiting email/WhatsApp dispatch or payment confirmation.</p></div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-kicker">Production Today</div>
+    <div class="metric-value">0 Units</div>
+    <div class="metric-copy"><p>Updates from vibrated and hand mould block production entries.</p></div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-kicker">Low Stock Alerts</div>
+    <div class="metric-value">03</div>
+    <div class="metric-copy"><p>Items nearing reorder or fresh production threshold.</p></div>
+  </article>
+</section>
+
+<section class="dashboard-grid">
+  <div class="stack">
+    <article class="panel-card section-card">
+      <h2>Today’s Priority Flow</h2>
+      <p class="body-copy">This section shows the intended working rhythm for staff inside the portal.</p>
+      <div class="pill-row">
+        <span class="pill">Log in</span>
+        <span class="pill">Enter opening stock</span>
+        <span class="pill">Record sales</span>
+        <span class="pill">Update production</span>
+        <span class="pill">Generate invoice / waybill</span>
+        <span class="pill">Close day with report</span>
+      </div>
+    </article>
+
+    <article class="panel-card section-card">
+      <h2>Stock & Movement Snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Opening</th>
+              <th>Received / Produced</th>
+              <th>Sold / Used</th>
+              <th>Closing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Bags of Cement</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Vibrated Blocks (9”)</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Hand Mould Blocks</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Sharp Sand</td><td>0 ton</td><td>0 ton</td><td>0 ton</td><td>0 ton</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="small-note">Closing stock should calculate automatically from opening stock, received stock, produced stock, and sold stock.</div>
+    </article>
+  </div>
+
+  <div class="stack">
+    <article class="panel-card section-card">
+      <h2>Pending Actions</h2>
+      <ul class="list-clean">
+        <li>Confirm cement received from vendor</li>
+        <li>Update barge of sand expenses</li>
+        <li>Send two pending invoices by email and WhatsApp</li>
+        <li>Enter worker payment for today</li>
+        <li>Submit daily report to faithonyenwenu@fthduniq.com</li>
+      </ul>
+    </article>
+
+    <article class="panel-card section-card">
+      <h2>Quick Modules</h2>
+      <div class="grid-2">
+        <a class="btn btn-secondary" href="sales-inventory.html">Sales & Inventory</a>
+        <a class="btn btn-secondary" href="production.html">Produced Products</a>
+        <a class="btn btn-secondary" href="customers.html">Customer Data</a>
+        <a class="btn btn-secondary" href="messages.html">Pricing Chat</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

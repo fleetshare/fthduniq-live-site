@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Daily Reporting Wireframe</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      
+      <div class="eyebrow"><span></span> Admin & Operations</div>
+      <nav class="sidebar-nav" aria-label="Dashboard navigation">
+        <a class="sidebar-link" href="dashboard.html"><span>Dashboard</span><span class="badge">01</span></a><a class="sidebar-link" href="sales-inventory.html"><span>Sales & Inventory</span><span class="badge">02</span></a><a class="sidebar-link" href="production.html"><span>Produced Products</span><span class="badge">03</span></a><a class="sidebar-link" href="invoicing.html"><span>Invoicing & Waybill</span><span class="badge">04</span></a><a class="sidebar-link" href="customers.html"><span>Customer Data</span><span class="badge">05</span></a><a class="sidebar-link" href="logistics.html"><span>Logistics Notes</span><span class="badge">06</span></a><a class="sidebar-link active" href="reports.html"><span>Daily Reporting</span><span class="badge">07</span></a><a class="sidebar-link" href="messages.html"><span>Pricing Chat & Notes</span><span class="badge">08</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p><strong>Private access only</strong></p>
+        <p>Daily reports route to: faithonyenwenu@fthduniq.com</p>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="container">
+        
+<div class="topbar">
+  <div>
+    <div class="eyebrow"><span></span> Daily Reporting</div>
+    <h1>End-of-Day Report Structure</h1>
+    <p>All reports should be consolidated and sent to <strong>faithonyenwenu@fthduniq.com</strong> automatically at the end of the day.</p>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-primary">Send Daily Report</button>
+  </div>
+</div>
+
+<section class="panel-card section-card">
+  <h2>Daily Report Modules</h2>
+  <div class="report-list">
+    <div class="report-item">
+      <div><strong>Sales Report</strong><span class="helper">Daily sales, customer, payment method, account received.</span></div>
+      <a class="btn btn-secondary" href="sales-inventory.html">Review</a>
+    </div>
+    <div class="report-item">
+      <div><strong>Production Report</strong><span class="helper">Produced products, cement used, sand used, and production notes.</span></div>
+      <a class="btn btn-secondary" href="production.html">Review</a>
+    </div>
+    <div class="report-item">
+      <div><strong>Workers Payment Report</strong><span class="helper">Worker payments, payment status, and notes.</span></div>
+      <button class="btn btn-secondary">Open</button>
+    </div>
+    <div class="report-item">
+      <div><strong>Inventory Report</strong><span class="helper">Opening stock, received products, stock movement, and closing stock.</span></div>
+      <a class="btn btn-secondary" href="sales-inventory.html">Review</a>
+    </div>
+    <div class="report-item">
+      <div><strong>Expenses Report</strong><span class="helper">Barge expenses, procurement costs, operational expenses.</span></div>
+      <button class="btn btn-secondary">Open</button>
+    </div>
+    <div class="report-item">
+      <div><strong>Logistics Service Report</strong><span class="helper">Supply logs, delivery notes, driver details, logistics payment.</span></div>
+      <a class="btn btn-secondary" href="logistics.html">Review</a>
+    </div>
+  </div>
+  <div class="footer-note">Final report output can later be designed as email summary, downloadable PDF, and dashboard archive.</div>
+</section>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Customer Data Wireframe</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      
+      <div class="eyebrow"><span></span> Admin & Operations</div>
+      <nav class="sidebar-nav" aria-label="Dashboard navigation">
+        <a class="sidebar-link" href="dashboard.html"><span>Dashboard</span><span class="badge">01</span></a><a class="sidebar-link" href="sales-inventory.html"><span>Sales & Inventory</span><span class="badge">02</span></a><a class="sidebar-link" href="production.html"><span>Produced Products</span><span class="badge">03</span></a><a class="sidebar-link" href="invoicing.html"><span>Invoicing & Waybill</span><span class="badge">04</span></a><a class="sidebar-link active" href="customers.html"><span>Customer Data</span><span class="badge">05</span></a><a class="sidebar-link" href="logistics.html"><span>Logistics Notes</span><span class="badge">06</span></a><a class="sidebar-link" href="reports.html"><span>Daily Reporting</span><span class="badge">07</span></a><a class="sidebar-link" href="messages.html"><span>Pricing Chat & Notes</span><span class="badge">08</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p><strong>Private access only</strong></p>
+        <p>Daily reports route to: faithonyenwenu@fthduniq.com</p>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="container">
+        
+<div class="topbar">
+  <div>
+    <div class="eyebrow"><span></span> Customer Data</div>
+    <h1>Customer Records & Message Templates</h1>
+    <p>Store customer contact details once, then reuse them across invoicing, waybills, follow-up, and appreciation messages.</p>
+  </div>
+</div>
+
+<section class="grid-2">
+  <article class="panel-card section-card">
+    <h2>Customer Data Page</h2>
+    <div class="form-grid">
+      <label>Name<input type="text" placeholder="Customer name"></label>
+      <label>Phone Number<input type="tel" placeholder="Phone number"></label>
+      <label>Location<input type="text" placeholder="Location / site address"></label>
+      <label>Email Address<input type="email" placeholder="Email address"></label>
+      <div class="form-actions">
+        <button class="btn btn-primary">Save Customer</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="panel-card section-card">
+    <h2>Prompt Message Templates</h2>
+    <div class="form-grid">
+      <label>Happy New Month<textarea>Happy new month. Thank you for your continued patronage and trust in FTH D-UNIQ.</textarea></label>
+      <label>Festive Season<textarea>Warm festive greetings from FTH D-UNIQ. We appreciate your patronage and support.</textarea></label>
+      <label>General Appreciation<textarea>Thank you for your patronage. We appreciate the opportunity to support your project and business needs.</textarea></label>
+      <div class="form-actions">
+        <button class="btn btn-primary">Save Templates</button>
+        <button class="btn btn-secondary">Copy for WhatsApp</button>
+      </div>
+    </div>
+  </article>
+</section>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

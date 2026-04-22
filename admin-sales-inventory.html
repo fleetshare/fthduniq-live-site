@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Sales & Inventory Wireframe</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      
+      <div class="eyebrow"><span></span> Admin & Operations</div>
+      <nav class="sidebar-nav" aria-label="Dashboard navigation">
+        <a class="sidebar-link" href="dashboard.html"><span>Dashboard</span><span class="badge">01</span></a><a class="sidebar-link active" href="sales-inventory.html"><span>Sales & Inventory</span><span class="badge">02</span></a><a class="sidebar-link" href="production.html"><span>Produced Products</span><span class="badge">03</span></a><a class="sidebar-link" href="invoicing.html"><span>Invoicing & Waybill</span><span class="badge">04</span></a><a class="sidebar-link" href="customers.html"><span>Customer Data</span><span class="badge">05</span></a><a class="sidebar-link" href="logistics.html"><span>Logistics Notes</span><span class="badge">06</span></a><a class="sidebar-link" href="reports.html"><span>Daily Reporting</span><span class="badge">07</span></a><a class="sidebar-link" href="messages.html"><span>Pricing Chat & Notes</span><span class="badge">08</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p><strong>Private access only</strong></p>
+        <p>Daily reports route to: faithonyenwenu@fthduniq.com</p>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="container">
+        
+<div class="topbar">
+  <div>
+    <div class="eyebrow"><span></span> Sales & Inventory</div>
+    <h1>Sales, Opening Stock & Inventory Movement</h1>
+    <p>Staff should be able to enter sales, stock received, payment destination, and closing stock without manual calculator work.</p>
+  </div>
+  <div class="topbar-actions">
+    <a class="btn btn-primary" href="invoicing.html">Generate Invoice</a>
+    <a class="btn btn-secondary" href="reports.html">View Daily Report</a>
+  </div>
+</div>
+
+<div class="module-nav">
+  <a class="active" href="#opening-stock">Opening Stock</a>
+  <a href="#received-stock">Received Product from Vendor</a>
+  <a href="#sales-entry">Sales Entry</a>
+  <a href="#closing-stock">Closing Stock</a>
+</div>
+
+<section class="panel-card section-card" id="opening-stock">
+  <h2>Opening Stock</h2>
+  <p class="body-copy">This section should allow easy daily entry of available stock before sales begin.</p>
+  <div class="grid-4">
+    <label>Bags of Cement<input type="number" placeholder="0"></label>
+    <label>Vibrated Blocks (9”)<input type="number" placeholder="0"></label>
+    <label>Hand Mould Blocks (9”)<input type="number" placeholder="0"></label>
+    <label>Hand Mould Blocks (6”)<input type="number" placeholder="0"></label>
+    <label>Hand Mould Blocks (4”)<input type="number" placeholder="0"></label>
+    <label>Sharp Sand 5 ton<input type="number" placeholder="0"></label>
+    <label>Sharp Sand 15 ton<input type="number" placeholder="0"></label>
+    <label>Sharp Sand 20 ton<input type="number" placeholder="0"></label>
+    <label>Sharp Sand 30 ton<input type="number" placeholder="0"></label>
+    <label>Sharp Sand 35 ton<input type="number" placeholder="0"></label>
+    <label>Granite 5 ton<input type="number" placeholder="0"></label>
+    <label>Granite 15 ton<input type="number" placeholder="0"></label>
+    <label>Granite 20 ton<input type="number" placeholder="0"></label>
+    <label>Granite 30 ton<input type="number" placeholder="0"></label>
+    <label>Granite 35 ton<input type="number" placeholder="0"></label>
+    <label>Plaster Sand 5 ton<input type="number" placeholder="0"></label>
+    <label>Plaster Sand 15 ton<input type="number" placeholder="0"></label>
+    <label>Plaster Sand 20 ton<input type="number" placeholder="0"></label>
+    <label>Plaster Sand 30 ton<input type="number" placeholder="0"></label>
+    <label>Plaster Sand 35 ton<input type="number" placeholder="0"></label>
+    <label>Bags of Sharp Sand<input type="number" placeholder="0"></label>
+    <label>Bags of Granite<input type="number" placeholder="0"></label>
+    <label>Bags of Plaster Sand<input type="number" placeholder="0"></label>
+    <label>Kerbs<input type="number" placeholder="0"></label>
+    <label>Interlocking Stone<input type="number" placeholder="0"></label>
+  </div>
+</section>
+
+<section class="grid-2" style="margin-top:22px">
+  <article class="panel-card section-card" id="received-stock">
+    <h2>Received Product from Vendor</h2>
+    <div class="form-grid">
+      <label>Product Received
+        <select>
+          <option>Cement</option>
+          <option>Granite</option>
+          <option>Plaster Sand</option>
+          <option>Sharp Sand</option>
+          <option>Kerbs</option>
+          <option>Interlocking Stone</option>
+        </select>
+      </label>
+      <label>Quantity / Tonnage<input type="text" placeholder="e.g. 20 tons / 500 bags"></label>
+      <label>Vendor Name<input type="text" placeholder="Vendor name"></label>
+      <label>Date Received<input type="date"></label>
+      <label>Amount / Expense Attached<input type="text" placeholder="₦0.00"></label>
+      <label>Notes<textarea placeholder="Barge of sand received, attached expenses, special notes, etc."></textarea></label>
+      <div class="form-actions">
+        <button class="btn btn-primary">Save Received Stock</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="panel-card section-card" id="sales-entry">
+    <h2>Sales Entry</h2>
+    <div class="form-grid">
+      <label>Customer Name<input type="text" placeholder="Customer name"></label>
+      <label>Product Sold
+        <select>
+          <option>Bags of Cement</option>
+          <option>Vibrated Blocks (9”)</option>
+          <option>Hand Mould Blocks</option>
+          <option>Sharp Sand</option>
+          <option>Granite</option>
+          <option>Plaster Sand</option>
+          <option>Kerbs</option>
+          <option>Interlocking Stone</option>
+        </select>
+      </label>
+      <label>Quantity<input type="number" placeholder="0"></label>
+      <label>Unit Price<input type="text" placeholder="₦0.00"></label>
+      <label>Total Amount (Auto-calculated)<input type="text" placeholder="₦0.00"></label>
+      <label>Amount Received<input type="text" placeholder="₦0.00"></label>
+      <label>Payment Method
+        <select><option>Transfer</option><option>Cash</option><option>POS</option></select>
+      </label>
+      <label>Paid Into Which Account?
+        <select>
+          <option>Main Business Account</option>
+          <option>Secondary Business Account</option>
+          <option>Cash on Hand</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button class="btn btn-primary">Save Sale</button>
+        <a class="btn btn-secondary" href="customers.html">Open Customer Data</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="panel-card section-card" id="closing-stock" style="margin-top:22px">
+  <h2>Closing Stock</h2>
+  <p class="body-copy">Closing stock should calculate automatically from opening stock, received stock, produced stock, and total sold.</p>
+  <div class="kpi-strip">
+    <div class="metric-card">
+      <div class="metric-kicker">Formula</div>
+      <div class="metric-copy"><p>Opening Stock + Received Stock + Produced Stock - Sold Stock</p></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-kicker">Auto Warning</div>
+      <div class="metric-copy"><p>Show low stock alerts when threshold is reached.</p></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-kicker">Audit Trail</div>
+      <div class="metric-copy"><p>Record which staff member made each stock or sales entry.</p></div>
+    </div>
+  </div>
+</section>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>
