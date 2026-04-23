@@ -12,9 +12,6 @@
 
   <style>
     :root{
-      --bg:#f7f2e8;
-      --card:#fffdf8;
-      --line:#eadfcb;
       --gold:#c89a3c;
       --gold-deep:#a97a22;
       --text:#24160f;
@@ -39,7 +36,7 @@
       padding:18px 0 8px;
     }
 
-    .compact-header .header-row{
+    .header-row{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -133,10 +130,10 @@
     .page-intro h1{
       margin:0;
       font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.5rem,5vw,4.1rem);
-      line-height:.94;
-      letter-spacing:-.03em;
-      max-width:12ch;
+      font-size:clamp(2.4rem,4.2vw,3.8rem);
+      line-height:.96;
+      letter-spacing:-.02em;
+      max-width:none;
     }
 
     .page-intro p{
@@ -146,9 +143,70 @@
       max-width:62ch;
     }
 
+    .featured-panel{
+      display:grid;
+      grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);
+      gap:24px;
+      align-items:center;
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(200,154,60,.12);
+      box-shadow:var(--shadow);
+    }
+
+    .featured-copy h2{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(2.2rem,4.5vw,3.4rem);
+      line-height:.94;
+      letter-spacing:-.02em;
+      max-width:12ch;
+    }
+
+    .featured-copy p{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.85;
+      max-width:38ch;
+    }
+
+    .featured-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .featured-points span{
+      display:inline-flex;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(200,154,60,.16);
+      color:#5f554d;
+      font-size:.92rem;
+    }
+
+    .preview-card{
+      width:100%;
+      border-radius:28px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid rgba(200,154,60,.12);
+      box-shadow:var(--shadow);
+    }
+
+    .preview-card video{
+      width:100%;
+      display:block;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
+      background:#000;
+    }
+
     .quote-section{
-      margin-top:18px;
-      margin-bottom:22px;
+      margin-top:22px;
     }
 
     .quote-dropdown{
@@ -279,78 +337,6 @@
       background:linear-gradient(180deg,#d7ab46 0%,#c79227 100%);
       color:#fff;
       box-shadow:0 14px 30px rgba(200,154,60,.22);
-    }
-
-    .btn-secondary{
-      background:#fff;
-      color:var(--text);
-      border:1px solid rgba(200,154,60,.18);
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .featured-panel{
-      display:grid;
-      grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);
-      gap:24px;
-      align-items:center;
-      padding:28px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(200,154,60,.12);
-      box-shadow:var(--shadow);
-    }
-
-    .featured-copy h2{
-      margin:0 0 12px;
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.2rem,4.5vw,3.4rem);
-      line-height:.94;
-      letter-spacing:-.02em;
-      max-width:12ch;
-    }
-
-    .featured-copy p{
-      margin:0 0 18px;
-      color:var(--muted);
-      line-height:1.85;
-      max-width:38ch;
-    }
-
-    .featured-points{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .featured-points span{
-      display:inline-flex;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid rgba(200,154,60,.16);
-      color:#5f554d;
-      font-size:.92rem;
-    }
-
-    .preview-card{
-      width:100%;
-      border-radius:28px;
-      overflow:hidden;
-      background:#fff;
-      border:1px solid rgba(200,154,60,.12);
-      box-shadow:var(--shadow);
-    }
-
-    .preview-card video{
-      width:100%;
-      display:block;
-      aspect-ratio:16 / 9;
-      object-fit:cover;
-      background:#000;
     }
 
     .site-footer{
@@ -499,7 +485,7 @@
     <section>
       <div class="container page-intro">
         <div class="section-label">Featured Services</div>
-        <h1>Building materials, logistic coordination, and project support.</h1>
+        <h1>Building materials, logistic coordination,<br>and project support.</h1>
         <p>
           Explore the core support services available through FTH D-UNIQ.
           We respond based on your material needs, quantity, location, delivery timing,
@@ -508,94 +494,9 @@
       </div>
     </section>
 
-    <section class="quote-section">
-      <div class="container">
-        <details class="quote-dropdown">
-          <summary>Request a Quote</summary>
-
-          <div class="quote-panel">
-            <div class="quote-form-shell">
-              <div class="quote-form-copy">
-                <div class="section-label">Request a Quote</div>
-                <h2>Tell us what you need.</h2>
-                <p>
-                  Request a quotation for building materials, logistic coordination,
-                  or project support. Fill in your details and send your request directly.
-                </p>
-              </div>
-
-              <form class="quote-form" id="quoteForm">
-                <div class="quote-grid">
-                  <label>
-                    Full Name
-                    <input type="text" id="qName" placeholder="Enter your full name" required>
-                  </label>
-
-                  <label>
-                    Phone Number
-                    <input type="tel" id="qPhone" placeholder="Enter your phone number" required>
-                  </label>
-
-                  <label>
-                    Email Address
-                    <input type="email" id="qEmail" placeholder="Enter your email address">
-                  </label>
-
-                  <label>
-                    Location / Site Address
-                    <input type="text" id="qLocation" placeholder="Enter project location" required>
-                  </label>
-
-                  <label>
-                    Service Needed
-                    <select id="qService" required>
-                      <option value="">Select service</option>
-                      <option>Building Materials Procurement</option>
-                      <option>Logistic Coordination</option>
-                      <option>Project Support</option>
-                      <option>Custom Request</option>
-                    </select>
-                  </label>
-
-                  <label>
-                    Material / Product
-                    <input type="text" id="qProduct" placeholder="e.g. Cement, Granite, Sharp Sand, Blocks">
-                  </label>
-
-                  <label>
-                    Quantity / Tonnage
-                    <input type="text" id="qQuantity" placeholder="e.g. 200 bags, 30 tons, 500 blocks">
-                  </label>
-
-                  <label>
-                    Preferred Response
-                    <select id="qResponse">
-                      <option>WhatsApp</option>
-                      <option>Email</option>
-                      <option>Phone Call</option>
-                    </select>
-                  </label>
-                </div>
-
-                <label class="quote-full">
-                  Project Details
-                  <textarea id="qMessage" rows="5" placeholder="Tell us what you need, timeline, delivery details, or any other note."></textarea>
-                </label>
-
-                <div class="quote-actions">
-                  <button type="submit" class="btn btn-primary">Send Quote Request</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </details>
-      </div>
-    </section>
-
     <section>
       <div class="container featured-panel">
         <div class="featured-copy">
-          <div class="section-label">Featured Services</div>
           <h2>Support built around materials, movement, and follow-through.</h2>
           <p>
             We support clients with building materials procurement, logistic coordination,
@@ -617,6 +518,81 @@
         </div>
       </div>
     </section>
+
+    <section class="quote-section">
+      <div class="container">
+        <details class="quote-dropdown">
+          <summary>Request a Quote</summary>
+
+          <div class="quote-panel">
+            <div class="quote-form-shell">
+              <div class="quote-form-copy">
+                <div class="section-label">Request a Quote</div>
+                <h2>Tell us what you need.</h2>
+                <p>
+                  Request a quotation for building materials, logistic coordination,
+                  or project support. Fill in your details and send your request directly.
+                </p>
+              </div>
+
+              <form class="quote-form" id="quoteForm">
+                <div class="quote-grid">
+                  <label>Full Name
+                    <input type="text" id="qName" placeholder="Enter your full name" required>
+                  </label>
+
+                  <label>Phone Number
+                    <input type="tel" id="qPhone" placeholder="Enter your phone number" required>
+                  </label>
+
+                  <label>Email Address
+                    <input type="email" id="qEmail" placeholder="Enter your email address">
+                  </label>
+
+                  <label>Location / Site Address
+                    <input type="text" id="qLocation" placeholder="Enter project location" required>
+                  </label>
+
+                  <label>Service Needed
+                    <select id="qService" required>
+                      <option value="">Select service</option>
+                      <option>Building Materials Procurement</option>
+                      <option>Logistic Coordination</option>
+                      <option>Project Support</option>
+                      <option>Custom Request</option>
+                    </select>
+                  </label>
+
+                  <label>Material / Product
+                    <input type="text" id="qProduct" placeholder="e.g. Cement, Granite, Sharp Sand, Blocks">
+                  </label>
+
+                  <label>Quantity / Tonnage
+                    <input type="text" id="qQuantity" placeholder="e.g. 200 bags, 30 tons, 500 blocks">
+                  </label>
+
+                  <label>Preferred Response
+                    <select id="qResponse">
+                      <option>WhatsApp</option>
+                      <option>Email</option>
+                      <option>Phone Call</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label class="quote-full">Project Details
+                  <textarea id="qMessage" rows="5" placeholder="Tell us what you need, timeline, delivery details, or any other note."></textarea>
+                </label>
+
+                <div class="quote-actions">
+                  <button type="submit" class="btn btn-primary">Send Quote Request</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -636,19 +612,15 @@
           <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
             <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
           </a>
-
           <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" aria-label="TikTok">
             <svg viewBox="0 0 24 24"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
           </a>
-
           <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
           </a>
-
           <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
           </a>
-
           <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
           </a>
