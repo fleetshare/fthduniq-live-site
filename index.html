@@ -44,33 +44,22 @@
       flex-wrap:wrap;
     }
 
-    .brand-box{
+    .brand-video-card{
       flex:0 0 auto;
       width:150px;
-      min-height:72px;
       border-radius:18px;
+      overflow:hidden;
       background:rgba(255,255,255,.72);
       border:1px solid rgba(200,154,60,.15);
       box-shadow:var(--shadow);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 12px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
-      letter-spacing:.08em;
     }
 
-    .brand-box img{
-      max-width:100%;
-      max-height:44px;
+    .brand-video-card video{
+      width:100%;
       display:block;
-    }
-
-    .brand-fallback{
-      font-size:.96rem;
-      white-space:nowrap;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
+      background:#000;
     }
 
     .site-nav{
@@ -133,7 +122,7 @@
       font-size:clamp(2.4rem,4.2vw,3.8rem);
       line-height:.96;
       letter-spacing:-.02em;
-      max-width:none;
+      max-width:14ch;
     }
 
     .page-intro p{
@@ -145,7 +134,7 @@
 
     .featured-panel{
       display:grid;
-      grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);
+      grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);
       gap:24px;
       align-items:center;
       padding:28px;
@@ -156,10 +145,10 @@
     }
 
     .featured-copy h2{
-      margin:0 0 12px;
+      margin:0 0 14px;
       font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.2rem,4.5vw,3.4rem);
-      line-height:.94;
+      font-size:clamp(2.35rem,4vw,3.55rem);
+      line-height:1.02;
       letter-spacing:-.02em;
       max-width:none;
     }
@@ -168,7 +157,7 @@
       margin:0 0 18px;
       color:var(--muted);
       line-height:1.85;
-      max-width:38ch;
+      max-width:40ch;
     }
 
     .featured-points{
@@ -418,8 +407,8 @@
         grid-template-columns:1fr;
       }
 
-      .featured-copy h2,
-      .page-intro h1{
+      .page-intro h1,
+      .featured-copy h2{
         max-width:none;
       }
 
@@ -437,7 +426,7 @@
         width:min(100% - 22px, 1180px);
       }
 
-      .brand-box{
+      .brand-video-card{
         width:136px;
       }
 
@@ -464,10 +453,11 @@
 <body>
   <header class="compact-header">
     <div class="container header-row">
-      <a class="brand-box" href="index.html">
-        <img src="assets/logo.png" alt="FTH D-UNIQ" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-        <span class="brand-fallback" style="display:none;">FTH D-UNIQ</span>
-      </a>
+      <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
+        <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
+          <source src="assets/hero_brand_video.mp4" type="video/mp4">
+        </video>
+      </div>
 
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
