@@ -1863,3 +1863,16 @@ img,video{
   letter-spacing:-0.01em !important;
   max-width:18ch !important;
 }
+.page-intro h1{
+  max-width:24ch;
+  font-size:clamp(2.5rem,4vw,3.8rem);
+  line-height:1.02;
+}
+
+@media (max-width: 768px){
+  .page-intro h1{
+    max-width:none;
+    font-size:clamp(2rem,7vw,2.8rem);
+    line-height:1.05;
+  }
+}
