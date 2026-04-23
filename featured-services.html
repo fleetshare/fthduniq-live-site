@@ -116,22 +116,20 @@
       background:var(--gold);
     }
 
-    .page-intro h1{
-      margin:0;
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.4rem,4.2vw,3.8rem);
-      line-height:.96;
-      letter-spacing:-.02em;
-      max-width:14ch;
-    }
+  .page-intro h1{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.9rem,2.6vw,2.8rem);
+  line-height:1.08;
+  letter-spacing:-.01em;
+  max-width:none;
+  width:100%;
+}
 
-    .page-intro p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.85;
-      max-width:62ch;
-    }
-
+.page-intro h1 span{
+  display:block;
+  white-space:nowrap;
+}
     .featured-panel{
       display:grid;
       grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);
@@ -481,7 +479,10 @@
     <section>
       <div class="container page-intro">
         <div class="section-label">Featured Services</div>
-        <h1>Building materials, logistic coordination<br>and project support.</h1>
+     <h1>
+  <span>Building materials, logistic coordination</span>
+  <span>and project support.</span>
+</h1>
         <p>
           Explore the core support services available through FTH D-UNIQ.
           We respond based on your material needs, quantity, location, delivery timing,
