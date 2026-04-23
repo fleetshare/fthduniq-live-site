@@ -1,39 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FTH D-UNIQ | Featured Services</title>
-  <meta name="description" content="Featured building materials, logistic coordination, and project support services from FTH D-UNIQ.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta
+    name="description"
+    content="Featured building materials, logistics coordination, and project support services from FTH D-UNIQ."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root{
-      --gold:#c89a3c;
-      --gold-deep:#a97a22;
-      --text:#24160f;
-      --muted:#6e655d;
+      --bg:#f5f0e7;
+      --panel:#fbf8f1;
+      --text:#241710;
+      --muted:#6f665d;
+      --gold:#c79b35;
+      --gold-deep:#b78622;
+      --line:#e8dcc5;
       --shadow:0 18px 48px rgba(36,23,16,.08);
       --radius:28px;
     }
 
+    *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
     body{
-      background:linear-gradient(180deg,#faf6ee 0%,#f4ede0 100%);
-      color:var(--text);
-      font-family:"Inter",sans-serif;
       margin:0;
+      overflow-x:hidden;
+      font-family:"Inter",system-ui,sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f6f1e7 0%,#f2ecdf 100%);
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img,video{
+      display:block;
+      max-width:100%;
     }
 
     .container{
-      width:min(1180px, calc(100% - 32px));
+      width:min(1120px, calc(100% - 40px));
       margin:0 auto;
     }
 
-    .compact-header{
-      padding:18px 0 8px;
+    .site-header{
+      padding:18px 0 10px;
+      background:rgba(246,241,231,.94);
+      border-bottom:1px solid rgba(199,155,53,.12);
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(10px);
     }
 
     .header-row{
@@ -45,470 +77,339 @@
     }
 
     .brand-video-card{
-      flex:0 0 auto;
-      width:150px;
+      width:170px;
       border-radius:18px;
       overflow:hidden;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(200,154,60,.15);
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
       box-shadow:var(--shadow);
+      flex:0 0 auto;
     }
 
     .brand-video-card video{
       width:100%;
-      display:block;
-      aspect-ratio:16 / 9;
+      height:auto;
       object-fit:cover;
-      background:#000;
+      background:#fff;
     }
 
     .site-nav{
-      flex:1 1 720px;
       display:flex;
       align-items:center;
       justify-content:flex-start;
-      gap:8px;
+      gap:10px;
       flex-wrap:wrap;
+      flex:1 1 700px;
     }
 
     .site-nav a{
-      text-decoration:none;
-      color:var(--text);
-      padding:10px 14px;
+      padding:12px 16px;
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       border-radius:999px;
-      font-size:.96rem;
+      border:1px solid transparent;
+      color:#5f554e;
+      font-weight:500;
+      transition:.22s ease;
       background:transparent;
-      transition:.2s ease;
+      white-space:nowrap;
     }
 
     .site-nav a:hover,
     .site-nav a.active{
-      background:rgba(255,255,255,.8);
-      box-shadow:0 8px 24px rgba(36,23,16,.06);
+      background:rgba(255,255,255,.72);
+      border-color:rgba(199,155,53,.18);
+      color:var(--text);
+      box-shadow:0 8px 24px rgba(36,23,16,.04);
     }
 
     .page-shell{
-      padding:8px 0 48px;
-    }
-
-    .page-intro{
-      display:grid;
-      gap:14px;
-      padding:18px 0 10px;
+      padding:18px 0 34px;
     }
 
     .section-label{
       display:flex;
       align-items:center;
-      gap:14px;
-      color:var(--gold-deep);
-      font-size:.9rem;
-      font-weight:700;
-      letter-spacing:.22em;
+      gap:18px;
+      font-size:.96rem;
+      letter-spacing:.28em;
       text-transform:uppercase;
+      font-weight:700;
+      color:var(--gold-deep);
+      margin:0 0 20px;
     }
 
     .section-label::before{
       content:"";
-      width:74px;
+      display:block;
+      width:110px;
+      max-width:18vw;
       height:2px;
-      border-radius:999px;
       background:var(--gold);
+      border-radius:999px;
+      opacity:.85;
     }
 
-  .page-intro h1{
-  margin:0;
-  font-family:"Cormorant Garamond",serif;
-  font-size:clamp(1.9rem,2.6vw,2.8rem);
-  line-height:1.08;
-  letter-spacing:-.01em;
-  max-width:none;
-  width:100%;
-}
+    .page-intro{
+      margin-bottom:22px;
+    }
 
-.page-intro h1 span{
-  display:block;
-  white-space:nowrap;
-}
+    .page-intro h1{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond",serif;
+      font-weight:600;
+      letter-spacing:-.02em;
+      color:#251811;
+    }
+
+    .intro-copy{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1rem;
+      max-width:72ch;
+    }
+
+    .intro-copy span{
+      display:block;
+    }
+
     .featured-panel{
       display:grid;
-      grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);
-      gap:24px;
-      align-items:center;
-      padding:28px;
+      grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);
+      gap:26px;
+      align-items:start;
+      padding:26px;
       border-radius:var(--radius);
       background:rgba(255,255,255,.58);
-      border:1px solid rgba(200,154,60,.12);
+      border:1px solid rgba(199,155,53,.12);
       box-shadow:var(--shadow);
     }
 
     .featured-copy h2{
       margin:0 0 14px;
       font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.35rem,4vw,3.55rem);
-      line-height:1.02;
-      letter-spacing:-.02em;
-      max-width:none;
+      font-weight:600;
+      line-height:.95;
+      letter-spacing:-.03em;
     }
 
     .featured-copy p{
-      margin:0 0 18px;
-      color:var(--muted);
-      line-height:1.85;
-      max-width:40ch;
-    }
-
-    .featured-points{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .featured-points span{
-      display:inline-flex;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid rgba(200,154,60,.16);
-      color:#5f554d;
-      font-size:.92rem;
-    }
-
-    .preview-card{
-      width:100%;
-      border-radius:28px;
-      overflow:hidden;
-      background:#fff;
-      border:1px solid rgba(200,154,60,.12);
-      box-shadow:var(--shadow);
-    }
-
-    .preview-card video{
-      width:100%;
-      display:block;
-      aspect-ratio:16 / 9;
-      object-fit:cover;
-      background:#000;
-    }
-
-    .quote-section{
-      margin-top:22px;
-    }
-
-    .quote-dropdown{
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(200,154,60,.12);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .quote-dropdown summary{
-      list-style:none;
-      cursor:pointer;
-      padding:20px 24px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      font-weight:700;
-      color:var(--text);
-      font-size:1rem;
-    }
-
-    .quote-dropdown summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .quote-dropdown summary::after{
-      content:"+";
-      font-size:1.5rem;
-      color:var(--gold-deep);
-      line-height:1;
-    }
-
-    .quote-dropdown[open] summary::after{
-      content:"−";
-    }
-
-    .quote-panel{
-      padding:0 24px 24px;
-    }
-
-    .quote-form-shell{
-      display:grid;
-      grid-template-columns:minmax(240px,.78fr) minmax(0,1.22fr);
-      gap:26px;
-      align-items:start;
-      padding-top:6px;
-    }
-
-    .quote-form-copy h2{
-      margin:0 0 10px;
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2rem,4vw,3rem);
-      line-height:.95;
-      letter-spacing:-.02em;
-    }
-
-    .quote-form-copy p{
       margin:0;
       color:var(--muted);
-      line-height:1.85;
+      line-height:1.82;
+      font-size:1rem;
       max-width:34ch;
     }
 
-    .quote-form{
-      display:grid;
-      gap:18px;
+    .feature-tags{
+      margin-top:26px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
     }
 
-    .quote-grid{
+    .feature-tags span{
+      padding:14px 18px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
+      color:#5a514a;
+      font-size:.98rem;
+      box-shadow:0 8px 20px rgba(36,23,16,.04);
+    }
+
+    .visual-grid{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:16px;
+      gap:14px;
     }
 
-    .quote-form label{
-      display:grid;
-      gap:8px;
-      font-weight:600;
-      color:var(--text);
-      font-size:.95rem;
-    }
-
-    .quote-form input,
-    .quote-form select,
-    .quote-form textarea{
-      width:100%;
-      border:1px solid rgba(200,154,60,.18);
-      border-radius:16px;
-      padding:14px 16px;
+    .visual-tile{
+      min-height:138px;
+      border-radius:22px;
+      border:1px solid rgba(199,155,53,.14);
       background:#fff;
-      color:var(--text);
-      font:inherit;
-      box-sizing:border-box;
-    }
-
-    .quote-form textarea{
-      resize:vertical;
-      min-height:120px;
-    }
-
-    .quote-full{
-      grid-column:1 / -1;
-    }
-
-    .quote-actions{
+      box-shadow:0 8px 20px rgba(36,23,16,.04);
+      overflow:hidden;
       display:flex;
       align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
       justify-content:center;
-      padding:14px 22px;
-      border-radius:999px;
-      border:none;
-      font-weight:700;
-      cursor:pointer;
-      text-decoration:none;
-      font:inherit;
-      transition:.2s ease;
+      padding:18px;
+      text-align:center;
     }
 
-    .btn-primary{
-      background:linear-gradient(180deg,#d7ab46 0%,#c79227 100%);
-      color:#fff;
-      box-shadow:0 14px 30px rgba(200,154,60,.22);
+    .visual-tile strong{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.7rem;
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+
+    .visual-tile span{
+      display:block;
+      margin-top:8px;
+      font-size:.93rem;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .tile-accent{
+      background:linear-gradient(135deg, rgba(247,239,221,.95) 0%, rgba(255,255,255,.98) 100%);
+    }
+
+    .tile-brand{
+      background:linear-gradient(135deg, #f8ecd0 0%, #fff7e7 100%);
     }
 
     .site-footer{
-      margin-top:34px;
-      padding:26px 0 34px;
-      border-top:1px solid rgba(200,154,60,.12);
-    }
-
-    .footer-wrap{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:22px;
-      flex-wrap:wrap;
-    }
-
-    .footer-brand-block{
-      display:grid;
-      gap:6px;
+      padding:32px 0 36px;
+      margin-top:26px;
+      border-top:1px solid rgba(199,155,53,.14);
     }
 
     .footer-meta{
       color:var(--muted);
       line-height:1.7;
-      font-size:.95rem;
+      font-size:.96rem;
     }
 
-    .footer-meta a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    .social-follow-block{
-      display:grid;
-      gap:12px;
-    }
-
-    .social-follow-title{
-      margin:0;
-      color:var(--muted);
-      font-weight:600;
-      line-height:1.7;
-      text-align:right;
-    }
-
-    .social-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:flex-end;
-    }
-
-    .social-link{
-      width:42px;
-      height:42px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      background:#fff;
-      border:1px solid rgba(200,154,60,.18);
-      color:var(--text);
-      text-decoration:none;
-      box-shadow:0 8px 24px rgba(36,23,16,.05);
-    }
-
-    .social-link svg{
-      width:18px;
-      height:18px;
-      fill:currentColor;
-    }
-
-    @media (max-width: 950px){
-      .quote-form-shell,
-      .featured-panel{
-        grid-template-columns:1fr;
-      }
-
-      .quote-grid{
-        grid-template-columns:1fr;
-      }
-
-      .page-intro h1,
-      .featured-copy h2{
+    /* DESKTOP / LAPTOP */
+    @media (min-width: 769px){
+      .page-intro h1{
+        font-size:clamp(1.95rem, 2.2vw, 2.55rem);
+        line-height:1.02;
+        white-space:nowrap;
         max-width:none;
       }
 
-      .social-follow-title{
-        text-align:left;
+      .intro-copy{
+        font-size:.98rem;
+        max-width:80ch;
       }
 
-      .social-row{
-        justify-content:flex-start;
+      .featured-copy h2{
+        font-size:clamp(2.7rem, 3.4vw, 3.9rem);
+        max-width:12ch;
       }
     }
 
-    @media (max-width: 700px){
+    /* MOBILE */
+    @media (max-width: 768px){
       .container{
-        width:min(100% - 22px, 1180px);
+        width:min(100% - 24px, 1120px);
+      }
+
+      .site-header{
+        padding:12px 0 10px;
+      }
+
+      .header-row{
+        align-items:flex-start;
       }
 
       .brand-video-card{
         width:136px;
+        border-radius:16px;
       }
 
       .site-nav{
-        gap:6px;
+        gap:10px 12px;
       }
 
       .site-nav a{
-        padding:9px 12px;
-        font-size:.92rem;
+        padding:10px 14px;
+        font-size:.95rem;
       }
 
-      .quote-panel,
-      .featured-panel{
-        padding:20px;
+      .page-shell{
+        padding:16px 0 28px;
       }
-.quote-actions .btn{
+
+      .section-label{
+        gap:14px;
+        margin-bottom:16px;
+      }
+
+      .section-label::before{
+        width:72px;
+      }
+
+      .page-intro h1{
+        font-size:clamp(1.35rem, 2vw, 1.8rem);
+        line-height:1.04;
+        letter-spacing:-.01em;
+        max-width:none;
         width:100%;
- }
-        
-  .page-intro h1{
-  font-size:clamp(2.1rem,3vw,3.1rem);
-  line-height:1.05;
-  letter-spacing:-.01em;
-  max-width:none;
-  width:100%;
-} 
-      @media (max-width: 768px){
-  .page-intro h1{
-    font-size:clamp(1.35rem, 2vw, 1.8rem);
-    line-height:1.04;
-    letter-spacing:-0.01em;
-    max-width:none;
-    width:100%;
-    white-space:normal;
-  }
+        white-space:normal;
+      }
 
-  .featured-copy h2{
-    font-size:clamp(1.7rem, 6vw, 2.5rem);
-    line-height:1.02;
-    letter-spacing:-0.02em;
-    white-space:normal;
-  }
-}
-      @media (min-width: 769px){
-  .page-intro{
-    max-width:980px;
-  }
+      .intro-copy{
+        font-size:.96rem;
+        line-height:1.76;
+      }
 
-  .page-intro h1{
-    font-size:clamp(1.95rem, 2.05vw, 2.55rem);
-    line-height:1.02;
-    letter-spacing:-0.01em;
-    max-width:18ch;
-    width:auto;
-    white-space:nowrap;
-  }
+      .featured-panel{
+        grid-template-columns:1fr;
+        gap:18px;
+        padding:22px;
+      }
 
-  .page-intro p{
-    font-size:0.98rem;
-    line-height:1.72;
-    max-width:58ch;
-  }
+      .featured-copy h2{
+        font-size:clamp(1.7rem, 6vw, 2.5rem);
+        line-height:1.02;
+        letter-spacing:-.02em;
+        white-space:normal;
+      }
 
-  .featured-panel{
-    grid-template-columns:minmax(0, 1.08fr) minmax(360px, 0.92fr);
-    align-items:start;
-    gap:24px;
-  }
+      .featured-copy p{
+        max-width:none;
+      }
 
-  .featured-copy h2{
-    font-size:clamp(2.6rem, 3.5vw, 3.8rem);
-    line-height:0.96;
-    max-width:13ch;
-  }
-}
+      .feature-tags{
+        gap:12px;
+      }
+
+      .feature-tags span{
+        width:100%;
+        justify-content:center;
+        text-align:center;
+      }
+
+      .visual-grid{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+      }
+
+      .visual-tile{
+        min-height:120px;
+        padding:14px;
+      }
+
+      .visual-tile strong{
+        font-size:1.35rem;
+      }
+    }
+
+    @media (max-width: 520px){
+      .visual-grid{
+        grid-template-columns:1fr;
+      }
+
+      .site-nav{
+        justify-content:flex-start;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="compact-header">
+  <header class="site-header">
     <div class="container header-row">
       <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
         <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
-          <source src="assets/hero_brand_video.mp4" type="video/mp4">
+          <source src="assets/hero_brand_video.mp4" type="video/mp4" />
         </video>
       </div>
 
@@ -526,181 +427,75 @@
 
   <main class="page-shell">
     <section>
-      <div class="container page-intro">
-        <div class="section-label">Featured Services</div>
-     <h1>
-  <span>Building materials, logistic coordination and project support.</span>
-</h1>
-        <p>
- <p>Explore the core support services available through FTH D-UNIQ.<br>We respond based on your material needs, quantity, location, delivery timing, and project coordination requirements.</p> 
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container featured-panel">
-        <div class="featured-copy">
-          <h2>Support built around<br>Materials movement<br>and follow through</h2>
-          <p>
-            We support clients with building materials procurement, logistic coordination,
-            and project-related follow-through for smoother and more structured execution.
-          </p>
-
-          <div class="featured-points">
-            <span>Building Materials Procurement</span>
-            <span>Logistic Coordination</span>
-            <span>Project Support</span>
-            <span>Site Supply Follow-Through</span>
-          </div>
-        </div>
-
-        <div class="preview-card">
-          <video autoplay muted loop playsinline controls>
-            <source src="assets/featured_products_video.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </section>
-
-    <section class="quote-section">
       <div class="container">
-        <details class="quote-dropdown">
-          <summary>Request a Quote</summary>
+        <div class="page-intro">
+          <div class="section-label">Featured Services</div>
 
-          <div class="quote-panel">
-            <div class="quote-form-shell">
-              <div class="quote-form-copy">
-                <div class="section-label">Request a Quote</div>
-                <h2>Tell us what you need.</h2>
-                <p>
-                  Request a quotation for building materials, logistic coordination,
-                  or project support. Fill in your details and send your request directly.
-                </p>
-              </div>
+          <h1>Building materials, logistic coordination and project support.</h1>
 
-              <form class="quote-form" id="quoteForm">
-                <div class="quote-grid">
-                  <label>Full Name
-                    <input type="text" id="qName" placeholder="Enter your full name" required>
-                  </label>
+          <p class="intro-copy">
+            <span>Explore the core support services available through FTH D-UNIQ.</span>
+            <span>We respond based on your material needs, quantity, location, delivery timing, and project coordination requirements.</span>
+          </p>
+        </div>
 
-                  <label>Phone Number
-                    <input type="tel" id="qPhone" placeholder="Enter your phone number" required>
-                  </label>
+        <div class="featured-panel">
+          <div class="featured-copy">
+            <h2>Support built around Materials movement and follow through</h2>
 
-                  <label>Email Address
-                    <input type="email" id="qEmail" placeholder="Enter your email address">
-                  </label>
+            <p>
+              We support clients with building materials procurement, logistic coordination, and
+              project-related follow-through for smoother and more structured execution.
+            </p>
 
-                  <label>Location / Site Address
-                    <input type="text" id="qLocation" placeholder="Enter project location" required>
-                  </label>
-
-                  <label>Service Needed
-                    <select id="qService" required>
-                      <option value="">Select service</option>
-                      <option>Building Materials Procurement</option>
-                      <option>Logistic Coordination</option>
-                      <option>Project Support</option>
-                      <option>Custom Request</option>
-                    </select>
-                  </label>
-
-                  <label>Material / Product
-                    <input type="text" id="qProduct" placeholder="e.g. Cement, Granite, Sharp Sand, Blocks">
-                  </label>
-
-                  <label>Quantity / Tonnage
-                    <input type="text" id="qQuantity" placeholder="e.g. 200 bags, 30 tons, 500 blocks">
-                  </label>
-
-                  <label>Preferred Response
-                    <select id="qResponse">
-                      <option>WhatsApp</option>
-                      <option>Email</option>
-                      <option>Phone Call</option>
-                    </select>
-                  </label>
-                </div>
-
-                <label class="quote-full">Project Details
-                  <textarea id="qMessage" rows="5" placeholder="Tell us what you need, timeline, delivery details, or any other note."></textarea>
-                </label>
-
-                <div class="quote-actions">
-                  <button type="submit" class="btn btn-primary">Send Quote Request</button>
-                </div>
-              </form>
+            <div class="feature-tags">
+              <span>Building Materials Procurement</span>
+              <span>Logistic Coordination</span>
+              <span>Project Support</span>
+              <span>Site Supply Follow-Through</span>
             </div>
           </div>
-        </details>
+
+          <div class="visual-grid">
+            <div class="visual-tile tile-accent">
+              <div>
+                <strong>Interlocking Stones</strong>
+                <span>Structured material support</span>
+              </div>
+            </div>
+
+            <div class="visual-tile">
+              <div>
+                <strong>Blocks</strong>
+                <span>Production and supply coordination</span>
+              </div>
+            </div>
+
+            <div class="visual-tile tile-brand">
+              <div>
+                <strong>FTH D-UNIQ</strong>
+                <span>Support-led execution</span>
+              </div>
+            </div>
+
+            <div class="visual-tile">
+              <div>
+                <strong>Kerbs &amp; Site Supply</strong>
+                <span>Delivery follow-through</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-wrap">
-      <div class="footer-brand-block">
-        <strong>FTH D-UNIQ</strong>
-        <div class="footer-meta">Business Name Registration No. 2660716</div>
-        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
-        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
-        <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
-      </div>
-
-      <div class="social-follow-block">
-        <p class="social-follow-title">Follow our social media handles</p>
-
-        <div class="social-row">
-          <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
-          </a>
-          <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" aria-label="TikTok">
-            <svg viewBox="0 0 24 24"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
-          </a>
-          <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
-          </a>
-          <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
-          </a>
-          <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
-          </a>
-        </div>
+    <div class="container">
+      <div class="footer-meta">
+        FTH D-UNIQ · Business Name Registration No. 2660716
       </div>
     </div>
   </footer>
-
-  <script>
-    document.getElementById("quoteForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("qName").value.trim();
-      const phone = document.getElementById("qPhone").value.trim();
-      const email = document.getElementById("qEmail").value.trim();
-      const location = document.getElementById("qLocation").value.trim();
-      const service = document.getElementById("qService").value.trim();
-      const product = document.getElementById("qProduct").value.trim();
-      const quantity = document.getElementById("qQuantity").value.trim();
-      const response = document.getElementById("qResponse").value.trim();
-      const message = document.getElementById("qMessage").value.trim();
-
-      const text =
-        "Hello FTH D-UNIQ,%0A%0A" +
-        "I would like to request a quote.%0A%0A" +
-        "Full Name: " + name + "%0A" +
-        "Phone Number: " + phone + "%0A" +
-        "Email Address: " + email + "%0A" +
-        "Location / Site Address: " + location + "%0A" +
-        "Service Needed: " + service + "%0A" +
-        "Material / Product: " + product + "%0A" +
-        "Quantity / Tonnage: " + quantity + "%0A" +
-        "Preferred Response: " + response + "%0A" +
-        "Project Details: " + message;
-
-      window.open("https://wa.me/message/VH7OMDVMXQ7YN1?text=" + text, "_blank");
-    });
-  </script>
 </body>
 </html>
