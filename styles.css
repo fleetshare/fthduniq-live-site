@@ -1476,3 +1476,30 @@ img,video{display:block;max-width:100%}
     gap:18px;
   }
 }
+/* ===== FEATURED SERVICES HEADLINE STANDARD FOR ALL INNER PAGES ===== */
+
+.page-intro h1,
+.service-copy h2,
+.feature-copy h2,
+.post-copy h2,
+.career-card h2,
+.contact-card h2{
+  margin:0 !important;
+  font-family:"Cormorant Garamond", serif !important;
+  font-size:clamp(2.5rem,4vw,3.7rem) !important;
+  line-height:1.02 !important;
+  letter-spacing:-.01em !important;
+  max-width:24ch !important;
+  width:100% !important;
+  text-wrap:balance !important;
+}
+
+/* keeps paragraph width under those headlines moderate */
+.page-intro p,
+.service-copy p,
+.feature-copy p,
+.post-copy p,
+.career-card p,
+.contact-card p{
+  max-width:60ch !important;
+}
