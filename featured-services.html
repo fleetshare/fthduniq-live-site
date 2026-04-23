@@ -469,6 +469,37 @@
     white-space:normal;
   }
 }
+      @media (min-width: 769px){
+  .page-intro{
+    max-width:980px;
+  }
+
+  .page-intro h1{
+    font-size:clamp(2.15rem, 2.7vw, 2.95rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    max-width:18ch;
+    width:auto;
+  }
+
+  .page-intro p{
+    font-size:0.98rem;
+    line-height:1.72;
+    max-width:58ch;
+  }
+
+  .featured-panel{
+    grid-template-columns:minmax(0, 1.08fr) minmax(360px, 0.92fr);
+    align-items:start;
+    gap:24px;
+  }
+
+  .featured-copy h2{
+    font-size:clamp(2.6rem, 3.5vw, 3.8rem);
+    line-height:0.96;
+    max-width:13ch;
+  }
+}
   </style>
 </head>
 <body>
