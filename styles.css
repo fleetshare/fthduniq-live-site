@@ -1286,4 +1286,99 @@ img,video{display:block;max-width:100%}
   letter-spacing: -0.01em !important;
   max-width: 18ch !important;
 }
+/* ===== GLOBAL PAGE ALIGNMENT + HEADLINE BALANCE ===== */
+
+.container{
+  width:min(1180px, calc(100% - 32px));
+  margin-inline:auto;
+}
+
+.site-header .container,
+.compact-header .container{
+  width:min(1180px, calc(100% - 32px));
+  margin-inline:auto;
+  align-items:flex-start;
+}
+
+.page-shell{
+  padding:8px 0 48px;
+}
+
+.page-shell > section{
+  padding:0;
+}
+
+.page-shell > section + section{
+  margin-top:22px;
+}
+
+.page-intro{
+  padding:18px 0 10px;
+  max-width:none;
+}
+
+.hero-home .hero-grid{
+  gap:24px;
+  align-items:flex-start;
+}
+
+.preview-panel,
+.founder-grid{
+  gap:24px;
+  align-items:flex-start;
+}
+
+.hero-copy,
+.page-intro,
+.preview-copy,
+.panel-card{
+  min-width:0;
+}
+
+/* ===== HEADLINE BALANCE ===== */
+
+.hero-copy .editorial-headline{
+  max-width:16ch;
+  line-height:.98;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+}
+
+.page-intro h1,
+.page-intro h2,
+.career-card h2,
+.contact-card h2,
+.panel-card h2{
+  max-width:22ch;
+  line-height:1.02;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+}
+
+.page-intro p,
+.hero-copy .lead,
+.career-card p,
+.contact-card p,
+.panel-card p{
+  max-width:60ch;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 900px){
+  .page-intro h1,
+  .page-intro h2,
+  .career-card h2,
+  .contact-card h2,
+  .panel-card h2,
+  .hero-copy .editorial-headline{
+    max-width:none;
+  }
+
+  .hero-home .hero-grid,
+  .preview-panel,
+  .founder-grid{
+    gap:18px;
+  }
+}
 
