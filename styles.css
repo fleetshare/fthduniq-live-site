@@ -1503,3 +1503,111 @@ img,video{display:block;max-width:100%}
 .contact-card p{
   max-width:60ch !important;
 }
+@media (max-width: 768px){
+
+  .container,
+  .site-header .container,
+  .compact-header .container{
+    width:calc(100% - 24px) !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  .site-header .container,
+  .compact-header .container{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:14px !important;
+  }
+
+  .brand-top,
+  .brand-video-card,
+  .brand-box{
+    width:136px !important;
+    max-width:136px !important;
+    margin:0 !important;
+  }
+
+  .site-nav{
+    width:100% !important;
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:10px 12px !important;
+    justify-content:flex-start !important;
+    align-items:flex-start !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .site-nav a{
+    padding:10px 14px !important;
+    font-size:0.98rem !important;
+    white-space:nowrap !important;
+  }
+
+  .page-shell{
+    padding:8px 0 36px !important;
+  }
+
+  .page-intro{
+    padding:12px 0 8px !important;
+  }
+
+  .page-intro h1,
+  .page-intro h2,
+  .featured-copy h2,
+  .service-copy h2,
+  .post-copy h2,
+  .career-card h2,
+  .contact-card h2{
+    font-size:clamp(2rem, 8vw, 2.7rem) !important;
+    line-height:1.04 !important;
+    letter-spacing:-0.01em !important;
+    max-width:none !important;
+    width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+  }
+
+  .insights-balanced-headline{
+    font-size:clamp(2rem, 8vw, 2.7rem) !important;
+    line-height:1.04 !important;
+    max-width:none !important;
+    width:100% !important;
+  }
+
+  .insights-balanced-headline span{
+    white-space:normal !important;
+    display:block !important;
+  }
+
+  .hero-home .hero-grid,
+  .preview-panel,
+  .founder-grid,
+  .featured-panel,
+  .quote-form-shell,
+  .career-form-shell,
+  .two-col-grid{
+    grid-template-columns:1fr !important;
+    gap:18px !important;
+  }
+
+  .preview-card,
+  .media-card,
+  .panel-card{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .preview-card video,
+  .brand-video-card video,
+  .media-card img{
+    width:100% !important;
+    height:auto !important;
+  }
+
+  .quote-grid{
+    grid-template-columns:1fr !important;
+  }
+}
