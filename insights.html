@@ -8,7 +8,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+ <style>
+  .insights-balanced-headline{
+    margin:0;
+    font-family:"Cormorant Garamond", serif;
+    font-size:clamp(2.2rem,3.2vw,3.4rem);
+    line-height:1.03;
+    letter-spacing:-.01em;
+    max-width:none;
+    width:100%;
+  }
+
+  .insights-balanced-headline span{
+    display:block;
+    white-space:nowrap;
+  }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -36,10 +51,9 @@
     <section class="section">
       <div class="container insights-intro">
         <div class="section-label">Insights &amp; Articles</div>
-        <h1 class="insights-title">
-  <span>Practical insights on procurement</span>
-  <span>project coordination and</span>
-  <span>structured execution.</span>
+        <h1 class="insights-balanced-headline">
+  <span>Practical insights on procurement, project coordination</span>
+  <span>and structured execution.</span>
 </h1>
         <p class="insights-lead">This section shares field-based perspectives on building materials sourcing, transparent procurement support, and project coordination for busy, remote, and growth-focused clients.</p>
       </div>
