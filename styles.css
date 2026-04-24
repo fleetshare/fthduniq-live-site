@@ -156,9 +156,27 @@ img,video{
 }
 
 .two-line-hero{
-  font-size:clamp(2.7rem,7vw,4.9rem);
+  font-size:clamp(2.2rem,4vw,3.6rem);
+  line-height:1.02;
+  letter-spacing:-0.02em;
+  max-width:none;
 }
 
+.two-line-hero span{
+  display:block;
+  white-space:nowrap;
+}
+
+@media (max-width: 768px){
+  .two-line-hero{
+    font-size:clamp(1.5rem,6vw,2.1rem);
+    line-height:1.08;
+  }
+
+  .two-line-hero span{
+    white-space:normal;
+  }
+}
 .two-line-hero .line-1{
   max-width:max-content;
 }
