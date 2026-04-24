@@ -38,13 +38,18 @@
       white-space:nowrap;
     }
 
-    .services-page .page-intro p{
-      margin:0;
-      max-width:58ch;
-      font-size:0.98rem;
-      line-height:1.74;
-      color:var(--muted);
-    }
+.services-intro-copy{
+  margin:0;
+  max-width:none;
+  font-size:0.98rem;
+  line-height:1.72;
+  color:var(--muted);
+}
+
+.services-intro-copy span{
+  display:block;
+  white-space:nowrap;
+}
 
     .services-page .service-stack{
       display:grid;
@@ -179,12 +184,14 @@
         white-space:normal;
       }
 
-      .services-page .page-intro p{
-        max-width:none;
-        font-size:0.9rem;
-        line-height:1.72;
-      }
+.services-intro-copy{
+  font-size:0.9rem;
+  line-height:1.72;
+}
 
+.services-intro-copy span{
+  white-space:normal;
+}
       .services-page .service-stack{
         gap:18px;
       }
