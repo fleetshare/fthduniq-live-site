@@ -4,40 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Insights</title>
-  <meta name="description" content="Insights and articles from FTH D-UNIQ on procurement, project coordination, and structured execution.">
+  <meta name="description" content="Insights and articles from FTH D-UNIQ on procurement, project coordination, and structured construction support.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .insights-balanced-headline{
-      margin:0 0 16px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.5rem, 5vw, 4.3rem);
-      line-height:.95;
-      letter-spacing:-.03em;
-      max-width:none;
-      width:100%;
+    .insights-page-shell{
+      padding-top:14px;
     }
 
-    .insights-balanced-headline span{
+    .insights-page-shell .page-intro{
+      padding:10px 0 10px;
+      max-width:1120px;
+    }
+
+    .insights-page-shell .page-intro .section-label{
+      margin-bottom:18px;
+    }
+
+    .insights-main-headline{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.55rem, 3.2vw, 3.9rem);
+      line-height:0.98;
+      letter-spacing:-0.025em;
+      max-width:none;
+    }
+
+    .insights-main-headline span{
       display:block;
       white-space:nowrap;
     }
 
-    .insights-intro{
-      padding-top:8px;
+    .insights-page-shell .page-intro p{
+      margin:0;
+      max-width:62ch;
+      font-size:0.98rem;
+      line-height:1.74;
+      color:var(--muted);
+    }
+
+    .insights-featured-card{
+      display:grid;
+      grid-template-columns:minmax(360px, 0.92fr) minmax(0, 1.08fr);
+      gap:28px;
+      align-items:start;
+      padding:28px 30px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(199,155,53,.12);
+      box-shadow:var(--shadow);
+      margin-top:18px;
+    }
+
+    .insights-featured-media{
+      min-width:0;
+    }
+
+    .insights-featured-media .card{
+      width:100%;
+      aspect-ratio:16 / 11;
+      border-radius:28px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .insights-featured-media .card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .insights-featured-copy{
+      min-width:0;
+    }
+
+    .insights-featured-copy .post-meta{
+      color:var(--gold-deep);
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.82rem;
+      margin-bottom:12px;
+    }
+
+    .insights-article-headline{
+      margin:0 0 14px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.2rem, 2.7vw, 3.15rem);
+      line-height:0.98;
+      letter-spacing:-0.025em;
+      max-width:14ch;
+    }
+
+    .insights-article-headline span{
+      display:block;
+      white-space:nowrap;
+    }
+
+    .post-excerpt{
+      margin:0 0 24px;
+      max-width:46ch;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.78;
+    }
+
+    .insights-note{
+      margin-top:8px;
+      padding:4px 2px 0;
+      color:var(--muted);
+      font-size:0.98rem;
+      line-height:1.75;
     }
 
     @media (max-width: 768px){
-      .insights-balanced-headline{
-        font-size:clamp(2rem, 8vw, 3rem);
-        line-height:1;
+      .insights-page-shell{
+        padding-top:12px;
       }
 
-      .insights-balanced-headline span{
+      .insights-page-shell .page-intro{
+        padding:8px 16px 8px;
+      }
+
+      .insights-page-shell .page-intro .section-label{
+        margin-bottom:16px;
+      }
+
+      .insights-main-headline{
+        font-size:clamp(1.28rem, 5.4vw, 1.9rem);
+        line-height:1.05;
+        letter-spacing:-0.015em;
+        margin:0 0 10px;
+      }
+
+      .insights-main-headline span{
         white-space:normal;
+      }
+
+      .insights-page-shell .page-intro p{
+        max-width:none;
+        font-size:0.9rem;
+        line-height:1.72;
+      }
+
+      .insights-featured-card{
+        grid-template-columns:1fr;
+        gap:18px;
+        padding:20px 16px;
+      }
+
+      .insights-featured-media{
+        order:2;
+      }
+
+      .insights-featured-copy{
+        order:1;
+      }
+
+      .insights-article-headline{
+        font-size:clamp(1.62rem, 6.8vw, 2.2rem);
+        line-height:1.03;
+        letter-spacing:-0.02em;
+        max-width:none;
+      }
+
+      .insights-article-headline span{
+        white-space:normal;
+      }
+
+      .post-excerpt{
+        max-width:none;
+        font-size:0.9rem;
+        line-height:1.72;
+      }
+
+      .insights-featured-media .card{
+        aspect-ratio:16 / 10;
+        border-radius:24px;
+      }
+
+      .insights-note{
+        font-size:0.92rem;
+        line-height:1.7;
+        padding:0 2px;
+      }
+    }
+
+    @media (max-width: 430px){
+      .insights-main-headline{
+        font-size:clamp(1.14rem, 4.8vw, 1.58rem);
+      }
+
+      .insights-article-headline{
+        font-size:clamp(1.45rem, 6vw, 1.9rem);
       }
     }
   </style>
@@ -65,50 +230,50 @@
     </div>
   </header>
 
-  <main class="page-shell">
-    <section class="section insights-intro">
-      <div class="container">
+  <main class="page-shell insights-page-shell">
+    <section>
+      <div class="container page-intro">
         <div class="section-label">Insights &amp; Articles</div>
 
-        <h1 class="insights-balanced-headline">
+        <h1 class="insights-main-headline">
           <span>Practical insights on procurement, project coordination</span>
           <span>and structured execution.</span>
         </h1>
 
-        <p class="insights-lead">
-          This section shares field-based perspectives on building materials sourcing,
-          transparent procurement support, and project coordination for busy, remote,
-          and growth-focused clients.
+        <p>
+          This section shares field-based perspectives on building materials sourcing, transparent procurement support, and project coordination for busy, remote, and growth-focused clients.
         </p>
       </div>
     </section>
 
-    <section class="section">
+    <section>
       <div class="container">
-        <article class="post-card">
-          <div class="post-media">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,#8ec5ff 0%,#5fa8ff 100%);"></div>
+        <article class="insights-featured-card">
+          <div class="insights-featured-media">
+            <div class="card">
+              <img src="assets/article_granite_truck.jpeg" alt="Building materials procurement support image">
+            </div>
           </div>
 
-          <div class="post-copy">
-            <div class="post-meta">Featured Insight</div>
-            <h2>Why structured procurement support matters before project delays begin.</h2>
+          <div class="insights-featured-copy">
+            <div class="post-meta">19 April 2026 · Procurement &amp; Project Coordination</div>
+
+            <h2 class="insights-article-headline">
+              <span>Why transparent procurement fees</span>
+              <span>and project coordination matter</span>
+              <span>in construction supply</span>
+            </h2>
+
             <p class="post-excerpt">
-              Strong project execution often depends on early planning, dependable sourcing,
-              quantity clarity, and coordinated delivery follow-through. When procurement and
-              logistics decisions are left unstructured, avoidable waste, delays, and cost pressure
-              can quickly build into bigger site problems.
+              In construction supply, the visible price of materials is only one part of the real cost. This article explains why transparent procurement fees, supplier follow-through, quality checks, and project coordination matter more than many clients realise.
             </p>
 
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="contact.html">Work With FTH D-UNIQ</a>
-              <a class="btn btn-secondary" href="services.html">View Services</a>
-            </div>
+            <a class="btn btn-primary" href="article-transparent-procurement.html">Read Article</a>
           </div>
         </article>
 
         <div class="insights-note">
-          More practical articles and field-based insights will continue to be published here.
+          <p>More insights on procurement, project coordination, and structured execution will be added here.</p>
         </div>
       </div>
     </section>
@@ -119,37 +284,32 @@
       <div class="footer-brand-block">
         <strong>FTH D-UNIQ</strong>
         <div class="footer-meta">Business Name Registration No. 2660716</div>
-        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
-        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
+        <div class="footer-meta">General Enquiries: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
         <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
       </div>
 
       <div class="footer-social-block">
         <div class="social-follow-block">
           <p class="social-follow-title">Follow our social media handles</p>
-
-          <div class="social-row">
-            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
-              <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
+          <div class="social-row" aria-label="Social links">
+            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
             </a>
-
-            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" aria-label="TikTok">
-              <svg viewBox="0 0 24 24"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
+            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6 1.4.9 2.3.9s1.7-.3 2.3-.9c.6-.6.9-1.4.9-2.3V3h2.4z"/></svg>
             </a>
-
-            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
+            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
             </a>
-
-            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" aria-label="WhatsApp">
-              <svg viewBox="0 0 24 24"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
+            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
             </a>
-
-            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
-              <svg viewBox="0 0 24 24"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
+            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
             </a>
           </div>
         </div>
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
       </div>
     </div>
   </footer>
