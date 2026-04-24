@@ -63,6 +63,10 @@
       max-width:none;
     }
 
+    .featured-services-page .preview-copy .section-label{
+      margin-bottom:14px;
+    }
+
     .featured-services-page .preview-copy h2{
       margin:0 0 12px;
       font-family:"Cormorant Garamond", serif;
@@ -112,13 +116,49 @@
       background:#fff;
     }
 
-    .quote-panel{
+    .quote-dropdown-wrap{
       margin-top:22px;
-      padding:26px;
+    }
+
+    .quote-dropdown{
       border-radius:var(--radius);
       background:rgba(255,255,255,.58);
       border:1px solid rgba(199,155,53,.12);
       box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .quote-dropdown summary{
+      list-style:none;
+      cursor:pointer;
+      padding:22px 26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      font-weight:700;
+      color:var(--text);
+      font-size:1rem;
+    }
+
+    .quote-dropdown summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .quote-dropdown summary::after{
+      content:"+";
+      font-size:1.5rem;
+      line-height:1;
+      color:var(--gold-deep);
+      flex:0 0 auto;
+    }
+
+    .quote-dropdown[open] summary::after{
+      content:"−";
+    }
+
+    .quote-panel{
+      padding:0 26px 26px;
     }
 
     .quote-panel .section-label{
@@ -241,6 +281,10 @@
         padding:22px 18px;
       }
 
+      .featured-services-page .preview-copy .section-label{
+        margin-bottom:12px;
+      }
+
       .featured-services-page .preview-copy h2{
         font-size:clamp(1.85rem, 7.5vw, 2.4rem);
         line-height:1.02;
@@ -262,8 +306,12 @@
         font-size:0.94rem;
       }
 
+      .quote-dropdown summary{
+        padding:20px 18px;
+      }
+
       .quote-panel{
-        padding:22px 18px;
+        padding:0 18px 22px;
       }
 
       .quote-panel h2{
@@ -310,8 +358,8 @@
         <div class="section-label">Featured Services</div>
 
         <h1 class="featured-main-headline">
-          <span>Building materials</span> 
-          logistic coordination<span>and project support.</span>
+          <span>Building materials, logistic coordination</span>
+          <span>and project support.</span>
         </h1>
 
         <p>
@@ -345,78 +393,84 @@
     </section>
 
     <section>
-      <div class="container quote-panel">
-        <div class="section-label">Request a Quote</div>
-        <h2>Tell us what you need.</h2>
-        <p>Share your material, logistics, or project support request below. Your message will open directly in WhatsApp for quick follow-up.</p>
+      <div class="container quote-dropdown-wrap">
+        <details class="quote-dropdown">
+          <summary>Request a Quote</summary>
 
-        <form id="quoteForm" class="quote-form">
-          <div class="quote-grid">
-            <div class="field-group">
-              <label for="qName">Full Name</label>
-              <input id="qName" name="qName" type="text" placeholder="Enter your full name" required>
-            </div>
+          <div class="quote-panel">
+            <div class="section-label">Request a Quote</div>
+            <h2>Tell us what you need.</h2>
+            <p>Share your material, logistics, or project support request below. Your message will open directly in WhatsApp for quick follow-up.</p>
 
-            <div class="field-group">
-              <label for="qPhone">Phone Number</label>
-              <input id="qPhone" name="qPhone" type="tel" placeholder="Enter your phone number" required>
-            </div>
+            <form id="quoteForm" class="quote-form">
+              <div class="quote-grid">
+                <div class="field-group">
+                  <label for="qName">Full Name</label>
+                  <input id="qName" name="qName" type="text" placeholder="Enter your full name" required>
+                </div>
 
-            <div class="field-group">
-              <label for="qEmail">Email Address</label>
-              <input id="qEmail" name="qEmail" type="email" placeholder="Enter your email address">
-            </div>
+                <div class="field-group">
+                  <label for="qPhone">Phone Number</label>
+                  <input id="qPhone" name="qPhone" type="tel" placeholder="Enter your phone number" required>
+                </div>
 
-            <div class="field-group">
-              <label for="qLocation">Location / Site Address</label>
-              <input id="qLocation" name="qLocation" type="text" placeholder="Enter project location" required>
-            </div>
+                <div class="field-group">
+                  <label for="qEmail">Email Address</label>
+                  <input id="qEmail" name="qEmail" type="email" placeholder="Enter your email address">
+                </div>
 
-            <div class="field-group">
-              <label for="qService">Service Needed</label>
-              <select id="qService" name="qService" required>
-                <option value="">Select service</option>
-                <option>Building Materials Procurement</option>
-                <option>Logistic Coordination</option>
-                <option>Project Support</option>
-                <option>Site Supply Follow-Through</option>
-              </select>
-            </div>
+                <div class="field-group">
+                  <label for="qLocation">Location / Site Address</label>
+                  <input id="qLocation" name="qLocation" type="text" placeholder="Enter project location" required>
+                </div>
 
-            <div class="field-group">
-              <label for="qProduct">Material / Product</label>
-              <input id="qProduct" name="qProduct" type="text" placeholder="e.g. Cement, Granite, Blocks">
-            </div>
+                <div class="field-group">
+                  <label for="qService">Service Needed</label>
+                  <select id="qService" name="qService" required>
+                    <option value="">Select service</option>
+                    <option>Building Materials Procurement</option>
+                    <option>Logistic Coordination</option>
+                    <option>Project Support</option>
+                    <option>Site Supply Follow-Through</option>
+                  </select>
+                </div>
 
-            <div class="field-group">
-              <label for="qQuantity">Quantity / Tonnage</label>
-              <input id="qQuantity" name="qQuantity" type="text" placeholder="e.g. 200 bags, 30 tons">
-            </div>
+                <div class="field-group">
+                  <label for="qProduct">Material / Product</label>
+                  <input id="qProduct" name="qProduct" type="text" placeholder="e.g. Cement, Granite, Blocks">
+                </div>
 
-            <div class="field-group">
-              <label for="qResponse">Preferred Response</label>
-              <select id="qResponse" name="qResponse">
-                <option>WhatsApp</option>
-                <option>Phone Call</option>
-                <option>Email</option>
-              </select>
-            </div>
+                <div class="field-group">
+                  <label for="qQuantity">Quantity / Tonnage</label>
+                  <input id="qQuantity" name="qQuantity" type="text" placeholder="e.g. 200 bags, 30 tons">
+                </div>
 
-            <div class="field-group full-span">
-              <label for="qMessage">Project Details</label>
-              <textarea id="qMessage" name="qMessage" placeholder="Tell us what you need, delivery timeline, quantity, and any other relevant details."></textarea>
-            </div>
+                <div class="field-group">
+                  <label for="qResponse">Preferred Response</label>
+                  <select id="qResponse" name="qResponse">
+                    <option>WhatsApp</option>
+                    <option>Phone Call</option>
+                    <option>Email</option>
+                  </select>
+                </div>
+
+                <div class="field-group full-span">
+                  <label for="qMessage">Project Details</label>
+                  <textarea id="qMessage" name="qMessage" placeholder="Tell us what you need, delivery timeline, quantity, and any other relevant details."></textarea>
+                </div>
+              </div>
+
+              <div class="quote-actions">
+                <button type="submit" class="btn btn-primary">Send Quote Request</button>
+                <a class="btn btn-secondary" href="contact.html">Go to Contact Page</a>
+              </div>
+
+              <div class="quote-note">
+                Your request will be prepared and opened through WhatsApp using your details above.
+              </div>
+            </form>
           </div>
-
-          <div class="quote-actions">
-            <button type="submit" class="btn btn-primary">Send Quote Request</button>
-            <a class="btn btn-secondary" href="contact.html">Go to Contact Page</a>
-          </div>
-
-          <div class="quote-note">
-            Your request will be prepared and opened through WhatsApp using your details above.
-          </div>
-        </form>
+        </details>
       </div>
     </section>
   </main>
@@ -472,16 +526,16 @@
       const message = document.getElementById("qMessage").value.trim();
 
       const text =
-        "Hello FTH D-UNIQ,\n\n" +
-        "I would like to request a quote.\n\n" +
-        "Full Name: " + name + "\n" +
-        "Phone Number: " + phone + "\n" +
-        "Email Address: " + email + "\n" +
-        "Location / Site Address: " + location + "\n" +
-        "Service Needed: " + service + "\n" +
-        "Material / Product: " + product + "\n" +
-        "Quantity / Tonnage: " + quantity + "\n" +
-        "Preferred Response: " + response + "\n" +
+        "Hello FTH D-UNIQ,\\n\\n" +
+        "I would like to request a quote.\\n\\n" +
+        "Full Name: " + name + "\\n" +
+        "Phone Number: " + phone + "\\n" +
+        "Email Address: " + email + "\\n" +
+        "Location / Site Address: " + location + "\\n" +
+        "Service Needed: " + service + "\\n" +
+        "Material / Product: " + product + "\\n" +
+        "Quantity / Tonnage: " + quantity + "\\n" +
+        "Preferred Response: " + response + "\\n" +
         "Project Details: " + message;
 
       window.open("https://wa.me/message/VH7OMDVMXQ7YN1?text=" + encodeURIComponent(text), "_blank");
