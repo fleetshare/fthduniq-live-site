@@ -11,32 +11,31 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .featured-services-page .page-shell{
-      padding-top:14px;
-    }
+  @media (min-width: 769px){
+  .featured-main-headline{
+    font-size:clamp(1.85rem, 2.2vw, 2.45rem);
+    line-height:1.03;
+    letter-spacing:-0.01em;
+    max-width:22ch;
+  }
 
-    .featured-services-page .page-intro{
-      padding:10px 0 8px;
-      max-width:1100px;
-    }
+  .featured-main-headline span{
+    display:block;
+    white-space:nowrap;
+  }
 
-    .featured-services-page .page-intro .section-label{
-      margin-bottom:18px;
-    }
+  .featured-services-page .preview-copy h2{
+    font-size:clamp(2rem, 2.5vw, 2.9rem);
+    line-height:1.01;
+    letter-spacing:-0.02em;
+    max-width:14ch;
+  }
 
-    .featured-main-headline{
-      margin:0 0 8px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(4rem, 3.5vw, 4.8rem);
-      line-height:1.02;
-      letter-spacing:-0.01em;
-      max-width:none;
-    }
-
-    .featured-main-headline span{
-      display:block;
-      white-space:nowrap;
-    }
+  .featured-support-headline span{
+    display:block;
+    white-space:nowrap;
+  }
+}
 
     .featured-services-page .page-intro p{
       margin:0;
@@ -354,8 +353,7 @@
         <div class="section-label">Featured Services</div>
 
         <h1 class="featured-main-headline">
-          <span>Building materials,
-            </span>logistic coordination</span>
+          <span>Building materials, </span>logistic coordination</span>
           <span>and project support.</span>
         </h1>
 
