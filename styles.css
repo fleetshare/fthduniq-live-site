@@ -169,7 +169,7 @@ img,video{
 
 @media (max-width: 768px){
   .two-line-hero{
-    font-size:clamp(1.5rem,6vw,2.1rem);
+    font-size:clamp(1.25rem,4.8vw,1.75rem);
     line-height:1.08;
   }
 
