@@ -4,259 +4,167 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Featured Services</title>
-  <meta name="description" content="Featured building materials, logistics coordination, and project support services from FTH D-UNIQ.">
+  <meta name="description" content="Featured building materials, logistics coordination, and project support services.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .compact-header{
-      padding:14px 0 10px;
-      position:relative;
-      background:rgba(246,241,231,.96);
-      border-bottom:1px solid rgba(199,155,53,.12);
-      z-index:20;
+    .featured-services-page .page-shell{
+      padding-top:14px;
     }
 
-    .header-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .brand-video-card{
-      width:150px;
-      border-radius:16px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(199,155,53,.14);
-    }
-
-    .brand-video-card video{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:cover;
-      background:#fff;
-    }
-
-    .site-nav{
-      flex:1 1 700px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      justify-content:flex-start;
-      align-items:center;
-      margin:0;
-      padding:0;
-    }
-
-    .site-nav a{
-      padding:10px 14px;
-      border-radius:999px;
-      color:#5f554e;
-      border:1px solid transparent;
-      font-weight:500;
-      transition:.25s ease;
-      background:transparent;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      white-space:nowrap;
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active{
-      background:rgba(255,255,255,.7);
-      border-color:rgba(199,155,53,.18);
-      color:var(--text);
-      box-shadow:0 8px 24px rgba(36,23,16,.04);
-    }
-
-    .featured-page{
-      padding:14px 0 28px;
-    }
-
-    .featured-intro{
-      padding:8px 0 10px;
+    .featured-services-page .page-intro{
+      padding:10px 0 8px;
       max-width:1040px;
     }
 
-    .featured-intro .section-label{
+    .featured-services-page .page-intro .section-label{
       margin-bottom:18px;
     }
 
-    .featured-intro h1{
+    .featured-services-page .page-intro h1{
       margin:0 0 6px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(1.95rem,2.35vw,2.65rem);
+      font-size:clamp(1.95rem, 2.35vw, 2.6rem);
       line-height:1.02;
-      letter-spacing:-.01em;
+      letter-spacing:-0.01em;
       max-width:none;
       white-space:nowrap;
     }
 
-    .featured-intro p{
+    .featured-services-page .page-intro p{
       margin:0;
       max-width:62ch;
-      font-size:.98rem;
+      font-size:0.98rem;
       line-height:1.72;
       color:var(--muted);
     }
 
-    .featured-panel{
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);
+    .featured-services-page .featured-video-only{
+      max-width:none;
+      margin-top:16px;
+    }
+
+    .featured-services-page .preview-panel{
+      grid-template-columns:minmax(0,1.04fr) minmax(360px,0.96fr);
       gap:24px;
       align-items:start;
       padding:26px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(199,155,53,.12);
-      box-shadow:var(--shadow);
-      margin-top:18px;
     }
 
-    .featured-copy{
+    .featured-services-page .preview-copy{
       min-width:0;
+      max-width:none;
     }
 
-    .featured-copy h2{
+    .featured-services-page .preview-copy h2{
       margin:0 0 12px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.6rem,3.3vw,3.75rem);
-      line-height:.96;
-      letter-spacing:-.03em;
+      font-size:clamp(2.55rem, 3.3vw, 3.75rem);
+      line-height:0.96;
+      letter-spacing:-0.03em;
       max-width:12ch;
     }
 
-    .featured-copy p{
-      margin:0 0 24px;
-      max-width:36ch;
-      color:var(--muted);
-      line-height:1.8;
+    .featured-services-page .preview-copy p{
+      margin:0 0 22px;
+      max-width:38ch;
       font-size:1rem;
+      line-height:1.8;
+      color:var(--muted);
     }
 
-    .feature-tags{
+    .featured-services-page .feature-pills{
       display:flex;
       flex-wrap:wrap;
-      gap:14px;
+      gap:12px;
     }
 
-    .feature-tags span{
-      padding:14px 22px;
+    .featured-services-page .feature-pills span{
+      padding:12px 18px;
       border-radius:999px;
-      background:rgba(255,255,255,.9);
+      background:#fff;
       border:1px solid rgba(199,155,53,.16);
       color:#655c55;
-      font-size:1rem;
+      font-size:0.96rem;
       line-height:1.2;
       box-shadow:0 6px 18px rgba(36,23,16,.03);
     }
 
-    .featured-media{
-      min-width:0;
-    }
-
-    .featured-media .card{
+    .featured-services-page .preview-panel .card{
       width:100%;
-      aspect-ratio:16/10;
+      aspect-ratio:16 / 10;
       border-radius:26px;
       overflow:hidden;
-      background:#fff;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(199,155,53,.14);
     }
 
-    .featured-media .card img,
-    .featured-media .card video{
+    .featured-services-page .preview-panel .card video{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
+      background:#fff;
     }
 
     @media (max-width: 768px){
-      .header-row{
-        align-items:flex-start;
+      .featured-services-page .page-shell{
+        padding-top:12px;
       }
 
-      .brand-video-card{
-        width:136px;
+      .featured-services-page .page-intro{
+        padding:8px 0 6px;
       }
 
-      .site-nav{
-        gap:10px 12px;
-      }
-
-      .site-nav a{
-        padding:10px 14px;
-        font-size:.98rem;
-      }
-
-      .featured-page{
-        padding:12px 0 24px;
-      }
-
-      .featured-intro{
-        padding:8px 0 8px;
-      }
-
-      .featured-intro h1{
-        font-size:clamp(1.65rem,6.8vw,2.2rem);
+      .featured-services-page .page-intro h1{
+        font-size:clamp(1.65rem, 6.8vw, 2.2rem);
         line-height:1.04;
-        letter-spacing:-.01em;
+        letter-spacing:-0.01em;
         max-width:12ch;
         width:100%;
         white-space:normal;
         overflow-wrap:anywhere;
       }
 
-      .featured-intro p{
+      .featured-services-page .page-intro p{
         max-width:none;
-        font-size:.96rem;
+        font-size:0.96rem;
         line-height:1.8;
       }
 
-      .featured-panel{
+      .featured-services-page .preview-panel{
         grid-template-columns:1fr;
         gap:18px;
         padding:22px;
       }
 
-      .featured-copy h2{
-        font-size:clamp(1.85rem,7.5vw,2.4rem);
+      .featured-services-page .preview-copy h2{
+        font-size:clamp(1.85rem, 7.5vw, 2.4rem);
         line-height:1.02;
-        letter-spacing:-.02em;
+        letter-spacing:-0.02em;
         max-width:none;
         white-space:normal;
       }
 
-      .featured-copy p{
+      .featured-services-page .preview-copy p{
         max-width:none;
       }
 
-      .feature-tags{
-        gap:12px;
+      .featured-services-page .feature-pills{
+        gap:10px;
       }
 
-      .feature-tags span{
-        width:fit-content;
-        max-width:100%;
-        padding:13px 18px;
+      .featured-services-page .feature-pills span{
+        padding:11px 16px;
+        font-size:0.94rem;
       }
     }
   </style>
 </head>
-<body>
-  <header class="compact-header">
-    <div class="container header-row">
+<body class="featured-services-page">
+  <header class="site-header">
+    <div class="container">
       <div class="brand-top">
         <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
           <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
@@ -264,7 +172,6 @@
           </video>
         </div>
       </div>
-
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="services.html">Our Services</a>
@@ -277,38 +184,74 @@
     </div>
   </header>
 
-  <main class="featured-page">
-    <section class="section">
-      <div class="container featured-intro">
+  <main class="page-shell">
+    <section>
+      <div class="container page-intro">
         <div class="section-label">Featured Services</div>
         <h1>Building materials, logistic coordination and project support.</h1>
-        <p>Explore the core support services available through FTH D-UNIQ.<br>We respond based on your material needs, quantity, location, delivery timing, and project coordination requirements.</p>
+        <p>
+          Explore the core support services available through FTH D-UNIQ.<br>
+          We respond based on your material needs, quantity, location, delivery timing, and project coordination requirements.
+        </p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="featured-panel">
-          <div class="featured-copy">
-            <h2>Support built around Materials movement and follow through</h2>
-            <p>We support clients with building materials procurement, logistic coordination, and project-related follow-through for smoother and more structured execution.</p>
+    <section>
+      <div class="container preview-panel featured-video-only">
+        <div class="preview-copy">
+          <h2>Support built around Materials movement and follow through</h2>
+          <p>We support clients with building materials procurement, logistic coordination, and project-related follow-through for smoother and more structured execution.</p>
 
-            <div class="feature-tags">
-              <span>Building Materials Procurement</span>
-              <span>Logistic Coordination</span>
-              <span>Project Support</span>
-              <span>Site Supply Follow-Through</span>
-            </div>
+          <div class="feature-pills">
+            <span>Building Materials Procurement</span>
+            <span>Logistic Coordination</span>
+            <span>Project Support</span>
+            <span>Site Supply Follow-Through</span>
           </div>
+        </div>
 
-          <div class="featured-media">
-            <div class="card">
-              <img src="assets/featured-services-collage.jpg" alt="Featured services collage">
-            </div>
-          </div>
+        <div class="card">
+          <video autoplay muted loop playsinline controls poster="assets/featured_products_video_poster.jpg">
+            <source src="assets/featured_products_video.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div class="footer-brand-block">
+        <strong>FTH D-UNIQ</strong>
+        <div class="footer-meta">Business Name Registration No. 2660716</div>
+        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
+        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
+        <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+      </div>
+      <div class="footer-social-block">
+        <div class="social-follow-block">
+          <p class="social-follow-title">Follow our social media handles</p>
+          <div class="social-row" aria-label="Social links">
+            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
+            </a>
+            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
+            </a>
+            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
