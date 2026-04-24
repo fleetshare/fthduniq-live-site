@@ -11,84 +11,32 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    @media (min-width: 769px){
-  .featured-services-page .page-intro{
-    padding:10px 0 8px;
-    max-width:1100px;
-  }
+    .featured-services-page .page-shell{
+      padding-top:14px;
+    }
 
-  .featured-main-headline{
-    font-size:clamp(3.85rem, 4.2vw, 4.95rem);
-    line-height:1.02;
-    letter-spacing:-0.01em;
-    max-width:none;
-    margin:0 0 8px;
-  }
+    .featured-services-page .page-intro{
+      padding:10px 0 8px;
+      max-width:1100px;
+    }
 
-  .featured-main-headline span{
-    display:block;
-    white-space:nowrap;
-  }
+    .featured-services-page .page-intro .section-label{
+      margin-bottom:18px;
+    }
 
-  .featured-services-page .page-intro p{
-    margin:0;
-    max-width:64ch;
-    font-size:0.98rem;
-    line-height:1.72;
-  }
+    .featured-main-headline{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.8rem, 4.1vw, 4.2rem);
+      line-height:1.01;
+      letter-spacing:-0.02em;
+      max-width:none;
+    }
 
-  .featured-services-page .preview-panel{
-    grid-template-columns:minmax(0,1.08fr) minmax(420px,0.92fr);
-    gap:28px;
-    align-items:start;
-    padding:26px 28px;
-  }
-
-  .featured-services-page .preview-copy h2{
-    font-size:clamp(2.2rem, 3.5vw, 3.95rem);
-    line-height:1.01;
-    letter-spacing:-0.02em;
-    max-width:13ch;
-    margin:0 0 14px;
-  }
-
-  .featured-support-headline span{
-    display:block;
-    white-space:nowrap;
-  }
-
-  .featured-services-page .preview-copy p{
-    margin:0 0 22px;
-    max-width:40ch;
-    font-size:0.98rem;
-    line-height:1.76;
-  }
-}
- @media (max-width: 768px){
-  .featured-main-headline{
-    font-size:clamp(0.2rem, 0.2vw, 0.05rem)
-    line-height:1.03;
-    letter-spacing:-0.01em;
-    max-width:22ch;
-  }
-
-  .featured-main-headline span{
-    display:block;
-    white-space:nowrap;
-  }
-
-  .featured-services-page .preview-copy h2{
-    font-size:clamp(2rem, 2.5vw, 2.9rem);
-    line-height:1.01;
-    letter-spacing:-0.02em;
-    max-width:14ch;
-  }
-
-  .featured-support-headline span{
-    display:block;
-    white-space:nowrap;
-  }
-}
+    .featured-main-headline span{
+      display:block;
+      white-space:nowrap;
+    }
 
     .featured-services-page .page-intro p{
       margin:0;
@@ -103,12 +51,14 @@
       margin-top:16px;
     }
 
-.featured-services-page .preview-panel{
-  grid-template-columns:minmax(0,1.08fr) minmax(400px,0.82fr);
-  gap:28px;
-  align-items:start;
-  padding:30px 38px;
-}
+    .featured-services-page .preview-panel{
+      display:grid;
+      grid-template-columns:minmax(0, 1.08fr) minmax(400px, 0.92fr);
+      gap:28px;
+      align-items:start;
+      padding:28px 30px;
+    }
+
     .featured-services-page .preview-copy{
       min-width:0;
       max-width:none;
@@ -118,21 +68,28 @@
       margin-bottom:14px;
     }
 
-.featured-services-page .preview-copy h2{
-  margin:0 0 14px;
-  font-family:"Cormorant Garamond", serif;
-  font-size:clamp(2.3rem, 2.7vw, 3.15rem);
-  line-height:1;
-  letter-spacing:-0.025em;
-  max-width:none;
-}
-    ..featured-services-page .preview-copy p{
-  margin:0 0 22px;
-  max-width:44ch;
-  font-size:0.98rem;
-  line-height:1.78;
-  color:var(--muted);
-}
+    .featured-support-headline{
+      margin:0 0 14px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.25rem, 3vw, 3.25rem);
+      line-height:1;
+      letter-spacing:-0.025em;
+      max-width:none;
+    }
+
+    .featured-support-headline span{
+      display:block;
+      white-space:nowrap;
+    }
+
+    .featured-services-page .preview-copy p{
+      margin:0 0 22px;
+      max-width:42ch;
+      font-size:0.98rem;
+      line-height:1.78;
+      color:var(--muted);
+    }
+
     .featured-services-page .feature-pills{
       display:flex;
       flex-wrap:wrap;
@@ -153,7 +110,7 @@
     .featured-services-page .preview-panel .card{
       width:100%;
       aspect-ratio:30 / 15;
-      border-radius:38px;
+      border-radius:30px;
       overflow:hidden;
     }
 
@@ -300,7 +257,7 @@
       }
 
       .featured-services-page .page-intro{
-        padding:8px 10px 8px;
+        padding:8px 12px 8px;
       }
 
       .featured-services-page .page-intro .section-label{
@@ -308,41 +265,49 @@
       }
 
       .featured-main-headline{
-  font-size:clamp(0.95rem, 0.6vw, 1.22rem);
-  line-height:1.08;
-  letter-spacing:-0.01em;
-  margin:0 0 10px;
-}
+        font-size:clamp(1rem, 4.2vw, 1.28rem);
+        line-height:1.08;
+        letter-spacing:-0.01em;
+        margin:0 0 10px;
+      }
 
       .featured-main-headline span{
+        display:block;
         white-space:nowrap;
       }
 
-      .featured-services-page .preview-copy p{
-       font-size:0.9rem;
-       line-height:1.72;
-}
+      .featured-services-page .page-intro p{
+        max-width:none;
+        font-size:0.9rem;
+        line-height:1.72;
+      }
 
       .featured-services-page .preview-panel{
         grid-template-columns:1fr;
         gap:18px;
-        padding:22px 18px;
+        padding:20px 16px;
       }
 
       .featured-services-page .preview-copy .section-label{
         margin-bottom:12px;
       }
 
-      .featured-services-page .preview-copy h2{
-        font-size:clamp(1.95rem, 8.5vw, 3.4rem);
-        line-height:1.02;
+      .featured-support-headline{
+        font-size:clamp(1.55rem, 6.8vw, 2.15rem);
+        line-height:1.03;
         letter-spacing:-0.02em;
         max-width:none;
-        white-space:normal;
+      }
+
+      .featured-support-headline span{
+        display:block;
+        white-space:nowrap;
       }
 
       .featured-services-page .preview-copy p{
         max-width:none;
+        font-size:0.9rem;
+        line-height:1.72;
       }
 
       .featured-services-page .feature-pills{
@@ -354,16 +319,27 @@
         font-size:0.94rem;
       }
 
+      .featured-services-page .preview-panel .card{
+        aspect-ratio:16 / 10;
+        border-radius:24px;
+      }
+
       .quote-dropdown summary{
-        padding:20px 18px;
+        padding:18px 16px;
+        font-size:0.98rem;
       }
 
       .quote-panel{
-        padding:0 18px 22px;
+        padding:0 16px 20px;
       }
 
       .quote-panel h2{
-        font-size:clamp(1.85rem, 7vw, 2.3rem);
+        font-size:clamp(1.7rem, 6.5vw, 2.1rem);
+      }
+
+      .quote-panel p{
+        font-size:0.92rem;
+        line-height:1.7;
       }
 
       .quote-grid{
@@ -373,6 +349,16 @@
 
       .quote-actions .btn{
         width:100%;
+      }
+    }
+
+    @media (max-width: 430px){
+      .featured-main-headline{
+        font-size:clamp(0.94rem, 4vw, 1.08rem);
+      }
+
+      .featured-support-headline{
+        font-size:clamp(1.38rem, 6.2vw, 1.85rem);
       }
     }
   </style>
@@ -406,7 +392,8 @@
         <div class="section-label">Featured Services</div>
 
         <h1 class="featured-main-headline">
-          <span>Building materials, logistic coordination and project support.</span>
+          <span>Building materials, logistic coordination</span>
+          <span>and project support.</span>
         </h1>
 
         <p>
@@ -420,7 +407,13 @@
       <div class="container preview-panel featured-video-only">
         <div class="preview-copy">
           <div class="section-label">Featured Motion</div>
-          <h2>Support built around Materials movement and follow through</h2>
+
+          <h2 class="featured-support-headline">
+            <span>Support built around</span>
+            <span>Materials movement and</span>
+            <span>follow through</span>
+          </h2>
+
           <p>We support clients with building materials procurement, logistic coordination, and project-related follow-through for smoother and more structured execution.</p>
 
           <div class="feature-pills">
