@@ -1959,3 +1959,129 @@ input, textarea{
   -webkit-user-select:text;
   user-select:text;
 }
+/* ===== FINAL HOMEPAGE HEADLINE + FAQ + CONTENT PROTECTION OVERRIDE ===== */
+
+/* Homepage headline final control */
+.two-line-hero{
+  font-size:clamp(1.9rem, 3.4vw, 3.1rem) !important;
+  line-height:1.06 !important;
+  letter-spacing:-0.015em !important;
+  max-width:100% !important;
+}
+
+.two-line-hero .hero-line{
+  display:block !important;
+  white-space:nowrap !important;
+}
+
+/* Mobile homepage headline */
+@media (max-width:768px){
+  .two-line-hero{
+    font-size:clamp(1.15rem, 4.6vw, 1.65rem) !important;
+    line-height:1.12 !important;
+    letter-spacing:-0.01em !important;
+    max-width:100% !important;
+  }
+
+  .two-line-hero .hero-line{
+    display:block !important;
+    white-space:normal !important;
+  }
+}
+
+/* Smaller phones */
+@media (max-width:430px){
+  .two-line-hero{
+    font-size:clamp(1.05rem, 4.4vw, 1.42rem) !important;
+    line-height:1.14 !important;
+  }
+}
+
+/* FAQ section */
+.home-faq{
+  padding:24px 0 34px;
+}
+
+.faq-list{
+  display:grid;
+  gap:12px;
+}
+
+.faq-item{
+  border-radius:22px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(199,155,53,.14);
+  box-shadow:0 10px 24px rgba(36,23,16,.03);
+  overflow:hidden;
+}
+
+.faq-item summary{
+  cursor:pointer;
+  padding:18px 20px;
+  font-weight:700;
+  color:var(--text);
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+.faq-item summary::-webkit-details-marker{
+  display:none;
+}
+
+.faq-item summary::after{
+  content:"+";
+  color:var(--gold-deep);
+  font-size:1.4rem;
+  line-height:1;
+}
+
+.faq-item[open] summary::after{
+  content:"−";
+}
+
+.faq-item p{
+  margin:0;
+  padding:0 20px 20px;
+  color:var(--muted);
+  line-height:1.75;
+  max-width:78ch;
+}
+
+@media (max-width:768px){
+  .home-faq{
+    padding:20px 0 28px;
+  }
+
+  .faq-item summary{
+    padding:16px 18px;
+    font-size:.96rem;
+  }
+
+  .faq-item p{
+    padding:0 18px 18px;
+    font-size:.92rem;
+    line-height:1.7;
+  }
+}
+
+/* Basic copy protection */
+body{
+  -webkit-user-select:none !important;
+  user-select:none !important;
+}
+
+input,
+textarea,
+select{
+  -webkit-user-select:text !important;
+  user-select:text !important;
+}
+
+/* Reduce easy image dragging/saving */
+img{
+  -webkit-user-drag:none !important;
+  user-drag:none !important;
+}
