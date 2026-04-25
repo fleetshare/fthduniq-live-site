@@ -204,17 +204,17 @@ img{
 /* HOMEPAGE HEADLINE - DESKTOP */
 
 .two-line-hero{
-  font-size:clamp(2.2rem,4vw,3.5rem);
-  line-height:1.04;
+  font-size:clamp(2rem,3.2vw,3rem);
+  line-height:1.05;
   letter-spacing:-0.02em;
-  max-width:100%;
-  font-weight:700;
+  max-width:13ch;
+  font-weight:600;
 }
 
 .two-line-hero .hero-line,
 .two-line-hero span{
   display:block;
-  white-space:nowrap;
+  white-space:normal;
 }
 
 .lead{
