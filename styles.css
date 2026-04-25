@@ -1472,3 +1472,91 @@ img{
     font-weight:700 !important;
   }
 }
+/* ===== OUR SERVICES HEADLINE FIX - DESKTOP + MOBILE ===== */
+
+/* Top Our Services page headline */
+.services-page .services-main-headline,
+.services-page .page-intro h1{
+  font-family:"Cormorant Garamond", serif !important;
+  font-size:clamp(2.4rem, 3.2vw, 3.6rem) !important;
+  line-height:1.04 !important;
+  letter-spacing:-0.02em !important;
+  max-width:18ch !important;
+  width:100% !important;
+  white-space:normal !important;
+  overflow-wrap:normal !important;
+  margin:0 0 14px !important;
+}
+
+.services-page .services-main-headline span,
+.services-page .page-intro h1 span{
+  display:inline !important;
+  white-space:normal !important;
+}
+
+/* Keep intro text neat under the headline */
+.services-page .page-intro p{
+  max-width:64ch !important;
+  font-size:1rem !important;
+  line-height:1.75 !important;
+}
+
+/* Service card layout on desktop */
+.services-page .service-row{
+  grid-template-columns:minmax(320px, .9fr) minmax(420px, 1.1fr) !important;
+  gap:34px !important;
+  align-items:center !important;
+}
+
+/* Service card headline */
+.services-page .service-copy h2{
+  font-family:"Cormorant Garamond", serif !important;
+  font-size:clamp(2.05rem, 3vw, 3rem) !important;
+  line-height:1.02 !important;
+  letter-spacing:-0.02em !important;
+  max-width:14ch !important;
+  white-space:normal !important;
+  margin:0 0 14px !important;
+}
+
+/* Service card paragraph */
+.services-page .service-copy p{
+  max-width:42ch !important;
+  font-size:1rem !important;
+  line-height:1.75 !important;
+}
+
+/* Tablet and mobile */
+@media (max-width: 920px){
+  .services-page .service-row{
+    grid-template-columns:1fr !important;
+    gap:22px !important;
+  }
+
+  .services-page .services-main-headline,
+  .services-page .page-intro h1{
+    max-width:none !important;
+    font-size:clamp(2rem, 7vw, 2.9rem) !important;
+    line-height:1.06 !important;
+  }
+
+  .services-page .service-copy h2{
+    max-width:none !important;
+    font-size:clamp(2rem, 8vw, 3rem) !important;
+    line-height:1.04 !important;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 640px){
+  .services-page .services-main-headline,
+  .services-page .page-intro h1{
+    font-size:clamp(1.85rem, 7.5vw, 2.55rem) !important;
+    line-height:1.08 !important;
+  }
+
+  .services-page .service-copy h2{
+    font-size:clamp(1.9rem, 8vw, 2.65rem) !important;
+    line-height:1.05 !important;
+  }
+}
