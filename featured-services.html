@@ -3,216 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTH D-UNIQ | Featured Services</title>
-  <meta name="description" content="Featured building materials, logistics coordination, and project support services.">
+  <title>FTH D-UNIQ | Career</title>
+  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, social media, digital communications, truck driving, and structured execution.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .featured-services-page .page-shell{
-      padding-top:14px;
-    }
-
-    .featured-services-page .page-intro{
-      padding:10px 0 8px;
-      max-width:1100px;
-    }
-
-    .featured-services-page .page-intro .section-label{
-      margin-bottom:18px;
-    }
-
-    .featured-main-headline{
-      margin:0 0 10px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.45rem, 3.1vw, 3.35rem);
-      line-height:1.01;
-      letter-spacing:-0.02em;
-    }
-
-    .featured-main-headline span{
-      display:block;
-      white-space:nowrap;
-    }
-
-    .featured-services-page .page-intro p{
-      margin:0;
-      max-width:64ch;
-      font-size:0.98rem;
-      line-height:1.72;
-      color:var(--muted);
-    }
-
-    .featured-services-page .featured-video-only{
-      max-width:none;
-      margin-top:18px;
-    }
-
-    .featured-services-page .preview-panel{
-      display:grid;
-      grid-template-columns:minmax(0, 1.08fr) minmax(390px, 0.92fr);
-      gap:28px;
-      align-items:start;
-      padding:28px 30px;
-    }
-
-    .featured-services-page .preview-copy{
-      min-width:0;
-      max-width:none;
-    }
-
-    .featured-services-page .preview-copy .section-label{
-      margin-bottom:14px;
-    }
-
-    .featured-support-headline{
-      margin:0 0 14px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.2rem, 2.9vw, 3.15rem);
-      line-height:1;
-      letter-spacing:-0.025em;
-    }
-
-    .featured-support-headline span{
-      display:block;
-      white-space:nowrap;
-    }
-
-    .featured-services-page .preview-copy p{
-      margin:0 0 22px;
-      max-width:42ch;
-      font-size:0.98rem;
-      line-height:1.78;
-      color:var(--muted);
-    }
-
-    .featured-services-page .feature-pills{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .featured-services-page .feature-pills span{
-      padding:12px 18px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid rgba(199,155,53,.16);
-      color:#655c55;
-      font-size:0.96rem;
-      line-height:1.2;
-      box-shadow:0 6px 18px rgba(36,23,16,.03);
-    }
-
-    .featured-services-page .preview-panel .card{
-      width:100%;
-      aspect-ratio:16 / 10;
-      border-radius:28px;
-      overflow:hidden;
-    }
-
-    .featured-services-page .preview-panel .card video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      background:#fff;
-    }
-
-    .quote-dropdown-wrap{
-      margin-top:22px;
-    }
-
-    .quote-dropdown{
+    .career-application-card{
+      padding:28px;
       border-radius:var(--radius);
       background:rgba(255,255,255,.58);
       border:1px solid rgba(199,155,53,.12);
       box-shadow:var(--shadow);
-      overflow:hidden;
     }
 
-    .quote-dropdown summary{
-      list-style:none;
-      cursor:pointer;
-      padding:22px 26px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      font-weight:700;
-      color:var(--text);
-      font-size:1rem;
-    }
-
-    .quote-dropdown summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .quote-dropdown summary::after{
-      content:"+";
-      font-size:1.5rem;
-      line-height:1;
-      color:var(--gold-deep);
-      flex:0 0 auto;
-    }
-
-    .quote-dropdown[open] summary::after{
-      content:"−";
-    }
-
-    .quote-panel{
-      padding:0 26px 26px;
-    }
-
-    .quote-panel .section-label{
-      margin-bottom:14px;
-    }
-
-    .quote-panel h2{
+    .career-application-card h2{
       margin:0 0 10px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem, 2.5vw, 2.7rem);
+      font-size:clamp(2rem,4vw,2.8rem);
       line-height:1;
-      letter-spacing:-0.02em;
+      letter-spacing:-.02em;
     }
 
-    .quote-panel p{
-      margin:0 0 20px;
+    .career-application-card p{
+      margin:0 0 22px;
       color:var(--muted);
       line-height:1.75;
-      max-width:62ch;
+      max-width:68ch;
     }
 
-    .quote-form{
+    .application-form{
       display:grid;
+      gap:18px;
+    }
+
+    .application-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:16px;
     }
 
-    .quote-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
-    }
-
-    .field-group{
+    .form-group{
       display:grid;
       gap:8px;
     }
 
-    .field-group.full-span{
+    .form-group.full-span{
       grid-column:1 / -1;
     }
 
-    .field-group label{
-      font-size:0.92rem;
+    .form-group label{
+      font-size:.92rem;
       font-weight:600;
       color:var(--text);
     }
 
-    .field-group input,
-    .field-group select,
-    .field-group textarea{
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
       width:100%;
       padding:14px 16px;
       border-radius:16px;
@@ -223,142 +73,70 @@
       outline:none;
     }
 
-    .field-group textarea{
+    .form-group textarea{
       min-height:130px;
       resize:vertical;
     }
 
-    .field-group input:focus,
-    .field-group select:focus,
-    .field-group textarea:focus{
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
       border-color:rgba(199,155,53,.45);
       box-shadow:0 0 0 3px rgba(199,155,53,.10);
     }
 
-    .quote-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:4px;
-    }
-
-    .quote-note{
-      margin-top:8px;
-      font-size:0.92rem;
+    .application-note{
+      margin-top:10px;
       color:var(--muted);
+      font-size:.92rem;
       line-height:1.7;
     }
 
-    @media (max-width: 768px){
-      .featured-services-page .page-shell{
-        padding-top:12px;
-      }
-
-      .featured-services-page .page-intro{
-        padding:8px 16px 8px;
-      }
-
-      .featured-services-page .page-intro .section-label{
-        margin-bottom:16px;
-      }
-
-      .featured-main-headline{
-        font-size:clamp(1.25rem, 4.6vw, 1.85rem);
-        line-height:1.06;
-        letter-spacing:-0.01em;
-        margin:0 0 10px;
-      }
-
-      .featured-main-headline span{
-        white-space:normal;
-      }
-
-      .featured-services-page .page-intro p{
-        max-width:none;
-        font-size:0.9rem;
-        line-height:1.72;
-      }
-
-      .featured-services-page .preview-panel{
-        grid-template-columns:1fr;
-        gap:18px;
-        padding:20px 16px;
-      }
-
-      .featured-services-page .preview-copy .section-label{
-        margin-bottom:12px;
-      }
-
-      .featured-support-headline{
-        font-size:clamp(1.65rem, 6vw, 2.2rem);
-        line-height:1.03;
-        letter-spacing:-0.02em;
-      }
-
-      .featured-support-headline span{
-        white-space:normal;
-      }
-
-      .featured-services-page .preview-copy p{
-        max-width:none;
-        font-size:0.9rem;
-        line-height:1.72;
-      }
-
-      .featured-services-page .feature-pills{
-        gap:10px;
-      }
-
-      .featured-services-page .feature-pills span{
-        padding:11px 16px;
-        font-size:0.92rem;
-      }
-
-      .featured-services-page .preview-panel .card{
-        aspect-ratio:16 / 10;
-        border-radius:24px;
-      }
-
-      .quote-dropdown summary{
-        padding:18px 16px;
-        font-size:0.98rem;
-      }
-
-      .quote-panel{
-        padding:0 16px 20px;
-      }
-
-      .quote-panel h2{
-        font-size:clamp(1.7rem, 6.5vw, 2.1rem);
-      }
-
-      .quote-panel p{
-        font-size:0.92rem;
-        line-height:1.7;
-      }
-
-      .quote-grid{
-        grid-template-columns:1fr;
-        gap:14px;
-      }
-
-      .quote-actions .btn{
-        width:100%;
-      }
+    .shortlisted-note{
+      padding:24px 26px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(199,155,53,.12);
+      box-shadow:var(--shadow);
     }
 
-    @media (max-width: 430px){
-      .featured-main-headline{
-        font-size:clamp(1.12rem, 5vw, 1.55rem);
+    .shortlisted-note h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem,4vw,2.7rem);
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+
+    .shortlisted-note p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      max-width:68ch;
+    }
+
+    @media (max-width:768px){
+      .career-application-card{
+        padding:22px;
       }
 
-      .featured-support-headline{
-        font-size:clamp(1.48rem, 6.3vw, 1.95rem);
+      .application-grid{
+        grid-template-columns:1fr;
+      }
+
+      .career-application-card h2,
+      .shortlisted-note h2{
+        font-size:clamp(1.9rem,7vw,2.4rem);
+      }
+
+      .application-form .btn{
+        width:100%;
       }
     }
   </style>
 </head>
-<body class="featured-services-page">
+
+<body>
   <header class="site-header">
     <div class="container">
       <div class="brand-top">
@@ -372,140 +150,171 @@
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="services.html">Our Services</a>
-        <a class="active" href="featured-services.html">Featured Services</a>
+        <a href="featured-services.html">Featured Services</a>
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
-        <a href="career.html">Career</a>
+        <a class="active" href="career.html">Career</a>
         <a href="contact.html">Contact Us</a>
       </nav>
     </div>
   </header>
 
-  <main class="page-shell">
-    <section>
-      <div class="container page-intro">
-        <div class="section-label">Featured Services</div>
+  <main class="page-shell career-page">
+    <section class="section">
+      <div class="container career-hero">
+        <div class="section-label">Career</div>
 
-        <h1 class="featured-main-headline">
-          <span>Building materials, Logistics Coordination</span>
-          <span>and Project Support.</span>
+        <h1 class="career-title">
+          <span>Build with FTH D-UNIQ</span>
         </h1>
 
-        <p>
-          Explore the core support services available through FTH D-UNIQ.<br>
-          We respond based on your material needs, quantity, location, delivery timing, and project coordination requirements.
+        <p class="career-hero-text career-lead">
+          We welcome applications from people who want to support building materials supply and procurement,
+          logistics coordination, administration, digital communications, truck operations, and structured
+          execution across our business activities.
         </p>
-      </div>
-    </section>
 
-    <section>
-      <div class="container preview-panel featured-video-only">
-        <div class="preview-copy">
-          <div class="section-label">Featured Motion</div>
-
-          <h2 class="featured-support-headline">
-            <span>Support built around</span>
-            <span>Materials movement and</span>
-            <span>follow through</span>
-          </h2>
-
-          <p>We support clients with building materials procurement, logistic coordination, and project-related follow-through for smoother and more structured execution.</p>
-
-          <div class="feature-pills">
-            <span>Building Materials Procurement</span>
-            <span>Logistic Coordination</span>
-            <span>Project Support</span>
-            <span>Site Supply Follow-Through</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <video autoplay muted loop playsinline controls poster="assets/featured_products_video_poster.jpg">
-            <source src="assets/featured_products_video.mp4" type="video/mp4">
-          </video>
+        <div class="career-actions">
+          <a class="btn btn-primary" href="#apply-now">Apply Now</a>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container quote-dropdown-wrap">
-        <details class="quote-dropdown">
-          <summary>Request a Quote</summary>
+    <section class="section">
+      <div class="container career-grid">
+        <article class="career-card">
+          <div class="career-card-kicker">Open Opportunities</div>
+          <h2>Roles we are currently reviewing</h2>
 
-          <div class="quote-panel">
-            <div class="section-label">Request a Quote</div>
-            <h2>Tell us what you need.</h2>
-            <p>Share your material, logistics, or project support request below. Your message will open directly in WhatsApp for quick follow-up.</p>
+          <ul class="career-list">
+            <li>Business Support Officer</li>
+            <li>Logistics &amp; Delivery Coordination Officer</li>
+            <li>Social Media &amp; Digital Communications Officer</li>
+            <li>Truck Driver</li>
+          </ul>
+        </article>
 
-            <form id="quoteForm" class="quote-form">
-              <div class="quote-grid">
-                <div class="field-group">
-                  <label for="qName">Full Name</label>
-                  <input id="qName" name="qName" type="text" placeholder="Enter your full name" required>
-                </div>
+        <article class="career-card">
+          <div class="career-card-kicker">Application Process</div>
+          <h2>Recruitment flow</h2>
 
-                <div class="field-group">
-                  <label for="qPhone">Phone Number</label>
-                  <input id="qPhone" name="qPhone" type="tel" placeholder="Enter your phone number" required>
-                </div>
+          <ol class="career-process">
+            <li>Submit your application details, CV, and optional cover letter.</li>
+            <li>Applications are reviewed based on role fit, location, experience, and business needs.</li>
+            <li>Shortlisted candidates are contacted for the next stage.</li>
+            <li>Interview details are shared through email, phone, or WhatsApp follow-up.</li>
+            <li>Final successful candidates receive resumption details and access instructions.</li>
+          </ol>
+        </article>
+      </div>
+    </section>
 
-                <div class="field-group">
-                  <label for="qEmail">Email Address</label>
-                  <input id="qEmail" name="qEmail" type="email" placeholder="Enter your email address">
-                </div>
+    <section class="section" id="apply-now">
+      <div class="container">
+        <div class="career-application-card">
+          <div class="section-label">Application Form</div>
 
-                <div class="field-group">
-                  <label for="qLocation">Location / Site Address</label>
-                  <input id="qLocation" name="qLocation" type="text" placeholder="Enter project location" required>
-                </div>
+          <h2>Apply to Join FTH D-UNIQ</h2>
 
-                <div class="field-group">
-                  <label for="qService">Service Needed</label>
-                  <select id="qService" name="qService" required>
-                    <option value="">Select service</option>
-                    <option>Building Materials Procurement</option>
-                    <option>Logistic Coordination</option>
-                    <option>Project Support</option>
-                    <option>Site Supply Follow-Through</option>
-                  </select>
-                </div>
+          <p>
+            Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
+            for the next stage.
+          </p>
 
-                <div class="field-group">
-                  <label for="qProduct">Material / Product</label>
-                  <input id="qProduct" name="qProduct" type="text" placeholder="e.g. Cement, Granite, Blocks">
-                </div>
-
-                <div class="field-group">
-                  <label for="qQuantity">Quantity / Tonnage</label>
-                  <input id="qQuantity" name="qQuantity" type="text" placeholder="e.g. 200 bags, 30 tons">
-                </div>
-
-                <div class="field-group">
-                  <label for="qResponse">Preferred Response</label>
-                  <select id="qResponse" name="qResponse">
-                    <option>WhatsApp</option>
-                    <option>Phone Call</option>
-                    <option>Email</option>
-                  </select>
-                </div>
-
-                <div class="field-group full-span">
-                  <label for="qMessage">Project Details</label>
-                  <textarea id="qMessage" name="qMessage" placeholder="Tell us what you need, delivery timeline, quantity, and any other relevant details."></textarea>
-                </div>
+          <form class="application-form" id="careerApplicationForm" enctype="multipart/form-data">
+            <div class="application-grid">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
               </div>
 
-              <div class="quote-actions">
-                <button type="submit" class="btn btn-primary">Send Quote Request</button>
-                <a class="btn btn-secondary" href="contact.html">Go to Contact Page</a>
+              <div class="form-group">
+                <label for="phone">Phone Number / WhatsApp Number</label>
+                <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
               </div>
 
-              <div class="quote-note">
-                Your request will be prepared and opened through WhatsApp using your details above.
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" placeholder="Enter your email address" required>
               </div>
-            </form>
-          </div>
-        </details>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input id="location" name="location" type="text" placeholder="Enter your location" required>
+              </div>
+
+              <div class="form-group">
+                <label for="position">Position Applying For</label>
+                <select id="position" name="position" required>
+                  <option value="">Select position</option>
+                  <option>Business Support Officer</option>
+                  <option>Logistics & Delivery Coordination Officer</option>
+                  <option>Social Media & Digital Communications Officer</option>
+                  <option>Truck Driver</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="qualification">Highest Qualification</label>
+                <select id="qualification" name="qualification" required>
+                  <option value="">Select qualification</option>
+                  <option>OND</option>
+                  <option>HND</option>
+                  <option>B.Sc.</option>
+                  <option>NYSC</option>
+                  <option>Industrial Placement Student</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Years of Relevant Experience</label>
+                <input id="experience" name="experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC, Entry level" required>
+              </div>
+
+              <div class="form-group">
+                <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
+                <select id="onsite" name="onsite" required>
+                  <option value="">Select answer</option>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+
+              <div class="form-group full-span">
+                <label for="relevantExperience">Briefly describe your relevant experience</label>
+                <textarea id="relevantExperience" name="relevantExperience" placeholder="Tell us about your experience, skills, and why you are suitable for the role." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="cv">Upload CV</label>
+                <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required>
+              </div>
+
+              <div class="form-group">
+                <label for="coverLetter">Upload Cover Letter Optional</label>
+                <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+
+            <div class="application-note" id="applicationStatus">
+              If the admin portal is not yet connected, your email app will open. Please attach your CV and optional cover letter manually before sending.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="shortlisted-note">
+          <div class="section-label">Candidate Portal</div>
+          <h2>Already shortlisted?</h2>
+          <p>
+            Candidate portal access is shared privately with shortlisted applicants after review and follow-up.
+          </p>
+        </div>
       </div>
     </section>
   </main>
@@ -523,60 +332,93 @@
       <div class="footer-social-block">
         <div class="social-follow-block">
           <p class="social-follow-title">Follow our social media handles</p>
+
           <div class="social-row" aria-label="Social links">
             <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
             </a>
+
             <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
             </a>
+
             <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
             </a>
+
             <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
             </a>
+
             <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
             </a>
           </div>
         </div>
+
         <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
       </div>
     </div>
   </footer>
 
   <script>
-    document.getElementById("quoteForm").addEventListener("submit", function (e) {
+    const careerForm = document.getElementById("careerApplicationForm");
+    const applicationStatus = document.getElementById("applicationStatus");
+
+    careerForm.addEventListener("submit", async function(e){
       e.preventDefault();
 
-      const name = document.getElementById("qName").value.trim();
-      const phone = document.getElementById("qPhone").value.trim();
-      const email = document.getElementById("qEmail").value.trim();
-      const location = document.getElementById("qLocation").value.trim();
-      const service = document.getElementById("qService").value.trim();
-      const product = document.getElementById("qProduct").value.trim();
-      const quantity = document.getElementById("qQuantity").value.trim();
-      const response = document.getElementById("qResponse").value.trim();
-      const message = document.getElementById("qMessage").value.trim();
+      const formData = new FormData(careerForm);
 
-      const text =
-        "Hello FTH D-UNIQ,\n\n" +
-        "I would like to request a quote.\n\n" +
-        "Full Name: " + name + "\n" +
-        "Phone Number: " + phone + "\n" +
-        "Email Address: " + email + "\n" +
-        "Location / Site Address: " + location + "\n" +
-        "Service Needed: " + service + "\n" +
-        "Material / Product: " + product + "\n" +
-        "Quantity / Tonnage: " + quantity + "\n" +
-        "Preferred Response: " + response + "\n" +
-        "Project Details: " + message;
+      try{
+        const response = await fetch("/api/apply", {
+          method: "POST",
+          body: formData
+        });
 
-      window.open("https://wa.me/message/VH7OMDVMXQ7YN1?text=" + encodeURIComponent(text), "_blank");
+        if(response.ok){
+          applicationStatus.textContent = "Thank you for applying to FTH D-UNIQ. Your application has been received and will be reviewed. Shortlisted candidates will be contacted for the next stage.";
+          careerForm.reset();
+          return;
+        }
+
+        throw new Error("Admin portal not active yet.");
+      }catch(error){
+        const fullName = document.getElementById("fullName").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const location = document.getElementById("location").value.trim();
+        const position = document.getElementById("position").value.trim();
+        const qualification = document.getElementById("qualification").value.trim();
+        const experience = document.getElementById("experience").value.trim();
+        const onsite = document.getElementById("onsite").value.trim();
+        const relevantExperience = document.getElementById("relevantExperience").value.trim();
+
+        const subject = "Career Application - " + position + " - " + fullName;
+
+        const body =
+          "Hello FTH D-UNIQ,\n\n" +
+          "I would like to submit my application.\n\n" +
+          "Full Name: " + fullName + "\n" +
+          "Phone / WhatsApp Number: " + phone + "\n" +
+          "Email Address: " + email + "\n" +
+          "Location: " + location + "\n" +
+          "Position Applying For: " + position + "\n" +
+          "Highest Qualification: " + qualification + "\n" +
+          "Years of Relevant Experience: " + experience + "\n" +
+          "Able to work within Amuwo-Odofin / Festac axis: " + onsite + "\n\n" +
+          "Relevant Experience:\n" + relevantExperience + "\n\n" +
+          "I will attach my CV and optional cover letter before sending.\n\n" +
+          "Thank you.";
+
+        window.location.href =
+          "mailto:careers@fthduniq.com?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+      }
     });
-  </script>
-    <script>
+
     document.addEventListener("contextmenu", function(e){
       e.preventDefault();
     });
@@ -584,8 +426,10 @@
     document.addEventListener("copy", function(e){
       e.preventDefault();
     });
+
+    document.addEventListener("dragstart", function(e){
+      e.preventDefault();
+    });
   </script>
-  <script src="protect.js"></script>
 </body>
 </html>
-
