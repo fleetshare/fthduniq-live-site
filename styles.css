@@ -1293,7 +1293,7 @@ img{
 
 @media (max-width: 768px){
   .two-line-hero{
-    font-size:clamp(1.15rem,4.8vw,1.7rem) !important;
+    font-size:clamp(1.35rem,4.8vw,2.7rem) !important;
     line-height:1.12 !important;
     letter-spacing:-0.01em !important;
     max-width:100% !important;
