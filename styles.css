@@ -1298,18 +1298,18 @@ img{
 /* MOBILE */
 @media (max-width: 768px){
   .two-line-hero{
-    font-size:clamp(2.1rem,9.1vw, 3rem) !important;
-    line-height:.09 !important;
-    letter-spacing:-.38em !important;
+    font-size:clamp(1.65rem,6.2vw,2.2rem) !important;
+    line-height:1.12 !important;
+    letter-spacing:-0.01em !important;
     max-width:100% !important;
-    font-weight:700 !important;
+    font-weight:600 !important;
   }
 
   .two-line-hero .hero-line,
   .two-line-hero span{
+    display:block !important;
     white-space:normal !important;
   }
-
   .page-intro h1{
     max-width:none;
     font-size:clamp(2rem,9vw,2.8rem);
