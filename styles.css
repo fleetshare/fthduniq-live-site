@@ -1514,7 +1514,7 @@ img{
   font-size:clamp(2.05rem, 3vw, 3rem) !important;
   line-height:1.02 !important;
   letter-spacing:-0.02em !important;
-  max-width:14ch !important;
+  max-width:18ch !important;
   white-space:normal !important;
   margin:0 0 14px !important;
 }
