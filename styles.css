@@ -208,6 +208,7 @@ img{
   line-height:1.04;
   letter-spacing:-0.02em;
   max-width:100%;
+  font-weight:700;
 }
 
 .two-line-hero .hero-line,
@@ -1301,6 +1302,7 @@ img{
     line-height:.09 !important;
     letter-spacing:-.38em !important;
     max-width:100% !important;
+    font-weight:700 !important;
   }
 
   .two-line-hero .hero-line,
@@ -1467,5 +1469,6 @@ img{
   .two-line-hero{
     font-size:clamp(1.5rem,7vw,2rem) !important;
     line-height:1.1 !important;
+    font-weight:700 !important;
   }
 }
