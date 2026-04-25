@@ -204,11 +204,11 @@ img{
 /* HOMEPAGE HEADLINE - DESKTOP */
 
 .two-line-hero{
-  font-size:clamp(2rem,3.2vw,3rem);
+  font-size:clamp(2rem,4vw,4.2rem);
   line-height:1.05;
   letter-spacing:-0.02em;
-  max-width:13ch;
-  font-weight:600;
+  max-width:18ch;
+  font-weight:700;
 }
 
 .two-line-hero .hero-line,
