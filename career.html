@@ -4,12 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Career</title>
-  <meta name="description" content="Career opportunities at FTH D-UNIQ across procurement, operations, logistics, sales support, and structured execution.">
+  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, social media, digital communications, truck driving, and structured execution.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .career-application-card{
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(199,155,53,.12);
+      box-shadow:var(--shadow);
+    }
+
+    .career-application-card h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem,4vw,2.8rem);
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+
+    .career-application-card p{
+      margin:0 0 22px;
+      color:var(--muted);
+      line-height:1.75;
+      max-width:68ch;
+    }
+
+    .application-form{
+      display:grid;
+      gap:18px;
+    }
+
+    .application-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .form-group{
+      display:grid;
+      gap:8px;
+    }
+
+    .form-group.full-span{
+      grid-column:1 / -1;
+    }
+
+    .form-group label{
+      font-size:.92rem;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(199,155,53,.16);
+      background:#fff;
+      color:var(--text);
+      font:inherit;
+      outline:none;
+    }
+
+    .form-group textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      border-color:rgba(199,155,53,.45);
+      box-shadow:0 0 0 3px rgba(199,155,53,.10);
+    }
+
+    .application-note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.7;
+    }
+
+    .shortlisted-note{
+      padding:24px 26px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(199,155,53,.12);
+      box-shadow:var(--shadow);
+    }
+
+    .shortlisted-note h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem,4vw,2.7rem);
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+
+    .shortlisted-note p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      max-width:68ch;
+    }
+
+    @media (max-width:768px){
+      .career-application-card{
+        padding:22px;
+      }
+
+      .application-grid{
+        grid-template-columns:1fr;
+      }
+
+      .career-application-card h2,
+      .shortlisted-note h2{
+        font-size:clamp(1.9rem,7vw,2.4rem);
+      }
+
+      .application-form .btn{
+        width:100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container">
@@ -20,6 +146,7 @@
           </video>
         </div>
       </div>
+
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="services.html">Our Services</a>
@@ -31,96 +158,225 @@
       </nav>
     </div>
   </header>
+
   <main class="page-shell career-page">
     <section class="section">
       <div class="container career-hero">
         <div class="section-label">Career</div>
+
         <h1 class="career-title">
-  <span>Build with FTH D-UNIQ</span>
-</h1>
-        <p class="career-hero-text">
-  We welcome applications from people who want to support procurement, operations,
-  logistics coordination, documentation, sales support, administration, and structured
-  execution across our business activities.
-</p>
+          <span>Build with FTH D-UNIQ</span>
+        </h1>
+
+        <p class="career-hero-text career-lead">
+          We welcome applications from people who want to support building materials supply and procurement,
+          logistics coordination, administration, digital communications, truck operations, and structured
+          execution across our business activities.
+        </p>
+
+        <div class="career-actions">
+          <a class="btn btn-primary" href="#apply-now">Apply Now</a>
+        </div>
       </div>
     </section>
+
     <section class="section">
       <div class="container career-grid">
         <article class="career-card">
           <div class="career-card-kicker">Open Opportunities</div>
-          <h2>Roles we are open to reviewing</h2>
+          <h2>Roles we are currently reviewing</h2>
+
           <ul class="career-list">
-  <li>Sales & Operations Support</li>
-  <li>Inventory & Production Support</li>
-  <li>Procurement & Documentation Support</li>
-  <li>Logistics & Delivery Coordination Support</li>
-  <li>Truck Drivers</li>
-  <li>Administrative & Business Support Roles</li>
-</ul>
+            <li>Business Support Officer</li>
+            <li>Logistics &amp; Delivery Coordination Officer</li>
+            <li>Social Media &amp; Digital Communications Officer</li>
+            <li>Truck Driver</li>
+          </ul>
         </article>
+
         <article class="career-card">
           <div class="career-card-kicker">Application Process</div>
           <h2>Recruitment flow</h2>
+
           <ol class="career-process">
-            <li>Submit your application details, CV, and cover letter.</li>
+            <li>Submit your application details, CV, and optional cover letter.</li>
+            <li>Applications are reviewed based on role fit, location, experience, and business needs.</li>
             <li>Shortlisted candidates are contacted for the next stage.</li>
-            <li>Interview details are shared through email and candidate follow-up.</li>
-            <li>Successful interview candidates receive a documents list for completion.</li>
+            <li>Interview details are shared through email, phone, or WhatsApp follow-up.</li>
             <li>Final successful candidates receive resumption details and access instructions.</li>
           </ol>
         </article>
       </div>
     </section>
-    <section class="section">
-      <div class="container career-strip">
-        <div>
-          <div class="section-label">Need to continue your application?</div>
-         <p class="career-support-copy">Candidate portal access is shared privately with shortlisted applicants after review and follow-up.</p>
+
+    <section class="section" id="apply-now">
+      <div class="container">
+        <div class="career-application-card">
+          <div class="section-label">Application Form</div>
+
+          <h2>Apply to Join FTH D-UNIQ</h2>
+
+          <p>
+            Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
+            for the next stage.
+          </p>
+
+          <form class="application-form" action="https://formsubmit.co/careers@fthduniq.com" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_subject" value="New Career Application - FTH D-UNIQ">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div class="application-grid">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input id="fullName" name="Full Name" type="text" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number / WhatsApp Number</label>
+                <input id="phone" name="Phone / WhatsApp Number" type="tel" placeholder="Enter your phone number" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input id="email" name="Email Address" type="email" placeholder="Enter your email address" required>
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input id="location" name="Location" type="text" placeholder="Enter your location" required>
+              </div>
+
+              <div class="form-group">
+                <label for="position">Position Applying For</label>
+                <select id="position" name="Position Applying For" required>
+                  <option value="">Select position</option>
+                  <option>Business Support Officer</option>
+                  <option>Logistics & Delivery Coordination Officer</option>
+                  <option>Social Media & Digital Communications Officer</option>
+                  <option>Truck Driver</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="qualification">Highest Qualification</label>
+                <select id="qualification" name="Highest Qualification" required>
+                  <option value="">Select qualification</option>
+                  <option>OND</option>
+                  <option>HND</option>
+                  <option>B.Sc.</option>
+                  <option>NYSC</option>
+                  <option>Industrial Placement Student</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Years of Relevant Experience</label>
+                <input id="experience" name="Years of Relevant Experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC, Entry level" required>
+              </div>
+
+              <div class="form-group">
+                <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
+                <select id="onsite" name="Able to work within Amuwo-Odofin / Festac axis" required>
+                  <option value="">Select answer</option>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+
+              <div class="form-group full-span">
+                <label for="relevantExperience">Briefly describe your relevant experience</label>
+                <textarea id="relevantExperience" name="Relevant Experience" placeholder="Tell us about your experience, skills, and why you are suitable for the role." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="cv">Upload CV</label>
+                <input id="cv" name="CV" type="file" accept=".pdf,.doc,.docx" required>
+              </div>
+
+              <div class="form-group">
+                <label for="coverLetter">Upload Cover Letter Optional</label>
+                <input id="coverLetter" name="Cover Letter" type="file" accept=".pdf,.doc,.docx">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+
+            <div class="application-note">
+              Thank you for applying to FTH D-UNIQ. Your application will be reviewed, and shortlisted candidates will be contacted for the next stage.
+            </div>
+          </form>
         </div>
-        <a class="btn btn-primary" href="mailto:careers@fthduniq.com?subject=Candidate%20Portal%20Access">Request Candidate Portal Access</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="shortlisted-note">
+          <div class="section-label">Candidate Portal</div>
+          <h2>Already shortlisted?</h2>
+          <p>
+            Candidate portal access is shared privately with shortlisted applicants after review and follow-up.
+          </p>
+        </div>
       </div>
     </section>
   </main>
-  
 
-<footer class="site-footer">
-  <div class="container footer-wrap">
-    <div class="footer-brand-block">
-      <strong>FTH D-UNIQ</strong>
-      <div class="footer-meta">Business Name Registration No. 2660716</div>
-      <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
-      <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
-      <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div class="footer-brand-block">
+        <strong>FTH D-UNIQ</strong>
+        <div class="footer-meta">Business Name Registration No. 2660716</div>
+        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
+        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
+        <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+      </div>
+
+      <div class="footer-social-block">
+        <div class="social-follow-block">
+          <p class="social-follow-title">Follow our social media handles</p>
+
+          <div class="social-row" aria-label="Social links">
+            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+      </div>
     </div>
-    <div class="footer-social-block">
-      
-<div class="social-follow-block">
-  <p class="social-follow-title">Follow our social media handles</p>
-  <div class="social-row" aria-label="Social links">
-    <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
-    </a>
-    <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
-    </a>
-  </div>
-</div>
+  </footer>
 
-      <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
-    </div>
-  </div>
-</footer>
+  <script>
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    });
 
+    document.addEventListener("copy", function(e){
+      e.preventDefault();
+    });
 
+    document.addEventListener("dragstart", function(e){
+      e.preventDefault();
+    });
+  </script>
 </body>
 </html>
