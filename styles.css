@@ -1511,10 +1511,10 @@ img{
 /* Service card headline */
 .services-page .service-copy h2{
   font-family:"Cormorant Garamond", serif !important;
-  font-size:clamp(2.05rem, 2.7vw, 3rem) !important;
+  font-size:clamp(2.05rem, 4.7vw, 3rem) !important;
   line-height:1.06 !important;
   letter-spacing:-0.02em !important;
-  max-width:18ch !important;
+  max-width:15ch !important;
   white-space:normal !important;
   margin:0 0 14px !important;
 }
