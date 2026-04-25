@@ -1496,7 +1496,7 @@ img{
 
 /* Keep intro text neat under the headline */
 .services-page .page-intro p{
-  max-width:64ch !important;
+  max-width:84ch !important;
   font-size:1rem !important;
   line-height:1.75 !important;
 }
