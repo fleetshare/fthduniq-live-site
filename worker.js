@@ -203,7 +203,7 @@ async function handleCareerEmail(request, env) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "FTH D-UNIQ Careers <onboarding@resend.dev>",
+        from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
         to: ["careers@fthduniq.com"],
         reply_to: email,
         subject,
