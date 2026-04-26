@@ -100,8 +100,7 @@
       grid-column:1 / -1;
     }
 
-    .application-field label,
-    .application-field span{
+    .application-field label{
       font-size:0.92rem;
       font-weight:600;
       color:var(--text);
@@ -254,6 +253,7 @@
         <article class="career-card">
           <div class="career-card-kicker">Open Opportunities</div>
           <h2>Roles we are open to reviewing</h2>
+
           <ul class="career-list">
             <li>Business Support Officer</li>
             <li>Logistics &amp; Delivery Coordination Officer</li>
@@ -265,6 +265,7 @@
         <article class="career-card">
           <div class="career-card-kicker">Application Process</div>
           <h2>Recruitment flow</h2>
+
           <ol class="career-process">
             <li>Submit your application details and upload your CV.</li>
             <li>Applications are reviewed based on role fit, location, communication, and relevant experience.</li>
@@ -290,7 +291,6 @@
 
             <div id="applicationClosedBox" class="application-closed-box">
               Applications are currently closed. This role is no longer accepting applications at this time.
-              Please check back when a new opportunity is listed.
             </div>
 
             <form id="careerApplicationForm" class="application-form" enctype="multipart/form-data">
@@ -375,7 +375,7 @@
               </div>
 
               <div id="applicationStatus" class="application-status">
-                Application status: Open.
+                Checking application status...
               </div>
             </form>
           </div>
@@ -404,6 +404,7 @@
       <div class="footer-social-block">
         <div class="social-follow-block">
           <p class="social-follow-title">Follow our social media handles</p>
+
           <div class="social-row" aria-label="Social links">
             <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
@@ -433,95 +434,130 @@
   </footer>
 
   <script>
-    /*
-      APPLICATION LIMIT CONTROL
-
-      Because this version sends applications directly by email and does not use a database,
-      the website cannot automatically know the total number of applications submitted by everyone.
-
-      To close applications manually, change APPLICATIONS_OPEN to false.
-      To show closed after 50, change APPLICATIONS_RECEIVED to 50.
-    */
-
-    const APPLICATIONS_OPEN = true;
-    const APPLICATION_LIMIT = 50;
-    const APPLICATIONS_RECEIVED = 0;
-
     const careerForm = document.getElementById("careerApplicationForm");
     const applicationStatus = document.getElementById("applicationStatus");
     const applicationClosedBox = document.getElementById("applicationClosedBox");
 
-    function closeApplications(){
-      careerForm.style.display = "none";
-      applicationClosedBox.style.display = "block";
-      applicationStatus.textContent = "Applications are currently closed.";
+    function closeApplications(message){
+      if(careerForm){
+        careerForm.style.display = "none";
+      }
+
+      if(applicationClosedBox){
+        applicationClosedBox.style.display = "block";
+        applicationClosedBox.textContent =
+          message || "Applications are currently closed. This role is no longer accepting applications at this time.";
+      }
+
+      if(applicationStatus){
+        applicationStatus.textContent = "Applications are currently closed.";
+      }
     }
 
-    if(!APPLICATIONS_OPEN || APPLICATIONS_RECEIVED >= APPLICATION_LIMIT){
-      closeApplications();
-    }
-
-    careerForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-
-      if(!APPLICATIONS_OPEN || APPLICATIONS_RECEIVED >= APPLICATION_LIMIT){
-        closeApplications();
-        return;
-      }
-
-      const cv = document.getElementById("cv").files[0];
-      const coverLetter = document.getElementById("coverLetter").files[0];
-
-      const allowedExtensions = [".pdf", ".doc", ".docx"];
-
-      function isAllowedFile(file){
-        if(!file) return true;
-        const name = file.name.toLowerCase();
-        return allowedExtensions.some(ext => name.endsWith(ext));
-      }
-
-      if(!isAllowedFile(cv)){
-        applicationStatus.textContent = "Please upload your CV as PDF, DOC, or DOCX.";
-        return;
-      }
-
-      if(!isAllowedFile(coverLetter)){
-        applicationStatus.textContent = "Please upload your cover letter as PDF, DOC, or DOCX.";
-        return;
-      }
-
-      if(cv && cv.size > 5 * 1024 * 1024){
-        applicationStatus.textContent = "CV is too large. Please upload a file below 5MB.";
-        return;
-      }
-
-      if(coverLetter && coverLetter.size > 5 * 1024 * 1024){
-        applicationStatus.textContent = "Cover letter is too large. Please upload a file below 5MB.";
-        return;
-      }
-
-      applicationStatus.textContent = "Submitting your application. Please wait...";
-
-      const formData = new FormData(careerForm);
-
+    async function checkApplicationStatus(){
       try{
-        const response = await fetch("/api/career-email", {
-          method: "POST",
-          body: formData
-        });
-
+        const response = await fetch("/api/application-status");
         const result = await response.json();
 
         if(result.ok){
-          applicationStatus.textContent = "Thank you for applying to FTH D-UNIQ. Your application has been received. Shortlisted candidates will be contacted for the next stage.";
-          careerForm.reset();
+          if(!result.open){
+            closeApplications("Applications are currently closed. The application limit has been reached.");
+            return;
+          }
+
+          if(applicationStatus){
+            applicationStatus.textContent =
+              "Application status: Open. " + result.remaining + " application slot(s) remaining.";
+          }
         }else{
-          applicationStatus.textContent = result.message || "Application could not be submitted. Please try again.";
+          if(applicationStatus){
+            applicationStatus.textContent = "Application status: Open.";
+          }
         }
       }catch(error){
-        applicationStatus.textContent = "Application could not be submitted. Please email your CV directly to careers@fthduniq.com.";
+        if(applicationStatus){
+          applicationStatus.textContent = "Application status: Open.";
+        }
       }
-    });
+    }
+
+    checkApplicationStatus();
+
+    if(careerForm){
+      careerForm.addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        const cv = document.getElementById("cv").files[0];
+        const coverLetter = document.getElementById("coverLetter").files[0];
+
+        const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+        function isAllowedFile(file){
+          if(!file) return true;
+
+          const name = file.name.toLowerCase();
+
+          return allowedExtensions.some(function(ext){
+            return name.endsWith(ext);
+          });
+        }
+
+        if(!isAllowedFile(cv)){
+          applicationStatus.textContent = "Please upload your CV as PDF, DOC, or DOCX.";
+          return;
+        }
+
+        if(!isAllowedFile(coverLetter)){
+          applicationStatus.textContent = "Please upload your cover letter as PDF, DOC, or DOCX.";
+          return;
+        }
+
+        if(cv && cv.size > 5 * 1024 * 1024){
+          applicationStatus.textContent = "CV is too large. Please upload a file below 5MB.";
+          return;
+        }
+
+        if(coverLetter && coverLetter.size > 5 * 1024 * 1024){
+          applicationStatus.textContent = "Cover letter is too large. Please upload a file below 5MB.";
+          return;
+        }
+
+        applicationStatus.textContent = "Submitting your application. Please wait...";
+
+        const formData = new FormData(careerForm);
+
+        try{
+          const response = await fetch("/api/career-email", {
+            method: "POST",
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if(result.ok){
+            applicationStatus.textContent =
+              "Thank you for applying to FTH D-UNIQ. Your application has been received. Shortlisted candidates will be contacted for the next stage. " +
+              result.remaining + " application slot(s) remaining.";
+
+            careerForm.reset();
+
+            if(result.closed){
+              closeApplications("Applications are now closed. The 50-application limit has been reached.");
+            }
+          }else{
+            if(result.closed){
+              closeApplications(result.message);
+            }else{
+              applicationStatus.textContent =
+                result.message || "Application could not be submitted. Please try again.";
+            }
+          }
+        }catch(error){
+          applicationStatus.textContent =
+            "Application could not be submitted. Please email your CV directly to careers@fthduniq.com.";
+        }
+      });
+    }
 
     document.addEventListener("contextmenu", function(e){
       if(!e.target.closest("input, textarea, select, button, a, summary")){
