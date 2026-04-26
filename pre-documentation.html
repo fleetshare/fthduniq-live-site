@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Pre-Documentation Screening</title>
+  <meta name="description" content="Pre-documentation screening portal for selected FTH D-UNIQ candidates.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .pre-doc-page .pre-doc-shell{
+      padding-top:12px;
+    }
+
+    .pre-doc-card,
+    .pre-doc-dashboard-card,
+    .pre-doc-upload-card{
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .pre-doc-card h1,
+    .pre-doc-dashboard-card h2,
+    .pre-doc-upload-card h2{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.1rem, 5vw, 3.6rem);
+      line-height:1;
+      letter-spacing:-0.03em;
+    }
+
+    .pre-doc-card p,
+    .pre-doc-dashboard-card p,
+    .pre-doc-upload-card p{
+      color:var(--muted);
+      line-height:1.75;
+      margin:0 0 18px;
+      max-width:72ch;
+    }
+
+    .pre-doc-form{
+      display:grid;
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .pre-doc-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .pre-doc-field{
+      display:grid;
+      gap:8px;
+    }
+
+    .pre-doc-field.full-span{
+      grid-column:1 / -1;
+    }
+
+    .pre-doc-field label{
+      font-size:.92rem;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .pre-doc-field input,
+    .pre-doc-field textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(199,155,53,.16);
+      background:#fff;
+      color:var(--text);
+      font:inherit;
+      outline:none;
+    }
+
+    .pre-doc-field textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .pre-doc-field input:focus,
+    .pre-doc-field textarea:focus{
+      border-color:rgba(199,155,53,.45);
+      box-shadow:0 0 0 3px rgba(199,155,53,.10);
+    }
+
+    .pre-doc-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .pre-doc-status-box{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.16);
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .pre-doc-dashboard{
+      display:none;
+      gap:22px;
+      margin-top:22px;
+    }
+
+    .pre-doc-summary-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+      margin:18px 0;
+    }
+
+    .summary-item{
+      padding:18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
+    }
+
+    .summary-item strong{
+      display:block;
+      color:var(--gold-deep);
+      font-size:.82rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+
+    .summary-item span{
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    .pre-doc-message{
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(199,155,53,.10);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--text);
+      line-height:1.8;
+      margin:18px 0;
+    }
+
+    .document-list{
+      margin:12px 0 0;
+      padding-left:1.2rem;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .document-list li::marker{
+      color:var(--gold-deep);
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    @media (max-width:768px){
+      .pre-doc-card,
+      .pre-doc-dashboard-card,
+      .pre-doc-upload-card{
+        padding:22px;
+      }
+
+      .pre-doc-grid,
+      .pre-doc-summary-grid{
+        grid-template-columns:1fr;
+      }
+
+      .pre-doc-actions .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="pre-doc-page">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-top">
+        <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
+          <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
+            <source src="assets/hero_brand_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Our Services</a>
+        <a href="featured-services.html">Featured Services</a>
+        <a href="founder.html">Founder</a>
+        <a href="insights.html">Insights</a>
+        <a href="career.html">Career</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell pre-doc-shell">
+    <section class="section">
+      <div class="container">
+        <div class="pre-doc-card" id="preDocLoginCard">
+          <div class="section-label">Pre-Documentation Screening</div>
+          <h1>Pre-Documentation Access</h1>
+
+          <p>
+            This portal is available only to candidates who have been invited to the pre-documentation screening stage.
+            Please enter the access code sent to you and the email address used for your application.
+          </p>
+
+          <form id="preDocLoginForm" class="pre-doc-form">
+            <div class="pre-doc-grid">
+              <div class="pre-doc-field">
+                <label for="preDocCode">Pre-Documentation Access Code</label>
+                <input id="preDocCode" name="preDocCode" type="text" placeholder="Enter your access code" required>
+              </div>
+
+              <div class="pre-doc-field">
+                <label for="preDocEmail">Email Address</label>
+                <input id="preDocEmail" name="preDocEmail" type="email" placeholder="Enter your email address" required>
+              </div>
+            </div>
+
+            <div class="pre-doc-actions">
+              <button type="submit" class="btn btn-primary">Open Screening Dashboard</button>
+              <a class="btn btn-secondary" href="career.html">Back to Career Page</a>
+            </div>
+
+            <div id="preDocLoginStatus" class="pre-doc-status-box">
+              Enter your access details to continue.
+            </div>
+          </form>
+        </div>
+
+        <div id="preDocDashboard" class="pre-doc-dashboard">
+          <div class="pre-doc-dashboard-card">
+            <div class="section-label">Screening Dashboard</div>
+            <h2 id="candidateName">Candidate Name</h2>
+
+            <div class="pre-doc-summary-grid">
+              <div class="summary-item">
+                <strong>Role</strong>
+                <span id="candidateRole">—</span>
+              </div>
+
+              <div class="summary-item">
+                <strong>Status</strong>
+                <span id="candidateStage">—</span>
+              </div>
+
+              <div class="summary-item">
+                <strong>Next Step</strong>
+                <span id="candidateNextStep">—</span>
+              </div>
+            </div>
+
+            <div class="pre-doc-message" id="candidateMessage">
+              —
+            </div>
+          </div>
+
+          <div class="pre-doc-upload-card hidden" id="documentUploadCard">
+            <div class="section-label">Document Submission</div>
+            <h2>Upload Required Documents</h2>
+
+            <p>
+              Please upload the required documents for screening. Document submission is part of the review process
+              and does not replace physical verification.
+            </p>
+
+            <ul class="document-list">
+              <li>Valid ID</li>
+              <li>Passport photograph</li>
+              <li>Certificate or qualification document</li>
+              <li>NYSC certificate, exemption letter, or applicable document</li>
+              <li>Industrial Training / SIWES letter, if applicable</li>
+              <li>Reference or guarantor document/details</li>
+              <li>Driver’s licence, if applying as a truck driver</li>
+              <li>Any other document requested by FTH D-UNIQ</li>
+            </ul>
+
+            <form id="preDocDocumentForm" class="pre-doc-form" enctype="multipart/form-data">
+              <input type="hidden" id="docCandidateCode" name="candidateCode">
+              <input type="hidden" id="docCandidateEmail" name="candidateEmail">
+
+              <div class="pre-doc-grid">
+                <div class="pre-doc-field">
+                  <label for="validId">Valid ID</label>
+                  <input id="validId" name="validId" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="passportPhoto">Passport Photograph</label>
+                  <input id="passportPhoto" name="passportPhoto" type="file" accept=".jpg,.jpeg,.png,.pdf">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="qualificationDoc">Certificate / Qualification Document</label>
+                  <input id="qualificationDoc" name="qualificationDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="nyscDoc">NYSC / Exemption / Applicable Document</label>
+                  <input id="nyscDoc" name="nyscDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="itLetter">Industrial Training / SIWES Letter</label>
+                  <input id="itLetter" name="itLetter" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="guarantorDoc">Reference / Guarantor Document</label>
+                  <input id="guarantorDoc" name="guarantorDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="driverLicense">Driver’s Licence If Applicable</label>
+                  <input id="driverLicense" name="driverLicense" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field">
+                  <label for="otherDoc">Other Requested Document</label>
+                  <input id="otherDoc" name="otherDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="pre-doc-field full-span">
+                  <label for="candidateNotes">Notes</label>
+                  <textarea id="candidateNotes" name="candidateNotes" placeholder="Add any note about your uploaded documents."></textarea>
+                </div>
+              </div>
+
+              <div class="pre-doc-actions">
+                <button type="submit" class="btn btn-primary">Submit Documents</button>
+              </div>
+
+              <div id="documentStatus" class="pre-doc-status-box">
+                Document upload status will appear here.
+              </div>
+            </form>
+
+            <div class="pre-doc-status-box">
+              Final employment documentation will be completed physically after document verification.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div class="footer-brand-block">
+        <strong>FTH D-UNIQ</strong>
+        <div class="footer-meta">Business Name Registration No. 2660716</div>
+        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
+        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
+        <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+      </div>
+
+      <div class="footer-social-block">
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentCandidate = null;
+
+    const preDocLoginForm = document.getElementById("preDocLoginForm");
+    const preDocLoginStatus = document.getElementById("preDocLoginStatus");
+    const preDocLoginCard = document.getElementById("preDocLoginCard");
+    const preDocDashboard = document.getElementById("preDocDashboard");
+
+    const candidateName = document.getElementById("candidateName");
+    const candidateRole = document.getElementById("candidateRole");
+    const candidateStage = document.getElementById("candidateStage");
+    const candidateNextStep = document.getElementById("candidateNextStep");
+    const candidateMessage = document.getElementById("candidateMessage");
+
+    const documentUploadCard = document.getElementById("documentUploadCard");
+    const preDocDocumentForm = document.getElementById("preDocDocumentForm");
+    const documentStatus = document.getElementById("documentStatus");
+    const docCandidateCode = document.getElementById("docCandidateCode");
+    const docCandidateEmail = document.getElementById("docCandidateEmail");
+
+    preDocLoginForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      preDocLoginStatus.textContent = "Checking access details. Please wait...";
+
+      const candidateCode = document.getElementById("preDocCode").value.trim();
+      const candidateEmail = document.getElementById("preDocEmail").value.trim();
+
+      try{
+        const response = await fetch("/api/pre-doc-login", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ candidateCode, candidateEmail })
+        });
+
+        const result = await response.json();
+
+        if(!result.ok){
+          preDocLoginStatus.textContent = result.message || "Access could not be verified.";
+          return;
+        }
+
+        currentCandidate = result.candidate;
+        showPreDocDashboard(currentCandidate);
+
+      }catch(error){
+        preDocLoginStatus.textContent = "Access could not be verified. Please try again.";
+      }
+    });
+
+    function showPreDocDashboard(candidate){
+      preDocLoginCard.classList.add("hidden");
+      preDocDashboard.style.display = "grid";
+
+      candidateName.textContent = candidate.name || "Candidate";
+      candidateRole.textContent = candidate.role || "—";
+      candidateStage.textContent = candidate.statusLabel || "Documentation Screening";
+      candidateNextStep.textContent = candidate.nextStep || "Follow the instructions provided by FTH D-UNIQ Careers.";
+      candidateMessage.textContent = candidate.message || "Please follow the instructions provided for your current recruitment stage.";
+
+      docCandidateCode.value = candidate.code || "";
+      docCandidateEmail.value = candidate.email || "";
+
+      if(candidate.canUploadDocuments === true || candidate.stage === "documentation_screening"){
+        documentUploadCard.classList.remove("hidden");
+      }else{
+        documentUploadCard.classList.add("hidden");
+      }
+    }
+
+    preDocDocumentForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      documentStatus.textContent = "Submitting documents. Please wait...";
+
+      const files = preDocDocumentForm.querySelectorAll("input[type='file']");
+      let hasFile = false;
+
+      files.forEach(function(input){
+        if(input.files && input.files.length > 0){
+          hasFile = true;
+        }
+      });
+
+      if(!hasFile){
+        documentStatus.textContent = "Please upload at least one document before submitting.";
+        return;
+      }
+
+      const formData = new FormData(preDocDocumentForm);
+
+      try{
+        const response = await fetch("/api/pre-documents", {
+          method:"POST",
+          body:formData
+        });
+
+        const result = await response.json();
+
+        if(result.ok){
+          documentStatus.textContent = "Your documents have been submitted successfully. FTH D-UNIQ will review and contact you with further instructions.";
+          preDocDocumentForm.reset();
+
+          if(currentCandidate){
+            docCandidateCode.value = currentCandidate.code || "";
+            docCandidateEmail.value = currentCandidate.email || "";
+          }
+        }else{
+          documentStatus.textContent = result.message || "Documents could not be submitted.";
+        }
+      }catch(error){
+        documentStatus.textContent = "Documents could not be submitted. Please try again.";
+      }
+    });
+
+    document.addEventListener("contextmenu", function(e){
+      if(!e.target.closest("input, textarea, select, button, a")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("copy", function(e){
+      if(!e.target.closest("input, textarea")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", function(e){
+      if(e.target.tagName === "IMG"){
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
