@@ -2,48 +2,74 @@ const APPLICATION_LIMIT = 50;
 const APPLICATION_COUNT_KEY = "career_application_count";
 const APPLICATION_OPEN_KEY = "career_applications_open";
 
-const CANDIDATES = {
-  "FTH-CAND-001": {
-    name: "Candidate One",
+const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
+
+const SAMPLE_CANDIDATES = {
+  "FTH-INT-001": {
+    code: "FTH-INT-001",
+    name: "Interview Candidate",
     email: "candidate@example.com",
     role: "Business Support Officer",
-    status: "shortlisted",
-    interviewDate: "To be communicated",
-    interviewTime: "To be communicated",
-    meetUrl: "https://meet.google.com/your-meet-code",
-    message: "You have been shortlisted for the next stage of FTH D-UNIQ’s recruitment process. Please review your interview preparation details and attend your interview at the scheduled time."
+    stage: "shortlisted_interview",
+    interviewDate: "Immediate",
+    interviewTime: "When invited",
+    meetUrl: DEFAULT_INTERVIEW_ROOM,
+    message: "You have been shortlisted for the interview stage of FTH D-UNIQ’s recruitment process. Please click the interview room button when you are ready for your interview."
   },
 
-  "FTH-CAND-002": {
-    name: "Candidate Two",
+  "FTH-DOC-001": {
+    code: "FTH-DOC-001",
+    name: "Documentation Candidate",
     email: "candidate2@example.com",
+    role: "Business Support Officer",
+    stage: "documentation_screening",
+    interviewDate: "",
+    interviewTime: "",
+    meetUrl: "",
+    message: "Congratulations. You have moved to the pre-documentation screening stage of FTH D-UNIQ’s recruitment process. Please upload the required documents for review."
+  },
+
+  "FTH-DOC-FINAL": {
+    code: "FTH-DOC-FINAL",
+    name: "Final Selected Candidate",
+    email: "finalcandidate@example.com",
     role: "Logistics & Delivery Coordination Officer",
-    status: "successful",
-    interviewDate: "Completed",
-    interviewTime: "Completed",
-    meetUrl: "https://meet.google.com/your-meet-code",
-    message: "Congratulations. You have been selected to proceed to FTH D-UNIQ’s pre-resumption documentation stage. Please upload the required documents through this portal."
+    stage: "final_selected",
+    interviewDate: "",
+    interviewTime: "",
+    meetUrl: "",
+    message: "Congratulations. You have been selected for final resumption with FTH D-UNIQ. Please watch your email for official resumption instructions."
+  },
+
+  "FTH-DOC-NO": {
+    code: "FTH-DOC-NO",
+    name: "Reviewed Candidate",
+    email: "notselected@example.com",
+    role: "Truck Driver",
+    stage: "not_selected",
+    interviewDate: "",
+    interviewTime: "",
+    meetUrl: "",
+    message: "Thank you for participating in FTH D-UNIQ’s recruitment process. After careful review, you have not been selected for final resumption at this time. We appreciate your interest and wish you success in your future opportunities."
   }
 };
 
 const STATUS_LABELS = {
-  shortlisted: "Shortlisted for Interview",
-  interview_scheduled: "Interview Scheduled",
+  shortlisted_interview: "Shortlisted for Interview",
   interview_completed: "Interview Completed — Awaiting Decision",
-  successful: "Successful — Proceed to Pre-Resumption Documentation",
-  documents_received: "Documents Received — Awaiting Review",
-  physical_verification: "Proceed to Physical Verification",
-  not_successful: "Not Successful"
+  documentation_screening: "Documentation Screening",
+  documents_received: "Documents Received — Under Review",
+  final_selected: "Final Selected",
+  not_selected: "Not Selected"
 };
 
 const NEXT_STEPS = {
-  shortlisted: "Prepare for interview and join the interview room at the scheduled time.",
-  interview_scheduled: "Attend the interview at the scheduled time.",
-  interview_completed: "Wait for the final decision update.",
-  successful: "Upload your required pre-resumption documents.",
-  documents_received: "Wait for document review and further instruction.",
-  physical_verification: "Come physically for document verification and final employment documentation.",
-  not_successful: "Thank you for your interest in FTH D-UNIQ. We wish you success in future opportunities."
+  shortlisted_interview: "Attend your interview through the interview room button.",
+  interview_completed: "Please wait for the next-stage decision from FTH D-UNIQ Careers.",
+  documentation_screening: "Upload your required documents for screening.",
+  documents_received: "Please wait while FTH D-UNIQ reviews your submitted documents.",
+  final_selected: "Await official resumption instructions from FTH D-UNIQ Careers.",
+  not_selected: "No further action is required at this stage."
 };
 
 export default {
@@ -62,8 +88,16 @@ export default {
       return handleCandidateLogin(request, env);
     }
 
+    if (url.pathname === "/api/pre-doc-login" && request.method === "POST") {
+      return handlePreDocLogin(request, env);
+    }
+
+    if (url.pathname === "/api/pre-documents" && request.method === "POST") {
+      return handlePreDocuments(request, env);
+    }
+
     if (url.pathname === "/api/candidate-documents" && request.method === "POST") {
-      return handleCandidateDocuments(request, env);
+      return handlePreDocuments(request, env);
     }
 
     if (url.pathname === "/api/reset-application-count" && request.method === "POST") {
@@ -74,22 +108,77 @@ export default {
   }
 };
 
-function json(data, status = 200){
+function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers:{
-      "content-type":"application/json"
+    headers: {
+      "content-type": "application/json"
     }
   });
 }
 
+function candidateKey(code) {
+  return "candidate:" + String(code || "").trim().toUpperCase();
+}
+
+async function getCandidateRecord(env, code) {
+  const cleanCode = String(code || "").trim().toUpperCase();
+
+  if (!cleanCode) return null;
+
+  if (env.CAREER_KV) {
+    const stored = await env.CAREER_KV.get(candidateKey(cleanCode));
+
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (error) {
+        return null;
+      }
+    }
+  }
+
+  return SAMPLE_CANDIDATES[cleanCode] || null;
+}
+
+async function saveCandidateRecord(env, candidate) {
+  if (!env.CAREER_KV || !candidate || !candidate.code) return;
+
+  await env.CAREER_KV.put(
+    candidateKey(candidate.code),
+    JSON.stringify(candidate)
+  );
+}
+
+function publicCandidate(candidate) {
+  return {
+    code: candidate.code,
+    name: candidate.name,
+    email: candidate.email,
+    role: candidate.role,
+    stage: candidate.stage,
+    statusLabel: STATUS_LABELS[candidate.stage] || candidate.stage,
+    nextStep: NEXT_STEPS[candidate.stage] || "Please wait for further instructions.",
+    interviewDate: candidate.interviewDate || "",
+    interviewTime: candidate.interviewTime || "",
+    meetUrl: candidate.meetUrl || "",
+    message: candidate.message || "",
+    canUploadDocuments: candidate.stage === "documentation_screening"
+  };
+}
+
 async function getApplicationCount(env) {
+  if (!env.CAREER_KV) return 0;
+
   const current = await env.CAREER_KV.get(APPLICATION_COUNT_KEY);
   const count = Number(current || "0");
+
   return Number.isFinite(count) ? count : 0;
 }
 
 async function isApplicationOpen(env) {
+  if (!env.CAREER_KV) return true;
+
   const openValue = await env.CAREER_KV.get(APPLICATION_OPEN_KEY);
 
   if (openValue === "false") {
@@ -124,6 +213,13 @@ async function handleResetApplicationCount(request, env) {
     );
   }
 
+  if (!env.CAREER_KV) {
+    return json(
+      { ok: false, message: "CAREER_KV is not connected." },
+      500
+    );
+  }
+
   await env.CAREER_KV.put(APPLICATION_COUNT_KEY, "0");
   await env.CAREER_KV.put(APPLICATION_OPEN_KEY, "true");
 
@@ -133,85 +229,122 @@ async function handleResetApplicationCount(request, env) {
   });
 }
 
-function publicCandidate(code, candidate){
-  return {
-    code,
-    name: candidate.name,
-    email: candidate.email,
-    role: candidate.role,
-    status: candidate.status,
-    statusLabel: STATUS_LABELS[candidate.status] || candidate.status,
-    nextStep: NEXT_STEPS[candidate.status] || "Please wait for further instructions.",
-    interviewDate: candidate.interviewDate,
-    interviewTime: candidate.interviewTime,
-    meetUrl: candidate.meetUrl,
-    message: candidate.message,
-    canUploadDocuments: candidate.status === "successful" || candidate.status === "documents_received" || candidate.status === "physical_verification"
-  };
-}
-
-async function handleCandidateLogin(request, env){
-  try{
+async function handleCandidateLogin(request, env) {
+  try {
     const body = await request.json();
 
     const candidateCode = String(body.candidateCode || "").trim().toUpperCase();
     const candidateEmail = String(body.candidateEmail || "").trim().toLowerCase();
 
-    if(!candidateCode || !candidateEmail){
+    if (!candidateCode || !candidateEmail) {
       return json({
-        ok:false,
-        message:"Please enter your access code and email address."
+        ok: false,
+        message: "Please enter your access code and email address."
       }, 400);
     }
 
-    if(env.ADMIN_KEY && candidateCode === env.ADMIN_KEY){
-      const candidates = Object.entries(CANDIDATES).map(function(entry){
-        return publicCandidate(entry[0], entry[1]);
-      });
+    const candidate = await getCandidateRecord(env, candidateCode);
 
+    if (!candidate) {
       return json({
-        ok:true,
-        master:true,
-        candidates
-      });
-    }
-
-    const candidate = CANDIDATES[candidateCode];
-
-    if(!candidate){
-      return json({
-        ok:false,
-        message:"Invalid candidate access code."
+        ok: false,
+        message: "Invalid candidate access code."
       }, 403);
     }
 
-    if(String(candidate.email).toLowerCase() !== candidateEmail){
+    if (String(candidate.email || "").toLowerCase() !== candidateEmail) {
       return json({
-        ok:false,
-        message:"The email address does not match this access code."
+        ok: false,
+        message: "The email address does not match this access code."
+      }, 403);
+    }
+
+    if (
+      candidate.stage !== "shortlisted_interview" &&
+      candidate.stage !== "interview_completed"
+    ) {
+      return json({
+        ok: false,
+        message: "This access code is not for the interview portal. Please use the correct portal link provided by FTH D-UNIQ Careers."
       }, 403);
     }
 
     return json({
-      ok:true,
-      master:false,
-      candidate:publicCandidate(candidateCode, candidate)
+      ok: true,
+      candidate: publicCandidate(candidate)
     });
 
-  }catch(error){
+  } catch (error) {
     return json({
-      ok:false,
-      message:"Candidate access could not be verified."
+      ok: false,
+      message: "Candidate access could not be verified."
     }, 500);
   }
 }
 
-async function handleCandidateDocuments(request, env){
-  try{
-    if(!env.RESEND_API_KEY){
+async function handlePreDocLogin(request, env) {
+  try {
+    const body = await request.json();
+
+    const candidateCode = String(body.candidateCode || "").trim().toUpperCase();
+    const candidateEmail = String(body.candidateEmail || "").trim().toLowerCase();
+
+    if (!candidateCode || !candidateEmail) {
       return json({
-        ok:false,
-        message:"RESEND_API_KEY is not set in Cloudflare."
+        ok: false,
+        message: "Please enter your pre-documentation access code and email address."
+      }, 400);
+    }
+
+    const candidate = await getCandidateRecord(env, candidateCode);
+
+    if (!candidate) {
+      return json({
+        ok: false,
+        message: "Invalid pre-documentation access code."
+      }, 403);
+    }
+
+    if (String(candidate.email || "").toLowerCase() !== candidateEmail) {
+      return json({
+        ok: false,
+        message: "The email address does not match this access code."
+      }, 403);
+    }
+
+    const allowedStages = [
+      "documentation_screening",
+      "documents_received",
+      "final_selected",
+      "not_selected"
+    ];
+
+    if (!allowedStages.includes(candidate.stage)) {
+      return json({
+        ok: false,
+        message: "This access code is not for the pre-documentation screening portal."
+      }, 403);
+    }
+
+    return json({
+      ok: true,
+      candidate: publicCandidate(candidate)
+    });
+
+  } catch (error) {
+    return json({
+      ok: false,
+      message: "Pre-documentation access could not be verified."
+    }, 500);
+  }
+}
+
+async function handlePreDocuments(request, env) {
+  try {
+    if (!env.RESEND_API_KEY) {
+      return json({
+        ok: false,
+        message: "RESEND_API_KEY is not set in Cloudflare."
       }, 500);
     }
 
@@ -221,26 +354,26 @@ async function handleCandidateDocuments(request, env){
     const candidateEmail = String(formData.get("candidateEmail") || "").trim().toLowerCase();
     const candidateNotes = String(formData.get("candidateNotes") || "").trim();
 
-    const candidate = CANDIDATES[candidateCode];
+    const candidate = await getCandidateRecord(env, candidateCode);
 
-    if(!candidate){
+    if (!candidate) {
       return json({
-        ok:false,
-        message:"Invalid candidate access code."
+        ok: false,
+        message: "Invalid candidate access code."
       }, 403);
     }
 
-    if(String(candidate.email).toLowerCase() !== candidateEmail){
+    if (String(candidate.email || "").toLowerCase() !== candidateEmail) {
       return json({
-        ok:false,
-        message:"The email address does not match this access code."
+        ok: false,
+        message: "The email address does not match this access code."
       }, 403);
     }
 
-    if(!(candidate.status === "successful" || candidate.status === "documents_received" || candidate.status === "physical_verification")){
+    if (candidate.stage !== "documentation_screening") {
       return json({
-        ok:false,
-        message:"Document upload is not currently available for this candidate stage."
+        ok: false,
+        message: "Document upload is not currently available for this candidate stage."
       }, 403);
     }
 
@@ -248,77 +381,84 @@ async function handleCandidateDocuments(request, env){
 
     await addAttachment(formData.get("validId"), "Valid ID", attachments);
     await addAttachment(formData.get("passportPhoto"), "Passport Photograph", attachments);
-    await addAttachment(formData.get("qualificationDoc"), "Qualification Document", attachments);
-    await addAttachment(formData.get("nyscDoc"), "NYSC Document", attachments);
-    await addAttachment(formData.get("guarantorDoc"), "Guarantor / Referee Document", attachments);
-    await addAttachment(formData.get("otherDoc"), "Other Document", attachments);
+    await addAttachment(formData.get("qualificationDoc"), "Certificate / Qualification Document", attachments);
+    await addAttachment(formData.get("nyscDoc"), "NYSC / Exemption / Applicable Document", attachments);
+    await addAttachment(formData.get("itLetter"), "Industrial Training / SIWES Letter", attachments);
+    await addAttachment(formData.get("guarantorDoc"), "Reference / Guarantor Document", attachments);
+    await addAttachment(formData.get("driverLicense"), "Driver’s Licence", attachments);
+    await addAttachment(formData.get("otherDoc"), "Other Requested Document", attachments);
 
-    if(!attachments.length){
+    if (!attachments.length) {
       return json({
-        ok:false,
-        message:"Please upload at least one document."
+        ok: false,
+        message: "Please upload at least one document."
       }, 400);
     }
 
-    const subject = `Candidate Documents - ${candidate.name} - ${candidate.role}`;
+    const subject = `Pre-Documentation Documents - ${candidate.name} - ${candidate.role}`;
 
     const textBody =
-      `Candidate Pre-Resumption Documents - FTH D-UNIQ\n\n` +
+      `Pre-Documentation Screening Documents - FTH D-UNIQ\n\n` +
       `Candidate Name: ${candidate.name}\n` +
       `Candidate Email: ${candidate.email}\n` +
       `Access Code: ${candidateCode}\n` +
       `Role: ${candidate.role}\n` +
-      `Current Status: ${STATUS_LABELS[candidate.status] || candidate.status}\n\n` +
+      `Current Stage: ${STATUS_LABELS[candidate.stage] || candidate.stage}\n\n` +
       `Candidate Notes:\n${candidateNotes || "No notes provided."}\n\n` +
-      `Documents were uploaded from the FTH D-UNIQ Candidate Portal.`;
+      `Documents were uploaded from the FTH D-UNIQ Pre-Documentation Screening Portal.`;
 
     const htmlBody =
-      `<h2>Candidate Pre-Resumption Documents - FTH D-UNIQ</h2>` +
+      `<h2>Pre-Documentation Screening Documents - FTH D-UNIQ</h2>` +
       `<p><strong>Candidate Name:</strong> ${escapeHtml(candidate.name)}</p>` +
       `<p><strong>Candidate Email:</strong> ${escapeHtml(candidate.email)}</p>` +
       `<p><strong>Access Code:</strong> ${escapeHtml(candidateCode)}</p>` +
       `<p><strong>Role:</strong> ${escapeHtml(candidate.role)}</p>` +
-      `<p><strong>Current Status:</strong> ${escapeHtml(STATUS_LABELS[candidate.status] || candidate.status)}</p>` +
+      `<p><strong>Current Stage:</strong> ${escapeHtml(STATUS_LABELS[candidate.stage] || candidate.stage)}</p>` +
       `<h3>Candidate Notes</h3>` +
       `<p>${escapeHtml(candidateNotes || "No notes provided.").replace(/\n/g, "<br>")}</p>` +
-      `<p>Documents were uploaded from the FTH D-UNIQ Candidate Portal.</p>`;
+      `<p>Documents were uploaded from the FTH D-UNIQ Pre-Documentation Screening Portal.</p>`;
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
-      method:"POST",
-      headers:{
-        Authorization:`Bearer ${env.RESEND_API_KEY}`,
-        "Content-Type":"application/json"
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify({
-        from:"FTH D-UNIQ Careers <careers@fthduniq.com>",
-        to:["careers@fthduniq.com"],
-        reply_to:candidate.email,
+      body: JSON.stringify({
+        from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
+        to: ["careers@fthduniq.com"],
+        reply_to: candidate.email,
         subject,
-        text:textBody,
-        html:htmlBody,
+        text: textBody,
+        html: htmlBody,
         attachments
       })
     });
 
     const resendResult = await resendResponse.json();
 
-    if(!resendResponse.ok){
+    if (!resendResponse.ok) {
       return json({
-        ok:false,
-        message:"Documents could not be emailed.",
-        details:resendResult
+        ok: false,
+        message: "Documents could not be emailed.",
+        details: resendResult
       }, 500);
     }
 
+    candidate.stage = "documents_received";
+    candidate.message = "Your documents have been received. FTH D-UNIQ will review your submission and communicate the next step through official contact channels.";
+
+    await saveCandidateRecord(env, candidate);
+
     return json({
-      ok:true,
-      message:"Documents submitted successfully."
+      ok: true,
+      message: "Documents submitted successfully."
     });
 
-  }catch(error){
+  } catch (error) {
     return json({
-      ok:false,
-      message:error.message || "Documents could not be submitted."
+      ok: false,
+      message: error.message || "Documents could not be submitted."
     }, 500);
   }
 }
@@ -347,7 +487,7 @@ async function handleCareerEmail(request, env) {
         {
           ok: false,
           closed: true,
-          message: "Applications are currently closed. The application limit has been reached."
+          message: "Applications are currently closed for this role. Please check back when another opportunity is announced."
         },
         403
       );
@@ -468,18 +608,18 @@ async function handleCareerEmail(request, env) {
   }
 }
 
-async function addAttachment(file, label, attachments){
-  if(!file || typeof file === "string" || !file.name) return;
+async function addAttachment(file, label, attachments) {
+  if (!file || typeof file === "string" || !file.name) return;
 
   const allowedExtensions = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"];
   const fileName = file.name.toLowerCase();
   const hasAllowedExtension = allowedExtensions.some((ext) => fileName.endsWith(ext));
 
-  if(!hasAllowedExtension){
-    throw new Error(label + " must be PDF, DOC, DOCX, JPG, or PNG.");
+  if (!hasAllowedExtension) {
+    throw new Error(label + " must be PDF, DOC, DOCX, JPG, JPEG, or PNG.");
   }
 
-  if(file.size > 5 * 1024 * 1024){
+  if (file.size > 5 * 1024 * 1024) {
     throw new Error(label + " is too large. Please upload a file below 5MB.");
   }
 
@@ -491,12 +631,12 @@ async function addAttachment(file, label, attachments){
   });
 }
 
-function arrayBufferToBase64(buffer){
+function arrayBufferToBase64(buffer) {
   const bytes = new Uint8Array(buffer);
   let binary = "";
   const chunkSize = 0x8000;
 
-  for(let i = 0; i < bytes.length; i += chunkSize){
+  for (let i = 0; i < bytes.length; i += chunkSize) {
     const chunk = bytes.subarray(i, i + chunkSize);
     binary += String.fromCharCode.apply(null, chunk);
   }
@@ -504,7 +644,7 @@ function arrayBufferToBase64(buffer){
   return btoa(binary);
 }
 
-function escapeHtml(value){
+function escapeHtml(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
