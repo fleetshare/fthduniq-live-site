@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTH D-UNIQ | Candidate Portal</title>
-  <meta name="description" content="Shortlisted candidate portal for FTH D-UNIQ recruitment.">
+  <title>FTH D-UNIQ | Career</title>
+  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, social media, and truck driving roles.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,15 +12,31 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .candidate-page .candidate-shell{
-      padding-top:12px;
+    .career-page .career-hero{
+      padding-top:10px;
     }
 
-    .candidate-access-card,
-    .candidate-dashboard-card,
-    .next-stage-card,
-    .pre-doc-dashboard-card,
-    .pre-doc-upload-card{
+    .career-hero-text{
+      max-width:72ch;
+      color:var(--muted);
+      line-height:1.85;
+      font-size:1.02rem;
+    }
+
+    .career-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .career-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:22px;
+    }
+
+    .career-card{
       padding:28px;
       border-radius:var(--radius);
       background:rgba(255,255,255,.62);
@@ -28,176 +44,47 @@
       box-shadow:var(--shadow);
     }
 
-    .candidate-access-card h1,
-    .candidate-dashboard-card h2,
-    .next-stage-card h2,
-    .pre-doc-dashboard-card h2,
-    .pre-doc-upload-card h2{
-      margin:0 0 12px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.1rem, 5vw, 3.6rem);
-      line-height:1;
-      letter-spacing:-0.03em;
-    }
-
-    .candidate-access-card p,
-    .candidate-dashboard-card p,
-    .next-stage-card p,
-    .pre-doc-dashboard-card p,
-    .pre-doc-upload-card p{
-      color:var(--muted);
-      line-height:1.75;
-      margin:0 0 18px;
-      max-width:72ch;
-    }
-
-    .candidate-form,
-    .pre-doc-form{
-      display:grid;
-      gap:16px;
-      margin-top:20px;
-    }
-
-    .candidate-grid,
-    .pre-doc-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
-    }
-
-    .candidate-field,
-    .pre-doc-field{
-      display:grid;
-      gap:8px;
-    }
-
-    .pre-doc-field.full-span{
-      grid-column:1 / -1;
-    }
-
-    .candidate-field label,
-    .pre-doc-field label{
-      font-size:.92rem;
-      font-weight:600;
-      color:var(--text);
-    }
-
-    .candidate-field input,
-    .pre-doc-field input,
-    .pre-doc-field textarea{
-      width:100%;
-      padding:14px 16px;
-      border-radius:16px;
-      border:1px solid rgba(199,155,53,.16);
-      background:#fff;
-      color:var(--text);
-      font:inherit;
-      outline:none;
-    }
-
-    .pre-doc-field textarea{
-      min-height:120px;
-      resize:vertical;
-    }
-
-    .candidate-field input:focus,
-    .pre-doc-field input:focus,
-    .pre-doc-field textarea:focus{
-      border-color:rgba(199,155,53,.45);
-      box-shadow:0 0 0 3px rgba(199,155,53,.10);
-    }
-
-    .candidate-actions,
-    .pre-doc-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-
-    .candidate-status-box,
-    .pre-doc-status-box{
-      margin-top:18px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid rgba(199,155,53,.16);
-      color:var(--muted);
-      line-height:1.75;
-    }
-
-    .candidate-dashboard,
-    .pre-doc-dashboard{
-      display:none;
-      gap:22px;
-      margin-top:22px;
-    }
-
-    .candidate-summary-grid,
-    .pre-doc-summary-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
-      margin:18px 0;
-    }
-
-    .summary-item{
-      padding:18px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid rgba(199,155,53,.14);
-    }
-
-    .summary-item strong{
-      display:block;
+    .career-card-kicker{
       color:var(--gold-deep);
       font-size:.82rem;
-      letter-spacing:.14em;
+      font-weight:700;
+      letter-spacing:.16em;
       text-transform:uppercase;
-      margin-bottom:8px;
+      margin-bottom:10px;
     }
 
-    .summary-item span{
-      color:var(--text);
-      line-height:1.5;
-    }
-
-    .portal-message,
-    .pre-doc-message{
-      padding:18px 20px;
-      border-radius:20px;
-      background:rgba(199,155,53,.10);
-      border:1px solid rgba(199,155,53,.18);
-      color:var(--text);
-      line-height:1.8;
-      margin:18px 0;
-    }
-
-    .interview-box{
-      padding:20px;
-      border-radius:22px;
-      background:#fff;
-      border:1px solid rgba(199,155,53,.14);
-      margin-top:18px;
-    }
-
-    .interview-box h3{
-      margin:0 0 10px;
+    .career-card h2{
+      margin:0 0 14px;
       font-family:"Cormorant Garamond", serif;
-      font-size:2rem;
+      font-size:clamp(2rem, 4vw, 2.8rem);
       line-height:1;
+      letter-spacing:-0.02em;
     }
 
-    .next-stage-dropdown{
+    .career-list,
+    .career-process{
+      margin:0;
+      padding-left:1.2rem;
+      color:var(--muted);
+      line-height:1.85;
+    }
+
+    .career-list li::marker,
+    .career-process li::marker{
+      color:var(--gold-deep);
+      font-weight:700;
+    }
+
+    .career-application-dropdown{
       margin-top:22px;
       border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(199,155,53,.12);
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(199,155,53,.14);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
 
-    .next-stage-dropdown summary{
+    .career-application-dropdown summary{
       list-style:none;
       cursor:pointer;
       padding:22px 26px;
@@ -210,11 +97,11 @@
       font-size:1rem;
     }
 
-    .next-stage-dropdown summary::-webkit-details-marker{
+    .career-application-dropdown summary::-webkit-details-marker{
       display:none;
     }
 
-    .next-stage-dropdown summary::after{
+    .career-application-dropdown summary::after{
       content:"+";
       font-size:1.5rem;
       line-height:1;
@@ -222,62 +109,160 @@
       flex:0 0 auto;
     }
 
-    .next-stage-dropdown[open] summary::after{
+    .career-application-dropdown[open] summary::after{
       content:"−";
     }
 
-    .next-stage-panel{
+    .application-panel{
       padding:0 26px 28px;
     }
 
-    .document-list{
-      margin:12px 0 0;
-      padding-left:1.2rem;
+    .application-panel h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem, 4vw, 2.9rem);
+      line-height:1;
+      letter-spacing:-0.02em;
+    }
+
+    .application-panel p{
+      color:var(--muted);
+      line-height:1.75;
+      margin:0 0 18px;
+      max-width:70ch;
+    }
+
+    .application-form{
+      display:grid;
+      gap:18px;
+    }
+
+    .application-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .application-field{
+      display:grid;
+      gap:8px;
+    }
+
+    .application-field.full-span{
+      grid-column:1 / -1;
+    }
+
+    .application-field label{
+      font-size:0.92rem;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .application-field input,
+    .application-field select,
+    .application-field textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(199,155,53,.16);
+      background:#fff;
+      color:var(--text);
+      font:inherit;
+      outline:none;
+    }
+
+    .application-field textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .application-field input:focus,
+    .application-field select:focus,
+    .application-field textarea:focus{
+      border-color:rgba(199,155,53,.45);
+      box-shadow:0 0 0 3px rgba(199,155,53,.10);
+    }
+
+    .application-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .application-status{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(199,155,53,.14);
+      color:var(--muted);
+      line-height:1.7;
+      font-size:0.95rem;
+    }
+
+    .application-closed-box{
+      display:none;
+      margin-top:18px;
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(199,155,53,.18);
       color:var(--muted);
       line-height:1.8;
     }
 
-    .document-list li::marker{
-      color:var(--gold-deep);
+    .shortlisted-note{
+      margin-top:22px;
+      padding:22px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(199,155,53,.12);
+      box-shadow:var(--shadow);
     }
 
-    .hidden{
-      display:none !important;
+    .shortlisted-note h2{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(1.8rem, 4vw, 2.6rem);
+      line-height:1;
+      letter-spacing:-0.02em;
     }
 
-    @media (max-width:768px){
-      .candidate-access-card,
-      .candidate-dashboard-card,
-      .next-stage-card,
-      .pre-doc-dashboard-card,
-      .pre-doc-upload-card{
-        padding:22px;
+    .shortlisted-note p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    @media (max-width: 900px){
+      .career-grid{
+        grid-template-columns:1fr;
       }
+    }
 
-      .candidate-grid,
-      .pre-doc-grid,
-      .candidate-summary-grid,
-      .pre-doc-summary-grid{
+    @media (max-width: 768px){
+      .application-grid{
         grid-template-columns:1fr;
       }
 
-      .candidate-actions .btn,
-      .pre-doc-actions .btn{
-        width:100%;
+      .application-panel{
+        padding:0 18px 24px;
       }
 
-      .next-stage-dropdown summary{
+      .career-application-dropdown summary{
         padding:20px 18px;
       }
 
-      .next-stage-panel{
-        padding:0 18px 24px;
+      .career-actions .btn,
+      .application-actions .btn{
+        width:100%;
       }
     }
   </style>
 </head>
 
-<body class="candidate-page">
+<body class="career-page">
   <header class="site-header">
     <div class="container">
       <div class="brand-top">
@@ -294,243 +279,176 @@
         <a href="featured-services.html">Featured Services</a>
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
-        <a href="career.html">Career</a>
+        <a class="active" href="career.html">Career</a>
         <a href="contact.html">Contact Us</a>
       </nav>
     </div>
   </header>
 
-  <main class="page-shell candidate-shell">
+  <main class="page-shell career-page">
     <section class="section">
+      <div class="container career-hero">
+        <div class="section-label">Career</div>
+
+        <h1 class="career-title">
+          <span>Build with FTH D-UNIQ</span>
+        </h1>
+
+        <p class="career-hero-text">
+          We welcome applications from people who can support business operations, customer communication,
+          logistics coordination, digital communication, documentation, and structured execution across our
+          building materials supply, procurement, logistics coordination, and project support activities.
+        </p>
+
+        <div class="career-actions">
+          <a class="btn btn-primary" href="#apply">Apply Now</a>
+          <a class="btn btn-secondary" href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container career-grid">
+        <article class="career-card">
+          <div class="career-card-kicker">Open Opportunities</div>
+          <h2>Roles we are open to reviewing</h2>
+
+          <ul class="career-list">
+            <li>Business Support Officer</li>
+            <li>Logistics &amp; Delivery Coordination Officer</li>
+            <li>Social Media &amp; Digital Communications Officer</li>
+            <li>Truck Driver</li>
+          </ul>
+        </article>
+
+        <article class="career-card">
+          <div class="career-card-kicker">Application Process</div>
+          <h2>Recruitment flow</h2>
+
+          <ol class="career-process">
+            <li>Submit your application details and upload your CV.</li>
+            <li>Applications are reviewed based on role fit, location, communication, and relevant experience.</li>
+            <li>Only shortlisted candidates will be contacted for the next stage.</li>
+            <li>Interview details may be shared through official communication channels.</li>
+            <li>Successful candidates will receive further instructions before resumption.</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="apply">
       <div class="container">
+        <details class="career-application-dropdown" open>
+          <summary>Apply Now — Submit CV</summary>
 
-        <div class="candidate-access-card" id="candidateLoginCard">
-          <div class="section-label">Candidate Portal</div>
-          <h1>Shortlisted Candidate Access</h1>
+          <div class="application-panel">
+            <h2>Apply to Join FTH D-UNIQ</h2>
+            <p>
+              Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
+              for the next stage.
+            </p>
 
-          <p>
-            This portal is available to candidates who have been shortlisted for the next stage of FTH D-UNIQ’s recruitment process.
-            Please enter the access code sent to you and the email address used for your application.
-          </p>
-
-          <form id="candidateLoginForm" class="candidate-form">
-            <div class="candidate-grid">
-              <div class="candidate-field">
-                <label for="candidateCode">Candidate Access Code</label>
-                <input id="candidateCode" name="candidateCode" type="text" placeholder="Enter your access code" required>
-              </div>
-
-              <div class="candidate-field">
-                <label for="candidateEmail">Email Address</label>
-                <input id="candidateEmail" name="candidateEmail" type="email" placeholder="Enter your email address" required>
-              </div>
+            <div id="applicationClosedBox" class="application-closed-box">
+              Applications are currently closed for this role. Please check back when another opportunity is announced.
             </div>
 
-            <div class="candidate-actions">
-              <button type="submit" class="btn btn-primary">Open Candidate Dashboard</button>
-              <a class="btn btn-secondary" href="career.html">Back to Career Page</a>
-            </div>
-
-            <div id="loginStatus" class="candidate-status-box">
-              Enter your access details to continue.
-            </div>
-          </form>
-        </div>
-
-        <div id="candidateDashboard" class="candidate-dashboard">
-          <div class="candidate-dashboard-card">
-            <div class="section-label">Interview Stage</div>
-            <h2 id="candidateName">Candidate Name</h2>
-
-            <div class="candidate-summary-grid">
-              <div class="summary-item">
-                <strong>Role</strong>
-                <span id="candidateRole">—</span>
-              </div>
-
-              <div class="summary-item">
-                <strong>Stage</strong>
-                <span id="candidateStage">—</span>
-              </div>
-
-              <div class="summary-item">
-                <strong>Next Step</strong>
-                <span id="candidateNextStep">—</span>
-              </div>
-            </div>
-
-            <div class="portal-message" id="candidateMessage">
-              —
-            </div>
-
-            <div class="interview-box">
-              <h3>Interview Room</h3>
-              <p id="interviewDetails">
-                Interview details will appear here when available.
-              </p>
-
-              <div class="candidate-actions">
-                <button id="enterInterviewRoom" class="btn btn-primary" type="button">Enter Interview Room</button>
-              </div>
-            </div>
-
-            <div class="candidate-status-box">
-              After the interview, selected candidates will receive the next-stage access details through official contact channels.
-            </div>
-          </div>
-        </div>
-
-        <details class="next-stage-dropdown" id="nextStageDropdown">
-          <summary>Next Stage: Pre-Documentation Screening</summary>
-
-          <div class="next-stage-panel">
-            <div class="next-stage-card">
-              <div class="section-label">Next Stage Access</div>
-              <h2>Pre-Documentation Screening</h2>
-
-              <p>
-                This section is available only to candidates who have been invited to the pre-documentation screening stage.
-                Enter the pre-documentation access code sent to you and the email address used for your application.
-              </p>
-
-              <form id="preDocLoginForm" class="pre-doc-form">
-                <div class="pre-doc-grid">
-                  <div class="pre-doc-field">
-                    <label for="preDocCode">Pre-Documentation Access Code</label>
-                    <input id="preDocCode" name="preDocCode" type="text" placeholder="Enter your access code" required>
-                  </div>
-
-                  <div class="pre-doc-field">
-                    <label for="preDocEmail">Email Address</label>
-                    <input id="preDocEmail" name="preDocEmail" type="email" placeholder="Enter your email address" required>
-                  </div>
+            <form id="careerApplicationForm" class="application-form" enctype="multipart/form-data">
+              <div class="application-grid">
+                <div class="application-field">
+                  <label for="fullName">Full Name</label>
+                  <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
                 </div>
 
-                <div class="pre-doc-actions">
-                  <button type="submit" class="btn btn-primary">Open Pre-Documentation Dashboard</button>
+                <div class="application-field">
+                  <label for="phone">Phone Number / WhatsApp Number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
                 </div>
 
-                <div id="preDocLoginStatus" class="pre-doc-status-box">
-                  Pre-documentation access is required before document upload can open.
-                </div>
-              </form>
-            </div>
-
-            <div id="preDocDashboard" class="pre-doc-dashboard">
-              <div class="pre-doc-dashboard-card">
-                <div class="section-label">Screening Dashboard</div>
-                <h2 id="preDocCandidateName">Candidate Name</h2>
-
-                <div class="pre-doc-summary-grid">
-                  <div class="summary-item">
-                    <strong>Role</strong>
-                    <span id="preDocCandidateRole">—</span>
-                  </div>
-
-                  <div class="summary-item">
-                    <strong>Status</strong>
-                    <span id="preDocCandidateStage">—</span>
-                  </div>
-
-                  <div class="summary-item">
-                    <strong>Next Step</strong>
-                    <span id="preDocCandidateNextStep">—</span>
-                  </div>
+                <div class="application-field">
+                  <label for="email">Email Address</label>
+                  <input id="email" name="email" type="email" placeholder="Enter your email address" required>
                 </div>
 
-                <div class="pre-doc-message" id="preDocCandidateMessage">
-                  —
+                <div class="application-field">
+                  <label for="location">Location</label>
+                  <input id="location" name="location" type="text" placeholder="Enter your location" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="position">Position Applying For</label>
+                  <select id="position" name="position" required>
+                    <option value="">Select position</option>
+                    <option>Business Support Officer</option>
+                    <option>Logistics &amp; Delivery Coordination Officer</option>
+                    <option>Social Media &amp; Digital Communications Officer</option>
+                    <option>Truck Driver</option>
+                  </select>
+                </div>
+
+                <div class="application-field">
+                  <label for="qualification">Highest Qualification</label>
+                  <select id="qualification" name="qualification" required>
+                    <option value="">Select qualification</option>
+                    <option>SSCE / WAEC / NECO</option>
+                    <option>OND</option>
+                    <option>HND</option>
+                    <option>B.Sc.</option>
+                    <option>NYSC</option>
+                    <option>Industrial Placement Student</option>
+                    <option>Trade / Technical Certification</option>
+                    <option>Driver’s Licence</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="application-field">
+                  <label for="experience">Years of Relevant Experience</label>
+                  <input id="experience" name="experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC experience" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
+                  <select id="onsite" name="onsite" required>
+                    <option value="">Select answer</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+
+                <div class="application-field full-span">
+                  <label for="relevantExperience">Briefly describe your relevant experience</label>
+                  <textarea id="relevantExperience" name="relevantExperience" placeholder="Briefly explain your experience, strengths, and why you fit the role." required></textarea>
+                </div>
+
+                <div class="application-field">
+                  <label for="cv">Upload CV</label>
+                  <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="coverLetter">Upload Cover Letter Optional</label>
+                  <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx">
                 </div>
               </div>
 
-              <div class="pre-doc-upload-card hidden" id="documentUploadCard">
-                <div class="section-label">Document Submission</div>
-                <h2>Upload Required Documents</h2>
-
-                <p>
-                  Please upload the required documents for screening. Document submission is part of the review process
-                  and does not replace physical verification.
-                </p>
-
-                <ul class="document-list">
-                  <li>Valid ID</li>
-                  <li>Passport photograph</li>
-                  <li>Certificate or qualification document</li>
-                  <li>NYSC certificate, exemption letter, or applicable document</li>
-                  <li>Industrial Training / SIWES letter, if applicable</li>
-                  <li>Reference or guarantor document/details</li>
-                  <li>Driver’s licence, if applying as a truck driver</li>
-                  <li>Any other document requested by FTH D-UNIQ</li>
-                </ul>
-
-                <form id="preDocDocumentForm" class="pre-doc-form" enctype="multipart/form-data">
-                  <input type="hidden" id="docCandidateCode" name="candidateCode">
-                  <input type="hidden" id="docCandidateEmail" name="candidateEmail">
-
-                  <div class="pre-doc-grid">
-                    <div class="pre-doc-field">
-                      <label for="validId">Valid ID</label>
-                      <input id="validId" name="validId" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="passportPhoto">Passport Photograph</label>
-                      <input id="passportPhoto" name="passportPhoto" type="file" accept=".jpg,.jpeg,.png,.pdf">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="qualificationDoc">Certificate / Qualification Document</label>
-                      <input id="qualificationDoc" name="qualificationDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="nyscDoc">NYSC / Exemption / Applicable Document</label>
-                      <input id="nyscDoc" name="nyscDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="itLetter">Industrial Training / SIWES Letter</label>
-                      <input id="itLetter" name="itLetter" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="guarantorDoc">Reference / Guarantor Document</label>
-                      <input id="guarantorDoc" name="guarantorDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="driverLicense">Driver’s Licence If Applicable</label>
-                      <input id="driverLicense" name="driverLicense" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field">
-                      <label for="otherDoc">Other Requested Document</label>
-                      <input id="otherDoc" name="otherDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    </div>
-
-                    <div class="pre-doc-field full-span">
-                      <label for="candidateNotes">Notes</label>
-                      <textarea id="candidateNotes" name="candidateNotes" placeholder="Add any note about your uploaded documents."></textarea>
-                    </div>
-                  </div>
-
-                  <div class="pre-doc-actions">
-                    <button type="submit" class="btn btn-primary">Submit Documents</button>
-                  </div>
-
-                  <div id="documentStatus" class="pre-doc-status-box">
-                    Document upload status will appear here.
-                  </div>
-                </form>
-
-                <div class="pre-doc-status-box">
-                  Final employment documentation will be completed physically after document verification.
-                </div>
+              <div class="application-actions">
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+                <a class="btn btn-secondary" href="mailto:careers@fthduniq.com">Email Careers</a>
               </div>
-            </div>
+
+              <div id="applicationStatus" class="application-status">
+                Checking application status...
+              </div>
+            </form>
           </div>
         </details>
 
+        <div class="shortlisted-note">
+          <h2>Already contacted by FTH D-UNIQ?</h2>
+          <p>
+            Candidates who are shortlisted will receive their next-stage access details through official communication from FTH D-UNIQ Careers.
+          </p>
+        </div>
       </div>
     </section>
   </main>
@@ -546,190 +464,146 @@
       </div>
 
       <div class="footer-social-block">
+        <div class="social-follow-block">
+          <p class="social-follow-title">Follow our social media handles</p>
+
+          <div class="social-row" aria-label="Social links">
+            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TikTok</a>
+            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
+            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+          </div>
+        </div>
+
         <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
       </div>
     </div>
   </footer>
 
   <script>
-    const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
+    const careerForm = document.getElementById("careerApplicationForm");
+    const applicationStatus = document.getElementById("applicationStatus");
+    const applicationClosedBox = document.getElementById("applicationClosedBox");
 
-    const candidateLoginForm = document.getElementById("candidateLoginForm");
-    const loginStatus = document.getElementById("loginStatus");
-    const candidateLoginCard = document.getElementById("candidateLoginCard");
-    const candidateDashboard = document.getElementById("candidateDashboard");
-
-    const candidateName = document.getElementById("candidateName");
-    const candidateRole = document.getElementById("candidateRole");
-    const candidateStage = document.getElementById("candidateStage");
-    const candidateNextStep = document.getElementById("candidateNextStep");
-    const candidateMessage = document.getElementById("candidateMessage");
-    const interviewDetails = document.getElementById("interviewDetails");
-    const enterInterviewRoom = document.getElementById("enterInterviewRoom");
-
-    const preDocLoginForm = document.getElementById("preDocLoginForm");
-    const preDocLoginStatus = document.getElementById("preDocLoginStatus");
-    const preDocDashboard = document.getElementById("preDocDashboard");
-    const preDocCandidateName = document.getElementById("preDocCandidateName");
-    const preDocCandidateRole = document.getElementById("preDocCandidateRole");
-    const preDocCandidateStage = document.getElementById("preDocCandidateStage");
-    const preDocCandidateNextStep = document.getElementById("preDocCandidateNextStep");
-    const preDocCandidateMessage = document.getElementById("preDocCandidateMessage");
-
-    const documentUploadCard = document.getElementById("documentUploadCard");
-    const preDocDocumentForm = document.getElementById("preDocDocumentForm");
-    const documentStatus = document.getElementById("documentStatus");
-    const docCandidateCode = document.getElementById("docCandidateCode");
-    const docCandidateEmail = document.getElementById("docCandidateEmail");
-
-    let currentPreDocCandidate = null;
-
-    candidateLoginForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-
-      loginStatus.textContent = "Checking access details. Please wait...";
-
-      const candidateCode = document.getElementById("candidateCode").value.trim();
-      const candidateEmail = document.getElementById("candidateEmail").value.trim();
-
-      try{
-        const response = await fetch("/api/candidate-login", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body:JSON.stringify({ candidateCode, candidateEmail })
-        });
-
-        const result = await response.json();
-
-        if(!result.ok){
-          loginStatus.textContent = result.message || "Access could not be verified.";
-          return;
-        }
-
-        showCandidateDashboard(result.candidate);
-
-      }catch(error){
-        loginStatus.textContent = "Access could not be verified. Please try again.";
+    function closeApplications(message){
+      if(careerForm){
+        careerForm.style.display = "none";
       }
-    });
 
-    function showCandidateDashboard(candidate){
-      candidateLoginCard.classList.add("hidden");
-      candidateDashboard.style.display = "grid";
-
-      candidateName.textContent = candidate.name || "Candidate";
-      candidateRole.textContent = candidate.role || "—";
-      candidateStage.textContent = candidate.statusLabel || "Shortlisted for Interview";
-      candidateNextStep.textContent = candidate.nextStep || "Attend your interview.";
-      candidateMessage.textContent =
-        candidate.message ||
-        "You have been shortlisted for the interview stage. Please click the interview room button when you are ready for your interview.";
-
-      interviewDetails.textContent =
-        "Your interview will be conducted through the official FTH D-UNIQ interview room. Click Enter Interview Room when you are ready.";
-
-      enterInterviewRoom.onclick = function(){
-        const interviewRoom = candidate.meetUrl || DEFAULT_INTERVIEW_ROOM;
-        window.open(interviewRoom, "_blank");
-      };
-    }
-
-    preDocLoginForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-
-      preDocLoginStatus.textContent = "Checking pre-documentation access. Please wait...";
-
-      const candidateCode = document.getElementById("preDocCode").value.trim();
-      const candidateEmail = document.getElementById("preDocEmail").value.trim();
-
-      try{
-        const response = await fetch("/api/pre-doc-login", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body:JSON.stringify({ candidateCode, candidateEmail })
-        });
-
-        const result = await response.json();
-
-        if(!result.ok){
-          preDocLoginStatus.textContent = result.message || "Pre-documentation access could not be verified.";
-          preDocDashboard.style.display = "none";
-          documentUploadCard.classList.add("hidden");
-          return;
-        }
-
-        currentPreDocCandidate = result.candidate;
-        showPreDocDashboard(currentPreDocCandidate);
-
-      }catch(error){
-        preDocLoginStatus.textContent = "Pre-documentation access could not be verified. Please try again.";
+      if(applicationClosedBox){
+        applicationClosedBox.style.display = "block";
+        applicationClosedBox.textContent =
+          message || "Applications are currently closed for this role. Please check back when another opportunity is announced.";
       }
-    });
 
-    function showPreDocDashboard(candidate){
-      preDocLoginStatus.textContent = "Pre-documentation access verified.";
-      preDocDashboard.style.display = "grid";
-
-      preDocCandidateName.textContent = candidate.name || "Candidate";
-      preDocCandidateRole.textContent = candidate.role || "—";
-      preDocCandidateStage.textContent = candidate.statusLabel || "Documentation Screening";
-      preDocCandidateNextStep.textContent = candidate.nextStep || "Follow the instructions provided by FTH D-UNIQ Careers.";
-      preDocCandidateMessage.textContent = candidate.message || "Please follow the instructions provided for your current recruitment stage.";
-
-      docCandidateCode.value = candidate.code || "";
-      docCandidateEmail.value = candidate.email || "";
-
-      if(candidate.canUploadDocuments === true || candidate.stage === "documentation_screening"){
-        documentUploadCard.classList.remove("hidden");
-      }else{
-        documentUploadCard.classList.add("hidden");
+      if(applicationStatus){
+        applicationStatus.textContent = "Applications are currently closed.";
       }
     }
 
-    preDocDocumentForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-
-      documentStatus.textContent = "Submitting documents. Please wait...";
-
-      const files = preDocDocumentForm.querySelectorAll("input[type='file']");
-      let hasFile = false;
-
-      files.forEach(function(input){
-        if(input.files && input.files.length > 0){
-          hasFile = true;
-        }
-      });
-
-      if(!hasFile){
-        documentStatus.textContent = "Please upload at least one document before submitting.";
-        return;
-      }
-
-      const formData = new FormData(preDocDocumentForm);
-
+    async function checkApplicationStatus(){
       try{
-        const response = await fetch("/api/pre-documents", {
-          method:"POST",
-          body:formData
-        });
-
+        const response = await fetch("/api/application-status");
         const result = await response.json();
 
         if(result.ok){
-          documentStatus.textContent = "Your documents have been submitted successfully. FTH D-UNIQ will review and contact you with further instructions.";
-          preDocDocumentForm.reset();
+          if(!result.open){
+            closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
+            return;
+          }
 
-          if(currentPreDocCandidate){
-            docCandidateCode.value = currentPreDocCandidate.code || "";
-            docCandidateEmail.value = currentPreDocCandidate.email || "";
+          if(applicationStatus){
+            applicationStatus.textContent = "Application status: Open.";
           }
         }else{
-          documentStatus.textContent = result.message || "Documents could not be submitted.";
+          if(applicationStatus){
+            applicationStatus.textContent = "Application status: Open.";
+          }
         }
       }catch(error){
-        documentStatus.textContent = "Documents could not be submitted. Please try again.";
+        if(applicationStatus){
+          applicationStatus.textContent = "Application status: Open.";
+        }
       }
-    });
+    }
+
+    checkApplicationStatus();
+
+    if(careerForm){
+      careerForm.addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        const cv = document.getElementById("cv").files[0];
+        const coverLetter = document.getElementById("coverLetter").files[0];
+
+        const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+        function isAllowedFile(file){
+          if(!file) return true;
+
+          const name = file.name.toLowerCase();
+
+          return allowedExtensions.some(function(ext){
+            return name.endsWith(ext);
+          });
+        }
+
+        if(!isAllowedFile(cv)){
+          applicationStatus.textContent = "Please upload your CV as PDF, DOC, or DOCX.";
+          return;
+        }
+
+        if(!isAllowedFile(coverLetter)){
+          applicationStatus.textContent = "Please upload your cover letter as PDF, DOC, or DOCX.";
+          return;
+        }
+
+        if(cv && cv.size > 5 * 1024 * 1024){
+          applicationStatus.textContent = "CV is too large. Please upload a file below 5MB.";
+          return;
+        }
+
+        if(coverLetter && coverLetter.size > 5 * 1024 * 1024){
+          applicationStatus.textContent = "Cover letter is too large. Please upload a file below 5MB.";
+          return;
+        }
+
+        applicationStatus.textContent = "Submitting your application. Please wait...";
+
+        const formData = new FormData(careerForm);
+
+        try{
+          const response = await fetch("/api/career-email", {
+            method: "POST",
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if(result.ok){
+            applicationStatus.textContent =
+              "Thank you for applying to FTH D-UNIQ. Your application has been received and will be reviewed. Shortlisted candidates will be contacted for the next stage.";
+
+            careerForm.reset();
+
+            if(result.closed){
+              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
+            }
+          }else{
+            if(result.closed){
+              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
+            }else{
+              applicationStatus.textContent =
+                result.message || "Application could not be submitted. Please try again.";
+            }
+          }
+        }catch(error){
+          applicationStatus.textContent =
+            "Application could not be submitted. Please email your CV directly to careers@fthduniq.com.";
+        }
+      });
+    }
 
     document.addEventListener("contextmenu", function(e){
       if(!e.target.closest("input, textarea, select, button, a, summary")){
