@@ -221,6 +221,7 @@
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
         <a class="active" href="career.html">Career</a>
+        <a href="candidate-portal.html">Candidate Portal</a>
         <a href="contact.html">Contact Us</a>
       </nav>
     </div>
@@ -243,7 +244,7 @@
 
         <div class="career-actions">
           <a class="btn btn-primary" href="#apply">Apply Now</a>
-          <a class="btn btn-secondary" href="contact.html">Contact Us</a>
+          <a class="btn btn-secondary" href="candidate-portal.html">Candidate Portal</a>
         </div>
       </div>
     </section>
@@ -270,7 +271,7 @@
             <li>Submit your application details and upload your CV.</li>
             <li>Applications are reviewed based on role fit, location, communication, and relevant experience.</li>
             <li>Only shortlisted candidates will be contacted for the next stage.</li>
-            <li>Interview details may be shared through email, WhatsApp, or phone call.</li>
+            <li>Interview details may be shared through email, WhatsApp, or the candidate portal.</li>
             <li>Successful candidates receive further instructions before resumption.</li>
           </ol>
         </article>
@@ -290,7 +291,7 @@
             </p>
 
             <div id="applicationClosedBox" class="application-closed-box">
-              Applications are currently closed. This role is no longer accepting applications at this time.
+              Applications are currently closed for this role. Please check back when another opportunity is announced.
             </div>
 
             <form id="careerApplicationForm" class="application-form" enctype="multipart/form-data">
@@ -364,7 +365,7 @@
                 </div>
 
                 <div class="application-field">
-                  <label for="coverLetter">Upload Cover Letter Optional</label>
+                  <label for="coverLetter">Upload Cover Letter (Optional)</label>
                   <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx">
                 </div>
               </div>
@@ -384,7 +385,7 @@
         <div class="shortlisted-note">
           <h2>Already shortlisted?</h2>
           <p>
-            Candidate portal access is shared privately with shortlisted applicants after review and follow-up.
+            Shortlisted candidates may access the candidate portal using the access details shared with them after review.
           </p>
         </div>
       </div>
@@ -446,7 +447,7 @@
       if(applicationClosedBox){
         applicationClosedBox.style.display = "block";
         applicationClosedBox.textContent =
-          message || "Applications are currently closed. This role is no longer accepting applications at this time.";
+          message || "Applications are currently closed for this role. Please check back when another opportunity is announced.";
       }
 
       if(applicationStatus){
@@ -461,13 +462,12 @@
 
         if(result.ok){
           if(!result.open){
-            closeApplications("Applications are currently closed. The application limit has been reached.");
+            closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
             return;
           }
 
           if(applicationStatus){
-            applicationStatus.textContent =
-              "Application status: Open. " + result.remaining + " application slot(s) remaining.";
+            applicationStatus.textContent = "Application status: Open.";
           }
         }else{
           if(applicationStatus){
@@ -536,17 +536,16 @@
 
           if(result.ok){
             applicationStatus.textContent =
-              "Thank you for applying to FTH D-UNIQ. Your application has been received. Shortlisted candidates will be contacted for the next stage. " +
-              result.remaining + " application slot(s) remaining.";
+              "Thank you for applying to FTH D-UNIQ. Your application has been received and will be reviewed. Shortlisted candidates will be contacted for the next stage.";
 
             careerForm.reset();
 
             if(result.closed){
-              closeApplications("Applications are now closed. The 50-application limit has been reached.");
+              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
             }
           }else{
             if(result.closed){
-              closeApplications(result.message);
+              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
             }else{
               applicationStatus.textContent =
                 result.message || "Application could not be submitted. Please try again.";
