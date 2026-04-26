@@ -9,4 +9,4 @@ run_worker_first = ["/api/*"]
 
 [[kv_namespaces]]
 binding = "CAREER_KV"
-id = "id = "766e6fb28eb04977a2cded6e3c60ee",
+id = "766e6fb28eb04977a2cded6e3c60ee79"
