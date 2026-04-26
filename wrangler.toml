@@ -6,3 +6,7 @@ compatibility_date = "2026-04-26"
 directory = "."
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
+
+[[kv_namespaces]]
+binding = "CAREER_KV"
+id = "re_hjTuSFyH_2UUNSu3A5RoKDNhESqDKNW7M"
