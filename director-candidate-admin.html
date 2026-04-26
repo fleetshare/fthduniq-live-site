@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTH D-UNIQ | Director Candidate Admin</title>
+  <meta name="description" content="Director-only candidate recruitment administration page for FTH D-UNIQ.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .director-page .director-shell{
+      padding-top:12px;
+    }
+
+    .director-card{
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .director-card h1,
+    .director-card h2{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.1rem, 5vw, 3.6rem);
+      line-height:1;
+      letter-spacing:-0.03em;
+    }
+
+    .director-card p{
+      color:var(--muted);
+      line-height:1.75;
+      margin:0 0 18px;
+      max-width:76ch;
+    }
+
+    .director-form{
+      display:grid;
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .director-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .director-field{
+      display:grid;
+      gap:8px;
+    }
+
+    .director-field.full-span{
+      grid-column:1 / -1;
+    }
+
+    .director-field label{
+      font-size:.92rem;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .director-field input,
+    .director-field select,
+    .director-field textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(199,155,53,.16);
+      background:#fff;
+      color:var(--text);
+      font:inherit;
+      outline:none;
+    }
+
+    .director-field textarea{
+      min-height:118px;
+      resize:vertical;
+    }
+
+    .director-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .status-box{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.16);
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .director-dashboard{
+      display:none;
+      gap:22px;
+      margin-top:22px;
+    }
+
+    .director-tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:0 0 18px;
+    }
+
+    .director-tab{
+      border:1px solid rgba(199,155,53,.16);
+      background:#fff;
+      color:var(--text);
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .director-tab.active,
+    .director-tab:hover{
+      background:rgba(199,155,53,.12);
+      border-color:rgba(199,155,53,.28);
+    }
+
+    .director-panel{
+      display:none;
+    }
+
+    .director-panel.active{
+      display:block;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border-radius:18px;
+      border:1px solid rgba(199,155,53,.14);
+      background:#fff;
+      margin-top:18px;
+    }
+
+    table{
+      width:100%;
+      min-width:980px;
+      border-collapse:collapse;
+    }
+
+    th,
+    td{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(199,155,53,.10);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      color:var(--gold-deep);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.82rem;
+    }
+
+    td{
+      color:#433a34;
+      line-height:1.5;
+    }
+
+    .copy-code{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(199,155,53,.18);
+      background:rgba(199,155,53,.10);
+      color:var(--text);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:.86rem;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:8px;
+    }
+
+    .private-warning{
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(199,155,53,.10);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--text);
+      line-height:1.8;
+      margin-top:18px;
+    }
+
+    .generated-box{
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(199,155,53,.10);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--text);
+      line-height:1.8;
+      margin-top:18px;
+    }
+
+    @media (max-width:768px){
+      .director-card{
+        padding:22px;
+      }
+
+      .director-grid{
+        grid-template-columns:1fr;
+      }
+
+      .director-actions .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="director-page">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand-top">
+        <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
+          <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
+            <source src="assets/hero_brand_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell director-shell">
+    <section class="section">
+      <div class="container">
+
+        <div class="director-card" id="directorLoginCard">
+          <div class="section-label">Director Access</div>
+          <h1>Candidate Recruitment Admin</h1>
+
+          <p>
+            This page is restricted to FTH D-UNIQ director use only. Enter your master access code to generate candidate access, update recruitment stages, and manage candidate records.
+          </p>
+
+          <form id="directorLoginForm" class="director-form">
+            <div class="director-grid">
+              <div class="director-field">
+                <label for="directorKey">Director / Master Access Code</label>
+                <input id="directorKey" name="directorKey" type="password" placeholder="Enter master access code" required>
+              </div>
+            </div>
+
+            <div class="director-actions">
+              <button type="submit" class="btn btn-primary">Open Director Dashboard</button>
+            </div>
+
+            <div id="directorLoginStatus" class="status-box">
+              Director access is required.
+            </div>
+          </form>
+
+          <div class="private-warning">
+            This page is not for public website navigation. Do not share this page with applicants or unauthorized staff.
+          </div>
+        </div>
+
+        <div id="directorDashboard" class="director-dashboard">
+          <div class="director-card">
+            <div class="section-label">Director Dashboard</div>
+            <h2>Candidate Access Management</h2>
+
+            <p>
+              Generate interview access codes, update candidate stages, and view candidate records from one private dashboard.
+            </p>
+
+            <div class="director-tabs">
+              <button class="director-tab active" type="button" data-panel="createPanel">Generate Access</button>
+              <button class="director-tab" type="button" data-panel="updatePanel">Update Candidate Stage</button>
+              <button class="director-tab" type="button" data-panel="listPanel">Candidate Records</button>
+            </div>
+
+            <div id="createPanel" class="director-panel active">
+              <form id="createCandidateForm" class="director-form">
+                <div class="director-grid">
+                  <div class="director-field">
+                    <label for="candidateName">Candidate Name</label>
+                    <input id="candidateName" name="name" type="text" placeholder="Candidate full name" required>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="candidateEmail">Candidate Email</label>
+                    <input id="candidateEmail" name="email" type="email" placeholder="Candidate email address" required>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="candidateRole">Role Applied For</label>
+                    <select id="candidateRole" name="role" required>
+                      <option value="">Select role</option>
+                      <option>Business Support Officer</option>
+                      <option>Logistics &amp; Delivery Coordination Officer</option>
+                      <option>Social Media &amp; Digital Communications Officer</option>
+                      <option>Truck Driver</option>
+                    </select>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="accessType">Access Type</label>
+                    <select id="accessType" name="accessType" required>
+                      <option value="interview">Interview Access Code</option>
+                      <option value="documentation">Pre-Documentation Screening Code</option>
+                    </select>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="interviewDate">Interview Date</label>
+                    <input id="interviewDate" name="interviewDate" type="text" placeholder="Immediate / To be communicated / date">
+                  </div>
+
+                  <div class="director-field">
+                    <label for="interviewTime">Interview Time</label>
+                    <input id="interviewTime" name="interviewTime" type="text" placeholder="Immediate / To be communicated / time">
+                  </div>
+
+                  <div class="director-field full-span">
+                    <label for="meetUrl">Google Meet Interview Room</label>
+                    <input id="meetUrl" name="meetUrl" type="url" value="https://meet.google.com/ixd-aoht-oup">
+                  </div>
+
+                  <div class="director-field full-span">
+                    <label for="candidateMessage">Candidate Dashboard Message Optional</label>
+                    <textarea id="candidateMessage" name="message" placeholder="Optional message. Leave empty to use the standard automated message."></textarea>
+                  </div>
+                </div>
+
+                <div class="director-actions">
+                  <button type="submit" class="btn btn-primary">Generate Candidate Access</button>
+                  <button type="button" id="refreshAfterCreate" class="btn btn-secondary">Refresh Records</button>
+                </div>
+
+                <div id="createStatus" class="status-box">
+                  Generated access details will appear here.
+                </div>
+              </form>
+            </div>
+
+            <div id="updatePanel" class="director-panel">
+              <form id="updateCandidateForm" class="director-form">
+                <div class="director-grid">
+                  <div class="director-field">
+                    <label for="updateCode">Candidate Access Code</label>
+                    <input id="updateCode" name="candidateCode" type="text" placeholder="Enter candidate access code" required>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="updateEmail">Candidate Email</label>
+                    <input id="updateEmail" name="candidateEmail" type="email" placeholder="Candidate email address" required>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="updateStage">New Stage</label>
+                    <select id="updateStage" name="stage" required>
+                      <option value="">Select stage</option>
+                      <option value="shortlisted_interview">Shortlisted for Interview</option>
+                      <option value="interview_completed">Interview Completed — Awaiting Decision</option>
+                      <option value="physical_interview">Physical Interview Stage</option>
+                      <option value="documentation_screening">Pre-Documentation Screening</option>
+                      <option value="documents_received">Documents Received — Under Review</option>
+                      <option value="final_selected">Final Selected</option>
+                      <option value="not_selected">Not Selected</option>
+                    </select>
+                  </div>
+
+                  <div class="director-field">
+                    <label for="sendEmailNotice">Send Email Notice?</label>
+                    <select id="sendEmailNotice" name="sendEmailNotice">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+
+                  <div class="director-field full-span">
+                    <label for="updateMessage">Updated Dashboard Message Optional</label>
+                    <textarea id="updateMessage" name="message" placeholder="Optional message. Leave empty to use the standard automated message for this stage."></textarea>
+                  </div>
+                </div>
+
+                <div class="director-actions">
+                  <button type="submit" class="btn btn-primary">Update Candidate Stage</button>
+                </div>
+
+                <div id="updateStatus" class="status-box">
+                  Candidate update status will appear here.
+                </div>
+              </form>
+            </div>
+
+            <div id="listPanel" class="director-panel">
+              <div class="director-actions">
+                <button type="button" id="refreshCandidateList" class="btn btn-primary">Refresh Candidate Records</button>
+              </div>
+
+              <div id="candidateListArea" class="status-box">
+                Candidate records will appear here after loading.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div class="footer-brand-block">
+        <strong>FTH D-UNIQ</strong>
+        <div class="footer-meta">Business Name Registration No. 2660716</div>
+        <div class="footer-meta">Director-only candidate admin page</div>
+      </div>
+
+      <div class="footer-social-block">
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let directorKeyValue = "";
+
+    const directorLoginForm = document.getElementById("directorLoginForm");
+    const directorLoginStatus = document.getElementById("directorLoginStatus");
+    const directorLoginCard = document.getElementById("directorLoginCard");
+    const directorDashboard = document.getElementById("directorDashboard");
+
+    const createCandidateForm = document.getElementById("createCandidateForm");
+    const createStatus = document.getElementById("createStatus");
+
+    const updateCandidateForm = document.getElementById("updateCandidateForm");
+    const updateStatus = document.getElementById("updateStatus");
+
+    const refreshCandidateList = document.getElementById("refreshCandidateList");
+    const refreshAfterCreate = document.getElementById("refreshAfterCreate");
+    const candidateListArea = document.getElementById("candidateListArea");
+
+    const tabs = document.querySelectorAll(".director-tab");
+    const panels = document.querySelectorAll(".director-panel");
+
+    tabs.forEach(function(tab){
+      tab.addEventListener("click", function(){
+        const panelId = tab.getAttribute("data-panel");
+
+        tabs.forEach(function(item){
+          item.classList.remove("active");
+        });
+
+        panels.forEach(function(panel){
+          panel.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+        document.getElementById(panelId).classList.add("active");
+      });
+    });
+
+    directorLoginForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      directorLoginStatus.textContent = "Checking director access. Please wait...";
+
+      const directorKey = document.getElementById("directorKey").value.trim();
+
+      try{
+        const response = await fetch("/api/director-login", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ directorKey })
+        });
+
+        const result = await response.json();
+
+        if(!result.ok){
+          directorLoginStatus.textContent = result.message || "Director access could not be verified.";
+          return;
+        }
+
+        directorKeyValue = directorKey;
+        directorLoginCard.classList.add("hidden");
+        directorDashboard.style.display = "grid";
+        loadCandidateList();
+
+      }catch(error){
+        directorLoginStatus.textContent = "Director access could not be verified. Please try again.";
+      }
+    });
+
+    createCandidateForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      createStatus.textContent = "Generating candidate access. Please wait...";
+
+      const payload = {
+        directorKey: directorKeyValue,
+        name: document.getElementById("candidateName").value.trim(),
+        email: document.getElementById("candidateEmail").value.trim(),
+        role: document.getElementById("candidateRole").value.trim(),
+        accessType: document.getElementById("accessType").value.trim(),
+        interviewDate: document.getElementById("interviewDate").value.trim(),
+        interviewTime: document.getElementById("interviewTime").value.trim(),
+        meetUrl: document.getElementById("meetUrl").value.trim(),
+        message: document.getElementById("candidateMessage").value.trim()
+      };
+
+      try{
+        const response = await fetch("/api/director-create-candidate", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if(result.ok){
+          createStatus.innerHTML =
+            "<div class='generated-box'>" +
+            "<strong>Candidate access created successfully.</strong><br>" +
+            "<strong>Access Code:</strong> " + escapeText(result.candidate.code) + "<br>" +
+            "<strong>Candidate Email:</strong> " + escapeText(result.candidate.email) + "<br>" +
+            "<strong>Portal:</strong> https://www.fthduniq.com/candidate-portal.html<br>" +
+            "<button type='button' class='copy-code' data-code='" + escapeText(result.candidate.code) + "'>Copy Access Code</button>" +
+            "</div>";
+
+          createCandidateForm.reset();
+          document.getElementById("meetUrl").value = "https://meet.google.com/ixd-aoht-oup";
+          bindCopyButtons();
+          loadCandidateList();
+        }else{
+          createStatus.textContent = result.message || "Candidate access could not be created.";
+        }
+      }catch(error){
+        createStatus.textContent = "Candidate access could not be created. Please try again.";
+      }
+    });
+
+    updateCandidateForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      updateStatus.textContent = "Updating candidate stage. Please wait...";
+
+      const payload = {
+        directorKey: directorKeyValue,
+        candidateCode: document.getElementById("updateCode").value.trim(),
+        candidateEmail: document.getElementById("updateEmail").value.trim(),
+        stage: document.getElementById("updateStage").value.trim(),
+        sendEmailNotice: document.getElementById("sendEmailNotice").value.trim(),
+        message: document.getElementById("updateMessage").value.trim()
+      };
+
+      try{
+        const response = await fetch("/api/director-update-candidate", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if(result.ok){
+          updateStatus.textContent = result.message || "Candidate stage updated successfully.";
+          updateCandidateForm.reset();
+          loadCandidateList();
+        }else{
+          updateStatus.textContent = result.message || "Candidate stage could not be updated.";
+        }
+      }catch(error){
+        updateStatus.textContent = "Candidate stage could not be updated. Please try again.";
+      }
+    });
+
+    refreshCandidateList.addEventListener("click", function(){
+      loadCandidateList();
+    });
+
+    refreshAfterCreate.addEventListener("click", function(){
+      loadCandidateList();
+    });
+
+    async function loadCandidateList(){
+      candidateListArea.textContent = "Loading candidate records...";
+
+      try{
+        const response = await fetch("/api/director-list-candidates", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ directorKey: directorKeyValue })
+        });
+
+        const result = await response.json();
+
+        if(!result.ok){
+          candidateListArea.textContent = result.message || "Candidate records could not be loaded.";
+          return;
+        }
+
+        const candidates = result.candidates || [];
+
+        if(!candidates.length){
+          candidateListArea.textContent = "No candidate access records yet.";
+          return;
+        }
+
+        candidateListArea.innerHTML = `
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Stage</th>
+                  <th>Portal</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${candidates.map(function(item){
+                  return `
+                    <tr>
+                      <td>
+                        ${escapeText(item.code)}
+                        <br>
+                        <button type="button" class="copy-code" data-code="${escapeText(item.code)}">Copy</button>
+                      </td>
+                      <td>${escapeText(item.name)}</td>
+                      <td>${escapeText(item.email)}</td>
+                      <td>${escapeText(item.role)}</td>
+                      <td>${escapeText(item.statusLabel || item.stage)}</td>
+                      <td>candidate-portal.html</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        bindCopyButtons();
+
+      }catch(error){
+        candidateListArea.textContent = "Candidate records could not be loaded. Please try again.";
+      }
+    }
+
+    function bindCopyButtons(){
+      const buttons = document.querySelectorAll(".copy-code");
+
+      buttons.forEach(function(button){
+        button.onclick = async function(){
+          const code = button.getAttribute("data-code");
+
+          try{
+            await navigator.clipboard.writeText(code);
+            button.textContent = "Copied";
+          }catch(error){
+            button.textContent = "Copy failed";
+          }
+        };
+      });
+    }
+
+    function escapeText(value){
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
