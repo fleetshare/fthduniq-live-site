@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Candidate Portal</title>
-  <meta name="description" content="Private candidate portal for shortlisted FTH D-UNIQ applicants.">
+  <meta name="description" content="Shortlisted candidate portal for FTH D-UNIQ recruitment.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,10 +16,8 @@
       padding-top:12px;
     }
 
-    .candidate-login-card,
-    .candidate-dashboard-card,
-    .candidate-upload-card,
-    .candidate-master-card{
+    .candidate-access-card,
+    .candidate-dashboard-card{
       padding:28px;
       border-radius:var(--radius);
       background:rgba(255,255,255,.62);
@@ -27,21 +25,17 @@
       box-shadow:var(--shadow);
     }
 
-    .candidate-login-card h1,
-    .candidate-dashboard-card h2,
-    .candidate-upload-card h2,
-    .candidate-master-card h2{
+    .candidate-access-card h1,
+    .candidate-dashboard-card h2{
       margin:0 0 12px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.2rem, 5vw, 3.6rem);
+      font-size:clamp(2.1rem, 5vw, 3.6rem);
       line-height:1;
       letter-spacing:-0.03em;
     }
 
-    .candidate-login-card p,
-    .candidate-dashboard-card p,
-    .candidate-upload-card p,
-    .candidate-master-card p{
+    .candidate-access-card p,
+    .candidate-dashboard-card p{
       color:var(--muted);
       line-height:1.75;
       margin:0 0 18px;
@@ -65,18 +59,13 @@
       gap:8px;
     }
 
-    .candidate-field.full-span{
-      grid-column:1 / -1;
-    }
-
     .candidate-field label{
       font-size:.92rem;
       font-weight:600;
       color:var(--text);
     }
 
-    .candidate-field input,
-    .candidate-field textarea{
+    .candidate-field input{
       width:100%;
       padding:14px 16px;
       border-radius:16px;
@@ -87,9 +76,9 @@
       outline:none;
     }
 
-    .candidate-field textarea{
-      min-height:120px;
-      resize:vertical;
+    .candidate-field input:focus{
+      border-color:rgba(199,155,53,.45);
+      box-shadow:0 0 0 3px rgba(199,155,53,.10);
     }
 
     .candidate-actions{
@@ -168,55 +157,13 @@
       line-height:1;
     }
 
-    .document-list{
-      margin:12px 0 0;
-      padding-left:1.2rem;
-      color:var(--muted);
-      line-height:1.8;
-    }
-
-    .document-list li::marker{
-      color:var(--gold-deep);
-    }
-
     .hidden{
       display:none !important;
     }
 
-    .master-table-wrap{
-      overflow:auto;
-      border-radius:18px;
-      border:1px solid rgba(199,155,53,.14);
-      background:#fff;
-      margin-top:18px;
-    }
-
-    .master-table{
-      width:100%;
-      min-width:760px;
-      border-collapse:collapse;
-    }
-
-    .master-table th,
-    .master-table td{
-      padding:14px 16px;
-      border-bottom:1px solid rgba(199,155,53,.10);
-      text-align:left;
-      vertical-align:top;
-    }
-
-    .master-table th{
-      color:var(--gold-deep);
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      font-size:.82rem;
-    }
-
     @media (max-width:768px){
-      .candidate-login-card,
-      .candidate-dashboard-card,
-      .candidate-upload-card,
-      .candidate-master-card{
+      .candidate-access-card,
+      .candidate-dashboard-card{
         padding:22px;
       }
 
@@ -250,7 +197,6 @@
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
         <a href="career.html">Career</a>
-        <a class="active" href="candidate-portal.html">Candidate Portal</a>
         <a href="contact.html">Contact Us</a>
       </nav>
     </div>
@@ -259,12 +205,13 @@
   <main class="page-shell candidate-shell">
     <section class="section">
       <div class="container">
-        <div class="candidate-login-card" id="candidateLoginCard">
+        <div class="candidate-access-card" id="candidateLoginCard">
           <div class="section-label">Candidate Portal</div>
-          <h1>Private Candidate Access</h1>
+          <h1>Shortlisted Candidate Access</h1>
+
           <p>
-            This portal is for shortlisted candidates only. Please enter the access code sent to you
-            and the email address used for your application.
+            This portal is available to candidates who have been shortlisted for the next stage of FTH D-UNIQ’s recruitment process.
+            Please enter the access code sent to you and the email address used for your application.
           </p>
 
           <form id="candidateLoginForm" class="candidate-form">
@@ -291,18 +238,9 @@
           </form>
         </div>
 
-        <div id="masterDashboard" class="candidate-master-card hidden">
-          <div class="section-label">Director View</div>
-          <h2>Candidate Access Overview</h2>
-          <p>
-            This is the master overview for checking candidate codes and current stages.
-          </p>
-          <div id="masterList"></div>
-        </div>
-
         <div id="candidateDashboard" class="candidate-dashboard">
           <div class="candidate-dashboard-card">
-            <div class="section-label">Candidate Dashboard</div>
+            <div class="section-label">Interview Stage</div>
             <h2 id="candidateName">Candidate Name</h2>
 
             <div class="candidate-summary-grid">
@@ -312,7 +250,7 @@
               </div>
 
               <div class="summary-item">
-                <strong>Status</strong>
+                <strong>Stage</strong>
                 <span id="candidateStage">—</span>
               </div>
 
@@ -329,84 +267,16 @@
             <div class="interview-box" id="interviewBox">
               <h3>Interview Room</h3>
               <p id="interviewDetails">
-                Your interview details will appear here when available.
+                Interview details will appear here when available.
               </p>
 
               <div class="candidate-actions">
                 <button id="enterInterviewRoom" class="btn btn-primary" type="button">Enter Interview Room</button>
               </div>
             </div>
-          </div>
-
-          <div class="candidate-upload-card" id="documentUploadCard">
-            <div class="section-label">Pre-Resumption Documents</div>
-            <h2>Upload Required Documents</h2>
-            <p>
-              Upload the requested pre-resumption documents only if your dashboard shows that you have moved
-              to the documentation stage.
-            </p>
-
-            <ul class="document-list">
-              <li>Valid ID</li>
-              <li>Passport photograph</li>
-              <li>Qualification document</li>
-              <li>NYSC document, if applicable</li>
-              <li>Guarantor or referee details/document</li>
-              <li>Any other document requested by FTH D-UNIQ</li>
-            </ul>
-
-            <form id="candidateDocumentForm" class="candidate-form" enctype="multipart/form-data">
-              <input type="hidden" id="docCandidateCode" name="candidateCode">
-              <input type="hidden" id="docCandidateEmail" name="candidateEmail">
-
-              <div class="candidate-grid">
-                <div class="candidate-field">
-                  <label for="validId">Valid ID</label>
-                  <input id="validId" name="validId" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                </div>
-
-                <div class="candidate-field">
-                  <label for="passportPhoto">Passport Photograph</label>
-                  <input id="passportPhoto" name="passportPhoto" type="file" accept=".jpg,.jpeg,.png,.pdf">
-                </div>
-
-                <div class="candidate-field">
-                  <label for="qualificationDoc">Qualification Document</label>
-                  <input id="qualificationDoc" name="qualificationDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                </div>
-
-                <div class="candidate-field">
-                  <label for="nyscDoc">NYSC Document Optional</label>
-                  <input id="nyscDoc" name="nyscDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                </div>
-
-                <div class="candidate-field">
-                  <label for="guarantorDoc">Guarantor / Referee Document</label>
-                  <input id="guarantorDoc" name="guarantorDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                </div>
-
-                <div class="candidate-field">
-                  <label for="otherDoc">Other Requested Document</label>
-                  <input id="otherDoc" name="otherDoc" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                </div>
-
-                <div class="candidate-field full-span">
-                  <label for="candidateNotes">Notes</label>
-                  <textarea id="candidateNotes" name="candidateNotes" placeholder="Add any note about your uploaded documents."></textarea>
-                </div>
-              </div>
-
-              <div class="candidate-actions">
-                <button type="submit" class="btn btn-primary">Submit Documents</button>
-              </div>
-
-              <div id="documentStatus" class="candidate-status-box">
-                Document upload status will appear here.
-              </div>
-            </form>
 
             <div class="candidate-status-box">
-              Final employment documentation will be completed physically at resumption after document verification.
+              After the interview, FTH D-UNIQ will communicate the next stage to selected candidates through official contact channels.
             </div>
           </div>
         </div>
@@ -456,14 +326,16 @@
   </footer>
 
   <script>
-    let currentCandidate = null;
+    /*
+      This Google Meet link is attached to the button only.
+      It will not show as raw text on the candidate dashboard.
+    */
+    const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
 
-    const loginForm = document.getElementById("candidateLoginForm");
+    const candidateLoginForm = document.getElementById("candidateLoginForm");
     const loginStatus = document.getElementById("loginStatus");
-    const loginCard = document.getElementById("candidateLoginCard");
+    const candidateLoginCard = document.getElementById("candidateLoginCard");
     const candidateDashboard = document.getElementById("candidateDashboard");
-    const masterDashboard = document.getElementById("masterDashboard");
-    const masterList = document.getElementById("masterList");
 
     const candidateName = document.getElementById("candidateName");
     const candidateRole = document.getElementById("candidateRole");
@@ -472,14 +344,8 @@
     const candidateMessage = document.getElementById("candidateMessage");
     const interviewDetails = document.getElementById("interviewDetails");
     const enterInterviewRoom = document.getElementById("enterInterviewRoom");
-    const documentUploadCard = document.getElementById("documentUploadCard");
 
-    const docCandidateCode = document.getElementById("docCandidateCode");
-    const docCandidateEmail = document.getElementById("docCandidateEmail");
-    const documentForm = document.getElementById("candidateDocumentForm");
-    const documentStatus = document.getElementById("documentStatus");
-
-    loginForm.addEventListener("submit", async function(e){
+    candidateLoginForm.addEventListener("submit", async function(e){
       e.preventDefault();
 
       loginStatus.textContent = "Checking access details. Please wait...";
@@ -490,13 +356,8 @@
       try{
         const response = await fetch("/api/candidate-login", {
           method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            candidateCode,
-            candidateEmail
-          })
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ candidateCode, candidateEmail })
         });
 
         const result = await response.json();
@@ -506,141 +367,33 @@
           return;
         }
 
-        loginCard.classList.add("hidden");
-
-        if(result.master){
-          showMasterDashboard(result.candidates || []);
-          return;
-        }
-
-        currentCandidate = result.candidate;
-        showCandidateDashboard(currentCandidate);
+        showCandidateDashboard(result.candidate);
 
       }catch(error){
         loginStatus.textContent = "Access could not be verified. Please try again.";
       }
     });
 
-    function showMasterDashboard(candidates){
-      masterDashboard.classList.remove("hidden");
-
-      if(!candidates.length){
-        masterList.innerHTML = "<p>No candidate records found.</p>";
-        return;
-      }
-
-      masterList.innerHTML = `
-        <div class="master-table-wrap">
-          <table class="master-table">
-            <thead>
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Interview</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${candidates.map(function(item){
-                return `
-                  <tr>
-                    <td>${item.code}</td>
-                    <td>${item.name}</td>
-                    <td>${item.email}</td>
-                    <td>${item.role}</td>
-                    <td>${item.statusLabel}</td>
-                    <td>${item.interviewDate || "To be communicated"} ${item.interviewTime || ""}</td>
-                  </tr>
-                `;
-              }).join("")}
-            </tbody>
-          </table>
-        </div>
-      `;
-    }
-
     function showCandidateDashboard(candidate){
+      candidateLoginCard.classList.add("hidden");
       candidateDashboard.style.display = "grid";
 
-      candidateName.textContent = candidate.name;
-      candidateRole.textContent = candidate.role;
-      candidateStage.textContent = candidate.statusLabel;
-      candidateNextStep.textContent = candidate.nextStep;
-      candidateMessage.textContent = candidate.message;
+      candidateName.textContent = candidate.name || "Candidate";
+      candidateRole.textContent = candidate.role || "—";
+      candidateStage.textContent = candidate.statusLabel || "Shortlisted for Interview";
+      candidateNextStep.textContent = candidate.nextStep || "Attend your interview.";
+      candidateMessage.textContent =
+        candidate.message ||
+        "You have been shortlisted for the interview stage. Please click the interview room button when you are ready for your interview.";
 
-      if(candidate.interviewDate || candidate.interviewTime){
-        interviewDetails.textContent =
-          "Interview Date: " + (candidate.interviewDate || "To be communicated") +
-          " | Time: " + (candidate.interviewTime || "To be communicated") +
-          ". Click the button below at the scheduled time.";
-      }else{
-        interviewDetails.textContent = "Interview details will be communicated when scheduled.";
-      }
+      interviewDetails.textContent =
+        "Your interview will be conducted through the official FTH D-UNIQ interview room. Click Enter Interview Room when you are ready.";
 
       enterInterviewRoom.onclick = function(){
-        if(candidate.meetUrl){
-          window.open(candidate.meetUrl, "_blank");
-        }else{
-          alert("Interview room is not yet available for this candidate.");
-        }
+        const interviewRoom = candidate.meetUrl || DEFAULT_INTERVIEW_ROOM;
+        window.open(interviewRoom, "_blank");
       };
-
-      docCandidateCode.value = candidate.code;
-      docCandidateEmail.value = candidate.email;
-
-      if(candidate.canUploadDocuments){
-        documentUploadCard.classList.remove("hidden");
-      }else{
-        documentUploadCard.classList.add("hidden");
-      }
     }
-
-    documentForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-
-      documentStatus.textContent = "Submitting documents. Please wait...";
-
-      const files = documentForm.querySelectorAll("input[type='file']");
-      let hasFile = false;
-
-      files.forEach(function(input){
-        if(input.files && input.files.length > 0){
-          hasFile = true;
-        }
-      });
-
-      if(!hasFile){
-        documentStatus.textContent = "Please upload at least one document before submitting.";
-        return;
-      }
-
-      const formData = new FormData(documentForm);
-
-      try{
-        const response = await fetch("/api/candidate-documents", {
-          method:"POST",
-          body:formData
-        });
-
-        const result = await response.json();
-
-        if(result.ok){
-          documentStatus.textContent = "Your documents have been submitted successfully. FTH D-UNIQ will review and contact you with further instructions.";
-          documentForm.reset();
-
-          if(currentCandidate){
-            docCandidateCode.value = currentCandidate.code;
-            docCandidateEmail.value = currentCandidate.email;
-          }
-        }else{
-          documentStatus.textContent = result.message || "Documents could not be submitted.";
-        }
-      }catch(error){
-        documentStatus.textContent = "Documents could not be submitted. Please try again.";
-      }
-    });
 
     document.addEventListener("contextmenu", function(e){
       if(!e.target.closest("input, textarea, select, button, a")){
