@@ -4,34 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Career</title>
-  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, social media, digital communications, truck driving, and structured execution.">
+  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, digital communications, and truck driving roles.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .career-application-card{
-      padding:28px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(199,155,53,.12);
-      box-shadow:var(--shadow);
+    .career-page .career-hero{
+      padding-top:10px;
     }
 
-    .career-application-card h2{
+    .career-hero-text{
+      max-width:68ch;
+      color:var(--muted);
+      line-height:1.85;
+      font-size:1.02rem;
+    }
+
+    .career-application-dropdown{
+      margin-top:22px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .career-application-dropdown summary{
+      list-style:none;
+      cursor:pointer;
+      padding:22px 26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      font-weight:700;
+      color:var(--text);
+      font-size:1rem;
+    }
+
+    .career-application-dropdown summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .career-application-dropdown summary::after{
+      content:"+";
+      font-size:1.5rem;
+      line-height:1;
+      color:var(--gold-deep);
+      flex:0 0 auto;
+    }
+
+    .career-application-dropdown[open] summary::after{
+      content:"−";
+    }
+
+    .application-panel{
+      padding:0 26px 28px;
+    }
+
+    .application-panel h2{
       margin:0 0 10px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem,4vw,2.8rem);
+      font-size:clamp(2rem, 4vw, 2.9rem);
       line-height:1;
-      letter-spacing:-.02em;
+      letter-spacing:-0.02em;
     }
 
-    .career-application-card p{
-      margin:0 0 22px;
+    .application-panel p{
       color:var(--muted);
       line-height:1.75;
-      max-width:68ch;
+      margin:0 0 18px;
+      max-width:70ch;
     }
 
     .application-form{
@@ -41,28 +87,29 @@
 
     .application-grid{
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:16px;
     }
 
-    .form-group{
+    .application-field{
       display:grid;
       gap:8px;
     }
 
-    .form-group.full-span{
+    .application-field.full-span{
       grid-column:1 / -1;
     }
 
-    .form-group label{
-      font-size:.92rem;
+    .application-field label,
+    .application-field span{
+      font-size:0.92rem;
       font-weight:600;
       color:var(--text);
     }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea{
+    .application-field input,
+    .application-field select,
+    .application-field textarea{
       width:100%;
       padding:14px 16px;
       border-radius:16px;
@@ -73,27 +120,50 @@
       outline:none;
     }
 
-    .form-group textarea{
+    .application-field textarea{
       min-height:130px;
       resize:vertical;
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus{
+    .application-field input:focus,
+    .application-field select:focus,
+    .application-field textarea:focus{
       border-color:rgba(199,155,53,.45);
       box-shadow:0 0 0 3px rgba(199,155,53,.10);
     }
 
-    .application-note{
-      margin-top:10px;
+    .application-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .application-status{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(199,155,53,.14);
       color:var(--muted);
-      font-size:.92rem;
       line-height:1.7;
+      font-size:0.95rem;
+    }
+
+    .application-closed-box{
+      display:none;
+      margin-top:18px;
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--muted);
+      line-height:1.8;
     }
 
     .shortlisted-note{
-      padding:24px 26px;
+      margin-top:22px;
+      padding:22px;
       border-radius:var(--radius);
       background:rgba(255,255,255,.58);
       border:1px solid rgba(199,155,53,.12);
@@ -101,35 +171,33 @@
     }
 
     .shortlisted-note h2{
-      margin:0 0 10px;
+      margin:0 0 8px;
       font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem,4vw,2.7rem);
+      font-size:clamp(1.8rem, 4vw, 2.6rem);
       line-height:1;
-      letter-spacing:-.02em;
+      letter-spacing:-0.02em;
     }
 
     .shortlisted-note p{
       margin:0;
       color:var(--muted);
       line-height:1.75;
-      max-width:68ch;
     }
 
-    @media (max-width:768px){
-      .career-application-card{
-        padding:22px;
-      }
-
+    @media (max-width: 768px){
       .application-grid{
         grid-template-columns:1fr;
       }
 
-      .career-application-card h2,
-      .shortlisted-note h2{
-        font-size:clamp(1.9rem,7vw,2.4rem);
+      .application-panel{
+        padding:0 18px 24px;
       }
 
-      .application-form .btn{
+      .career-application-dropdown summary{
+        padding:20px 18px;
+      }
+
+      .application-actions .btn{
         width:100%;
       }
     }
@@ -168,14 +236,15 @@
           <span>Build with FTH D-UNIQ</span>
         </h1>
 
-        <p class="career-hero-text career-lead">
-          We welcome applications from people who want to support building materials supply and procurement,
-          logistics coordination, administration, digital communications, truck operations, and structured
-          execution across our business activities.
+        <p class="career-hero-text">
+          We welcome applications from people who can support business operations, customer communication,
+          logistics coordination, digital communication, documentation, and structured execution across our
+          building materials supply, procurement, logistics coordination, and project support activities.
         </p>
 
         <div class="career-actions">
-          <a class="btn btn-primary" href="#apply-now">Apply Now</a>
+          <a class="btn btn-primary" href="#apply">Apply Now</a>
+          <a class="btn btn-secondary" href="contact.html">Contact Us</a>
         </div>
       </div>
     </section>
@@ -184,8 +253,7 @@
       <div class="container career-grid">
         <article class="career-card">
           <div class="career-card-kicker">Open Opportunities</div>
-          <h2>Roles we are currently reviewing</h2>
-
+          <h2>Roles we are open to reviewing</h2>
           <ul class="career-list">
             <li>Business Support Officer</li>
             <li>Logistics &amp; Delivery Coordination Officer</li>
@@ -197,123 +265,123 @@
         <article class="career-card">
           <div class="career-card-kicker">Application Process</div>
           <h2>Recruitment flow</h2>
-
           <ol class="career-process">
-            <li>Submit your application details, CV, and optional cover letter.</li>
-            <li>Applications are reviewed based on role fit, location, experience, and business needs.</li>
-            <li>Shortlisted candidates are contacted for the next stage.</li>
-            <li>Interview details are shared through email, phone, or WhatsApp follow-up.</li>
-            <li>Final successful candidates receive resumption details and access instructions.</li>
+            <li>Submit your application details and upload your CV.</li>
+            <li>Applications are reviewed based on role fit, location, communication, and relevant experience.</li>
+            <li>Only shortlisted candidates will be contacted for the next stage.</li>
+            <li>Interview details may be shared through email, WhatsApp, or phone call.</li>
+            <li>Successful candidates receive further instructions before resumption.</li>
           </ol>
         </article>
       </div>
     </section>
 
-    <section class="section" id="apply-now">
+    <section class="section" id="apply">
       <div class="container">
-        <div class="career-application-card">
-          <div class="section-label">Application Form</div>
+        <details class="career-application-dropdown">
+          <summary>Apply Now — Submit CV</summary>
 
-          <h2>Apply to Join FTH D-UNIQ</h2>
+          <div class="application-panel">
+            <h2>Apply to Join FTH D-UNIQ</h2>
+            <p>
+              Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
+              for the next stage.
+            </p>
 
-          <p>
-            Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
-            for the next stage.
-          </p>
-
-          <form class="application-form" action="https://formsubmit.co/careers@fthduniq.com" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_subject" value="New Career Application - FTH D-UNIQ">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-
-            <div class="application-grid">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input id="fullName" name="Full Name" type="text" placeholder="Enter your full name" required>
-              </div>
-
-              <div class="form-group">
-                <label for="phone">Phone Number / WhatsApp Number</label>
-                <input id="phone" name="Phone / WhatsApp Number" type="tel" placeholder="Enter your phone number" required>
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input id="email" name="Email Address" type="email" placeholder="Enter your email address" required>
-              </div>
-
-              <div class="form-group">
-                <label for="location">Location</label>
-                <input id="location" name="Location" type="text" placeholder="Enter your location" required>
-              </div>
-
-              <div class="form-group">
-                <label for="position">Position Applying For</label>
-                <select id="position" name="Position Applying For" required>
-                  <option value="">Select position</option>
-                  <option>Business Support Officer</option>
-                  <option>Logistics & Delivery Coordination Officer</option>
-                  <option>Social Media & Digital Communications Officer</option>
-                  <option>Truck Driver</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="qualification">Highest Qualification</label>
-                <select id="qualification" name="Highest Qualification" required>
-                  <option value="">Select qualification</option>
-                  <option>OND</option>
-                  <option>HND</option>
-                  <option>B.Sc.</option>
-                  <option>NYSC</option>
-                  <option>Industrial Placement Student</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="experience">Years of Relevant Experience</label>
-                <input id="experience" name="Years of Relevant Experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC, Entry level" required>
-              </div>
-
-              <div class="form-group">
-                <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
-                <select id="onsite" name="Able to work within Amuwo-Odofin / Festac axis" required>
-                  <option value="">Select answer</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
-              </div>
-
-              <div class="form-group full-span">
-                <label for="relevantExperience">Briefly describe your relevant experience</label>
-                <textarea id="relevantExperience" name="Relevant Experience" placeholder="Tell us about your experience, skills, and why you are suitable for the role." required></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="cv">Upload CV</label>
-                <input id="cv" name="CV" type="file" accept=".pdf,.doc,.docx" required>
-              </div>
-
-              <div class="form-group">
-                <label for="coverLetter">Upload Cover Letter Optional</label>
-                <input id="coverLetter" name="Cover Letter" type="file" accept=".pdf,.doc,.docx">
-              </div>
+            <div id="applicationClosedBox" class="application-closed-box">
+              Applications are currently closed. This role is no longer accepting applications at this time.
+              Please check back when a new opportunity is listed.
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit Application</button>
+            <form id="careerApplicationForm" class="application-form" enctype="multipart/form-data">
+              <div class="application-grid">
+                <div class="application-field">
+                  <label for="fullName">Full Name</label>
+                  <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
+                </div>
 
-            <div class="application-note">
-              Thank you for applying to FTH D-UNIQ. Your application will be reviewed, and shortlisted candidates will be contacted for the next stage.
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
+                <div class="application-field">
+                  <label for="phone">Phone Number / WhatsApp Number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
+                </div>
 
-    <section class="section">
-      <div class="container">
+                <div class="application-field">
+                  <label for="email">Email Address</label>
+                  <input id="email" name="email" type="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="location">Location</label>
+                  <input id="location" name="location" type="text" placeholder="Enter your location" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="position">Position Applying For</label>
+                  <select id="position" name="position" required>
+                    <option value="">Select position</option>
+                    <option>Business Support Officer</option>
+                    <option>Logistics &amp; Delivery Coordination Officer</option>
+                    <option>Social Media &amp; Digital Communications Officer</option>
+                    <option>Truck Driver</option>
+                  </select>
+                </div>
+
+                <div class="application-field">
+                  <label for="qualification">Highest Qualification</label>
+                  <select id="qualification" name="qualification" required>
+                    <option value="">Select qualification</option>
+                    <option>OND</option>
+                    <option>HND</option>
+                    <option>B.Sc.</option>
+                    <option>NYSC</option>
+                    <option>Industrial Placement Student</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="application-field">
+                  <label for="experience">Years of Relevant Experience</label>
+                  <input id="experience" name="experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC experience" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
+                  <select id="onsite" name="onsite" required>
+                    <option value="">Select answer</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+
+                <div class="application-field full-span">
+                  <label for="relevantExperience">Briefly describe your relevant experience</label>
+                  <textarea id="relevantExperience" name="relevantExperience" placeholder="Briefly explain your experience, strengths, and why you fit the role." required></textarea>
+                </div>
+
+                <div class="application-field">
+                  <label for="cv">Upload CV</label>
+                  <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required>
+                </div>
+
+                <div class="application-field">
+                  <label for="coverLetter">Upload Cover Letter Optional</label>
+                  <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx">
+                </div>
+              </div>
+
+              <div class="application-actions">
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+                <a class="btn btn-secondary" href="mailto:careers@fthduniq.com">Email Careers</a>
+              </div>
+
+              <div id="applicationStatus" class="application-status">
+                Application status: Open.
+              </div>
+            </form>
+          </div>
+        </details>
+
         <div class="shortlisted-note">
-          <div class="section-label">Candidate Portal</div>
           <h2>Already shortlisted?</h2>
           <p>
             Candidate portal access is shared privately with shortlisted applicants after review and follow-up.
@@ -336,7 +404,6 @@
       <div class="footer-social-block">
         <div class="social-follow-block">
           <p class="social-follow-title">Follow our social media handles</p>
-
           <div class="social-row" aria-label="Social links">
             <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
@@ -366,16 +433,112 @@
   </footer>
 
   <script>
-    document.addEventListener("contextmenu", function(e){
+    /*
+      APPLICATION LIMIT CONTROL
+
+      Because this version sends applications directly by email and does not use a database,
+      the website cannot automatically know the total number of applications submitted by everyone.
+
+      To close applications manually, change APPLICATIONS_OPEN to false.
+      To show closed after 50, change APPLICATIONS_RECEIVED to 50.
+    */
+
+    const APPLICATIONS_OPEN = true;
+    const APPLICATION_LIMIT = 50;
+    const APPLICATIONS_RECEIVED = 0;
+
+    const careerForm = document.getElementById("careerApplicationForm");
+    const applicationStatus = document.getElementById("applicationStatus");
+    const applicationClosedBox = document.getElementById("applicationClosedBox");
+
+    function closeApplications(){
+      careerForm.style.display = "none";
+      applicationClosedBox.style.display = "block";
+      applicationStatus.textContent = "Applications are currently closed.";
+    }
+
+    if(!APPLICATIONS_OPEN || APPLICATIONS_RECEIVED >= APPLICATION_LIMIT){
+      closeApplications();
+    }
+
+    careerForm.addEventListener("submit", async function(e){
       e.preventDefault();
+
+      if(!APPLICATIONS_OPEN || APPLICATIONS_RECEIVED >= APPLICATION_LIMIT){
+        closeApplications();
+        return;
+      }
+
+      const cv = document.getElementById("cv").files[0];
+      const coverLetter = document.getElementById("coverLetter").files[0];
+
+      const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+      function isAllowedFile(file){
+        if(!file) return true;
+        const name = file.name.toLowerCase();
+        return allowedExtensions.some(ext => name.endsWith(ext));
+      }
+
+      if(!isAllowedFile(cv)){
+        applicationStatus.textContent = "Please upload your CV as PDF, DOC, or DOCX.";
+        return;
+      }
+
+      if(!isAllowedFile(coverLetter)){
+        applicationStatus.textContent = "Please upload your cover letter as PDF, DOC, or DOCX.";
+        return;
+      }
+
+      if(cv && cv.size > 5 * 1024 * 1024){
+        applicationStatus.textContent = "CV is too large. Please upload a file below 5MB.";
+        return;
+      }
+
+      if(coverLetter && coverLetter.size > 5 * 1024 * 1024){
+        applicationStatus.textContent = "Cover letter is too large. Please upload a file below 5MB.";
+        return;
+      }
+
+      applicationStatus.textContent = "Submitting your application. Please wait...";
+
+      const formData = new FormData(careerForm);
+
+      try{
+        const response = await fetch("/api/career-email", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if(result.ok){
+          applicationStatus.textContent = "Thank you for applying to FTH D-UNIQ. Your application has been received. Shortlisted candidates will be contacted for the next stage.";
+          careerForm.reset();
+        }else{
+          applicationStatus.textContent = result.message || "Application could not be submitted. Please try again.";
+        }
+      }catch(error){
+        applicationStatus.textContent = "Application could not be submitted. Please email your CV directly to careers@fthduniq.com.";
+      }
+    });
+
+    document.addEventListener("contextmenu", function(e){
+      if(!e.target.closest("input, textarea, select, button, a, summary")){
+        e.preventDefault();
+      }
     });
 
     document.addEventListener("copy", function(e){
-      e.preventDefault();
+      if(!e.target.closest("input, textarea")){
+        e.preventDefault();
+      }
     });
 
     document.addEventListener("dragstart", function(e){
-      e.preventDefault();
+      if(e.target.tagName === "IMG"){
+        e.preventDefault();
+      }
     });
   </script>
 </body>
