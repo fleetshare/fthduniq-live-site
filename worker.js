@@ -1,14 +1,76 @@
+const APPLICATION_LIMIT = 50;
+const APPLICATION_COUNT_KEY = "career_application_count";
+const APPLICATION_OPEN_KEY = "career_applications_open";
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/application-status" && request.method === "GET") {
+      return handleApplicationStatus(env);
+    }
 
     if (url.pathname === "/api/career-email" && request.method === "POST") {
       return handleCareerEmail(request, env);
     }
 
+    if (url.pathname === "/api/reset-application-count" && request.method === "POST") {
+      return handleResetApplicationCount(request, env);
+    }
+
     return env.ASSETS.fetch(request);
   }
 };
+
+async function getApplicationCount(env) {
+  const current = await env.CAREER_KV.get(APPLICATION_COUNT_KEY);
+  const count = Number(current || "0");
+  return Number.isFinite(count) ? count : 0;
+}
+
+async function isApplicationOpen(env) {
+  const openValue = await env.CAREER_KV.get(APPLICATION_OPEN_KEY);
+
+  if (openValue === "false") {
+    return false;
+  }
+
+  return true;
+}
+
+async function handleApplicationStatus(env) {
+  const count = await getApplicationCount(env);
+  const manuallyOpen = await isApplicationOpen(env);
+  const remaining = Math.max(APPLICATION_LIMIT - count, 0);
+  const open = manuallyOpen && count < APPLICATION_LIMIT;
+
+  return Response.json({
+    ok: true,
+    open,
+    count,
+    limit: APPLICATION_LIMIT,
+    remaining
+  });
+}
+
+async function handleResetApplicationCount(request, env) {
+  const adminKey = request.headers.get("x-admin-key");
+
+  if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+    return Response.json(
+      { ok: false, message: "Unauthorized." },
+      { status: 401 }
+    );
+  }
+
+  await env.CAREER_KV.put(APPLICATION_COUNT_KEY, "0");
+  await env.CAREER_KV.put(APPLICATION_OPEN_KEY, "true");
+
+  return Response.json({
+    ok: true,
+    message: "Application count reset to 0 and applications reopened."
+  });
+}
 
 async function handleCareerEmail(request, env) {
   try {
@@ -16,6 +78,27 @@ async function handleCareerEmail(request, env) {
       return Response.json(
         { ok: false, message: "RESEND_API_KEY is not set in Cloudflare." },
         { status: 500 }
+      );
+    }
+
+    if (!env.CAREER_KV) {
+      return Response.json(
+        { ok: false, message: "CAREER_KV binding is not set in Cloudflare." },
+        { status: 500 }
+      );
+    }
+
+    const countBefore = await getApplicationCount(env);
+    const manuallyOpen = await isApplicationOpen(env);
+
+    if (!manuallyOpen || countBefore >= APPLICATION_LIMIT) {
+      return Response.json(
+        {
+          ok: false,
+          closed: true,
+          message: "Applications are currently closed. The application limit has been reached."
+        },
+        { status: 403 }
       );
     }
 
@@ -82,10 +165,11 @@ async function handleCareerEmail(request, env) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
 
-    const subject = `Career Application - ${position} - ${fullName}`;
+    const subject = `Career Application ${countBefore + 1} of ${APPLICATION_LIMIT} - ${position} - ${fullName}`;
 
     const textBody =
       `New Career Application - FTH D-UNIQ\n\n` +
+      `Application Number: ${countBefore + 1} of ${APPLICATION_LIMIT}\n\n` +
       `Full Name: ${fullName}\n` +
       `Phone / WhatsApp Number: ${phone}\n` +
       `Email Address: ${email}\n` +
@@ -99,6 +183,7 @@ async function handleCareerEmail(request, env) {
 
     const htmlBody =
       `<h2>New Career Application - FTH D-UNIQ</h2>` +
+      `<p><strong>Application Number:</strong> ${countBefore + 1} of ${APPLICATION_LIMIT}</p>` +
       `<p><strong>Full Name:</strong> ${safe(fullName)}</p>` +
       `<p><strong>Phone / WhatsApp Number:</strong> ${safe(phone)}</p>` +
       `<p><strong>Email Address:</strong> ${safe(email)}</p>` +
@@ -121,10 +206,10 @@ async function handleCareerEmail(request, env) {
         from: "FTH D-UNIQ Careers <onboarding@resend.dev>",
         to: ["careers@fthduniq.com"],
         reply_to: email,
-        subject: subject,
+        subject,
         text: textBody,
         html: htmlBody,
-        attachments: attachments
+        attachments
       })
     });
 
@@ -141,9 +226,20 @@ async function handleCareerEmail(request, env) {
       );
     }
 
+    const newCount = countBefore + 1;
+    await env.CAREER_KV.put(APPLICATION_COUNT_KEY, String(newCount));
+
+    if (newCount >= APPLICATION_LIMIT) {
+      await env.CAREER_KV.put(APPLICATION_OPEN_KEY, "false");
+    }
+
     return Response.json({
       ok: true,
-      message: "Application submitted successfully."
+      message: "Application submitted successfully.",
+      count: newCount,
+      limit: APPLICATION_LIMIT,
+      remaining: Math.max(APPLICATION_LIMIT - newCount, 0),
+      closed: newCount >= APPLICATION_LIMIT
     });
 
   } catch (error) {
