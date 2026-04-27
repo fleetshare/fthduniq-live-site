@@ -4,6 +4,7 @@ const APPLICATION_OPEN_KEY = "career_applications_open";
 
 const APPLICANT_EMAIL_PREFIX = "career_applicant_email:";
 const APPLICANT_PHONE_PREFIX = "career_applicant_phone:";
+const APPLICANT_RECORD_PREFIX = "career_applicant_record:";
 
 const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
 
@@ -133,6 +134,14 @@ export default {
       return handleDirectorLogin(request, env);
     }
 
+    if (url.pathname === "/api/director-list-applicants" && request.method === "POST") {
+      return handleDirectorListApplicants(request, env);
+    }
+
+    if (url.pathname === "/api/director-update-applicant" && request.method === "POST") {
+      return handleDirectorUpdateApplicant(request, env);
+    }
+
     if (url.pathname === "/api/director-create-candidate" && request.method === "POST") {
       return handleDirectorCreateCandidate(request, env);
     }
@@ -188,6 +197,10 @@ function applicantPhoneKey(phone) {
   return APPLICANT_PHONE_PREFIX + cleanPhone(phone);
 }
 
+function applicantRecordKey(applicationNumber) {
+  return APPLICANT_RECORD_PREFIX + String(applicationNumber).padStart(5, "0");
+}
+
 function candidateKey(code) {
   return "candidate:" + cleanCode(code);
 }
@@ -223,6 +236,32 @@ async function saveCandidateRecord(env, candidate) {
   );
 }
 
+async function getApplicantRecord(env, applicantId) {
+  if (!env.CAREER_KV || !applicantId) return null;
+
+  const key = String(applicantId || "").startsWith(APPLICANT_RECORD_PREFIX)
+    ? String(applicantId)
+    : APPLICANT_RECORD_PREFIX + String(applicantId).replace(APPLICANT_RECORD_PREFIX, "");
+
+  const stored = await env.CAREER_KV.get(key);
+
+  if (!stored) return null;
+
+  try {
+    return JSON.parse(stored);
+  } catch (error) {
+    return null;
+  }
+}
+
+async function saveApplicantRecord(env, applicant) {
+  if (!env.CAREER_KV || !applicant || !applicant.applicationId) return;
+
+  applicant.updatedAt = new Date().toISOString();
+
+  await env.CAREER_KV.put(applicant.applicationId, JSON.stringify(applicant));
+}
+
 function publicCandidate(candidate) {
   return {
     code: candidate.code,
@@ -238,6 +277,29 @@ function publicCandidate(candidate) {
     message: candidate.message || "",
     canUploadDocuments: candidate.stage === "documentation_screening",
     portal: "candidate-portal.html"
+  };
+}
+
+function publicApplicant(applicant) {
+  return {
+    applicationId: applicant.applicationId,
+    applicationNumber: applicant.applicationNumber,
+    fullName: applicant.fullName,
+    phone: applicant.originalPhone || applicant.phone,
+    cleanedPhone: applicant.phone,
+    email: applicant.email,
+    location: applicant.location,
+    position: applicant.position,
+    qualification: applicant.qualification,
+    experience: applicant.experience,
+    onsite: applicant.onsite,
+    relevantExperience: applicant.relevantExperience || "",
+    status: applicant.status || "New application",
+    directorNote: applicant.directorNote || "",
+    candidateCode: applicant.candidateCode || "",
+    candidateStage: applicant.candidateStage || "",
+    submittedAt: applicant.submittedAt || "",
+    updatedAt: applicant.updatedAt || ""
   };
 }
 
@@ -506,6 +568,126 @@ async function verifyDirector(body, env) {
   return typedKey === savedKey;
 }
 
+async function handleDirectorListApplicants(request, env) {
+  try {
+    const body = await request.json();
+
+    const isDirector = await verifyDirector(body, env);
+
+    if (!isDirector) {
+      return json({
+        ok: false,
+        message: "Unauthorized director access."
+      }, 403);
+    }
+
+    if (!env.CAREER_KV) {
+      return json({
+        ok: false,
+        message: "CAREER_KV is not connected."
+      }, 500);
+    }
+
+    const applicants = [];
+    let cursor = undefined;
+
+    do {
+      const result = await env.CAREER_KV.list({
+        prefix: APPLICANT_RECORD_PREFIX,
+        cursor
+      });
+
+      for (const key of result.keys) {
+        const stored = await env.CAREER_KV.get(key.name);
+
+        if (stored) {
+          try {
+            const applicant = JSON.parse(stored);
+            applicants.push(publicApplicant(applicant));
+          } catch (error) {}
+        }
+      }
+
+      cursor = result.list_complete ? undefined : result.cursor;
+    } while (cursor);
+
+    applicants.sort((a, b) => {
+      return Number(b.applicationNumber || 0) - Number(a.applicationNumber || 0);
+    });
+
+    return json({
+      ok: true,
+      applicants
+    });
+
+  } catch (error) {
+    return json({
+      ok: false,
+      message: "Submitted applications could not be loaded."
+    }, 500);
+  }
+}
+
+async function handleDirectorUpdateApplicant(request, env) {
+  try {
+    const body = await request.json();
+
+    const isDirector = await verifyDirector(body, env);
+
+    if (!isDirector) {
+      return json({
+        ok: false,
+        message: "Unauthorized director access."
+      }, 403);
+    }
+
+    if (!env.CAREER_KV) {
+      return json({
+        ok: false,
+        message: "CAREER_KV is not connected."
+      }, 500);
+    }
+
+    const applicantId = String(body.applicantId || "").trim();
+    const status = String(body.status || "").trim();
+    const directorNote = String(body.directorNote || "").trim();
+
+    if (!applicantId || !status) {
+      return json({
+        ok: false,
+        message: "Applicant ID and status are required."
+      }, 400);
+    }
+
+    const applicant = await getApplicantRecord(env, applicantId);
+
+    if (!applicant) {
+      return json({
+        ok: false,
+        message: "Applicant record not found."
+      }, 404);
+    }
+
+    applicant.status = status;
+    applicant.directorNote = directorNote || applicant.directorNote || "";
+    applicant.updatedAt = new Date().toISOString();
+
+    await saveApplicantRecord(env, applicant);
+
+    return json({
+      ok: true,
+      applicant: publicApplicant(applicant),
+      message: "Applicant profile updated successfully."
+    });
+
+  } catch (error) {
+    return json({
+      ok: false,
+      message: "Applicant profile could not be updated."
+    }, 500);
+  }
+}
+
 function generateCandidateCode(accessType) {
   const prefix = accessType === "documentation" ? "FTH-DOC" : "FTH-INT";
   const random = Math.random().toString(36).substring(2, 7).toUpperCase();
@@ -566,9 +748,16 @@ async function handleDirectorCreateCandidate(request, env) {
       }, 500);
     }
 
-    const name = String(body.name || "").trim();
-    const email = cleanEmail(body.email);
-    const role = String(body.role || "").trim();
+    const applicantId = String(body.applicantId || "").trim();
+    let applicant = null;
+
+    if (applicantId) {
+      applicant = await getApplicantRecord(env, applicantId);
+    }
+
+    const name = String(body.name || (applicant ? applicant.fullName : "") || "").trim();
+    const email = cleanEmail(body.email || (applicant ? applicant.email : ""));
+    const role = String(body.role || (applicant ? applicant.position : "") || "").trim();
     const accessType = String(body.accessType || "interview").trim();
 
     if (!name || !email || !role) {
@@ -591,11 +780,25 @@ async function handleDirectorCreateCandidate(request, env) {
       interviewTime: String(body.interviewTime || "").trim(),
       meetUrl: String(body.meetUrl || DEFAULT_INTERVIEW_ROOM).trim(),
       message: String(body.message || "").trim() || defaultMessageForStage(stage),
+      applicantId: applicantId || "",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
 
     await saveCandidateRecord(env, candidate);
+
+    if (applicant) {
+      applicant.status = stage === "documentation_screening"
+        ? "Moved to pre-documentation screening"
+        : "Shortlisted - access generated";
+
+      applicant.candidateCode = code;
+      applicant.candidateStage = stage;
+      applicant.directorNote = String(body.directorNote || applicant.directorNote || "").trim();
+      applicant.updatedAt = new Date().toISOString();
+
+      await saveApplicantRecord(env, applicant);
+    }
 
     let emailSent = false;
 
@@ -607,6 +810,7 @@ async function handleDirectorCreateCandidate(request, env) {
     return json({
       ok: true,
       candidate: publicCandidate(candidate),
+      applicant: applicant ? publicApplicant(applicant) : null,
       emailSent,
       portalLabel: "Candidate Portal"
     });
@@ -732,6 +936,19 @@ async function handleDirectorUpdateCandidate(request, env) {
     candidate.message = updatedMessage || defaultMessageForStage(newStage);
 
     await saveCandidateRecord(env, candidate);
+
+    if (candidate.applicantId) {
+      const applicant = await getApplicantRecord(env, candidate.applicantId);
+
+      if (applicant) {
+        applicant.status = STATUS_LABELS[newStage] || newStage;
+        applicant.candidateCode = candidate.code;
+        applicant.candidateStage = newStage;
+        applicant.updatedAt = new Date().toISOString();
+
+        await saveApplicantRecord(env, applicant);
+      }
+    }
 
     let emailSent = false;
 
@@ -903,11 +1120,13 @@ async function handleCareerEmail(request, env) {
     await addAttachment(cv, "CV", attachments);
     await addAttachment(coverLetter, "Cover Letter", attachments);
 
-    const subject = `Career Application ${countBefore + 1} - ${position} - ${fullName}`;
+    const newCount = countBefore + 1;
+
+    const subject = `Career Application ${newCount} - ${position} - ${fullName}`;
 
     const textBody =
       `New Career Application - FTH D-UNIQ\n\n` +
-      `Application Number: ${countBefore + 1}\n` +
+      `Application Number: ${newCount}\n` +
       `Full Name: ${fullName}\n` +
       `Phone / WhatsApp Number: ${phone}\n` +
       `Email Address: ${email}\n` +
@@ -921,7 +1140,7 @@ async function handleCareerEmail(request, env) {
 
     const htmlBody =
       `<h2>New Career Application - FTH D-UNIQ</h2>` +
-      `<p><strong>Application Number:</strong> ${countBefore + 1}</p>` +
+      `<p><strong>Application Number:</strong> ${newCount}</p>` +
       `<p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>` +
       `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phone)}</p>` +
       `<p><strong>Email Address:</strong> ${escapeHtml(email)}</p>` +
@@ -954,9 +1173,8 @@ async function handleCareerEmail(request, env) {
       );
     }
 
-    const newCount = countBefore + 1;
-
     const applicantRecord = {
+      applicationId: applicantRecordKey(newCount),
       applicationNumber: newCount,
       fullName,
       phone: cleanedPhone,
@@ -967,11 +1185,30 @@ async function handleCareerEmail(request, env) {
       qualification,
       experience,
       onsite,
-      submittedAt: new Date().toISOString()
+      relevantExperience,
+      status: "New application",
+      directorNote: "",
+      candidateCode: "",
+      candidateStage: "",
+      submittedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
-    await env.CAREER_KV.put(applicantEmailKey(cleanedEmail), JSON.stringify(applicantRecord));
-    await env.CAREER_KV.put(applicantPhoneKey(cleanedPhone), JSON.stringify(applicantRecord));
+    await env.CAREER_KV.put(applicantRecord.applicationId, JSON.stringify(applicantRecord));
+
+    await env.CAREER_KV.put(applicantEmailKey(cleanedEmail), JSON.stringify({
+      applicantId: applicantRecord.applicationId,
+      applicationNumber: newCount,
+      email: cleanedEmail,
+      submittedAt: applicantRecord.submittedAt
+    }));
+
+    await env.CAREER_KV.put(applicantPhoneKey(cleanedPhone), JSON.stringify({
+      applicantId: applicantRecord.applicationId,
+      applicationNumber: newCount,
+      phone: cleanedPhone,
+      submittedAt: applicantRecord.submittedAt
+    }));
 
     await env.CAREER_KV.put(APPLICATION_COUNT_KEY, String(newCount));
 
