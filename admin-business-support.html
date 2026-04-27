@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>FTH D-UNIQ | Business Support Officer Workstation</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,11 +14,12 @@
 <style>
 :root{
   --gold:#c79b35;
-  --gold2:#9b741e;
+  --gold-deep:#9b741e;
   --black:#221611;
   --muted:#756d67;
-  --line:rgba(199,155,53,.2);
+  --line:rgba(199,155,53,.22);
   --bg:#fbf8ef;
+  --white:#fff;
   --shadow:0 18px 45px rgba(0,0,0,.08);
   --radius:24px;
   --red:#7a2a19;
@@ -39,8 +42,8 @@ body{
 body{
   margin:0;
   background:var(--bg);
-  font-family:Inter,system-ui,sans-serif;
   color:var(--black);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-user-select:none;
   user-select:none;
 }
@@ -54,7 +57,7 @@ textarea{
 
 .container{
   width:min(1180px,100%);
-  margin:auto;
+  margin:0 auto;
   padding:18px;
 }
 
@@ -67,12 +70,22 @@ textarea{
   border-radius:var(--radius);
   padding:24px;
   margin-bottom:18px;
+  max-width:100%;
   overflow-wrap:break-word;
+}
+
+.login{
+  max-width:850px;
+  margin:30px auto;
+}
+
+.dashboard{
+  display:none;
 }
 
 .label{
   font-size:.78rem;
-  color:var(--gold2);
+  color:var(--gold-deep);
   font-weight:900;
   letter-spacing:.15em;
   text-transform:uppercase;
@@ -82,8 +95,8 @@ textarea{
 h1,
 h2{
   font-family:"Cormorant Garamond",serif;
-  letter-spacing:-.035em;
   line-height:.98;
+  letter-spacing:-.035em;
   margin:0 0 12px;
 }
 
@@ -95,38 +108,13 @@ h2{
   font-size:clamp(1.8rem,5vw,3rem);
 }
 
+h3{
+  margin:22px 0 10px;
+}
+
 p{
   color:var(--muted);
   line-height:1.7;
-}
-
-.tabs{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-.tab{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:999px;
-  padding:11px 14px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.tab.active,
-.tab:hover{
-  background:rgba(199,155,53,.13);
-}
-
-.panel{
-  display:none;
-}
-
-.panel.active{
-  display:block;
 }
 
 .grid2{
@@ -161,6 +149,7 @@ p{
 label{
   font-weight:900;
   font-size:.9rem;
+  line-height:1.35;
 }
 
 input,
@@ -168,17 +157,30 @@ select,
 textarea{
   width:100%;
   min-width:0;
+  max-width:100%;
   border:1px solid var(--line);
   border-radius:14px;
   padding:13px 14px;
   font:inherit;
   background:#fff;
   color:var(--black);
+  outline:none;
+}
+
+select{
+  font-weight:800;
 }
 
 textarea{
   min-height:100px;
   resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:rgba(199,155,53,.5);
+  box-shadow:0 0 0 3px rgba(199,155,53,.12);
 }
 
 .actions{
@@ -196,6 +198,7 @@ textarea{
   cursor:pointer;
   text-align:center;
   line-height:1.3;
+  font:inherit;
 }
 
 .primary{
@@ -235,6 +238,16 @@ textarea{
   color:var(--black);
 }
 
+.notice{
+  background:#fff3cd;
+  border:1px solid rgba(199,155,53,.35);
+  border-radius:16px;
+  color:#5c4100;
+  padding:13px 15px;
+  line-height:1.65;
+  margin-top:12px;
+}
+
 .metrics{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
@@ -252,14 +265,37 @@ textarea{
 .metric strong{
   display:block;
   font-size:.72rem;
-  color:var(--gold2);
+  color:var(--gold-deep);
   letter-spacing:.1em;
   text-transform:uppercase;
+  margin-bottom:6px;
 }
 
 .metric span{
   font-size:1.05rem;
   font-weight:900;
+}
+
+.panel{
+  display:none;
+}
+
+.panel.active{
+  display:block;
+}
+
+.section-menu-wrap{
+  margin-top:18px;
+  padding:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+#sectionMenu{
+  font-weight:900;
+  color:var(--black);
+  background:#fff;
 }
 
 .tablewrap{
@@ -290,7 +326,7 @@ td{
 }
 
 th{
-  color:var(--gold2);
+  color:var(--gold-deep);
   font-size:.74rem;
   letter-spacing:.1em;
   text-transform:uppercase;
@@ -306,31 +342,13 @@ th{
   font-weight:900;
 }
 
-.notice{
-  background:#fff3cd;
-  border:1px solid rgba(199,155,53,.35);
-  border-radius:16px;
-  color:#5c4100;
-  padding:13px 15px;
-  line-height:1.65;
-  margin-top:12px;
-}
-
-.login{
-  max-width:850px;
-  margin:30px auto;
-}
-
-.dashboard{
-  display:none;
-}
-
 .printdoc{
   display:none;
   background:#fff;
   color:#111;
   box-shadow:none;
   border-radius:10px;
+  overflow-x:auto;
 }
 
 .docTop{
@@ -341,7 +359,7 @@ th{
 
 .brand{
   font-size:2rem;
-  color:var(--gold2);
+  color:var(--gold-deep);
   font-weight:900;
 }
 
@@ -377,6 +395,7 @@ th{
 
 .docTable{
   min-width:0;
+  width:100%;
 }
 
 .docTable th{
@@ -384,9 +403,14 @@ th{
   color:#fff;
 }
 
+.docTable td{
+  color:#111;
+}
+
 .totals{
   margin-left:auto;
   width:min(380px,100%);
+  margin-top:12px;
 }
 
 .totals div{
@@ -408,7 +432,7 @@ th{
 }
 
 .receiptTitle{
-  border:2px solid var(--gold2);
+  border:2px solid var(--gold-deep);
   border-radius:999px;
   padding:8px 14px;
   font-size:1.8rem;
@@ -432,7 +456,7 @@ th{
 
 .reportCard strong{
   display:block;
-  color:var(--gold2);
+  color:var(--gold-deep);
   font-size:.7rem;
   text-transform:uppercase;
 }
@@ -467,6 +491,10 @@ th{
 }
 
 @media(max-width:850px){
+  .container{
+    padding:12px;
+  }
+
   .grid2,
   .grid3,
   .grid4,
@@ -474,18 +502,6 @@ th{
   .reportGrid,
   .docTop{
     grid-template-columns:1fr!important;
-  }
-
-  .tabs{
-    overflow-x:auto;
-    flex-wrap:nowrap;
-    padding-bottom:6px;
-  }
-
-  .tab{
-    flex:0 0 auto;
-    white-space:nowrap;
-    font-size:.86rem;
   }
 
   .actions{
@@ -566,7 +582,7 @@ th{
       </div>
     </div>
 
-    <button class="btn primary" id="openBtn">Open Workstation</button>
+    <button class="btn primary" id="openBtn" type="button">Open Workstation</button>
     <div class="status" id="loginStatus">Enter access code to continue.</div>
   </section>
 
@@ -575,8 +591,8 @@ th{
       <div class="label">FTH D-UNIQ</div>
       <h1>Business Support Workstation</h1>
       <p>
-        Work daily, generate invoice and receipt, reconcile stock with sales, generate weekly report,
-        then clear the workstation after report is saved.
+        Use the dropdown menu to move between sections. Enter stock, sales, payment, logistics and expenses.
+        Then reconcile, generate weekly report, save PDF, and clear the week.
       </p>
 
       <div class="metrics">
@@ -586,20 +602,25 @@ th{
         <div class="metric"><strong>Mismatches</strong><span id="mMis">0</span></div>
       </div>
 
-      <div class="tabs">
-        <button class="tab active" data-panel="stockPanel">Opening / Closing Stock</button>
-        <button class="tab" data-panel="goodsPanel">Received / Produced</button>
-        <button class="tab" data-panel="salesPanel">Sales</button>
-        <button class="tab" data-panel="invoicePanel">Invoice</button>
-        <button class="tab" data-panel="paymentPanel">Payment / Receipt</button>
-        <button class="tab" data-panel="logisticsPanel">Logistics</button>
-        <button class="tab" data-panel="expensePanel">Expenses</button>
-        <button class="tab" data-panel="reconPanel">Reconciliation</button>
-        <button class="tab" data-panel="ledgerPanel">Daily Ledger</button>
-        <button class="tab" data-panel="socialPanel">Social Data</button>
-        <button class="tab" data-panel="weeklyPanel">Weekly Report</button>
-        <button class="tab" data-panel="monthlyPanel">Monthly Observation</button>
-        <button class="tab" data-panel="clearPanel">Close Week</button>
+      <div class="section-menu-wrap">
+        <div class="field" style="margin-bottom:0;">
+          <label for="sectionMenu">Select Workstation Section</label>
+          <select id="sectionMenu">
+            <option value="stockPanel">Opening / Closing Stock</option>
+            <option value="goodsPanel">Received / Produced Goods</option>
+            <option value="salesPanel">Sales & Customer Data</option>
+            <option value="invoicePanel">Invoice Generator</option>
+            <option value="paymentPanel">Payment / Receipt Control</option>
+            <option value="logisticsPanel">Logistics Handover</option>
+            <option value="expensePanel">Expenses</option>
+            <option value="reconPanel">Stock Reconciliation</option>
+            <option value="ledgerPanel">Daily Sales Ledger</option>
+            <option value="socialPanel">Social Media Data</option>
+            <option value="weeklyPanel">Weekly Report</option>
+            <option value="monthlyPanel">Monthly Observation</option>
+            <option value="clearPanel">Close Week / Clear Workstation</option>
+          </select>
+        </div>
       </div>
     </section>
 
@@ -634,16 +655,16 @@ th{
 
         <div class="field">
           <label>Quantity</label>
-          <input id="stockQty" type="number" step="0.01">
+          <input id="stockQty" type="number" step="0.01" placeholder="Enter quantity">
         </div>
 
         <div class="field full">
           <label>Note</label>
-          <textarea id="stockNote"></textarea>
+          <textarea id="stockNote" placeholder="Optional stock note"></textarea>
         </div>
       </div>
 
-      <button class="btn primary" id="saveStock">Save Stock</button>
+      <button class="btn primary" id="saveStock" type="button">Save Stock</button>
       <div class="status" id="stockStatus">Stock status will show here.</div>
 
       <div class="tablewrap">
@@ -696,7 +717,7 @@ th{
 
         <div class="field">
           <label>Quantity</label>
-          <input id="moveQty" type="number" step="0.01">
+          <input id="moveQty" type="number" step="0.01" placeholder="Enter quantity">
         </div>
 
         <div class="field">
@@ -706,11 +727,11 @@ th{
 
         <div class="field full">
           <label>Note</label>
-          <textarea id="moveNote"></textarea>
+          <textarea id="moveNote" placeholder="Optional movement note"></textarea>
         </div>
       </div>
 
-      <button class="btn primary" id="saveMove">Save Received / Produced Goods</button>
+      <button class="btn primary" id="saveMove" type="button">Save Received / Produced Goods</button>
       <div class="status" id="moveStatus">Goods movement status will show here.</div>
 
       <div class="tablewrap">
@@ -746,17 +767,17 @@ th{
 
         <div class="field">
           <label>Customer Name</label>
-          <input id="custName">
+          <input id="custName" placeholder="Customer name">
         </div>
 
         <div class="field">
           <label>Phone / WhatsApp</label>
-          <input id="custPhone">
+          <input id="custPhone" placeholder="Phone number">
         </div>
 
         <div class="field">
           <label>Email Optional</label>
-          <input id="custEmail" type="email">
+          <input id="custEmail" type="email" placeholder="Customer email">
         </div>
 
         <div class="field">
@@ -783,17 +804,17 @@ th{
 
         <div class="field full">
           <label>Delivery Location</label>
-          <input id="custAddress">
+          <input id="custAddress" placeholder="Delivery location">
         </div>
 
         <div class="field full">
           <label>Customer Note</label>
-          <textarea id="custNote"></textarea>
+          <textarea id="custNote" placeholder="Customer request, complaint, or follow-up note"></textarea>
         </div>
       </div>
 
       <div class="notice">
-        Add products bought by the customer below.
+        Add products bought by the customer below. The total calculates only after product lines are added.
       </div>
 
       <div class="grid4">
@@ -809,16 +830,16 @@ th{
 
         <div class="field">
           <label>Quantity</label>
-          <input id="itemQty" type="number" step="0.01">
+          <input id="itemQty" type="number" step="0.01" placeholder="Qty">
         </div>
 
         <div class="field">
           <label>Unit Price</label>
-          <input id="itemPrice" type="number" step="0.01">
+          <input id="itemPrice" type="number" step="0.01" placeholder="Unit price">
         </div>
       </div>
 
-      <button class="btn secondary" id="addItem">Add Product Line</button>
+      <button class="btn secondary" id="addItem" type="button">Add Product Line</button>
 
       <div class="tablewrap">
         <table>
@@ -900,8 +921,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="saveSale">Save Sale & Generate Invoice No.</button>
-        <button class="btn secondary" id="clearSale">Clear Sale Form</button>
+        <button class="btn primary" id="saveSale" type="button">Save Sale & Generate Invoice No.</button>
+        <button class="btn secondary" id="clearSale" type="button">Clear Sale Form</button>
       </div>
 
       <div class="status" id="saleStatus">Sales status will appear here.</div>
@@ -918,9 +939,9 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="previewInvoice">Preview Invoice</button>
-        <button class="btn secondary" id="printInvoice">Print / Save Invoice PDF</button>
-        <button class="btn warning" id="emailInvoice">Email Invoice Summary</button>
+        <button class="btn primary" id="previewInvoice" type="button">Preview Invoice</button>
+        <button class="btn secondary" id="printInvoice" type="button">Print / Save Invoice PDF</button>
+        <button class="btn warning" id="emailInvoice" type="button">Email Invoice Summary</button>
       </div>
 
       <div class="status" id="invoiceStatus">Invoice status will appear here.</div>
@@ -967,15 +988,15 @@ th{
 
         <div class="field full">
           <label>Payment Note to Director</label>
-          <textarea id="payUpdateNote"></textarea>
+          <textarea id="payUpdateNote" placeholder="Confirmation sent to Director. Pending approval."></textarea>
         </div>
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="savePayment">Save Payment Update</button>
-        <button class="btn warning" id="ackReceipt">Generate Pending Acknowledgement</button>
-        <button class="btn primary" id="officialReceipt">Generate Official Receipt</button>
-        <button class="btn secondary" id="printReceipt">Print / Save Receipt PDF</button>
+        <button class="btn primary" id="savePayment" type="button">Save Payment Update</button>
+        <button class="btn warning" id="ackReceipt" type="button">Generate Pending Acknowledgement</button>
+        <button class="btn primary" id="officialReceipt" type="button">Generate Official Receipt</button>
+        <button class="btn secondary" id="printReceipt" type="button">Print / Save Receipt PDF</button>
       </div>
 
       <div class="notice">
@@ -1023,8 +1044,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="saveLog">Save Logistics Handover</button>
-        <button class="btn secondary" id="copyLog">Copy Handover Text</button>
+        <button class="btn primary" id="saveLog" type="button">Save Logistics Handover</button>
+        <button class="btn secondary" id="copyLog" type="button">Copy Handover Text</button>
       </div>
 
       <div class="status" id="logStatus">Logistics status will appear here.</div>
@@ -1100,7 +1121,7 @@ th{
         </div>
       </div>
 
-      <button class="btn primary" id="saveExp">Save Expense</button>
+      <button class="btn primary" id="saveExp" type="button">Save Expense</button>
       <div class="status" id="expStatus">Expense status will appear here.</div>
 
       <div class="tablewrap">
@@ -1132,7 +1153,7 @@ th{
         <input id="reconDate" type="date">
       </div>
 
-      <button class="btn primary" id="runRecon">Run Reconciliation</button>
+      <button class="btn primary" id="runRecon" type="button">Run Reconciliation</button>
       <div class="status" id="reconStatus">Reconciliation status will appear here.</div>
 
       <div class="tablewrap">
@@ -1187,8 +1208,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="refreshLedger">Refresh Ledger</button>
-        <button class="btn secondary" id="printLedger">Print / Save Ledger PDF</button>
+        <button class="btn primary" id="refreshLedger" type="button">Refresh Ledger</button>
+        <button class="btn secondary" id="printLedger" type="button">Print / Save Ledger PDF</button>
       </div>
 
       <div class="status" id="ledgerStatus">Ledger status will appear here.</div>
@@ -1231,8 +1252,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="genSocial">Generate Social Data</button>
-        <button class="btn secondary" id="copySocial">Copy Social Data</button>
+        <button class="btn primary" id="genSocial" type="button">Generate Social Data</button>
+        <button class="btn secondary" id="copySocial" type="button">Copy Social Data</button>
       </div>
 
       <div class="status" id="socialStatus">Social handover will appear here.</div>
@@ -1265,9 +1286,9 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="genWeekly">Generate Weekly Report</button>
-        <button class="btn secondary" id="printWeekly">Print / Save Weekly PDF</button>
-        <button class="btn warning" id="emailWeekly">Email Weekly Summary</button>
+        <button class="btn primary" id="genWeekly" type="button">Generate Weekly Report</button>
+        <button class="btn secondary" id="printWeekly" type="button">Print / Save Weekly PDF</button>
+        <button class="btn warning" id="emailWeekly" type="button">Email Weekly Summary</button>
       </div>
 
       <div class="notice">
@@ -1322,8 +1343,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="saveMonth">Save Monthly Observation</button>
-        <button class="btn secondary" id="printMonth">Print / Save Observation PDF</button>
+        <button class="btn primary" id="saveMonth" type="button">Save Monthly Observation</button>
+        <button class="btn secondary" id="printMonth" type="button">Print / Save Observation PDF</button>
       </div>
 
       <div class="status" id="monthStatus">Monthly observation status will appear here.</div>
@@ -1345,8 +1366,8 @@ th{
       </div>
 
       <div class="actions">
-        <button class="btn secondary" id="backupBtn">Download JSON Backup First</button>
-        <button class="btn danger" id="clearBtn">Close Week & Clear</button>
+        <button class="btn secondary" id="backupBtn" type="button">Download JSON Backup First</button>
+        <button class="btn danger" id="clearBtn" type="button">Close Week & Clear</button>
       </div>
 
       <div class="status" id="clearStatus">Clear status will appear here.</div>
@@ -1357,7 +1378,7 @@ th{
 
 <script>
 const CODE = "FTH-BSO-2026";
-const STORE = "fth_bso_week_v4";
+const STORE = "fth_bso_week_v5";
 const today = new Date().toISOString().slice(0,10);
 
 const specs = {
@@ -1432,6 +1453,7 @@ function setDates(){
   const start = new Date();
   const day = start.getDay();
   start.setDate(start.getDate() - day + (day === 0 ? -6 : 1));
+
   $("weekStart").value = start.toISOString().slice(0,10);
   $("monthPeriod").value = today.slice(0,7);
 }
@@ -1455,6 +1477,7 @@ document.addEventListener("change", ev => {
 
 setDates();
 initProducts();
+calcSale();
 
 $("openBtn").onclick = () => {
   if(c($("staffCode").value) !== CODE){
@@ -1463,23 +1486,32 @@ $("openBtn").onclick = () => {
   }
 
   officer = c($("staffName").value) || "Business Support Officer";
+
   $("loginCard").style.display = "none";
   $("dashboard").style.display = "block";
+
   refresh();
 };
 
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.onclick = () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-    tab.classList.add("active");
-    $(tab.dataset.panel).classList.add("active");
-
-    if(tab.dataset.panel === "reconPanel") reconcile(false);
-    if(tab.dataset.panel === "ledgerPanel") ledger();
-    if(tab.dataset.panel === "socialPanel") social(false);
-  };
+$("sectionMenu").addEventListener("change", function(){
+  openPanel(this.value);
 });
+
+function openPanel(panelId){
+  document.querySelectorAll(".panel").forEach(panel => {
+    panel.classList.remove("active");
+  });
+
+  const panel = $(panelId);
+
+  if(panel){
+    panel.classList.add("active");
+  }
+
+  if(panelId === "reconPanel") reconcile(false);
+  if(panelId === "ledgerPanel") ledger();
+  if(panelId === "socialPanel") social(false);
+}
 
 function refresh(){
   stockTable();
@@ -1604,7 +1636,10 @@ function calcSale(){
   return {subtotal,logisticsFee,discount,grandTotal,amountPaid,balance};
 }
 
-["logFee","discount","amountPaid"].forEach(id => $(id).addEventListener("input",calcSale));
+["logFee","discount","amountPaid"].forEach(id => {
+  $(id).addEventListener("input", calcSale);
+  $(id).addEventListener("change", calcSale);
+});
 
 $("addItem").onclick = () => {
   const product = $("itemProduct").value;
@@ -1642,7 +1677,7 @@ function itemTable(){
       <td>${e(i.qty)}</td>
       <td>${m(i.price)}</td>
       <td>${m(i.amount)}</td>
-      <td><button class="btn secondary" onclick="removeItem(${index})">Remove</button></td>
+      <td><button class="btn secondary" type="button" onclick="removeItem(${index})">Remove</button></td>
     </tr>
   `).join("") : '<tr><td colspan="6">No item.</td></tr>';
 }
@@ -1714,6 +1749,7 @@ $("clearSale").onclick = clearSaleForm;
 
 function clearSaleForm(){
   ["custName","custPhone","custEmail","custAddress","custNote","payNote"].forEach(id => $(id).value = "");
+
   $("custCat").value = "";
   $("custFollow").value = "No";
   $("saleDate").value = today;
@@ -1723,6 +1759,7 @@ function clearSaleForm(){
   $("amountPaid").value = "0";
   $("payMethod").value = "Awaiting payment";
   $("payStatus").value = "Awaiting payment";
+
   items = [];
   itemTable();
   calcSale();
@@ -1750,7 +1787,7 @@ $("previewInvoice").onclick = () => {
   const sale = getSale($("invoiceSelect").value);
 
   if(!sale){
-    $("invoiceStatus").textContent = "Select a sale.";
+    $("invoiceStatus").textContent = "Select a saved sale first.";
     return;
   }
 
@@ -1758,13 +1795,23 @@ $("previewInvoice").onclick = () => {
   $("invoiceStatus").textContent = "Invoice preview generated.";
 };
 
-$("printInvoice").onclick = () => printIf("invoiceDoc","invoiceStatus","Preview invoice first.");
+$("printInvoice").onclick = () => {
+  const sale = getSale($("invoiceSelect").value);
+
+  if(!sale){
+    $("invoiceStatus").textContent = "Please select a saved sale before printing invoice.";
+    return;
+  }
+
+  invoiceDoc(sale);
+  printEl($("invoiceDoc"));
+};
 
 $("emailInvoice").onclick = () => {
   const sale = getSale($("invoiceSelect").value);
 
   if(!sale){
-    $("invoiceStatus").textContent = "Select a sale.";
+    $("invoiceStatus").textContent = "Select a saved sale first.";
     return;
   }
 
@@ -1867,6 +1914,7 @@ function invoiceDoc(s){
 
 $("paymentSelect").onchange = () => {
   const s = getSale($("paymentSelect").value);
+
   if(!s) return;
 
   $("payUpdateAmount").value = s.amountPaid || 0;
@@ -1891,6 +1939,7 @@ $("savePayment").onclick = () => {
   s.note = c($("payUpdateNote").value);
 
   save(d);
+
   $("receiptStatus").innerHTML = `<strong>Payment update saved.</strong><br>Status: ${e(s.paymentStatus)}<br>Balance: ${m(s.balance)}`;
   refresh();
 };
@@ -1924,7 +1973,22 @@ $("officialReceipt").onclick = () => {
   $("receiptStatus").textContent = "Official receipt generated.";
 };
 
-$("printReceipt").onclick = () => printIf("receiptDoc","receiptStatus","Generate receipt first.");
+$("printReceipt").onclick = () => {
+  const s = getSale($("paymentSelect").value);
+
+  if(!s){
+    $("receiptStatus").textContent = "Please select a saved sale before printing receipt.";
+    return;
+  }
+
+  if(["Director approved","Receipt issued"].includes(s.paymentStatus)){
+    receiptDoc(s,"official");
+  }else{
+    receiptDoc(s,"ack");
+  }
+
+  printEl($("receiptDoc"));
+};
 
 function receiptDoc(s,mode){
   const official = mode === "official";
@@ -1991,7 +2055,7 @@ function receiptDoc(s,mode){
       www.fthduniq.com
     </p>
 
-    <p style="text-align:center;color:var(--gold2);font-style:italic;">
+    <p style="text-align:center;color:var(--gold-deep);font-style:italic;">
       Thank You for Your Payment. We Appreciate your Patronage.
     </p>
   `;
@@ -2023,6 +2087,7 @@ $("saveLog").onclick = () => {
   const d = data();
   d.logs.push(r);
   save(d);
+
   $("logStatus").textContent = "Logistics handover saved.";
   refresh();
 };
@@ -2116,10 +2181,10 @@ function allKeys(date){
   return [...set];
 }
 
-function val(arr,date,p,s,field,type){
+function moveValue(arr,date,p,s,type){
   return arr
-    .filter(x => x.date === date && x.product === p && x.spec === s && (!type || x.type === type))
-    .reduce((a,b) => a + n(b[field]),0);
+    .filter(x => x.date === date && x.product === p && x.spec === s && x.type === type)
+    .reduce((a,b) => a + n(b.qty),0);
 }
 
 function reconRows(date){
@@ -2136,8 +2201,8 @@ function reconRows(date){
       .filter(x => x.date === date && x.product === p && x.spec === s && x.mode === "closing")
       .reduce((a,b) => a + n(b.qty),0);
 
-    const received = val(d.moves,date,p,s,"qty","received");
-    const produced = val(d.moves,date,p,s,"qty","produced");
+    const received = moveValue(d.moves,date,p,s,"received");
+    const produced = moveValue(d.moves,date,p,s,"produced");
 
     const expected = opening + received + produced - closing;
 
@@ -2248,8 +2313,8 @@ function ledger(){
 
 $("printLedger").onclick = () => {
   const rows = filtered();
-  $("ledgerDoc").style.display = "block";
 
+  $("ledgerDoc").style.display = "block";
   $("ledgerDoc").innerHTML = `
     <h2>FTH D-UNIQ Daily Sales Ledger</h2>
     <p><strong>Date:</strong> ${e($("ledgerDate").value || "All dates")}<br>
@@ -2303,7 +2368,7 @@ $("copySocial").onclick = () => copy(
 function social(show){
   const rows = data().sales.filter(s => s.date === ($("socialDate").value || today));
 
-  socialText = `FTH D-UNIQ Customer Follow-up Handover
+  socialText = rows.length ? `FTH D-UNIQ Customer Follow-up Handover
 Date: ${$("socialDate").value || today}
 
 ` + rows.map((s,i) => `${i+1}. ${s.customer.name}
@@ -2314,7 +2379,7 @@ Location: ${s.customer.address}
 Category: ${s.customer.category || "Not specified"}
 Follow-up: ${s.customer.follow}
 Note: ${s.customer.note || "Send appreciation/follow-up message."}
-`).join("\n");
+`).join("\n") : "";
 
   $("socialStatus").innerHTML = socialText
     ? socialText.replace(/\n/g,"<br>")
@@ -2517,17 +2582,6 @@ $("clearBtn").onclick = () => {
   $("clearStatus").textContent = "Workstation cleared for new week.";
   refresh();
 };
-
-function printIf(id,status,msg){
-  const el = $(id);
-
-  if(el.style.display !== "block"){
-    $(status).textContent = msg;
-    return;
-  }
-
-  printEl(el);
-}
 
 function printEl(el){
   el.classList.add("print-active");
