@@ -85,6 +85,13 @@
       resize:vertical;
     }
 
+    .director-field input:focus,
+    .director-field select:focus,
+    .director-field textarea:focus{
+      border-color:rgba(199,155,53,.45);
+      box-shadow:0 0 0 3px rgba(199,155,53,.10);
+    }
+
     .director-actions{
       display:flex;
       gap:14px;
@@ -100,6 +107,16 @@
       border:1px solid rgba(199,155,53,.16);
       color:var(--muted);
       line-height:1.75;
+    }
+
+    .generated-box{
+      padding:18px 20px;
+      border-radius:20px;
+      background:rgba(199,155,53,.10);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--text);
+      line-height:1.8;
+      margin-top:18px;
     }
 
     .director-dashboard{
@@ -189,24 +206,8 @@
       margin-top:8px;
     }
 
-    .private-warning{
-      padding:18px 20px;
-      border-radius:20px;
-      background:rgba(199,155,53,.10);
-      border:1px solid rgba(199,155,53,.18);
-      color:var(--text);
-      line-height:1.8;
-      margin-top:18px;
-    }
-
-    .generated-box{
-      padding:18px 20px;
-      border-radius:20px;
-      background:rgba(199,155,53,.10);
-      border:1px solid rgba(199,155,53,.18);
-      color:var(--text);
-      line-height:1.8;
-      margin-top:18px;
+    .hidden{
+      display:none !important;
     }
 
     @media (max-width:768px){
@@ -247,7 +248,7 @@
           <h1>Candidate Recruitment Admin</h1>
 
           <p>
-            This page is restricted to FTH D-UNIQ director use only. Enter your master access code to generate candidate access, update recruitment stages, and manage candidate records.
+            Enter your master access code to generate candidate access, update recruitment stages, and manage candidate records.
           </p>
 
           <form id="directorLoginForm" class="director-form">
@@ -266,6 +267,7 @@
               Director access is required.
             </div>
           </form>
+        </div>
 
         <div id="directorDashboard" class="director-dashboard">
           <div class="director-card">
@@ -273,7 +275,7 @@
             <h2>Candidate Access Management</h2>
 
             <p>
-              Generate interview access codes, update candidate stages, and view candidate records from one private dashboard.
+              Generate candidate access codes, update recruitment stages, send email notices, and view candidate records.
             </p>
 
             <div class="director-tabs">
@@ -368,7 +370,7 @@
                       <option value="physical_interview">Physical Interview Stage</option>
                       <option value="documentation_screening">Pre-Documentation Screening</option>
                       <option value="documents_received">Documents Received — Under Review</option>
-                      <option value="final_selected">Final Selected</option>
+                      <option value="final_selected">Selected for Final Resumption</option>
                       <option value="not_selected">Not Selected</option>
                     </select>
                   </div>
@@ -419,7 +421,7 @@
       <div class="footer-brand-block">
         <strong>FTH D-UNIQ</strong>
         <div class="footer-meta">Business Name Registration No. 2660716</div>
-        <div class="footer-meta">Director-only candidate admin page</div>
+        <div class="footer-meta">Director Candidate Admin</div>
       </div>
 
       <div class="footer-social-block">
@@ -678,6 +680,24 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
     }
+
+    document.addEventListener("contextmenu", function(e){
+      if(!e.target.closest("input, textarea, select, button, a")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("copy", function(e){
+      if(!e.target.closest("input, textarea")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", function(e){
+      if(e.target.tagName === "IMG"){
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
