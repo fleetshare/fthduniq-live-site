@@ -2,6 +2,9 @@ const APPLICATION_LIMIT = 50;
 const APPLICATION_COUNT_KEY = "career_application_count";
 const APPLICATION_OPEN_KEY = "career_applications_open";
 
+const APPLICANT_EMAIL_PREFIX = "career_applicant_email:";
+const APPLICANT_PHONE_PREFIX = "career_applicant_phone:";
+
 const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
 
 const SAMPLE_CANDIDATES = {
@@ -165,6 +168,24 @@ function cleanCode(value) {
 
 function cleanEmail(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function cleanPhone(value) {
+  let digits = String(value || "").replace(/\D/g, "");
+
+  if (digits.startsWith("234") && digits.length >= 13) {
+    digits = "0" + digits.slice(3);
+  }
+
+  return digits;
+}
+
+function applicantEmailKey(email) {
+  return APPLICANT_EMAIL_PREFIX + cleanEmail(email);
+}
+
+function applicantPhoneKey(phone) {
+  return APPLICANT_PHONE_PREFIX + cleanPhone(phone);
 }
 
 function candidateKey(code) {
@@ -853,6 +874,30 @@ async function handleCareerEmail(request, env) {
       );
     }
 
+    const cleanedEmail = cleanEmail(email);
+    const cleanedPhone = cleanPhone(phone);
+
+    if (!cleanedEmail || !cleanedPhone) {
+      return json(
+        { ok: false, message: "Please enter a valid email address and phone number." },
+        400
+      );
+    }
+
+    const existingEmailApplication = await env.CAREER_KV.get(applicantEmailKey(cleanedEmail));
+    const existingPhoneApplication = await env.CAREER_KV.get(applicantPhoneKey(cleanedPhone));
+
+    if (existingEmailApplication || existingPhoneApplication) {
+      return json(
+        {
+          ok: false,
+          duplicate: true,
+          message: "Our record shows that you have already submitted an application. Duplicate applications are not allowed. Please wait for FTH D-UNIQ Careers to review your submission."
+        },
+        409
+      );
+    }
+
     const attachments = [];
 
     await addAttachment(cv, "CV", attachments);
@@ -862,6 +907,7 @@ async function handleCareerEmail(request, env) {
 
     const textBody =
       `New Career Application - FTH D-UNIQ\n\n` +
+      `Application Number: ${countBefore + 1}\n` +
       `Full Name: ${fullName}\n` +
       `Phone / WhatsApp Number: ${phone}\n` +
       `Email Address: ${email}\n` +
@@ -875,6 +921,7 @@ async function handleCareerEmail(request, env) {
 
     const htmlBody =
       `<h2>New Career Application - FTH D-UNIQ</h2>` +
+      `<p><strong>Application Number:</strong> ${countBefore + 1}</p>` +
       `<p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>` +
       `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phone)}</p>` +
       `<p><strong>Email Address:</strong> ${escapeHtml(email)}</p>` +
@@ -889,7 +936,7 @@ async function handleCareerEmail(request, env) {
 
     const emailResult = await sendResendEmail(env, {
       to: ["careers@fthduniq.com"],
-      reply_to: email,
+      reply_to: cleanedEmail,
       subject,
       text: textBody,
       html: htmlBody,
@@ -908,6 +955,24 @@ async function handleCareerEmail(request, env) {
     }
 
     const newCount = countBefore + 1;
+
+    const applicantRecord = {
+      applicationNumber: newCount,
+      fullName,
+      phone: cleanedPhone,
+      originalPhone: phone,
+      email: cleanedEmail,
+      location,
+      position,
+      qualification,
+      experience,
+      onsite,
+      submittedAt: new Date().toISOString()
+    };
+
+    await env.CAREER_KV.put(applicantEmailKey(cleanedEmail), JSON.stringify(applicantRecord));
+    await env.CAREER_KV.put(applicantPhoneKey(cleanedPhone), JSON.stringify(applicantRecord));
+
     await env.CAREER_KV.put(APPLICATION_COUNT_KEY, String(newCount));
 
     if (newCount >= APPLICATION_LIMIT) {
