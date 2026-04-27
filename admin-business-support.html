@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FTH D-UNIQ | Business Support Workstation</title>
+  <meta name="description" content="Business Support Officer workstation for sales, invoices, inventory, production, expenses, reports, and social media customer data." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root{
+      --admin-gold:#c79b35;
+      --admin-gold-soft:#f5e9bd;
+      --admin-black:#221611;
+      --admin-muted:#756d67;
+      --admin-line:rgba(199,155,53,.18);
+      --admin-bg:#fbf8ef;
+      --admin-white:#fff;
+      --admin-shadow:0 18px 45px rgba(0,0,0,.08);
+      --admin-radius:28px;
+    }
+
+    body{
+      background:var(--admin-bg);
+    }
+
+    .admin-shell{
+      padding-top:20px;
+    }
+
+    .admin-card,
+    .panel-card,
+    .report-card,
+    .document-card{
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--admin-line);
+      box-shadow:var(--admin-shadow);
+      border-radius:var(--admin-radius);
+      padding:28px;
+    }
+
+    .admin-card h1,
+    .panel-card h2,
+    .report-card h2,
+    .document-card h2{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond", serif;
+      line-height:1;
+      letter-spacing:-.035em;
+      color:var(--admin-black);
+    }
+
+    .admin-card h1{
+      font-size:clamp(2.4rem, 7vw, 4.8rem);
+    }
+
+    .panel-card h2,
+    .report-card h2,
+    .document-card h2{
+      font-size:clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .admin-card p,
+    .panel-card p,
+    .report-card p{
+      color:var(--admin-muted);
+      line-height:1.75;
+      max-width:78ch;
+      margin:0 0 18px;
+    }
+
+    .admin-label{
+      color:var(--admin-gold);
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-size:.82rem;
+      margin-bottom:10px;
+    }
+
+    .admin-login{
+      max-width:850px;
+      margin:auto;
+    }
+
+    .admin-dashboard{
+      display:none;
+      gap:22px;
+    }
+
+    .admin-tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:22px 0;
+    }
+
+    .admin-tab{
+      border:1px solid var(--admin-line);
+      background:#fff;
+      color:var(--admin-black);
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .admin-tab.active,
+    .admin-tab:hover{
+      background:rgba(199,155,53,.13);
+      border-color:rgba(199,155,53,.34);
+    }
+
+    .admin-panel{
+      display:none;
+    }
+
+    .admin-panel.active{
+      display:block;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+      margin-bottom:14px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      font-weight:800;
+      color:var(--admin-black);
+      font-size:.92rem;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(199,155,53,.18);
+      background:#fff;
+      font:inherit;
+      color:var(--admin-black);
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:115px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:rgba(199,155,53,.48);
+      box-shadow:0 0 0 3px rgba(199,155,53,.12);
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .admin-btn{
+      border:0;
+      cursor:pointer;
+      border-radius:999px;
+      padding:14px 20px;
+      font-weight:800;
+      font:inherit;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .admin-btn.primary{
+      background:linear-gradient(135deg,#d7a832,#bf8d22);
+      color:white;
+      box-shadow:0 12px 24px rgba(199,155,53,.25);
+    }
+
+    .admin-btn.secondary{
+      background:#fff;
+      color:var(--admin-black);
+      border:1px solid var(--admin-line);
+    }
+
+    .admin-btn.warning{
+      background:#fff3cd;
+      color:#5c4100;
+      border:1px solid rgba(199,155,53,.28);
+    }
+
+    .status-box{
+      margin-top:16px;
+      padding:15px 17px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid var(--admin-line);
+      color:var(--admin-muted);
+      line-height:1.7;
+    }
+
+    .mini-cards{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin:18px 0;
+    }
+
+    .mini-card{
+      background:#fff;
+      border:1px solid var(--admin-line);
+      border-radius:20px;
+      padding:16px;
+    }
+
+    .mini-card strong{
+      display:block;
+      color:var(--admin-gold);
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .mini-card span{
+      color:var(--admin-black);
+      font-weight:800;
+      font-size:1.05rem;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border-radius:20px;
+      background:#fff;
+      border:1px solid var(--admin-line);
+      margin-top:14px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:900px;
+    }
+
+    th,td{
+      padding:13px 14px;
+      border-bottom:1px solid rgba(199,155,53,.12);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      color:var(--admin-gold);
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    td{
+      color:#433a34;
+      line-height:1.5;
+    }
+
+    .line-item-editor{
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--admin-line);
+      border-radius:22px;
+      padding:18px;
+      margin:12px 0 18px;
+    }
+
+    .document-preview{
+      background:white;
+      color:#111;
+      margin-top:20px;
+      border:1px solid #d9d1bf;
+      padding:32px;
+      border-radius:10px;
+      display:none;
+    }
+
+    .doc-top{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .doc-brand{
+      font-weight:900;
+      color:var(--admin-gold);
+      font-size:2rem;
+      letter-spacing:.02em;
+    }
+
+    .doc-title{
+      font-weight:900;
+      color:#000;
+      font-size:3rem;
+      text-align:right;
+      letter-spacing:.02em;
+    }
+
+    .doc-business-box{
+      margin-top:12px;
+      background:#f4e7ad;
+      padding:12px 14px;
+      max-width:370px;
+      line-height:1.35;
+      font-size:.95rem;
+    }
+
+    .doc-bill{
+      font-size:1rem;
+      line-height:1.55;
+    }
+
+    .doc-strip{
+      margin:24px 0;
+      border:2px solid #1d1a31;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      font-weight:900;
+    }
+
+    .doc-strip div{
+      padding:10px 12px;
+      border-right:1px solid #1d1a31;
+    }
+
+    .doc-strip div:last-child{
+      border-right:0;
+    }
+
+    .doc-table{
+      width:100%;
+      min-width:0;
+      border-collapse:collapse;
+      margin-top:16px;
+    }
+
+    .doc-table th{
+      background:#e5c815;
+      color:white;
+      font-size:1rem;
+      letter-spacing:.04em;
+      padding:12px;
+    }
+
+    .doc-table td{
+      border-bottom:1px solid #e9ecf5;
+      padding:12px;
+      color:#111;
+    }
+
+    .doc-total-box{
+      margin-left:auto;
+      width:min(360px,100%);
+      margin-top:12px;
+    }
+
+    .doc-total-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      background:#edf0f9;
+      margin-bottom:6px;
+    }
+
+    .doc-total-row strong,
+    .doc-total-row span{
+      padding:10px 12px;
+    }
+
+    .doc-total-row.grand{
+      background:#e5c815;
+      color:#000;
+      font-weight:900;
+    }
+
+    .doc-footer{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      margin-top:60px;
+      align-items:end;
+    }
+
+    .doc-terms{
+      font-size:.9rem;
+      line-height:1.55;
+    }
+
+    .doc-payment{
+      font-size:1rem;
+      line-height:1.55;
+    }
+
+    .receipt-box{
+      border:2px solid #222;
+      padding:28px;
+      display:none;
+      background:#fff;
+      margin-top:20px;
+    }
+
+    .receipt-brand{
+      text-align:center;
+      color:var(--admin-gold);
+      font-weight:900;
+      font-size:2rem;
+      margin-bottom:10px;
+    }
+
+    .receipt-service{
+      text-align:center;
+      background:#eadfb8;
+      padding:10px;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    .receipt-contact{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:18px 0;
+      font-weight:800;
+    }
+
+    .receipt-title-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      align-items:center;
+      margin:24px 0;
+    }
+
+    .receipt-title{
+      border:2px solid var(--admin-gold);
+      border-radius:999px;
+      padding:8px 16px;
+      font-weight:900;
+      font-size:2rem;
+    }
+
+    .receipt-date{
+      border:2px solid var(--admin-gold);
+      border-radius:999px;
+      padding:8px 16px;
+      font-weight:900;
+    }
+
+    .receipt-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      margin:20px 0;
+    }
+
+    .receipt-grid table,
+    .receipt-details table{
+      min-width:0;
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    .receipt-grid td,
+    .receipt-details td,
+    .receipt-details th{
+      border:2px solid #222;
+      padding:10px;
+      color:#111;
+    }
+
+    .receipt-details th{
+      font-size:.9rem;
+      letter-spacing:0;
+      color:#111;
+      text-transform:none;
+    }
+
+    .receipt-remark-sign{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      margin-top:28px;
+    }
+
+    .locked-note{
+      background:#fff3cd;
+      border:1px solid rgba(199,155,53,.3);
+      color:#5c4100;
+      border-radius:18px;
+      padding:14px 16px;
+      line-height:1.7;
+      margin-top:14px;
+    }
+
+    .social-filtered{
+      background:#fff;
+      border:1px solid var(--admin-line);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+    }
+
+    .print-only{
+      display:none;
+    }
+
+    @media print{
+      body *{
+        visibility:hidden;
+      }
+
+      .document-preview.print-active,
+      .document-preview.print-active *,
+      .receipt-box.print-active,
+      .receipt-box.print-active *{
+        visibility:visible;
+      }
+
+      .document-preview.print-active,
+      .receipt-box.print-active{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        display:block !important;
+        border:0;
+        box-shadow:none;
+        border-radius:0;
+      }
+
+      .no-print{
+        display:none !important;
+      }
+    }
+
+    @media(max-width:920px){
+      .grid-2,
+      .grid-3,
+      .mini-cards,
+      .doc-top,
+      .doc-footer,
+      .receipt-grid,
+      .receipt-remark-sign{
+        grid-template-columns:1fr;
+      }
+
+      .doc-title{
+        text-align:left;
+      }
+    }
+
+    @media(max-width:700px){
+      .admin-card,
+      .panel-card,
+      .report-card,
+      .document-card{
+        padding:22px;
+      }
+
+      .admin-btn{
+        width:100%;
+      }
+
+      .receipt-title-row,
+      .doc-strip{
+        grid-template-columns:1fr;
+      }
+
+      .doc-strip div{
+        border-right:0;
+        border-bottom:1px solid #1d1a31;
+      }
+
+      .doc-strip div:last-child{
+        border-bottom:0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell admin-shell">
+    <section class="section">
+      <div class="container">
+
+        <div class="admin-card admin-login" id="loginCard">
+          <div class="admin-label">Business Support Officer</div>
+          <h1>Workstation Access</h1>
+          <p>
+            This workstation is for recording client data, sales transactions, invoices, payment proof,
+            inventory, production, expenses, daily reports, monthly reports, and customer follow-up data.
+          </p>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="staffCode">Business Support Access Code</label>
+              <input id="staffCode" type="password" placeholder="Enter staff access code">
+            </div>
+
+            <div class="field">
+              <label for="staffName">Officer Name</label>
+              <input id="staffName" type="text" placeholder="Enter officer name">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="admin-btn primary" type="button" id="openWorkstationBtn">Open Workstation</button>
+          </div>
+
+          <div class="status-box" id="loginStatus">
+            Enter the staff access code to continue.
+          </div>
+        </div>
+
+        <div class="admin-dashboard" id="dashboard">
+          <div class="admin-card">
+            <div class="admin-label">FTH D-UNIQ</div>
+            <h1>Business Support Officer Workstation</h1>
+            <p>
+              Use this page to manage customer sales, invoice generation, payment proof upload, inventory movement,
+              production activity, expenses, daily report, monthly report, and social media follow-up data.
+            </p>
+
+            <div class="mini-cards">
+              <div class="mini-card">
+                <strong>Total sales</strong>
+                <span id="metricSales">0</span>
+              </div>
+              <div class="mini-card">
+                <strong>Invoices</strong>
+                <span id="metricInvoices">0</span>
+              </div>
+              <div class="mini-card">
+                <strong>Pending receipts</strong>
+                <span id="metricPending">0</span>
+              </div>
+              <div class="mini-card">
+                <strong>Payments</strong>
+                <span id="metricPayments">₦0</span>
+              </div>
+            </div>
+
+            <div class="admin-tabs">
+              <button class="admin-tab active" type="button" data-panel="salesPanel">Client & Sales</button>
+              <button class="admin-tab" type="button" data-panel="invoicePanel">Invoice / Receipt</button>
+              <button class="admin-tab" type="button" data-panel="inventoryPanel">Inventory</button>
+              <button class="admin-tab" type="button" data-panel="productionPanel">Production</button>
+              <button class="admin-tab" type="button" data-panel="expensesPanel">Expenses</button>
+              <button class="admin-tab" type="button" data-panel="reportsPanel">Daily Report</button>
+              <button class="admin-tab" type="button" data-panel="monthlyPanel">Monthly Report</button>
+              <button class="admin-tab" type="button" data-panel="socialPanel">Social Media Data</button>
+            </div>
+          </div>
+
+          <div class="admin-panel active" id="salesPanel">
+            <div class="panel-card">
+              <div class="admin-label">Client / Customer Data + Sales Record</div>
+              <h2>Sales Transaction</h2>
+              <p>
+                Record one customer transaction here. A customer can buy multiple items under one transaction
+                and one invoice number.
+              </p>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="customerName">Customer Name</label>
+                  <input id="customerName" type="text" placeholder="Customer full name">
+                </div>
+
+                <div class="field">
+                  <label for="customerPhone">Phone / WhatsApp Number</label>
+                  <input id="customerPhone" type="tel" placeholder="Customer phone number">
+                </div>
+
+                <div class="field">
+                  <label for="customerEmail">Email Optional</label>
+                  <input id="customerEmail" type="email" placeholder="Customer email">
+                </div>
+
+                <div class="field">
+                  <label for="salesDate">Sales Date</label>
+                  <input id="salesDate" type="date">
+                </div>
+
+                <div class="field full">
+                  <label for="customerAddress">Address / Delivery Location</label>
+                  <input id="customerAddress" type="text" placeholder="Delivery address or customer location">
+                </div>
+
+                <div class="field">
+                  <label for="customerCategory">Customer Category</label>
+                  <select id="customerCategory">
+                    <option value="">Select category</option>
+                    <option>New customer</option>
+                    <option>Returning customer</option>
+                    <option>Contractor</option>
+                    <option>Engineer / site manager</option>
+                    <option>Home owner</option>
+                    <option>Diaspora client</option>
+                    <option>Business / reseller</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="followUpNeeded">Follow-up Needed?</label>
+                  <select id="followUpNeeded">
+                    <option>No</option>
+                    <option>Yes</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="customerNote">Customer Note / Follow-up Note</label>
+                  <textarea id="customerNote" placeholder="Add note for sales, delivery, customer request, or follow-up."></textarea>
+                </div>
+              </div>
+
+              <div class="line-item-editor">
+                <h3>Add Products Bought</h3>
+
+                <div class="grid-3">
+                  <div class="field">
+                    <label for="productCategory">Product Category</label>
+                    <select id="productCategory">
+                      <option value="">Select product</option>
+                      <option>Cement</option>
+                      <option>Granite</option>
+                      <option>Plaster sand</option>
+                      <option>Sharp sand</option>
+                      <option>Blocks</option>
+                      <option>Kerbs</option>
+                      <option>Interlocking stones</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="productSpec">Specification / Unit</label>
+                    <select id="productSpec">
+                      <option value="">Select product first</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="productQty">Quantity</label>
+                    <input id="productQty" type="number" min="0" step="0.01" placeholder="Quantity">
+                  </div>
+
+                  <div class="field">
+                    <label for="productPrice">Unit Price</label>
+                    <input id="productPrice" type="number" min="0" step="0.01" placeholder="Unit price">
+                  </div>
+
+                  <div class="field">
+                    <label for="productAmount">Amount</label>
+                    <input id="productAmount" type="text" readonly placeholder="Auto calculated">
+                  </div>
+
+                  <div class="field">
+                    <label>&nbsp;</label>
+                    <button class="admin-btn secondary" type="button" id="addProductBtn">Add Product</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Specification</th>
+                      <th>Quantity</th>
+                      <th>Unit price</th>
+                      <th>Amount</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productLinesBody">
+                    <tr><td colspan="6">No product added yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="grid-3" style="margin-top:18px;">
+                <div class="field">
+                  <label for="deliveryFee">Delivery / Logistics Fee</label>
+                  <input id="deliveryFee" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="discount">Discount</label>
+                  <input id="discount" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="grandTotal">Grand Total</label>
+                  <input id="grandTotal" type="text" readonly>
+                </div>
+              </div>
+
+              <div class="grid-3">
+                <div class="field">
+                  <label for="paymentMethod">Payment Method</label>
+                  <select id="paymentMethod">
+                    <option>Awaiting payment</option>
+                    <option>Cash</option>
+                    <option>Bank transfer</option>
+                    <option>POS</option>
+                    <option>Part payment</option>
+                    <option>Credit / pending payment</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="amountPaid">Amount Paid</label>
+                  <input id="amountPaid" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="balanceAmount">Balance</label>
+                  <input id="balanceAmount" type="text" readonly>
+                </div>
+
+                <div class="field">
+                  <label for="paymentProof">Upload Payment Proof</label>
+                  <input id="paymentProof" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="field">
+                  <label for="paymentStatus">Payment / Receipt Status</label>
+                  <select id="paymentStatus">
+                    <option>Awaiting payment</option>
+                    <option>Payment proof uploaded</option>
+                    <option>Pending director approval</option>
+                    <option>Director approved</option>
+                    <option>Receipt issued</option>
+                    <option>Rejected / needs confirmation</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="transactionType">Transaction Type</label>
+                  <select id="transactionType">
+                    <option>Sales invoice</option>
+                    <option>Supply order</option>
+                    <option>Delivery coordination</option>
+                    <option>Project support</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="pendingIssue">Pending Issue If Any</label>
+                  <textarea id="pendingIssue" placeholder="Enter pending issue, balance, customer complaint, delivery issue, or approval note."></textarea>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="saveTransactionBtn">Save Sales Transaction</button>
+                <button class="admin-btn secondary" type="button" id="clearTransactionBtn">Clear Form</button>
+              </div>
+
+              <div class="status-box" id="salesStatus">
+                Sales transaction status will appear here.
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="invoicePanel">
+            <div class="panel-card">
+              <div class="admin-label">Invoice Generator + Receipt Control</div>
+              <h2>Invoice and Receipt Preview</h2>
+              <p>
+                Select a saved transaction to generate invoice. Receipt is controlled by payment proof and director approval status.
+              </p>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="transactionSelect">Select Transaction</label>
+                  <select id="transactionSelect">
+                    <option value="">No transaction selected</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="dueDate">Invoice Due Date</label>
+                  <input id="dueDate" type="date">
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="generateInvoiceBtn">Generate Invoice</button>
+                <button class="admin-btn secondary" type="button" id="printInvoiceBtn">Print / Save Invoice PDF</button>
+                <button class="admin-btn warning" type="button" id="generateAcknowledgementBtn">Generate Pending Payment Acknowledgement</button>
+                <button class="admin-btn primary" type="button" id="generateReceiptBtn">Generate Official Receipt</button>
+                <button class="admin-btn secondary" type="button" id="printReceiptBtn">Print / Save Receipt PDF</button>
+              </div>
+
+              <div class="locked-note">
+                Official receipt should only be issued after payment proof has been uploaded and director approval is confirmed.
+                If approval is still pending, use the pending payment acknowledgement wording only.
+              </div>
+
+              <div class="status-box" id="invoiceStatus">
+                Invoice and receipt status will appear here.
+              </div>
+
+              <div class="document-preview" id="invoicePreview"></div>
+              <div class="receipt-box" id="receiptPreview"></div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="inventoryPanel">
+            <div class="panel-card">
+              <div class="admin-label">Inventory Record</div>
+              <h2>Inventory Movement</h2>
+              <p>
+                Record opening stock, received stock, sold or issued quantity, supplier name, and closing stock.
+              </p>
+
+              <div class="grid-3">
+                <div class="field">
+                  <label for="inventoryDate">Date</label>
+                  <input id="inventoryDate" type="date">
+                </div>
+
+                <div class="field">
+                  <label for="inventoryProduct">Product</label>
+                  <select id="inventoryProduct">
+                    <option value="">Select product</option>
+                    <option>Cement</option>
+                    <option>Granite</option>
+                    <option>Plaster sand</option>
+                    <option>Sharp sand</option>
+                    <option>Blocks</option>
+                    <option>Kerbs</option>
+                    <option>Interlocking stones</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="inventoryUnit">Unit / Measurement</label>
+                  <select id="inventoryUnit">
+                    <option value="">Select product first</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="openingStock">Opening Stock</label>
+                  <input id="openingStock" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="receivedStock">Received Stock</label>
+                  <input id="receivedStock" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="soldStock">Sold / Issued Stock</label>
+                  <input id="soldStock" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="closingStock">Closing Stock</label>
+                  <input id="closingStock" type="text" readonly>
+                </div>
+
+                <div class="field">
+                  <label for="supplierName">Supplier Name</label>
+                  <input id="supplierName" type="text" placeholder="Supplier name">
+                </div>
+
+                <div class="field">
+                  <label for="inventoryProof">Upload Supplier / Inventory Proof Optional</label>
+                  <input id="inventoryProof" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="field full">
+                  <label for="inventoryNote">Inventory Note</label>
+                  <textarea id="inventoryNote" placeholder="Add stock note, received product explanation, or issue."></textarea>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="saveInventoryBtn">Save Inventory Record</button>
+              </div>
+
+              <div class="status-box" id="inventoryStatus">
+                Inventory status will appear here.
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Product</th>
+                      <th>Unit</th>
+                      <th>Opening</th>
+                      <th>Received</th>
+                      <th>Sold / issued</th>
+                      <th>Closing</th>
+                      <th>Supplier</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inventoryTableBody">
+                    <tr><td colspan="8">No inventory record yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="productionPanel">
+            <div class="panel-card">
+              <div class="admin-label">Production Record</div>
+              <h2>Production Activity</h2>
+              <p>
+                Record production for blocks, kerbs, and interlocking stones, including stock, materials used, labour, and miscellaneous expenses.
+              </p>
+
+              <div class="grid-3">
+                <div class="field">
+                  <label for="productionDate">Date</label>
+                  <input id="productionDate" type="date">
+                </div>
+
+                <div class="field">
+                  <label for="productionProduct">Product Produced</label>
+                  <select id="productionProduct">
+                    <option value="">Select product</option>
+                    <option>Blocks</option>
+                    <option>Kerbs</option>
+                    <option>Interlocking stones</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="productionSpec">Size / Type</label>
+                  <select id="productionSpec">
+                    <option value="">Select product first</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="prodOpeningStock">Opening Stock</label>
+                  <input id="prodOpeningStock" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="quantityProduced">Quantity Produced</label>
+                  <input id="quantityProduced" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="quantitySoldIssued">Quantity Sold / Issued</label>
+                  <input id="quantitySoldIssued" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="prodClosingStock">Closing Stock</label>
+                  <input id="prodClosingStock" type="text" readonly>
+                </div>
+
+                <div class="field">
+                  <label for="cementUsed">Cement Used</label>
+                  <input id="cementUsed" type="text" placeholder="e.g. 10 bags">
+                </div>
+
+                <div class="field">
+                  <label for="sandTripsUsed">Sand Trips Used</label>
+                  <input id="sandTripsUsed" type="text" placeholder="e.g. 1 trip">
+                </div>
+
+                <div class="field">
+                  <label for="wheelbarrowUsed">Wheelbarrow Quantity Used</label>
+                  <input id="wheelbarrowUsed" type="text" placeholder="e.g. 12 wheelbarrows">
+                </div>
+
+                <div class="field">
+                  <label for="labourCost">Labour Cost</label>
+                  <input id="labourCost" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="miscProductionExpense">Miscellaneous Production Expense</label>
+                  <input id="miscProductionExpense" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field full">
+                  <label for="productionNote">Production Note</label>
+                  <textarea id="productionNote" placeholder="Add details of production, labour, materials used, issues, or staff note."></textarea>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="saveProductionBtn">Save Production Record</button>
+              </div>
+
+              <div class="status-box" id="productionStatus">
+                Production status will appear here.
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Product</th>
+                      <th>Spec</th>
+                      <th>Opening</th>
+                      <th>Produced</th>
+                      <th>Sold / issued</th>
+                      <th>Closing</th>
+                      <th>Labour</th>
+                      <th>Misc.</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productionTableBody">
+                    <tr><td colspan="9">No production record yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="expensesPanel">
+            <div class="panel-card">
+              <div class="admin-label">Expenses Record</div>
+              <h2>Office, Inventory and Production Expenses</h2>
+              <p>
+                Record expenses with proof. Expense approval will reflect in report status.
+              </p>
+
+              <div class="grid-3">
+                <div class="field">
+                  <label for="expenseDate">Date</label>
+                  <input id="expenseDate" type="date">
+                </div>
+
+                <div class="field">
+                  <label for="expenseType">Expense Type</label>
+                  <select id="expenseType">
+                    <option>Office expense</option>
+                    <option>Inventory expense</option>
+                    <option>Production expense</option>
+                    <option>Logistics expense</option>
+                    <option>Other expense</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="expenseAmount">Amount</label>
+                  <input id="expenseAmount" type="number" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="expensePaymentMethod">Payment Method</label>
+                  <select id="expensePaymentMethod">
+                    <option>Cash</option>
+                    <option>Bank transfer</option>
+                    <option>POS</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="expenseApprovalStatus">Approval Status</label>
+                  <select id="expenseApprovalStatus">
+                    <option>Pending approval</option>
+                    <option>Approved</option>
+                    <option>Rejected / needs confirmation</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="expenseProof">Upload Receipt / Proof</label>
+                  <input id="expenseProof" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>
+
+                <div class="field full">
+                  <label for="expenseDescription">Expense Description</label>
+                  <textarea id="expenseDescription" placeholder="Explain what the money was spent on."></textarea>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="saveExpenseBtn">Save Expense Record</button>
+              </div>
+
+              <div class="status-box" id="expenseStatus">
+                Expense status will appear here.
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Amount</th>
+                      <th>Method</th>
+                      <th>Approval</th>
+                      <th>Proof</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id="expenseTableBody">
+                    <tr><td colspan="7">No expense record yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="reportsPanel">
+            <div class="report-card">
+              <div class="admin-label">Daily Report</div>
+              <h2>Generate Daily Report</h2>
+              <p>
+                Daily report includes total sales, invoices, payments, approval status, inventory, production,
+                expenses, payment proofs, pending issues, staff note, and client data.
+              </p>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="reportDate">Report Date</label>
+                  <input id="reportDate" type="date">
+                </div>
+
+                <div class="field">
+                  <label for="staffReportNote">Staff Note</label>
+                  <input id="staffReportNote" type="text" placeholder="End-of-day note">
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="generateDailyReportBtn">Generate Daily Report</button>
+                <button class="admin-btn secondary" type="button" id="copyDailyReportBtn">Copy Report</button>
+              </div>
+
+              <div class="status-box" id="dailyReportOutput">
+                Daily report will appear here.
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="monthlyPanel">
+            <div class="report-card">
+              <div class="admin-label">Monthly Report</div>
+              <h2>Generate Monthly Report</h2>
+              <p>
+                Monthly report summarizes the selected month across sales, payments, inventory, production, expenses,
+                pending issues, and customer data.
+              </p>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="monthlyReportMonth">Report Month</label>
+                  <input id="monthlyReportMonth" type="month">
+                </div>
+
+                <div class="field">
+                  <label for="monthlyStaffNote">Monthly Staff Note</label>
+                  <input id="monthlyStaffNote" type="text" placeholder="Monthly note">
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="generateMonthlyReportBtn">Generate Monthly Report</button>
+                <button class="admin-btn secondary" type="button" id="copyMonthlyReportBtn">Copy Monthly Report</button>
+              </div>
+
+              <div class="status-box" id="monthlyReportOutput">
+                Monthly report will appear here.
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="socialPanel">
+            <div class="report-card">
+              <div class="admin-label">Report Shared to Social Media Section</div>
+              <h2>Customer Follow-up Data</h2>
+              <p>
+                This section filters customer data for social media and customer follow-up. It does not show payment proof,
+                bank receipts, POS receipts, or director approval details.
+              </p>
+
+              <div class="actions">
+                <button class="admin-btn primary" type="button" id="generateSocialReportBtn">Generate Social Media Follow-up Data</button>
+                <button class="admin-btn secondary" type="button" id="copySocialReportBtn">Copy Social Data</button>
+              </div>
+
+              <div class="social-filtered" id="socialReportOutput">
+                Social media follow-up data will appear here.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const BUSINESS_SUPPORT_CODE = "FTH-BSO-2026";
+
+    const productSpecs = {
+      "Cement": ["Bags"],
+      "Granite": ["5 tons", "12.5 tons", "15 tons", "20 tons", "30 tons", "35 tons", "Trip"],
+      "Plaster sand": ["5 tons", "12.5 tons", "15 tons", "20 tons", "30 tons", "35 tons", "Trip"],
+      "Sharp sand": ["Barge", "Half barge", "One barge", "Two barges", "Trip", "5 tons", "12.5 tons", "15 tons", "20 tons", "30 tons", "35 tons"],
+      "Blocks": ["4 inches blocks", "6 inches blocks", "9 inches blocks", "Pieces"],
+      "Kerbs": ["Pieces"],
+      "Interlocking stones": ["Pieces", "Square meters"]
+    };
+
+    const productionSpecs = {
+      "Blocks": ["4 inches blocks", "6 inches blocks", "9 inches blocks"],
+      "Kerbs": ["Pieces"],
+      "Interlocking stones": ["Pieces", "Square meters"]
+    };
+
+    const storageKeys = {
+      transactions:"fth_bso_transactions",
+      inventory:"fth_bso_inventory",
+      production:"fth_bso_production",
+      expenses:"fth_bso_expenses"
+    };
+
+    let officerName = "";
+    let currentProducts = [];
+    let lastDailyReport = "";
+    let lastMonthlyReport = "";
+    let lastSocialReport = "";
+
+    const qs = (id) => document.getElementById(id);
+
+    const loginCard = qs("loginCard");
+    const dashboard = qs("dashboard");
+    const loginStatus = qs("loginStatus");
+
+    const today = new Date().toISOString().slice(0,10);
+    qs("salesDate").value = today;
+    qs("inventoryDate").value = today;
+    qs("productionDate").value = today;
+    qs("expenseDate").value = today;
+    qs("reportDate").value = today;
+    qs("dueDate").value = today;
+    qs("monthlyReportMonth").value = today.slice(0,7);
+
+    qs("openWorkstationBtn").addEventListener("click", function(){
+      const code = qs("staffCode").value.trim();
+      officerName = qs("staffName").value.trim() || "Business Support Officer";
+
+      if(code !== BUSINESS_SUPPORT_CODE){
+        loginStatus.textContent = "Invalid Business Support Officer access code.";
+        return;
+      }
+
+      loginCard.style.display = "none";
+      dashboard.style.display = "grid";
+      refreshAll();
+    });
+
+    document.querySelectorAll(".admin-tab").forEach(function(tab){
+      tab.addEventListener("click", function(){
+        const panelId = tab.getAttribute("data-panel");
+
+        document.querySelectorAll(".admin-tab").forEach(function(item){
+          item.classList.remove("active");
+        });
+
+        document.querySelectorAll(".admin-panel").forEach(function(panel){
+          panel.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+        qs(panelId).classList.add("active");
+      });
+    });
+
+    function getRecords(key){
+      try{
+        return JSON.parse(localStorage.getItem(key) || "[]");
+      }catch(error){
+        return [];
+      }
+    }
+
+    function saveRecords(key, records){
+      localStorage.setItem(key, JSON.stringify(records));
+    }
+
+    function money(value){
+      const num = Number(value || 0);
+      return "₦" + num.toLocaleString("en-NG", { maximumFractionDigits:2 });
+    }
+
+    function numberValue(value){
+      const num = Number(value || 0);
+      return Number.isFinite(num) ? num : 0;
+    }
+
+    function escapeHtml(value){
+      return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+    }
+
+    function generateInvoiceNo(){
+      const year = new Date().getFullYear();
+      const count = getRecords(storageKeys.transactions).length + 1;
+      return "FTH/INV/" + year + "/" + String(count).padStart(3,"0");
+    }
+
+    function generateReceiptNo(){
+      const year = new Date().getFullYear();
+      const count = getRecords(storageKeys.transactions).length + 1;
+      return "FTH/REC/" + year + "/" + String(count).padStart(3,"0");
+    }
+
+    function updateSpecOptions(productSelectId, specSelectId){
+      const product = qs(productSelectId).value;
+      const specSelect = qs(specSelectId);
+      const list = productSpecs[product] || [];
+
+      specSelect.innerHTML = list.length
+        ? list.map(item => `<option>${item}</option>`).join("")
+        : `<option value="">Select product first</option>`;
+    }
+
+    function updateProductionOptions(){
+      const product = qs("productionProduct").value;
+      const specSelect = qs("productionSpec");
+      const list = productionSpecs[product] || [];
+
+      specSelect.innerHTML = list.length
+        ? list.map(item => `<option>${item}</option>`).join("")
+        : `<option value="">Select product first</option>`;
+    }
+
+    qs("productCategory").addEventListener("change", function(){
+      updateSpecOptions("productCategory", "productSpec");
+    });
+
+    qs("inventoryProduct").addEventListener("change", function(){
+      updateSpecOptions("inventoryProduct", "inventoryUnit");
+    });
+
+    qs("productionProduct").addEventListener("change", updateProductionOptions);
+
+    function calculateProductAmount(){
+      const qty = numberValue(qs("productQty").value);
+      const price = numberValue(qs("productPrice").value);
+      qs("productAmount").value = money(qty * price);
+    }
+
+    qs("productQty").addEventListener("input", calculateProductAmount);
+    qs("productPrice").addEventListener("input", calculateProductAmount);
+
+    function renderProductLines(){
+      const tbody = qs("productLinesBody");
+
+      if(!currentProducts.length){
+        tbody.innerHTML = `<tr><td colspan="6">No product added yet.</td></tr>`;
+        updateGrandTotal();
+        return;
+      }
+
+      tbody.innerHTML = currentProducts.map(function(item, index){
+        return `
+          <tr>
+            <td>${escapeHtml(item.product)}</td>
+            <td>${escapeHtml(item.spec)}</td>
+            <td>${escapeHtml(item.quantity)}</td>
+            <td>${money(item.unitPrice)}</td>
+            <td>${money(item.amount)}</td>
+            <td><button type="button" class="admin-btn secondary" onclick="removeProduct(${index})">Remove</button></td>
+          </tr>
+        `;
+      }).join("");
+
+      updateGrandTotal();
+    }
+
+    window.removeProduct = function(index){
+      currentProducts.splice(index,1);
+      renderProductLines();
+    };
+
+    qs("addProductBtn").addEventListener("click", function(){
+      const product = qs("productCategory").value;
+      const spec = qs("productSpec").value;
+      const quantity = numberValue(qs("productQty").value);
+      const unitPrice = numberValue(qs("productPrice").value);
+
+      if(!product || !spec || quantity <= 0 || unitPrice <= 0){
+        qs("salesStatus").textContent = "Please select product, specification, quantity, and unit price before adding.";
+        return;
+      }
+
+      currentProducts.push({
+        product,
+        spec,
+        quantity,
+        unitPrice,
+        amount: quantity * unitPrice
+      });
+
+      qs("productCategory").value = "";
+      qs("productSpec").innerHTML = `<option value="">Select product first</option>`;
+      qs("productQty").value = "";
+      qs("productPrice").value = "";
+      qs("productAmount").value = "";
+
+      renderProductLines();
+    });
+
+    qs("deliveryFee").addEventListener("input", updateGrandTotal);
+    qs("discount").addEventListener("input", updateGrandTotal);
+    qs("amountPaid").addEventListener("input", updateGrandTotal);
+
+    function updateGrandTotal(){
+      const subtotal = currentProducts.reduce((sum,item) => sum + item.amount, 0);
+      const deliveryFee = numberValue(qs("deliveryFee").value);
+      const discount = numberValue(qs("discount").value);
+      const grandTotal = Math.max(subtotal + deliveryFee - discount, 0);
+      const amountPaid = numberValue(qs("amountPaid").value);
+      const balance = Math.max(grandTotal - amountPaid, 0);
+
+      qs("grandTotal").value = money(grandTotal);
+      qs("balanceAmount").value = money(balance);
+
+      return { subtotal, deliveryFee, discount, grandTotal, amountPaid, balance };
+    }
+
+    qs("saveTransactionBtn").addEventListener("click", function(){
+      const totals = updateGrandTotal();
+
+      const customerName = qs("customerName").value.trim();
+      const customerPhone = qs("customerPhone").value.trim();
+      const salesDate = qs("salesDate").value;
+
+      if(!customerName || !customerPhone || !salesDate){
+        qs("salesStatus").textContent = "Customer name, phone number, and date are required.";
+        return;
+      }
+
+      if(!currentProducts.length){
+        qs("salesStatus").textContent = "Please add at least one product to this transaction.";
+        return;
+      }
+
+      const proofFile = qs("paymentProof").files[0];
+
+      let paymentStatus = qs("paymentStatus").value;
+
+      if(proofFile && paymentStatus === "Awaiting payment"){
+        paymentStatus = "Payment proof uploaded";
+      }
+
+      if(proofFile && paymentStatus === "Payment proof uploaded"){
+        paymentStatus = "Pending director approval";
+      }
+
+      const transaction = {
+        id: "txn_" + Date.now(),
+        invoiceNo: generateInvoiceNo(),
+        receiptNo: generateReceiptNo(),
+        date: salesDate,
+        officerName,
+        customer: {
+          name: customerName,
+          phone: customerPhone,
+          email: qs("customerEmail").value.trim(),
+          address: qs("customerAddress").value.trim(),
+          category: qs("customerCategory").value,
+          followUpNeeded: qs("followUpNeeded").value,
+          note: qs("customerNote").value.trim()
+        },
+        items: currentProducts,
+        subtotal: totals.subtotal,
+        deliveryFee: totals.deliveryFee,
+        discount: totals.discount,
+        grandTotal: totals.grandTotal,
+        amountPaid: totals.amountPaid,
+        balance: totals.balance,
+        paymentMethod: qs("paymentMethod").value,
+        paymentStatus,
+        transactionType: qs("transactionType").value,
+        pendingIssue: qs("pendingIssue").value.trim(),
+        paymentProofName: proofFile ? proofFile.name : "",
+        createdAt: new Date().toISOString()
+      };
+
+      const records = getRecords(storageKeys.transactions);
+      records.push(transaction);
+      saveRecords(storageKeys.transactions, records);
+
+      qs("salesStatus").textContent = "Sales transaction saved. Invoice number: " + transaction.invoiceNo + ". Receipt status: " + transaction.paymentStatus + ".";
+      clearSalesForm();
+      refreshAll();
+    });
+
+    function clearSalesForm(){
+      ["customerName","customerPhone","customerEmail","customerAddress","customerNote","pendingIssue"].forEach(id => qs(id).value = "");
+      qs("customerCategory").value = "";
+      qs("followUpNeeded").value = "No";
+      qs("salesDate").value = today;
+      qs("paymentMethod").value = "Awaiting payment";
+      qs("amountPaid").value = "0";
+      qs("deliveryFee").value = "0";
+      qs("discount").value = "0";
+      qs("paymentStatus").value = "Awaiting payment";
+      qs("transactionType").value = "Sales invoice";
+      qs("paymentProof").value = "";
+      currentProducts = [];
+      renderProductLines();
+    }
+
+    qs("clearTransactionBtn").addEventListener("click", clearSalesForm);
+
+    function refreshTransactionsSelect(){
+      const select = qs("transactionSelect");
+      const records = getRecords(storageKeys.transactions);
+
+      select.innerHTML = `<option value="">Select transaction</option>` + records.map(function(txn){
+        return `<option value="${txn.id}">${escapeHtml(txn.invoiceNo)} — ${escapeHtml(txn.customer.name)} — ${money(txn.grandTotal)}</option>`;
+      }).join("");
+    }
+
+    function getSelectedTransaction(){
+      const id = qs("transactionSelect").value;
+      return getRecords(storageKeys.transactions).find(txn => txn.id === id);
+    }
+
+    qs("generateInvoiceBtn").addEventListener("click", function(){
+      const txn = getSelectedTransaction();
+
+      if(!txn){
+        qs("invoiceStatus").textContent = "Please select a transaction first.";
+        return;
+      }
+
+      renderInvoice(txn);
+      qs("invoiceStatus").textContent = "Invoice generated for " + txn.customer.name + ".";
+    });
+
+    qs("printInvoiceBtn").addEventListener("click", function(){
+      const preview = qs("invoicePreview");
+
+      if(preview.style.display !== "block"){
+        qs("invoiceStatus").textContent = "Generate invoice before printing.";
+        return;
+      }
+
+      qs("receiptPreview").classList.remove("print-active");
+      preview.classList.add("print-active");
+      window.print();
+      preview.classList.remove("print-active");
+    });
+
+    qs("generateAcknowledgementBtn").addEventListener("click", function(){
+      const txn = getSelectedTransaction();
+
+      if(!txn){
+        qs("invoiceStatus").textContent = "Please select a transaction first.";
+        return;
+      }
+
+      renderReceipt(txn, "acknowledgement");
+      qs("invoiceStatus").textContent = "Pending payment acknowledgement generated. This is not a final official receipt.";
+    });
+
+    qs("generateReceiptBtn").addEventListener("click", function(){
+      const txn = getSelectedTransaction();
+
+      if(!txn){
+        qs("invoiceStatus").textContent = "Please select a transaction first.";
+        return;
+      }
+
+      if(txn.paymentStatus !== "Director approved" && txn.paymentStatus !== "Receipt issued"){
+        qs("invoiceStatus").textContent = "Official receipt is locked. Payment must be approved by Director before final receipt is issued.";
+        return;
+      }
+
+      renderReceipt(txn, "official");
+      qs("invoiceStatus").textContent = "Official receipt generated.";
+    });
+
+    qs("printReceiptBtn").addEventListener("click", function(){
+      const preview = qs("receiptPreview");
+
+      if(preview.style.display !== "block"){
+        qs("invoiceStatus").textContent = "Generate receipt or acknowledgement before printing.";
+        return;
+      }
+
+      qs("invoicePreview").classList.remove("print-active");
+      preview.classList.add("print-active");
+      window.print();
+      preview.classList.remove("print-active");
+    });
+
+    function renderInvoice(txn){
+      const dueDate = qs("dueDate").value || txn.date;
+
+      const rows = txn.items.map(function(item){
+        return `
+          <tr>
+            <td>${escapeHtml(txn.date)}</td>
+            <td>${escapeHtml(item.product)} — ${escapeHtml(item.spec)}</td>
+            <td>${money(item.unitPrice)}</td>
+            <td>${escapeHtml(item.quantity)}</td>
+            <td>${money(item.amount)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      qs("invoicePreview").style.display = "block";
+      qs("receiptPreview").style.display = "none";
+
+      qs("invoicePreview").innerHTML = `
+        <div class="doc-top">
+          <div>
+            <div class="doc-brand">FTH D-UNIQ</div>
+            <div class="doc-business-box">
+              Procurement & Supply of Construction Materials<br>
+              Blocks, Interlocking Stones, Kerbs, Cement, Sand & Granite<br>
+              Partnered with MICFEN Global Enterprises Ltd
+            </div>
+          </div>
+
+          <div class="doc-bill">
+            <div class="doc-title">INVOICE</div>
+            <strong>BILL TO</strong><br>
+            Name: ${escapeHtml(txn.customer.name)}<br>
+            Address: ${escapeHtml(txn.customer.address)}<br>
+            WhatsApp phone nos: ${escapeHtml(txn.customer.phone)}<br>
+            Email: ${escapeHtml(txn.customer.email)}
+          </div>
+        </div>
+
+        <div class="doc-strip">
+          <div>${escapeHtml(txn.invoiceNo)}</div>
+          <div>Invoice Date: ${escapeHtml(txn.date)}</div>
+          <div>Due Date: ${escapeHtml(dueDate)}</div>
+        </div>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+
+        <div class="doc-total-box">
+          <div class="doc-total-row"><strong>Subtotal</strong><span>${money(txn.subtotal)}</span></div>
+          <div class="doc-total-row"><strong>Delivery / logistics</strong><span>${money(txn.deliveryFee)}</span></div>
+          <div class="doc-total-row"><strong>Discount</strong><span>${money(txn.discount)}</span></div>
+          <div class="doc-total-row grand"><strong>Grand Total</strong><span>${money(txn.grandTotal)}</span></div>
+        </div>
+
+        <div class="doc-footer">
+          <div class="doc-terms">
+            <strong>TERM AND CONDITIONS</strong><br>
+            Please make the payment by the due date to the account below. We accept bank transfer, credit card, or check.
+            Receipt of this invoice constitutes confirmation that all products were delivered in good condition.
+            No refunds shall be issued, except where a written claim is lodged within 24 hours of delivery and the claim is validated by the supplier.
+            <br><br>
+            <strong>PAYMENT METHOD</strong><br>
+            Bank: Providus<br>
+            Account Name: FTH D-UNIQ<br>
+            Account Nos: 4208676962<br>
+            Pocketapp: Faith Onyenwenu — 7281939142
+          </div>
+
+          <div class="doc-payment">
+            <strong>Faith Onyenwenu</strong><br>
+            Business Manager<br><br>
+            Festac Lagos<br>
+            08061396612<br>
+            Info@fthduniq.com<br>
+            www.fthduniq.com
+          </div>
+        </div>
+      `;
+    }
+
+    function renderReceipt(txn, mode){
+      const isOfficial = mode === "official";
+      const title = isOfficial ? "PAYMENT RECEIPT" : "PAYMENT ACKNOWLEDGEMENT";
+      const remark = isOfficial
+        ? "By receipt of this payment receipt, the customer confirms that all goods listed above have been received in good condition. Payments made are non-refundable."
+        : "Payment received pending director review. This acknowledgement is not a final official receipt until payment confirmation is approved.";
+
+      const rows = txn.items.map(function(item){
+        return `
+          <tr>
+            <td>${escapeHtml(item.product)} — ${escapeHtml(item.spec)}</td>
+            <td>${escapeHtml(item.quantity)}</td>
+            <td>${money(item.unitPrice)}</td>
+            <td>${money(item.amount)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      qs("receiptPreview").style.display = "block";
+      qs("invoicePreview").style.display = "none";
+
+      qs("receiptPreview").innerHTML = `
+        <div class="receipt-brand">FTH D-UNIQ</div>
+        <div class="receipt-service">
+          Procurement & Supply of Construction Materials<br>
+          Blocks, Interlocking Stones, Kerbs, Cement, Sand & Granite<br>
+          Partnered with MICFEN Global Enterprises Ltd
+        </div>
+
+        <div class="receipt-contact">
+          <span>08061396612</span>
+          <span>Info@fthduniq.com</span>
+          <span>Plot 627A, Festac Town, Lagos, Nigeria</span>
+        </div>
+
+        <div class="receipt-title-row">
+          <div class="receipt-title">${title}</div>
+          <div class="receipt-date">DATE: ${escapeHtml(txn.date)}</div>
+        </div>
+
+        <div class="receipt-grid">
+          <div>
+            <h3>Received From</h3>
+            <table>
+              <tr><td>Name</td><td>${escapeHtml(txn.customer.name)}</td></tr>
+              <tr><td>Contact</td><td>${escapeHtml(txn.customer.phone)}</td></tr>
+              <tr><td>Address</td><td>${escapeHtml(txn.customer.address)}</td></tr>
+            </table>
+          </div>
+
+          <div>
+            <h3>Reference</h3>
+            <p><strong>Payment Receipt No:</strong> ${escapeHtml(txn.receiptNo)}</p>
+            <p><strong>Reference: Invoice No:</strong> ${escapeHtml(txn.invoiceNo)}</p>
+            <p><strong>Status:</strong> ${escapeHtml(txn.paymentStatus)}</p>
+          </div>
+        </div>
+
+        <div class="receipt-details">
+          <h3>Payment Details</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Description of Goods</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+              <tr><td colspan="3"><strong>Total Paid</strong></td><td>${money(txn.amountPaid)}</td></tr>
+              <tr><td colspan="3"><strong>Balance</strong></td><td>${money(txn.balance)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="receipt-remark-sign">
+          <div>
+            <h3>Remarks</h3>
+            <p>${remark}</p>
+          </div>
+
+          <div>
+            <h3>Signature:</h3>
+            <p><strong>Faith Onyenwenu</strong><br>Business Manager</p>
+            <p>www.fthduniq.com</p>
+          </div>
+        </div>
+
+        <p style="text-align:center;color:var(--admin-gold);font-style:italic;margin-top:24px;">
+          Thank You for Your Payment. We Appreciate your Patronage
+        </p>
+      `;
+    }
+
+    function calculateClosingStock(){
+      const closing = numberValue(qs("openingStock").value) + numberValue(qs("receivedStock").value) - numberValue(qs("soldStock").value);
+      qs("closingStock").value = closing;
+    }
+
+    ["openingStock","receivedStock","soldStock"].forEach(id => qs(id).addEventListener("input", calculateClosingStock));
+
+    qs("saveInventoryBtn").addEventListener("click", function(){
+      calculateClosingStock();
+
+      const record = {
+        id:"inv_" + Date.now(),
+        date: qs("inventoryDate").value,
+        product: qs("inventoryProduct").value,
+        unit: qs("inventoryUnit").value,
+        opening: numberValue(qs("openingStock").value),
+        received: numberValue(qs("receivedStock").value),
+        sold: numberValue(qs("soldStock").value),
+        closing: numberValue(qs("closingStock").value),
+        supplier: qs("supplierName").value.trim(),
+        proofName: qs("inventoryProof").files[0] ? qs("inventoryProof").files[0].name : "",
+        note: qs("inventoryNote").value.trim()
+      };
+
+      if(!record.date || !record.product || !record.unit){
+        qs("inventoryStatus").textContent = "Please enter date, product, and unit.";
+        return;
+      }
+
+      const records = getRecords(storageKeys.inventory);
+      records.push(record);
+      saveRecords(storageKeys.inventory, records);
+
+      qs("inventoryStatus").textContent = "Inventory record saved.";
+      refreshAll();
+    });
+
+    function calculateProductionClosing(){
+      const closing = numberValue(qs("prodOpeningStock").value) + numberValue(qs("quantityProduced").value) - numberValue(qs("quantitySoldIssued").value);
+      qs("prodClosingStock").value = closing;
+    }
+
+    ["prodOpeningStock","quantityProduced","quantitySoldIssued"].forEach(id => qs(id).addEventListener("input", calculateProductionClosing));
+
+    qs("saveProductionBtn").addEventListener("click", function(){
+      calculateProductionClosing();
+
+      const record = {
+        id:"prod_" + Date.now(),
+        date: qs("productionDate").value,
+        product: qs("productionProduct").value,
+        spec: qs("productionSpec").value,
+        opening: numberValue(qs("prodOpeningStock").value),
+        produced: numberValue(qs("quantityProduced").value),
+        soldIssued: numberValue(qs("quantitySoldIssued").value),
+        closing: numberValue(qs("prodClosingStock").value),
+        cementUsed: qs("cementUsed").value.trim(),
+        sandTripsUsed: qs("sandTripsUsed").value.trim(),
+        wheelbarrowUsed: qs("wheelbarrowUsed").value.trim(),
+        labourCost: numberValue(qs("labourCost").value),
+        miscExpense: numberValue(qs("miscProductionExpense").value),
+        note: qs("productionNote").value.trim()
+      };
+
+      if(!record.date || !record.product || !record.spec){
+        qs("productionStatus").textContent = "Please enter date, product, and size/type.";
+        return;
+      }
+
+      const records = getRecords(storageKeys.production);
+      records.push(record);
+      saveRecords(storageKeys.production, records);
+
+      qs("productionStatus").textContent = "Production record saved.";
+      refreshAll();
+    });
+
+    qs("saveExpenseBtn").addEventListener("click", function(){
+      const proof = qs("expenseProof").files[0];
+
+      const record = {
+        id:"exp_" + Date.now(),
+        date: qs("expenseDate").value,
+        type: qs("expenseType").value,
+        amount: numberValue(qs("expenseAmount").value),
+        paymentMethod: qs("expensePaymentMethod").value,
+        approvalStatus: qs("expenseApprovalStatus").value,
+        proofName: proof ? proof.name : "",
+        description: qs("expenseDescription").value.trim()
+      };
+
+      if(!record.date || !record.type || record.amount <= 0){
+        qs("expenseStatus").textContent = "Please enter date, expense type, and amount.";
+        return;
+      }
+
+      const records = getRecords(storageKeys.expenses);
+      records.push(record);
+      saveRecords(storageKeys.expenses, records);
+
+      qs("expenseStatus").textContent = "Expense record saved.";
+      refreshAll();
+    });
+
+    function refreshAll(){
+      refreshMetrics();
+      refreshTransactionsSelect();
+      refreshInventoryTable();
+      refreshProductionTable();
+      refreshExpenseTable();
+    }
+
+    function refreshMetrics(){
+      const txns = getRecords(storageKeys.transactions);
+
+      const payments = txns.reduce((sum, txn) => sum + numberValue(txn.amountPaid), 0);
+      const pending = txns.filter(txn => txn.paymentStatus === "Pending director approval").length;
+
+      qs("metricSales").textContent = txns.length;
+      qs("metricInvoices").textContent = txns.length;
+      qs("metricPending").textContent = pending;
+      qs("metricPayments").textContent = money(payments);
+    }
+
+    function refreshInventoryTable(){
+      const records = getRecords(storageKeys.inventory);
+      const tbody = qs("inventoryTableBody");
+
+      if(!records.length){
+        tbody.innerHTML = `<tr><td colspan="8">No inventory record yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = records.map(record => `
+        <tr>
+          <td>${escapeHtml(record.date)}</td>
+          <td>${escapeHtml(record.product)}</td>
+          <td>${escapeHtml(record.unit)}</td>
+          <td>${escapeHtml(record.opening)}</td>
+          <td>${escapeHtml(record.received)}</td>
+          <td>${escapeHtml(record.sold)}</td>
+          <td>${escapeHtml(record.closing)}</td>
+          <td>${escapeHtml(record.supplier)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function refreshProductionTable(){
+      const records = getRecords(storageKeys.production);
+      const tbody = qs("productionTableBody");
+
+      if(!records.length){
+        tbody.innerHTML = `<tr><td colspan="9">No production record yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = records.map(record => `
+        <tr>
+          <td>${escapeHtml(record.date)}</td>
+          <td>${escapeHtml(record.product)}</td>
+          <td>${escapeHtml(record.spec)}</td>
+          <td>${escapeHtml(record.opening)}</td>
+          <td>${escapeHtml(record.produced)}</td>
+          <td>${escapeHtml(record.soldIssued)}</td>
+          <td>${escapeHtml(record.closing)}</td>
+          <td>${money(record.labourCost)}</td>
+          <td>${money(record.miscExpense)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function refreshExpenseTable(){
+      const records = getRecords(storageKeys.expenses);
+      const tbody = qs("expenseTableBody");
+
+      if(!records.length){
+        tbody.innerHTML = `<tr><td colspan="7">No expense record yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = records.map(record => `
+        <tr>
+          <td>${escapeHtml(record.date)}</td>
+          <td>${escapeHtml(record.type)}</td>
+          <td>${money(record.amount)}</td>
+          <td>${escapeHtml(record.paymentMethod)}</td>
+          <td>${escapeHtml(record.approvalStatus)}</td>
+          <td>${escapeHtml(record.proofName || "No proof uploaded")}</td>
+          <td>${escapeHtml(record.description)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function productSummary(txns){
+      const map = {};
+
+      txns.forEach(function(txn){
+        txn.items.forEach(function(item){
+          const key = item.product + " — " + item.spec;
+
+          if(!map[key]){
+            map[key] = 0;
+          }
+
+          map[key] += numberValue(item.quantity);
+        });
+      });
+
+      return Object.keys(map).map(key => `${key}: ${map[key]}`).join("<br>") || "No product sold.";
+    }
+
+    function generateReport(dateFilter, mode){
+      const txns = getRecords(storageKeys.transactions).filter(txn => {
+        return mode === "daily" ? txn.date === dateFilter : txn.date && txn.date.startsWith(dateFilter);
+      });
+
+      const inventory = getRecords(storageKeys.inventory).filter(record => {
+        return mode === "daily" ? record.date === dateFilter : record.date && record.date.startsWith(dateFilter);
+      });
+
+      const production = getRecords(storageKeys.production).filter(record => {
+        return mode === "daily" ? record.date === dateFilter : record.date && record.date.startsWith(dateFilter);
+      });
+
+      const expenses = getRecords(storageKeys.expenses).filter(record => {
+        return mode === "daily" ? record.date === dateFilter : record.date && record.date.startsWith(dateFilter);
+      });
+
+      const paymentsReceived = txns.reduce((sum, txn) => sum + numberValue(txn.amountPaid), 0);
+      const pendingApprovals = txns.filter(txn => txn.paymentStatus === "Pending director approval").length;
+      const approvedReceipts = txns.filter(txn => txn.paymentStatus === "Director approved" || txn.paymentStatus === "Receipt issued").length;
+      const uploadedPaymentProofs = txns.filter(txn => txn.paymentProofName).length;
+
+      const inventoryReceived = inventory.reduce((sum, record) => sum + numberValue(record.received), 0);
+      const inventorySold = inventory.reduce((sum, record) => sum + numberValue(record.sold), 0);
+
+      const productionExpenses = production.reduce((sum, record) => sum + numberValue(record.labourCost) + numberValue(record.miscExpense), 0)
+        + expenses.filter(e => e.type === "Production expense").reduce((sum,e) => sum + numberValue(e.amount), 0);
+
+      const approvedOfficeExpenses = expenses.filter(e => e.type === "Office expense" && e.approvalStatus === "Approved").reduce((sum,e) => sum + numberValue(e.amount), 0);
+      const approvedInventoryExpenses = expenses.filter(e => e.type === "Inventory expense" && e.approvalStatus === "Approved").reduce((sum,e) => sum + numberValue(e.amount), 0);
+
+      const pendingIssues = txns.map(txn => txn.pendingIssue).filter(Boolean).join("<br>") || "No pending issue recorded.";
+
+      const clientData = txns.map(txn => {
+        const products = txn.items.map(item => item.product + " — " + item.spec).join(", ");
+        return `${txn.customer.name} | ${txn.customer.phone} | ${products} | ${txn.customer.note || "No note"}`;
+      }).join("<br>") || "No client data recorded.";
+
+      return `
+        <strong>${mode === "daily" ? "Daily" : "Monthly"} Business Support Report</strong><br>
+        <strong>Period:</strong> ${escapeHtml(dateFilter)}<br>
+        <strong>Officer:</strong> ${escapeHtml(officerName)}<br><br>
+
+        <strong>Total sales recorded:</strong> ${txns.length}<br>
+        <strong>Invoices generated:</strong> ${txns.length}<br>
+        <strong>Payments received:</strong> ${money(paymentsReceived)}<br>
+        <strong>Pending director approval receipts:</strong> ${pendingApprovals}<br>
+        <strong>Approved receipts:</strong> ${approvedReceipts}<br>
+        <strong>Inventory received:</strong> ${inventoryReceived}<br>
+        <strong>Inventory sold:</strong> ${inventorySold}<br>
+        <strong>Production recording:</strong> ${production.length}<br>
+        <strong>Production expenses recorded:</strong> ${money(productionExpenses)}<br>
+        <strong>Approved office expenses:</strong> ${money(approvedOfficeExpenses)}<br>
+        <strong>Approved inventory expenses:</strong> ${money(approvedInventoryExpenses)}<br>
+        <strong>Uploaded payment proofs:</strong> ${uploadedPaymentProofs}<br><br>
+
+        <strong>Products sold:</strong><br>
+        ${productSummary(txns)}<br><br>
+
+        <strong>Pending issues:</strong><br>
+        ${pendingIssues}<br><br>
+
+        <strong>Client data:</strong><br>
+        ${clientData}
+      `;
+    }
+
+    qs("generateDailyReportBtn").addEventListener("click", function(){
+      const reportDate = qs("reportDate").value;
+      const staffNote = qs("staffReportNote").value.trim();
+
+      lastDailyReport = generateReport(reportDate, "daily") + `<br><br><strong>Staff note:</strong> ${escapeHtml(staffNote || "No staff note.")}`;
+      qs("dailyReportOutput").innerHTML = lastDailyReport;
+    });
+
+    qs("copyDailyReportBtn").addEventListener("click", function(){
+      copyText(qs("dailyReportOutput").innerText, "Daily report copied.");
+    });
+
+    qs("generateMonthlyReportBtn").addEventListener("click", function(){
+      const month = qs("monthlyReportMonth").value;
+      const staffNote = qs("monthlyStaffNote").value.trim();
+
+      lastMonthlyReport = generateReport(month, "monthly") + `<br><br><strong>Monthly staff note:</strong> ${escapeHtml(staffNote || "No monthly note.")}`;
+      qs("monthlyReportOutput").innerHTML = lastMonthlyReport;
+    });
+
+    qs("copyMonthlyReportBtn").addEventListener("click", function(){
+      copyText(qs("monthlyReportOutput").innerText, "Monthly report copied.");
+    });
+
+    qs("generateSocialReportBtn").addEventListener("click", function(){
+      const txns = getRecords(storageKeys.transactions);
+
+      if(!txns.length){
+        qs("socialReportOutput").innerHTML = "No customer follow-up data yet.";
+        return;
+      }
+
+      lastSocialReport = txns.map(function(txn){
+        const products = txn.items.map(item => item.product + " — " + item.spec).join(", ");
+
+        return `
+          <div style="border-bottom:1px solid rgba(199,155,53,.16);padding:12px 0;">
+            <strong>Customer:</strong> ${escapeHtml(txn.customer.name)}<br>
+            <strong>Phone / WhatsApp:</strong> ${escapeHtml(txn.customer.phone)}<br>
+            <strong>Email:</strong> ${escapeHtml(txn.customer.email || "Not provided")}<br>
+            <strong>Product bought / interest:</strong> ${escapeHtml(products)}<br>
+            <strong>Customer category:</strong> ${escapeHtml(txn.customer.category || "Not specified")}<br>
+            <strong>Follow-up needed:</strong> ${escapeHtml(txn.customer.followUpNeeded)}<br>
+            <strong>Follow-up note:</strong> ${escapeHtml(txn.customer.note || "Send appreciation/follow-up message.")}
+          </div>
+        `;
+      }).join("");
+
+      qs("socialReportOutput").innerHTML = lastSocialReport;
+    });
+
+    qs("copySocialReportBtn").addEventListener("click", function(){
+      copyText(qs("socialReportOutput").innerText, "Social media customer data copied.");
+    });
+
+    async function copyText(text, message){
+      try{
+        await navigator.clipboard.writeText(text);
+        alert(message);
+      }catch(error){
+        alert("Copy failed. Please highlight and copy manually.");
+      }
+    }
+
+    document.addEventListener("contextmenu", function(e){
+      if(!e.target.closest("input, textarea, select, button, a")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("copy", function(e){
+      if(!e.target.closest("input, textarea")){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", function(e){
+      if(e.target.tagName === "IMG"){
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
