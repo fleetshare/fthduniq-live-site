@@ -3,15 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>FTH D-UNIQ | Director Candidate Admin</title>
-  <meta name="description" content="Director-only candidate recruitment administration page for FTH D-UNIQ.">
+  <meta name="description" content="Director candidate recruitment administration page for FTH D-UNIQ.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
+
+    body{
+      -webkit-user-select:none;
+      user-select:none;
+    }
+
+    input,
+    textarea,
+    select{
+      -webkit-user-select:text;
+      user-select:text;
+    }
+
     .director-page .director-shell{
       padding-top:12px;
     }
@@ -22,6 +48,8 @@
       background:rgba(255,255,255,.62);
       border:1px solid rgba(199,155,53,.14);
       box-shadow:var(--shadow);
+      max-width:100%;
+      overflow-wrap:break-word;
     }
 
     .director-card h1,
@@ -55,6 +83,7 @@
     .director-field{
       display:grid;
       gap:8px;
+      min-width:0;
     }
 
     .director-field.full-span{
@@ -63,14 +92,17 @@
 
     .director-field label{
       font-size:.92rem;
-      font-weight:600;
+      font-weight:800;
       color:var(--text);
+      line-height:1.35;
     }
 
     .director-field input,
     .director-field select,
     .director-field textarea{
       width:100%;
+      max-width:100%;
+      min-width:0;
       padding:14px 16px;
       border-radius:16px;
       border:1px solid rgba(199,155,53,.16);
@@ -97,6 +129,7 @@
       gap:14px;
       flex-wrap:wrap;
       margin-top:6px;
+      width:100%;
     }
 
     .status-box{
@@ -107,6 +140,8 @@
       border:1px solid rgba(199,155,53,.16);
       color:var(--muted);
       line-height:1.75;
+      max-width:100%;
+      overflow-wrap:break-word;
     }
 
     .generated-box{
@@ -117,6 +152,8 @@
       color:var(--text);
       line-height:1.8;
       margin-top:18px;
+      max-width:100%;
+      overflow-wrap:break-word;
     }
 
     .director-dashboard{
@@ -138,9 +175,11 @@
       color:var(--text);
       border-radius:999px;
       padding:12px 16px;
-      font-weight:700;
+      font-weight:800;
       cursor:pointer;
       transition:.2s ease;
+      white-space:normal;
+      text-align:center;
     }
 
     .director-tab.active,
@@ -158,7 +197,10 @@
     }
 
     .table-wrap{
+      width:100%;
+      max-width:100%;
       overflow:auto;
+      -webkit-overflow-scrolling:touch;
       border-radius:18px;
       border:1px solid rgba(199,155,53,.14);
       background:#fff;
@@ -167,7 +209,7 @@
 
     table{
       width:100%;
-      min-width:980px;
+      min-width:1100px;
       border-collapse:collapse;
     }
 
@@ -177,21 +219,25 @@
       border-bottom:1px solid rgba(199,155,53,.10);
       text-align:left;
       vertical-align:top;
+      overflow-wrap:break-word;
     }
 
     th{
       color:var(--gold-deep);
       text-transform:uppercase;
       letter-spacing:.12em;
-      font-size:.82rem;
+      font-size:.78rem;
+      font-weight:900;
     }
 
     td{
       color:#433a34;
       line-height:1.5;
+      font-size:.94rem;
     }
 
-    .copy-code{
+    .copy-code,
+    .small-action{
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -200,27 +246,166 @@
       color:var(--text);
       border-radius:999px;
       padding:8px 12px;
-      font-size:.86rem;
-      font-weight:700;
+      font-size:.84rem;
+      font-weight:800;
       cursor:pointer;
-      margin-top:8px;
+      margin:4px 4px 4px 0;
+      white-space:normal;
+      text-align:center;
+    }
+
+    .small-action.primary{
+      background:linear-gradient(135deg,#d7a832,#bf8d22);
+      color:#fff;
+      border:0;
+    }
+
+    .small-action.danger{
+      background:#fff3cd;
+      color:#5c4100;
+    }
+
+    .applicant-summary{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+      margin:18px 0;
+    }
+
+    .summary-card{
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .summary-card strong{
+      display:block;
+      color:var(--gold-deep);
+      font-size:.75rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .summary-card span{
+      color:var(--text);
+      font-weight:900;
+      font-size:1.05rem;
+    }
+
+    .selected-applicant-box{
+      display:none;
+      margin-top:16px;
+      padding:18px;
+      border-radius:20px;
+      background:rgba(199,155,53,.10);
+      border:1px solid rgba(199,155,53,.18);
+      color:var(--text);
+      line-height:1.75;
     }
 
     .hidden{
       display:none !important;
     }
 
+    @media (max-width:900px){
+      .director-grid,
+      .applicant-summary{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (max-width:768px){
-      .director-card{
-        padding:22px;
+      .container{
+        padding-left:14px;
+        padding-right:14px;
       }
 
-      .director-grid{
+      .director-card{
+        padding:18px;
+        border-radius:22px;
+      }
+
+      .director-card h1,
+      .director-card h2{
+        font-size:2rem;
+        line-height:1;
+      }
+
+      .director-card p{
+        font-size:.95rem;
+        line-height:1.65;
+      }
+
+      .director-grid,
+      .applicant-summary{
+        grid-template-columns:1fr !important;
+        gap:12px;
+      }
+
+      .director-field input,
+      .director-field select,
+      .director-field textarea{
+        font-size:16px;
+        padding:13px 14px;
+      }
+
+      .director-tabs{
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        gap:8px;
+        padding-bottom:6px;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .director-tab{
+        flex:0 0 auto;
+        white-space:nowrap;
+        font-size:.88rem;
+        padding:11px 14px;
+      }
+
+      .director-actions{
+        display:grid;
         grid-template-columns:1fr;
+        gap:10px;
       }
 
       .director-actions .btn{
         width:100%;
+      }
+
+      table{
+        min-width:1050px;
+        font-size:.88rem;
+      }
+
+      th,
+      td{
+        padding:11px 12px;
+      }
+
+      .small-action,
+      .copy-code{
+        width:auto;
+        max-width:100%;
+      }
+    }
+
+    @media (max-width:420px){
+      .container{
+        padding-left:10px;
+        padding-right:10px;
+      }
+
+      .director-card{
+        padding:16px;
+      }
+
+      .director-card h1,
+      .director-card h2{
+        font-size:1.75rem;
       }
     }
   </style>
@@ -248,7 +433,7 @@
           <h1>Candidate Recruitment Admin</h1>
 
           <p>
-            Enter your master access code to generate candidate access, update recruitment stages, and manage candidate records.
+            Enter your master access code to review submitted applications, generate candidate access, update recruitment stages, and manage candidate records.
           </p>
 
           <form id="directorLoginForm" class="director-form">
@@ -275,17 +460,101 @@
             <h2>Candidate Access Management</h2>
 
             <p>
-              Generate candidate access codes, update recruitment stages, send email notices, and view candidate records.
+              Review submitted applications, generate access codes for shortlisted candidates, update recruitment stages, send email notices, and view candidate records.
             </p>
 
             <div class="director-tabs">
-              <button class="director-tab active" type="button" data-panel="createPanel">Generate Access</button>
+              <button class="director-tab active" type="button" data-panel="applicationsPanel">Submitted Applications</button>
+              <button class="director-tab" type="button" data-panel="createPanel">Generate Access</button>
               <button class="director-tab" type="button" data-panel="updatePanel">Update Candidate Stage</button>
               <button class="director-tab" type="button" data-panel="listPanel">Candidate Records</button>
             </div>
 
-            <div id="createPanel" class="director-panel active">
+            <div id="applicationsPanel" class="director-panel active">
+              <div class="applicant-summary">
+                <div class="summary-card">
+                  <strong>Total Applications</strong>
+                  <span id="summaryTotalApplications">0</span>
+                </div>
+
+                <div class="summary-card">
+                  <strong>New Applications</strong>
+                  <span id="summaryNewApplications">0</span>
+                </div>
+
+                <div class="summary-card">
+                  <strong>Shortlisted</strong>
+                  <span id="summaryShortlistedApplications">0</span>
+                </div>
+
+                <div class="summary-card">
+                  <strong>Not Shortlisted</strong>
+                  <span id="summaryRejectedApplications">0</span>
+                </div>
+              </div>
+
+              <div class="director-grid">
+                <div class="director-field">
+                  <label for="applicantSearch">Search Applicant</label>
+                  <input id="applicantSearch" type="text" placeholder="Search name, email, phone, role, location">
+                </div>
+
+                <div class="director-field">
+                  <label for="applicantStatusFilter">Filter by Status</label>
+                  <select id="applicantStatusFilter">
+                    <option value="">All statuses</option>
+                    <option>New application</option>
+                    <option>Reviewed</option>
+                    <option>Shortlisted - access generated</option>
+                    <option>Moved to pre-documentation screening</option>
+                    <option>Not shortlisted</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="director-actions">
+                <button type="button" id="refreshApplicantList" class="btn btn-primary">Refresh Submitted Applications</button>
+              </div>
+
+              <div id="applicantListStatus" class="status-box">
+                Submitted applications will appear here after loading.
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Application</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                      <th>Position</th>
+                      <th>Qualification</th>
+                      <th>Experience</th>
+                      <th>Location / On-site</th>
+                      <th>Status</th>
+                      <th>Candidate Code</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="applicantListBody">
+                    <tr><td colspan="10">No submitted application loaded yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="selectedApplicantBox" class="selected-applicant-box">
+                Selected applicant details will appear here.
+              </div>
+            </div>
+
+            <div id="createPanel" class="director-panel">
               <form id="createCandidateForm" class="director-form">
+                <input id="sourceApplicantId" type="hidden">
+
+                <div id="sourceApplicantNotice" class="status-box">
+                  You can generate access manually, or load an applicant from the Submitted Applications tab.
+                </div>
+
                 <div class="director-grid">
                   <div class="director-field">
                     <label for="candidateName">Candidate Name</label>
@@ -335,10 +604,16 @@
                     <label for="candidateMessage">Candidate Dashboard Message Optional</label>
                     <textarea id="candidateMessage" name="message" placeholder="Optional message. Leave empty to use the standard automated message."></textarea>
                   </div>
+
+                  <div class="director-field full-span">
+                    <label for="directorNoteForApplicant">Director Note Optional</label>
+                    <textarea id="directorNoteForApplicant" placeholder="Optional internal note about this applicant/candidate."></textarea>
+                  </div>
                 </div>
 
                 <div class="director-actions">
                   <button type="submit" class="btn btn-primary">Generate Candidate Access</button>
+                  <button type="button" id="clearCreateForm" class="btn btn-secondary">Clear / Manual Entry</button>
                   <button type="button" id="refreshAfterCreate" class="btn btn-secondary">Refresh Records</button>
                 </div>
 
@@ -432,6 +707,7 @@
 
   <script>
     let directorKeyValue = "";
+    let applicantsCache = [];
 
     const directorLoginForm = document.getElementById("directorLoginForm");
     const directorLoginStatus = document.getElementById("directorLoginStatus");
@@ -447,6 +723,13 @@
     const refreshCandidateList = document.getElementById("refreshCandidateList");
     const refreshAfterCreate = document.getElementById("refreshAfterCreate");
     const candidateListArea = document.getElementById("candidateListArea");
+
+    const refreshApplicantList = document.getElementById("refreshApplicantList");
+    const applicantListBody = document.getElementById("applicantListBody");
+    const applicantListStatus = document.getElementById("applicantListStatus");
+    const applicantSearch = document.getElementById("applicantSearch");
+    const applicantStatusFilter = document.getElementById("applicantStatusFilter");
+    const selectedApplicantBox = document.getElementById("selectedApplicantBox");
 
     const tabs = document.querySelectorAll(".director-tab");
     const panels = document.querySelectorAll(".director-panel");
@@ -465,6 +748,14 @@
 
         tab.classList.add("active");
         document.getElementById(panelId).classList.add("active");
+
+        if(panelId === "applicationsPanel"){
+          renderApplicantList();
+        }
+
+        if(panelId === "listPanel"){
+          loadCandidateList();
+        }
       });
     });
 
@@ -492,6 +783,8 @@
         directorKeyValue = directorKey;
         directorLoginCard.classList.add("hidden");
         directorDashboard.style.display = "grid";
+
+        loadApplicantList();
         loadCandidateList();
 
       }catch(error){
@@ -506,6 +799,7 @@
 
       const payload = {
         directorKey: directorKeyValue,
+        applicantId: document.getElementById("sourceApplicantId").value.trim(),
         name: document.getElementById("candidateName").value.trim(),
         email: document.getElementById("candidateEmail").value.trim(),
         role: document.getElementById("candidateRole").value.trim(),
@@ -513,7 +807,8 @@
         interviewDate: document.getElementById("interviewDate").value.trim(),
         interviewTime: document.getElementById("interviewTime").value.trim(),
         meetUrl: document.getElementById("meetUrl").value.trim(),
-        message: document.getElementById("candidateMessage").value.trim()
+        message: document.getElementById("candidateMessage").value.trim(),
+        directorNote: document.getElementById("directorNoteForApplicant").value.trim()
       };
 
       try{
@@ -532,19 +827,34 @@
             "<strong>Access Code:</strong> " + escapeText(result.candidate.code) + "<br>" +
             "<strong>Candidate Email:</strong> " + escapeText(result.candidate.email) + "<br>" +
             "<strong>Portal:</strong> https://www.fthduniq.com/candidate-portal.html<br>" +
-            "<button type='button' class='copy-code' data-code='" + escapeText(result.candidate.code) + "'>Copy Access Code</button>" +
+            "<button type='button' class='copy-code' data-code='" + escapeAttr(result.candidate.code) + "'>Copy Access Code</button>" +
             "</div>";
 
           createCandidateForm.reset();
+          document.getElementById("sourceApplicantId").value = "";
           document.getElementById("meetUrl").value = "https://meet.google.com/ixd-aoht-oup";
+          document.getElementById("sourceApplicantNotice").textContent =
+            "You can generate access manually, or load an applicant from the Submitted Applications tab.";
+
           bindCopyButtons();
+          loadApplicantList();
           loadCandidateList();
+
         }else{
           createStatus.textContent = result.message || "Candidate access could not be created.";
         }
       }catch(error){
         createStatus.textContent = "Candidate access could not be created. Please try again.";
       }
+    });
+
+    document.getElementById("clearCreateForm").addEventListener("click", function(){
+      createCandidateForm.reset();
+      document.getElementById("sourceApplicantId").value = "";
+      document.getElementById("meetUrl").value = "https://meet.google.com/ixd-aoht-oup";
+      document.getElementById("sourceApplicantNotice").textContent =
+        "Manual entry mode active. You can type earlier applicant details manually and generate access.";
+      createStatus.textContent = "Manual entry mode active.";
     });
 
     updateCandidateForm.addEventListener("submit", async function(e){
@@ -573,6 +883,7 @@
         if(result.ok){
           updateStatus.textContent = result.message || "Candidate stage updated successfully.";
           updateCandidateForm.reset();
+          loadApplicantList();
           loadCandidateList();
         }else{
           updateStatus.textContent = result.message || "Candidate stage could not be updated.";
@@ -587,8 +898,268 @@
     });
 
     refreshAfterCreate.addEventListener("click", function(){
+      loadApplicantList();
       loadCandidateList();
     });
+
+    refreshApplicantList.addEventListener("click", function(){
+      loadApplicantList();
+    });
+
+    applicantSearch.addEventListener("input", function(){
+      renderApplicantList();
+    });
+
+    applicantStatusFilter.addEventListener("change", function(){
+      renderApplicantList();
+    });
+
+    async function loadApplicantList(){
+      applicantListStatus.textContent = "Loading submitted applications...";
+
+      try{
+        const response = await fetch("/api/director-list-applicants", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ directorKey: directorKeyValue })
+        });
+
+        const result = await response.json();
+
+        if(!result.ok){
+          applicantListStatus.textContent = result.message || "Submitted applications could not be loaded.";
+          applicantListBody.innerHTML = "<tr><td colspan='10'>Submitted applications could not be loaded.</td></tr>";
+          return;
+        }
+
+        applicantsCache = result.applicants || [];
+        renderApplicantList();
+
+      }catch(error){
+        applicantListStatus.textContent = "Submitted applications could not be loaded. Please try again.";
+        applicantListBody.innerHTML = "<tr><td colspan='10'>Submitted applications could not be loaded.</td></tr>";
+      }
+    }
+
+    function getFilteredApplicants(){
+      const searchText = applicantSearch.value.trim().toLowerCase();
+      const statusValue = applicantStatusFilter.value.trim();
+
+      return applicantsCache.filter(function(item){
+        const statusMatch = !statusValue || item.status === statusValue;
+
+        const searchArea = [
+          item.applicationNumber,
+          item.fullName,
+          item.email,
+          item.phone,
+          item.location,
+          item.position,
+          item.qualification,
+          item.experience,
+          item.onsite,
+          item.status
+        ].join(" ").toLowerCase();
+
+        const searchMatch = !searchText || searchArea.includes(searchText);
+
+        return statusMatch && searchMatch;
+      });
+    }
+
+    function renderApplicantSummary(){
+      const total = applicantsCache.length;
+      const newApps = applicantsCache.filter(item => item.status === "New application").length;
+      const shortlisted = applicantsCache.filter(item =>
+        String(item.status || "").toLowerCase().includes("shortlisted") ||
+        String(item.status || "").toLowerCase().includes("pre-documentation")
+      ).length;
+      const rejected = applicantsCache.filter(item => item.status === "Not shortlisted").length;
+
+      document.getElementById("summaryTotalApplications").textContent = total;
+      document.getElementById("summaryNewApplications").textContent = newApps;
+      document.getElementById("summaryShortlistedApplications").textContent = shortlisted;
+      document.getElementById("summaryRejectedApplications").textContent = rejected;
+    }
+
+    function renderApplicantList(){
+      renderApplicantSummary();
+
+      const applicants = getFilteredApplicants();
+
+      if(!applicants.length){
+        applicantListBody.innerHTML = "<tr><td colspan='10'>No submitted application found for this filter.</td></tr>";
+        applicantListStatus.textContent = "No submitted application found.";
+        return;
+      }
+
+      applicantListStatus.textContent = applicants.length + " submitted application(s) loaded.";
+
+      applicantListBody.innerHTML = applicants.map(function(item, index){
+        return `
+          <tr>
+            <td>
+              <strong>#${escapeText(item.applicationNumber || "")}</strong><br>
+              <small>${escapeText(formatDate(item.submittedAt))}</small>
+            </td>
+
+            <td>
+              <strong>${escapeText(item.fullName)}</strong><br>
+              <small>${escapeText(item.applicationId)}</small>
+            </td>
+
+            <td>
+              ${escapeText(item.phone)}<br>
+              ${escapeText(item.email)}
+            </td>
+
+            <td>${escapeText(item.position)}</td>
+            <td>${escapeText(item.qualification)}</td>
+            <td>${escapeText(item.experience)}</td>
+
+            <td>
+              ${escapeText(item.location)}<br>
+              <strong>On-site:</strong> ${escapeText(item.onsite)}
+            </td>
+
+            <td>
+              ${escapeText(item.status)}<br>
+              <small>${escapeText(item.directorNote || "")}</small>
+            </td>
+
+            <td>
+              ${item.candidateCode ? escapeText(item.candidateCode) : "Not generated"}
+              ${item.candidateCode ? "<br><button type='button' class='copy-code' data-code='" + escapeAttr(item.candidateCode) + "'>Copy</button>" : ""}
+            </td>
+
+            <td>
+              <button type="button" class="small-action primary" data-action="load-access" data-index="${index}">Generate Access</button>
+              <button type="button" class="small-action" data-action="reviewed" data-index="${index}">Mark Reviewed</button>
+              <button type="button" class="small-action danger" data-action="not-shortlisted" data-index="${index}">Not Shortlisted</button>
+              <button type="button" class="small-action" data-action="view" data-index="${index}">View Details</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      bindApplicantActionButtons(applicants);
+      bindCopyButtons();
+    }
+
+    function bindApplicantActionButtons(filteredApplicants){
+      const buttons = applicantListBody.querySelectorAll("[data-action]");
+
+      buttons.forEach(function(button){
+        button.onclick = function(){
+          const index = Number(button.getAttribute("data-index"));
+          const action = button.getAttribute("data-action");
+          const applicant = filteredApplicants[index];
+
+          if(!applicant) return;
+
+          if(action === "load-access"){
+            loadApplicantIntoAccessForm(applicant);
+          }
+
+          if(action === "reviewed"){
+            updateApplicantStatus(applicant, "Reviewed");
+          }
+
+          if(action === "not-shortlisted"){
+            updateApplicantStatus(applicant, "Not shortlisted");
+          }
+
+          if(action === "view"){
+            showApplicantDetails(applicant);
+          }
+        };
+      });
+    }
+
+    function showApplicantDetails(applicant){
+      selectedApplicantBox.style.display = "block";
+
+      selectedApplicantBox.innerHTML =
+        "<strong>Applicant Profile</strong><br>" +
+        "<strong>Name:</strong> " + escapeText(applicant.fullName) + "<br>" +
+        "<strong>Email:</strong> " + escapeText(applicant.email) + "<br>" +
+        "<strong>Phone:</strong> " + escapeText(applicant.phone) + "<br>" +
+        "<strong>Position:</strong> " + escapeText(applicant.position) + "<br>" +
+        "<strong>Location:</strong> " + escapeText(applicant.location) + "<br>" +
+        "<strong>Qualification:</strong> " + escapeText(applicant.qualification) + "<br>" +
+        "<strong>Experience:</strong> " + escapeText(applicant.experience) + "<br>" +
+        "<strong>On-site Availability:</strong> " + escapeText(applicant.onsite) + "<br>" +
+        "<strong>Status:</strong> " + escapeText(applicant.status) + "<br><br>" +
+        "<strong>Relevant Experience:</strong><br>" +
+        escapeText(applicant.relevantExperience || "No details provided.");
+    }
+
+    function loadApplicantIntoAccessForm(applicant){
+      document.getElementById("sourceApplicantId").value = applicant.applicationId || "";
+      document.getElementById("candidateName").value = applicant.fullName || "";
+      document.getElementById("candidateEmail").value = applicant.email || "";
+      document.getElementById("candidateRole").value = applicant.position || "";
+      document.getElementById("accessType").value = "interview";
+      document.getElementById("meetUrl").value = "https://meet.google.com/ixd-aoht-oup";
+      document.getElementById("directorNoteForApplicant").value = applicant.directorNote || "";
+
+      document.getElementById("sourceApplicantNotice").innerHTML =
+        "<strong>Applicant loaded from submitted applications.</strong><br>" +
+        "Name: " + escapeText(applicant.fullName) + "<br>" +
+        "Application No: #" + escapeText(applicant.applicationNumber || "") + "<br>" +
+        "You can now generate interview access for this applicant.";
+
+      activatePanel("createPanel");
+      createStatus.textContent = "Applicant loaded. Review details and click Generate Candidate Access.";
+    }
+
+    async function updateApplicantStatus(applicant, status){
+      const directorNote = prompt("Optional director note for " + applicant.fullName + ":", applicant.directorNote || "");
+
+      applicantListStatus.textContent = "Updating applicant status...";
+
+      try{
+        const response = await fetch("/api/director-update-applicant", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({
+            directorKey: directorKeyValue,
+            applicantId: applicant.applicationId,
+            status,
+            directorNote: directorNote || ""
+          })
+        });
+
+        const result = await response.json();
+
+        if(!result.ok){
+          applicantListStatus.textContent = result.message || "Applicant status could not be updated.";
+          return;
+        }
+
+        applicantListStatus.textContent = "Applicant status updated.";
+        loadApplicantList();
+
+      }catch(error){
+        applicantListStatus.textContent = "Applicant status could not be updated.";
+      }
+    }
+
+    function activatePanel(panelId){
+      tabs.forEach(function(item){
+        item.classList.remove("active");
+      });
+
+      panels.forEach(function(panel){
+        panel.classList.remove("active");
+      });
+
+      const tab = document.querySelector('[data-panel="' + panelId + '"]');
+      const panel = document.getElementById(panelId);
+
+      if(tab) tab.classList.add("active");
+      if(panel) panel.classList.add("active");
+    }
 
     async function loadCandidateList(){
       candidateListArea.textContent = "Loading candidate records...";
@@ -634,7 +1205,7 @@
                       <td>
                         ${escapeText(item.code)}
                         <br>
-                        <button type="button" class="copy-code" data-code="${escapeText(item.code)}">Copy</button>
+                        <button type="button" class="copy-code" data-code="${escapeAttr(item.code)}">Copy</button>
                       </td>
                       <td>${escapeText(item.name)}</td>
                       <td>${escapeText(item.email)}</td>
@@ -673,6 +1244,15 @@
       });
     }
 
+    function formatDate(value){
+      if(!value) return "";
+      try{
+        return new Date(value).toLocaleString();
+      }catch(error){
+        return value;
+      }
+    }
+
     function escapeText(value){
       return String(value || "")
         .replace(/&/g, "&amp;")
@@ -681,22 +1261,40 @@
         .replace(/"/g, "&quot;");
     }
 
+    function escapeAttr(value){
+      return escapeText(value).replace(/'/g, "&#039;");
+    }
+
+    function isEditableArea(element){
+      return element && element.closest("input, textarea, select, button, a");
+    }
+
     document.addEventListener("contextmenu", function(e){
-      if(!e.target.closest("input, textarea, select, button, a")){
+      if(!isEditableArea(e.target)){
         e.preventDefault();
       }
     });
 
     document.addEventListener("copy", function(e){
-      if(!e.target.closest("input, textarea")){
+      if(!isEditableArea(e.target)){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("cut", function(e){
+      if(!isEditableArea(e.target)){
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("selectstart", function(e){
+      if(!isEditableArea(e.target)){
         e.preventDefault();
       }
     });
 
     document.addEventListener("dragstart", function(e){
-      if(e.target.tagName === "IMG"){
-        e.preventDefault();
-      }
+      e.preventDefault();
     });
   </script>
 </body>
