@@ -62,7 +62,7 @@ const SAMPLE_CANDIDATES = {
     interviewDate: "",
     interviewTime: "",
     meetUrl: "",
-    message: "Congratulations. You have been selected for final resumption with FTH D-UNIQ. Please watch your email for official resumption instructions."
+    message: "Congratulations. Following the recruitment and documentation screening process, you have been selected to join FTH D-UNIQ. Please watch your email for your official resumption instructions. You will be required to come physically for final document verification, employment documentation, and onboarding before commencing work."
   },
 
   "FTH-NOT-001": {
@@ -84,7 +84,7 @@ const STATUS_LABELS = {
   physical_interview: "Physical Interview Stage",
   documentation_screening: "Pre-Documentation Screening",
   documents_received: "Documents Received — Under Review",
-  final_selected: "Final Selected",
+  final_selected: "Selected for Final Resumption",
   not_selected: "Not Selected"
 };
 
@@ -94,7 +94,7 @@ const NEXT_STEPS = {
   physical_interview: "Follow the physical interview instruction from FTH D-UNIQ Careers.",
   documentation_screening: "Upload your required documents for screening.",
   documents_received: "Please wait while FTH D-UNIQ reviews your submitted documents.",
-  final_selected: "Await official resumption instructions from FTH D-UNIQ Careers.",
+  final_selected: "Watch your email for official resumption and onboarding instructions from FTH D-UNIQ Careers.",
   not_selected: "No further action is required at this stage."
 };
 
@@ -114,7 +114,15 @@ export default {
       return handleCandidateLogin(request, env);
     }
 
+    if (url.pathname === "/api/pre-doc-login" && request.method === "POST") {
+      return handleCandidateLogin(request, env);
+    }
+
     if (url.pathname === "/api/pre-documents" && request.method === "POST") {
+      return handlePreDocuments(request, env);
+    }
+
+    if (url.pathname === "/api/candidate-documents" && request.method === "POST") {
       return handlePreDocuments(request, env);
     }
 
@@ -151,16 +159,16 @@ function json(data, status = 200) {
   });
 }
 
-function candidateKey(code) {
-  return "candidate:" + String(code || "").trim().toUpperCase();
-}
-
 function cleanCode(value) {
   return String(value || "").trim().toUpperCase();
 }
 
 function cleanEmail(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function candidateKey(code) {
+  return "candidate:" + cleanCode(code);
 }
 
 async function getCandidateRecord(env, code) {
@@ -249,9 +257,10 @@ async function handleApplicationStatus(env) {
 }
 
 async function handleResetApplicationCount(request, env) {
-  const adminKey = request.headers.get("x-admin-key");
+  const adminKey = String(request.headers.get("x-admin-key") || "").trim();
+  const savedKey = String(env.ADMIN_KEY || "").trim();
 
-  if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+  if (!savedKey || adminKey !== savedKey) {
     return json(
       { ok: false, message: "Unauthorized." },
       401
@@ -414,7 +423,7 @@ async function handlePreDocuments(request, env) {
     }
 
     candidate.stage = "documents_received";
-    candidate.message = "Your documents have been received and are currently under review. FTH D-UNIQ will communicate the next step through official contact channels.";
+    candidate.message = defaultMessageForStage("documents_received");
 
     await saveCandidateRecord(env, candidate);
 
@@ -434,12 +443,21 @@ async function handlePreDocuments(request, env) {
 async function handleDirectorLogin(request, env) {
   try {
     const body = await request.json();
-    const directorKey = String(body.directorKey || "").trim();
 
-    if (!env.ADMIN_KEY || directorKey !== env.ADMIN_KEY) {
+    const typedKey = String(body.directorKey || "").trim();
+    const savedKey = String(env.ADMIN_KEY || "").trim();
+
+    if (!savedKey) {
       return json({
         ok: false,
-        message: "Invalid director access code."
+        message: "ADMIN_KEY is not found in Cloudflare runtime variables."
+      }, 500);
+    }
+
+    if (typedKey !== savedKey) {
+      return json({
+        ok: false,
+        message: "Invalid director access code. The code entered does not match the ADMIN_KEY saved in Cloudflare."
       }, 403);
     }
 
@@ -457,13 +475,14 @@ async function handleDirectorLogin(request, env) {
 }
 
 async function verifyDirector(body, env) {
-  const directorKey = String(body.directorKey || "").trim();
+  const typedKey = String(body.directorKey || "").trim();
+  const savedKey = String(env.ADMIN_KEY || "").trim();
 
-  if (!env.ADMIN_KEY || directorKey !== env.ADMIN_KEY) {
+  if (!savedKey) {
     return false;
   }
 
-  return true;
+  return typedKey === savedKey;
 }
 
 function generateCandidateCode(accessType) {
@@ -479,6 +498,10 @@ function defaultMessageForStage(stage) {
     return "Congratulations. You have been shortlisted for the interview stage of FTH D-UNIQ’s recruitment process. Please click the interview room button when you are ready for your interview.";
   }
 
+  if (stage === "interview_completed") {
+    return "Your interview has been completed. Please wait for the next-stage decision from FTH D-UNIQ Careers.";
+  }
+
   if (stage === "physical_interview") {
     return "You have moved to the physical interview stage. Please follow the instruction sent by FTH D-UNIQ Careers.";
   }
@@ -492,7 +515,7 @@ function defaultMessageForStage(stage) {
   }
 
   if (stage === "final_selected") {
-    return "Congratulations. You have been selected for final resumption with FTH D-UNIQ. Please watch your email for official resumption instructions.";
+    return "Congratulations. Following the recruitment and documentation screening process, you have been selected to join FTH D-UNIQ. Please watch your email for your official resumption instructions. You will be required to come physically for final document verification, employment documentation, and onboarding before commencing work.";
   }
 
   if (stage === "not_selected") {
@@ -588,7 +611,7 @@ async function handleDirectorListCandidates(request, env) {
       }, 403);
     }
 
-    const records = [];
+    const recordsByCode = new Map();
 
     if (env.CAREER_KV) {
       let cursor = undefined;
@@ -605,7 +628,7 @@ async function handleDirectorListCandidates(request, env) {
           if (stored) {
             try {
               const candidate = JSON.parse(stored);
-              records.push(publicCandidate(candidate));
+              recordsByCode.set(cleanCode(candidate.code), publicCandidate(candidate));
             } catch (error) {}
           }
         }
@@ -614,11 +637,17 @@ async function handleDirectorListCandidates(request, env) {
       } while (cursor);
     }
 
-    const sampleRecords = Object.values(SAMPLE_CANDIDATES).map(publicCandidate);
+    for (const sample of Object.values(SAMPLE_CANDIDATES)) {
+      const code = cleanCode(sample.code);
+
+      if (!recordsByCode.has(code)) {
+        recordsByCode.set(code, publicCandidate(sample));
+      }
+    }
 
     return json({
       ok: true,
-      candidates: [...records, ...sampleRecords]
+      candidates: Array.from(recordsByCode.values())
     });
 
   } catch (error) {
@@ -640,6 +669,13 @@ async function handleDirectorUpdateCandidate(request, env) {
         ok: false,
         message: "Unauthorized director access."
       }, 403);
+    }
+
+    if (!env.CAREER_KV) {
+      return json({
+        ok: false,
+        message: "CAREER_KV is not connected."
+      }, 500);
     }
 
     const candidateCode = cleanCode(body.candidateCode);
