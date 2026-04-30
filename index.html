@@ -3,12 +3,259 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>FTH D-UNIQ | Home</title>
   <meta name="description" content="Building materials supply, procurement support, logistics coordination, and project support for busy, remote, and diaspora clients across Lagos and selected nearby locations.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    #quote-form {
+      scroll-margin-top: 120px;
+    }
+
+    .quote-support-line {
+      margin-top: 14px;
+      max-width: 680px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.82;
+    }
+
+    .clean-home-section {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .compact-preview-panel {
+      align-items: center;
+    }
+
+    .compact-title {
+      max-width: 850px;
+      margin-bottom: 26px;
+    }
+
+    .section-intro {
+      max-width: 760px;
+      line-height: 1.8;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    .clean-service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .clean-service-card {
+      padding: 26px;
+      min-height: 170px;
+    }
+
+    .clean-service-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .clean-service-card p {
+      line-height: 1.75;
+      opacity: 0.84;
+    }
+
+    .quick-process {
+      display: grid;
+      gap: 14px;
+      max-width: 920px;
+      margin-top: 28px;
+    }
+
+    .quick-process-item {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid rgba(201, 162, 77, 0.22);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .quick-process-item span {
+      color: var(--gold, #c9a24d);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .quick-process-item p {
+      margin: 0;
+      line-height: 1.65;
+      opacity: 0.86;
+    }
+
+    .home-quote-section {
+      padding-top: 76px;
+      padding-bottom: 86px;
+    }
+
+    .quote-form-card {
+      margin-top: 34px;
+      padding: 34px;
+      border: 1px solid rgba(201, 162, 77, 0.30);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(201, 162, 77, 0.13), rgba(255, 255, 255, 0.035));
+    }
+
+    .quote-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold, #c9a24d);
+      letter-spacing: 0.04em;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(201, 162, 77, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: #ffffff;
+      font-family: Inter, sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .form-field select option {
+      color: #111111;
+    }
+
+    .form-field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .quote-form-note {
+      margin-top: 16px;
+      line-height: 1.7;
+      opacity: 0.78;
+      font-size: 0.92rem;
+    }
+
+    .form-submit-row {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .form-status {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      display: none;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .form-status.success {
+      display: block;
+      border: 1px solid rgba(201, 162, 77, 0.35);
+      background: rgba(201, 162, 77, 0.12);
+      color: #ffffff;
+    }
+
+    .form-status.error {
+      display: block;
+      border: 1px solid rgba(255, 120, 120, 0.35);
+      background: rgba(255, 80, 80, 0.10);
+      color: #ffffff;
+    }
+
+    .footer-quote-panel {
+      margin-bottom: 30px;
+      padding: 26px;
+      border: 1px solid rgba(201, 162, 77, 0.28);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(201, 162, 77, 0.12), rgba(255, 255, 255, 0.03));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .footer-quote-panel strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-quote-panel p {
+      margin: 0;
+      line-height: 1.65;
+      opacity: 0.82;
+    }
+
+    @media (max-width: 1100px) {
+      .clean-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .clean-service-grid,
+      .quote-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-process-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-quote-panel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .clean-home-section,
+      .home-quote-section {
+        padding-top: 55px;
+        padding-bottom: 60px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -35,147 +282,237 @@
   </header>
 
   <main class="page-shell">
-  <section class="hero hero-home">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <div class="section-label">FTH D-UNIQ</div>
 
-        <h1 class="editorial-headline two-line-hero">
-          <span class="hero-line">Building Materials Supply,</span>
-          <span class="hero-line">Procurement Support</span>
-          <span class="hero-line">&amp; Logistics Coordination</span>
-        </h1>
+    <section class="hero hero-home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="section-label">FTH D-UNIQ</div>
 
-        <p class="lead">
-          We help busy, remote, and diaspora clients source building materials, coordinate delivery, and follow up on project-related requests across Lagos and selected nearby locations.
-        </p>
+          <h1 class="editorial-headline two-line-hero">
+            <span class="hero-line">Building Materials Supply,</span>
+            <span class="hero-line">Procurement Support</span>
+            <span class="hero-line">&amp; Logistics Coordination</span>
+          </h1>
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="services.html#quote-form">Request a Quote</a>
-          <a class="btn btn-secondary" href="services.html">View Services</a>
+          <p class="lead">
+            We help busy, remote, and diaspora clients source building materials, coordinate delivery, and follow up on project-related requests across Lagos and selected nearby locations.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="services.html">View Services</a>
+          </div>
+
+          <p class="quote-support-line">
+            For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, and project support.
+          </p>
         </div>
 
-        <p class="quote-support-line">
-          For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, and project support.
-        </p>
+        <div class="media-card card">
+          <img src="assets/office_portrait.jpeg" alt="FTH D-UNIQ representative working at a laptop">
+        </div>
       </div>
+    </section>
 
-      <div class="media-card card">
-        <img src="assets/office_portrait.jpeg" alt="FTH D-UNIQ representative working at a laptop">
+    <section class="clean-home-section">
+      <div class="container preview-panel compact-preview-panel">
+        <div class="preview-copy">
+          <div class="section-label">Trusted Coordination Support</div>
+
+          <h2 class="trusted-headline">
+            <span>For clients who need</span>
+            <span>clear material and delivery</span>
+            <span>coordination.</span>
+          </h2>
+
+          <p>
+            FTH D-UNIQ supports homeowners, contractors, site teams, busy professionals, and diaspora clients who need reliable follow-up with materials, suppliers, trucks, and project-related coordination.
+          </p>
+
+          <div class="preview-actions">
+            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="contact.html">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="media-card card">
+          <img src="assets/support_consultation.jpeg" alt="Consultation meeting showing client support">
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="clean-support-section">
-    <div class="container preview-panel compact-preview-panel">
-      <div class="preview-copy">
-        <div class="section-label">Trusted Coordination Support</div>
+    <section class="section clean-home-section">
+      <div class="container">
+        <div class="section-label">What We Coordinate</div>
 
-        <h2 class="trusted-headline compact-trusted-headline">
-          <span>For clients who need</span>
-          <span>clear material and delivery</span>
-          <span>coordination.</span>
+        <h2 class="section-title compact-title">
+          Materials, procurement, delivery, and project-support requests handled with structure.
         </h2>
 
-        <p>
-          FTH D-UNIQ supports homeowners, contractors, site teams, busy professionals, and diaspora clients who need reliable follow-up with materials, suppliers, trucks, and project-related coordination.
+        <div class="clean-service-grid">
+          <article class="clean-service-card card">
+            <h3>Building Materials</h3>
+            <p>Cement, blocks, sand, granite, interlocking stones, kerbs, and related material requests.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Procurement Support</h3>
+            <p>Supplier follow-up, material sourcing, price review, and request coordination.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Logistics Coordination</h3>
+            <p>Truck arrangement, delivery timing, site access, and movement follow-up.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Project Support</h3>
+            <p>Project updates, vendor communication, documentation, and execution follow-through.</p>
+          </article>
+        </div>
+
+        <div class="hero-actions" style="margin-top: 30px;">
+          <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+          <a class="btn btn-secondary" href="services.html">View Full Services</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section clean-home-section">
+      <div class="container">
+        <div class="section-label">How to Request</div>
+
+        <h2 class="section-title compact-title">
+          A simple process from request to coordination.
+        </h2>
+
+        <div class="quick-process">
+          <div class="quick-process-item">
+            <span>01</span>
+            <p>Submit your request through the quote form.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>02</span>
+            <p>We review your material, quantity, location, and delivery needs.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>03</span>
+            <p>We confirm supplier availability, pricing, and logistics options.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>04</span>
+            <p>You approve the quote.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>05</span>
+            <p>We coordinate procurement, delivery, and follow-up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quote-form" class="section home-quote-section">
+      <div class="container">
+        <div class="section-label">Request a Quote</div>
+
+        <h2 class="section-title compact-title">
+          Tell us what you need and where it should be delivered.
+        </h2>
+
+        <p class="section-intro">
+          For material prices, delivery support, procurement requests, or project coordination, complete the form below so we can review your request properly.
         </p>
 
-        <div class="preview-actions">
-          <a class="btn btn-primary" href="services.html#quote-form">Request a Quote</a>
-          <a class="btn btn-secondary" href="contact.html">Contact Us</a>
+        <div class="quote-form-card card">
+          <form id="quoteRequestForm" action="/api/quote-request" method="POST">
+            <input type="hidden" name="form_source" value="Homepage Quote Request">
+            <input type="hidden" name="to_email" value="info@fthduniq.com">
+            <input type="hidden" name="subject" value="New Quote Request from FTH D-UNIQ Website">
+
+            <div class="quote-form-grid">
+              <div class="form-field">
+                <label for="full-name">Full Name</label>
+                <input id="full-name" type="text" name="full_name" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-field">
+                <label for="phone-number">Phone / WhatsApp Number</label>
+                <input id="phone-number" type="tel" name="phone_number" placeholder="Enter your phone number" required>
+              </div>
+
+              <div class="form-field">
+                <label for="email-address">Email Address</label>
+                <input id="email-address" type="email" name="email_address" placeholder="Enter your email address">
+              </div>
+
+              <div class="form-field">
+                <label for="location">Delivery / Project Location</label>
+                <input id="location" type="text" name="delivery_location" placeholder="Example: Lekki, Ajah, Ikorodu, etc." required>
+              </div>
+
+              <div class="form-field">
+                <label for="material-needed">Material / Service Needed</label>
+                <select id="material-needed" name="material_or_service_needed" required>
+                  <option value="">Select material or service</option>
+                  <option value="Cement Supply">Cement Supply</option>
+                  <option value="Blocks">Blocks</option>
+                  <option value="Sand">Sand</option>
+                  <option value="Granite">Granite</option>
+                  <option value="Interlocking Stones">Interlocking Stones</option>
+                  <option value="Kerbs">Kerbs</option>
+                  <option value="Building Materials Supply">Building Materials Supply</option>
+                  <option value="Procurement Support">Procurement Support</option>
+                  <option value="Logistics Coordination">Logistics Coordination</option>
+                  <option value="Truck / Delivery Coordination">Truck / Delivery Coordination</option>
+                  <option value="Project Support">Project Support</option>
+                  <option value="Other Construction-Related Request">Other Construction-Related Request</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="quantity">Quantity / Volume</label>
+                <input id="quantity" type="text" name="quantity_or_volume" placeholder="Example: 100 bags, 1 trip, 500 blocks">
+              </div>
+
+              <div class="form-field">
+                <label for="timeline">Preferred Timeline</label>
+                <input id="timeline" type="text" name="preferred_timeline" placeholder="Example: Today, this week, next week">
+              </div>
+
+              <div class="form-field">
+                <label for="site-contact">Site Contact Person</label>
+                <input id="site-contact" type="text" name="site_contact_person" placeholder="Name and phone number, if available">
+              </div>
+
+              <div class="form-field full">
+                <label for="request-details">Request Details</label>
+                <textarea id="request-details" name="request_details" placeholder="Tell us the material needed, quantity, delivery location, site access, delivery timing, and any special instruction." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-submit-row">
+              <button id="quoteSubmitButton" class="btn btn-primary" type="submit">Submit Quote Request</button>
+              <a class="btn btn-secondary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+            </div>
+
+            <div id="quoteFormStatus" class="form-status" aria-live="polite"></div>
+
+            <p class="quote-form-note">
+              Requests are reviewed based on material type, quantity, delivery location, site access, supplier availability, and logistics options.
+            </p>
+          </form>
         </div>
       </div>
+    </section>
 
-      <div class="media-card card">
-        <img src="assets/support_consultation.jpeg" alt="Consultation meeting showing client support">
-      </div>
-    </div>
-  </section>
+  </main>
 
-  <section class="section compact-services-section">
-    <div class="container">
-      <div class="section-label">What We Coordinate</div>
-
-      <h2 class="section-title compact-title">
-        Materials, procurement, delivery, and project-support requests handled with structure.
-      </h2>
-
-      <div class="clean-service-grid">
-        <article class="clean-service-card card">
-          <h3>Building Materials</h3>
-          <p>Cement, blocks, sand, granite, interlocking stones, kerbs, and related material requests.</p>
-        </article>
-
-        <article class="clean-service-card card">
-          <h3>Procurement Support</h3>
-          <p>Supplier follow-up, material sourcing, price review, and request coordination.</p>
-        </article>
-
-        <article class="clean-service-card card">
-          <h3>Logistics Coordination</h3>
-          <p>Truck arrangement, delivery timing, site access, and movement follow-up.</p>
-        </article>
-
-        <article class="clean-service-card card">
-          <h3>Project Support</h3>
-          <p>Project updates, vendor communication, documentation, and execution follow-through.</p>
-        </article>
-      </div>
-
-      <div class="section-cta">
-        <a class="btn btn-primary" href="services.html#quote-form">Request a Quote</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section compact-process-section">
-    <div class="container">
-      <div class="section-label">How to Request</div>
-
-      <h2 class="section-title compact-title">
-        A simple process from request to coordination.
-      </h2>
-
-      <div class="clean-process-list">
-        <div class="clean-process-item">
-          <span>01</span>
-          <p>Submit your request through the quote form.</p>
-        </div>
-
-        <div class="clean-process-item">
-          <span>02</span>
-          <p>We review your material, quantity, location, and delivery needs.</p>
-        </div>
-
-        <div class="clean-process-item">
-          <span>03</span>
-          <p>We confirm supplier availability, pricing, and logistics options.</p>
-        </div>
-
-        <div class="clean-process-item">
-          <span>04</span>
-          <p>You approve the quote.</p>
-        </div>
-
-        <div class="clean-process-item">
-          <span>05</span>
-          <p>We coordinate procurement, delivery, and follow-up.</p>
-        </div>
-      </div>
-
-      <div class="quote-panel clean-final-cta">
-        <h3>Ready to make a request?</h3>
-        <p>
-          Use the quote form for material prices, delivery support, procurement requests, or project coordination.
-        </p>
-        <a class="btn btn-primary" href="services.html#quote-form">Request a Quote</a>
-      </div>
-    </div>
-  </section>
-</main>
   <footer class="site-footer">
-    <div class="container footer-quote-wrap">
+    <div class="container">
       <div class="footer-quote-panel">
         <div>
           <strong>Need building materials, procurement, logistics, or project support?</strong>
@@ -184,7 +521,7 @@
           </p>
         </div>
 
-        <a class="btn btn-primary" href="services.html#quote-form">Request a Quote</a>
+        <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
       </div>
     </div>
 
@@ -241,6 +578,46 @@
     document.addEventListener("dragstart", function(e){
       e.preventDefault();
     });
+
+    const quoteForm = document.getElementById("quoteRequestForm");
+    const quoteStatus = document.getElementById("quoteFormStatus");
+    const quoteSubmitButton = document.getElementById("quoteSubmitButton");
+
+    if (quoteForm) {
+      quoteForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        quoteStatus.className = "form-status";
+        quoteStatus.textContent = "";
+
+        quoteSubmitButton.disabled = true;
+        quoteSubmitButton.textContent = "Submitting...";
+
+        const formData = new FormData(quoteForm);
+
+        try {
+          const response = await fetch(quoteForm.action, {
+            method: "POST",
+            body: formData
+          });
+
+          if (!response.ok) {
+            throw new Error("Submission failed");
+          }
+
+          quoteStatus.className = "form-status success";
+          quoteStatus.textContent = "Thank you. Your quote request has been submitted successfully. FTH D-UNIQ will review your request and follow up.";
+
+          quoteForm.reset();
+        } catch (error) {
+          quoteStatus.className = "form-status error";
+          quoteStatus.textContent = "Your request could not be submitted at the moment. Please try again or use the WhatsApp button to contact FTH D-UNIQ directly.";
+        } finally {
+          quoteSubmitButton.disabled = false;
+          quoteSubmitButton.textContent = "Submit Quote Request";
+        }
+      });
+    }
   </script>
 </body>
 </html>
