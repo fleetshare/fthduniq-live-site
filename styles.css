@@ -1560,3 +1560,148 @@ img{
     line-height:1.05 !important;
   }
 }
+.quote-support-line {
+  margin-top: 14px;
+  max-width: 720px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.82;
+}
+
+.compact-title {
+  max-width: 850px;
+}
+
+.section-intro {
+  max-width: 760px;
+  margin-top: 14px;
+  line-height: 1.8;
+  opacity: 0.82;
+}
+
+.direction-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.direction-card {
+  padding: 28px;
+}
+
+.direction-card h3,
+.process-card h3 {
+  margin-bottom: 12px;
+}
+
+.direction-card p,
+.process-card p {
+  line-height: 1.75;
+  opacity: 0.86;
+}
+
+.section-cta {
+  margin-top: 30px;
+}
+
+.service-quote-link {
+  display: inline-block;
+  margin-left: 14px;
+  color: var(--gold, #c9a24d);
+  font-weight: 600;
+}
+
+.how-it-works-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.process-card {
+  padding: 24px;
+}
+
+.quote-panel {
+  margin-top: 42px;
+  padding: 34px;
+  border: 1px solid rgba(201, 162, 77, 0.28);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(201, 162, 77, 0.12), rgba(255, 255, 255, 0.03));
+}
+
+.quote-panel h3 {
+  margin-bottom: 10px;
+}
+
+.quote-panel p {
+  max-width: 760px;
+  line-height: 1.75;
+  opacity: 0.85;
+  margin-bottom: 22px;
+}
+
+.footer-quote-wrap {
+  padding-top: 34px;
+}
+
+.footer-quote-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid rgba(201, 162, 77, 0.28);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(201, 162, 77, 0.13), rgba(255, 255, 255, 0.035));
+}
+
+.footer-quote-panel strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.footer-quote-panel p {
+  margin: 0;
+  line-height: 1.65;
+  opacity: 0.82;
+}
+
+@media (max-width: 1100px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .direction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-quote-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-quote-link {
+    display: block;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
