@@ -107,24 +107,21 @@ export default {
     const url = new URL(request.url);
 
     /*
-      This fixes the problem where about.html downloads instead of opening.
-      It forces all HTML files to open as normal web pages.
+      This fixes only about.html so it opens as a normal webpage
+      instead of downloading. It does not disturb the rest of the website.
     */
-    if (
-      request.method === "GET" &&
-      (url.pathname === "/" || url.pathname.endsWith(".html"))
-    ) {
-      return serveAssetInline(request, env, "text/html; charset=UTF-8");
-    }
+    if (url.pathname === "/about.html" && request.method === "GET") {
+      const response = await env.ASSETS.fetch(request);
+      const headers = new Headers(response.headers);
 
-    /*
-      This helps make sure styles.css loads correctly as CSS.
-    */
-    if (
-      request.method === "GET" &&
-      url.pathname.endsWith(".css")
-    ) {
-      return serveAssetInline(request, env, "text/css; charset=UTF-8");
+      headers.set("content-type", "text/html; charset=UTF-8");
+      headers.set("content-disposition", "inline");
+
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers
+      });
     }
 
     if (url.pathname === "/api/application-status" && request.method === "GET") {
@@ -186,21 +183,6 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
-
-async function serveAssetInline(request, env, contentType) {
-  const assetResponse = await env.ASSETS.fetch(request);
-  const headers = new Headers(assetResponse.headers);
-
-  headers.set("content-type", contentType);
-  headers.set("content-disposition", "inline");
-  headers.set("cache-control", "no-cache, no-store, must-revalidate");
-
-  return new Response(assetResponse.body, {
-    status: assetResponse.status,
-    statusText: assetResponse.statusText,
-    headers
-  });
-}
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
