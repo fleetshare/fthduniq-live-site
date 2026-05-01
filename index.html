@@ -181,29 +181,6 @@
       align-items: center;
     }
 
-    .form-status {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      display: none;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .form-status.success {
-      display: block;
-      border: 1px solid rgba(201, 162, 77, 0.35);
-      background: rgba(201, 162, 77, 0.12);
-      color: #ffffff;
-    }
-
-    .form-status.error {
-      display: block;
-      border: 1px solid rgba(255, 120, 120, 0.35);
-      background: rgba(255, 80, 80, 0.10);
-      color: #ffffff;
-    }
-
     .footer-quote-panel {
       margin-bottom: 30px;
       padding: 26px;
@@ -430,7 +407,6 @@
         <div class="quote-form-card card">
           <form id="quoteRequestForm" action="/api/quote-request" method="POST">
             <input type="hidden" name="form_source" value="Homepage Quote Request">
-            <input type="hidden" name="to_email" value="info@fthduniq.com">
             <input type="hidden" name="subject" value="New Quote Request from FTH D-UNIQ Website">
 
             <div class="quote-form-grid">
@@ -498,8 +474,6 @@
               <button id="quoteSubmitButton" class="btn btn-primary" type="submit">Submit Quote Request</button>
               <a class="btn btn-secondary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
             </div>
-
-            <div id="quoteFormStatus" class="form-status" aria-live="polite"></div>
 
             <p class="quote-form-note">
               Requests are reviewed based on material type, quantity, delivery location, site access, supplier availability, and logistics options.
@@ -578,46 +552,6 @@
     document.addEventListener("dragstart", function(e){
       e.preventDefault();
     });
-
-    const quoteForm = document.getElementById("quoteRequestForm");
-    const quoteStatus = document.getElementById("quoteFormStatus");
-    const quoteSubmitButton = document.getElementById("quoteSubmitButton");
-
-    if (quoteForm) {
-      quoteForm.addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        quoteStatus.className = "form-status";
-        quoteStatus.textContent = "";
-
-        quoteSubmitButton.disabled = true;
-        quoteSubmitButton.textContent = "Submitting...";
-
-        const formData = new FormData(quoteForm);
-
-        try {
-          const response = await fetch(quoteForm.action, {
-            method: "POST",
-            body: formData
-          });
-
-          if (!response.ok) {
-            throw new Error("Submission failed");
-          }
-
-          quoteStatus.className = "form-status success";
-          quoteStatus.textContent = "Thank you. Your quote request has been submitted successfully. FTH D-UNIQ will review your request and follow up.";
-
-          quoteForm.reset();
-        } catch (error) {
-          quoteStatus.className = "form-status error";
-          quoteStatus.textContent = "Your request could not be submitted at the moment. Please try again or use the WhatsApp button to contact FTH D-UNIQ directly.";
-        } finally {
-          quoteSubmitButton.disabled = false;
-          quoteSubmitButton.textContent = "Submit Quote Request";
-        }
-      });
-    }
   </script>
 </body>
 </html>
