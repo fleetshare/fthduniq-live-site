@@ -106,6 +106,27 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    /*
+      This fixes the problem where about.html downloads instead of opening.
+      It forces all HTML files to open as normal web pages.
+    */
+    if (
+      request.method === "GET" &&
+      (url.pathname === "/" || url.pathname.endsWith(".html"))
+    ) {
+      return serveAssetInline(request, env, "text/html; charset=UTF-8");
+    }
+
+    /*
+      This helps make sure styles.css loads correctly as CSS.
+    */
+    if (
+      request.method === "GET" &&
+      url.pathname.endsWith(".css")
+    ) {
+      return serveAssetInline(request, env, "text/css; charset=UTF-8");
+    }
+
     if (url.pathname === "/api/application-status" && request.method === "GET") {
       return handleApplicationStatus(env);
     }
@@ -165,6 +186,21 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
+
+async function serveAssetInline(request, env, contentType) {
+  const assetResponse = await env.ASSETS.fetch(request);
+  const headers = new Headers(assetResponse.headers);
+
+  headers.set("content-type", contentType);
+  headers.set("content-disposition", "inline");
+  headers.set("cache-control", "no-cache, no-store, must-revalidate");
+
+  return new Response(assetResponse.body, {
+    status: assetResponse.status,
+    statusText: assetResponse.statusText,
+    headers
+  });
+}
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -1112,7 +1148,7 @@ async function handleQuoteEmail(request, env) {
       `<p>Submitted from the FTH D-UNIQ website quote form.</p>`;
 
     const emailResult = await sendResendEmail(env, {
-      from: "FTH D-UNIQ Website <info@fthduniq.com>",
+      from: "FTH D-UNIQ Website <careers@fthduniq.com>",
       to: ["info@fthduniq.com"],
       reply_to: cleanedEmail || "info@fthduniq.com",
       subject,
