@@ -3,307 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTH D-UNIQ | Career</title>
-  <meta name="description" content="Career opportunities at FTH D-UNIQ across business support, logistics coordination, social media, and truck driving roles.">
+
+  <title>FTH D-UNIQ | Home</title>
+  <meta name="description" content="Building materials supply, procurement support, logistics coordination, and project support for busy, remote, and diaspora clients across Lagos and selected nearby locations.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .career-page .career-hero{
-      padding-top:10px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .career-hero-text{
-      max-width:72ch;
-      color:var(--muted);
-      line-height:1.85;
-      font-size:1.02rem;
+    #quote-form {
+      scroll-margin-top: 120px;
     }
 
-    .career-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:24px;
+    .quote-support-line {
+      margin-top: 14px;
+      max-width: 680px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.82;
     }
 
-    .career-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:22px;
+    .clean-home-section {
+      padding-top: 64px;
+      padding-bottom: 64px;
     }
 
-    .career-card{
-      padding:28px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.62);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:var(--shadow);
+    .compact-preview-panel {
+      align-items: center;
     }
 
-    .career-card-kicker{
-      color:var(--gold-deep);
-      font-size:.82rem;
-      font-weight:700;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      margin-bottom:10px;
+    .compact-title {
+      max-width: 850px;
+      margin-bottom: 26px;
     }
 
-    .career-card h2{
-      margin:0 0 14px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem, 4vw, 2.8rem);
-      line-height:1;
-      letter-spacing:-0.02em;
+    .section-intro {
+      max-width: 760px;
+      line-height: 1.8;
+      opacity: 0.85;
+      margin-bottom: 30px;
     }
 
-    .career-list,
-    .career-process{
-      margin:0;
-      padding-left:1.2rem;
-      color:var(--muted);
-      line-height:1.85;
+    .clean-service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 30px;
     }
 
-    .career-list li::marker,
-    .career-process li::marker{
-      color:var(--gold-deep);
-      font-weight:700;
+    .clean-service-card {
+      padding: 26px;
+      min-height: 170px;
     }
 
-    .career-application-dropdown{
-      margin-top:22px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.62);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:var(--shadow);
-      overflow:hidden;
+    .clean-service-card h3 {
+      margin-bottom: 12px;
     }
 
-    .career-application-dropdown summary{
-      list-style:none;
-      cursor:pointer;
-      padding:22px 26px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      font-weight:700;
-      color:var(--text);
-      font-size:1rem;
+    .clean-service-card p {
+      line-height: 1.75;
+      opacity: 0.84;
     }
 
-    .career-application-dropdown summary::-webkit-details-marker{
-      display:none;
+    .quick-process {
+      display: grid;
+      gap: 14px;
+      max-width: 920px;
+      margin-top: 28px;
     }
 
-    .career-application-dropdown summary::after{
-      content:"+";
-      font-size:1.5rem;
-      line-height:1;
-      color:var(--gold-deep);
-      flex:0 0 auto;
+    .quick-process-item {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid rgba(201, 162, 77, 0.22);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.025);
     }
 
-    .career-application-dropdown[open] summary::after{
-      content:"−";
+    .quick-process-item span {
+      color: var(--gold, #c9a24d);
+      font-weight: 700;
+      letter-spacing: 0.12em;
     }
 
-    .application-panel{
-      padding:0 26px 28px;
+    .quick-process-item p {
+      margin: 0;
+      line-height: 1.65;
+      opacity: 0.86;
     }
 
-    .application-panel h2{
-      margin:0 0 10px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem, 4vw, 2.9rem);
-      line-height:1;
-      letter-spacing:-0.02em;
+    .home-quote-section {
+      padding-top: 76px;
+      padding-bottom: 86px;
     }
 
-    .application-panel p{
-      color:var(--muted);
-      line-height:1.75;
-      margin:0 0 18px;
-      max-width:70ch;
+    .quote-form-card {
+      margin-top: 34px;
+      padding: 34px;
+      border: 1px solid rgba(201, 162, 77, 0.30);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(201, 162, 77, 0.13), rgba(255, 255, 255, 0.035));
     }
 
-    .application-form{
-      display:grid;
-      gap:18px;
+    .quote-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    .application-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .application-field{
-      display:grid;
-      gap:8px;
+    .form-field.full {
+      grid-column: 1 / -1;
     }
 
-    .application-field.full-span{
-      grid-column:1 / -1;
+    .form-field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold, #c9a24d);
+      letter-spacing: 0.04em;
     }
 
-    .application-field label{
-      font-size:0.92rem;
-      font-weight:600;
-      color:var(--text);
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(201, 162, 77, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: #ffffff;
+      font-family: Inter, sans-serif;
+      font-size: 0.95rem;
+      outline: none;
     }
 
-    .application-field input,
-    .application-field select,
-    .application-field textarea{
-      width:100%;
-      padding:14px 16px;
-      border-radius:16px;
-      border:1px solid rgba(199,155,53,.16);
-      background:#fff;
-      color:var(--text);
-      font:inherit;
-      outline:none;
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(255, 255, 255, 0.55);
     }
 
-    .application-field textarea{
-      min-height:130px;
-      resize:vertical;
+    .form-field select option {
+      color: #111111;
     }
 
-    .application-field input:focus,
-    .application-field select:focus,
-    .application-field textarea:focus{
-      border-color:rgba(199,155,53,.45);
-      box-shadow:0 0 0 3px rgba(199,155,53,.10);
+    .form-field textarea {
+      min-height: 130px;
+      resize: vertical;
     }
 
-    .application-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:4px;
+    .quote-form-note {
+      margin-top: 16px;
+      line-height: 1.7;
+      opacity: 0.78;
+      font-size: 0.92rem;
     }
 
-    .application-status{
-      margin-top:12px;
-      padding:14px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(199,155,53,.14);
-      color:var(--muted);
-      line-height:1.7;
-      font-size:0.95rem;
+    .form-submit-row {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
     }
 
-    .application-closed-box{
-      display:none;
-      margin-top:18px;
-      padding:18px 20px;
-      border-radius:20px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(199,155,53,.18);
-      color:var(--muted);
-      line-height:1.8;
+    .form-status {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(201, 162, 77, 0.20);
+      color: #ffffff;
+      line-height: 1.7;
+      font-size: 0.95rem;
     }
 
-    .shortlisted-note{
-      margin-top:22px;
-      padding:22px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(199,155,53,.12);
-      box-shadow:var(--shadow);
+    .form-status.success {
+      display: block;
+      border-color: rgba(201, 162, 77, 0.45);
+      background: rgba(201, 162, 77, 0.12);
     }
 
-    .shortlisted-note h2{
-      margin:0 0 8px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(1.8rem, 4vw, 2.6rem);
-      line-height:1;
-      letter-spacing:-0.02em;
+    .form-status.error {
+      display: block;
+      border-color: rgba(255, 120, 120, 0.45);
+      background: rgba(255, 80, 80, 0.12);
     }
 
-    .shortlisted-note p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.75;
+    .footer-quote-panel {
+      margin-bottom: 30px;
+      padding: 26px;
+      border: 1px solid rgba(201, 162, 77, 0.28);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(201, 162, 77, 0.12), rgba(255, 255, 255, 0.03));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
     }
 
-    .footer-social-block{
-      display:grid;
-      gap:18px;
-      justify-items:start;
+    .footer-quote-panel strong {
+      display: block;
+      margin-bottom: 8px;
     }
 
-    .social-follow-title{
-      margin:0 0 12px;
-      font-weight:700;
-      color:var(--text);
+    .footer-quote-panel p {
+      margin: 0;
+      line-height: 1.65;
+      opacity: 0.82;
     }
 
-    .social-row{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .social-link{
-      width:46px;
-      height:46px;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:#fff;
-      color:var(--text);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:0 10px 24px rgba(0,0,0,.06);
-      text-decoration:none;
-      overflow:hidden;
-    }
-
-    .social-link svg{
-      width:21px;
-      height:21px;
-      fill:currentColor;
-      display:block;
-    }
-
-    @media (max-width: 900px){
-      .career-grid{
-        grid-template-columns:1fr;
+    @media (max-width: 1100px) {
+      .clean-service-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 768px){
-      .application-grid{
-        grid-template-columns:1fr;
+    @media (max-width: 700px) {
+      .clean-service-grid,
+      .quote-form-grid {
+        grid-template-columns: 1fr;
       }
 
-      .application-panel{
-        padding:0 18px 24px;
+      .quick-process-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
       }
 
-      .career-application-dropdown summary{
-        padding:20px 18px;
+      .footer-quote-panel {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .career-actions .btn,
-      .application-actions .btn{
-        width:100%;
+      .clean-home-section,
+      .home-quote-section {
+        padding-top: 55px;
+        padding-bottom: 60px;
       }
     }
   </style>
 </head>
 
-<body class="career-page">
+<body>
   <header class="site-header">
     <div class="container">
       <div class="brand-top">
@@ -315,186 +271,260 @@
       </div>
 
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="index.html">Home</a>
+        <a class="active" href="index.html">Home</a>
         <a href="services.html">Our Services</a>
         <a href="featured-services.html">Featured Services</a>
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
-        <a class="active" href="career.html">Career</a>
+        <a href="career.html">Career</a>
         <a href="contact.html">Contact Us</a>
       </nav>
     </div>
   </header>
 
-  <main class="page-shell career-page">
-    <section class="section">
-      <div class="container career-hero">
-        <div class="section-label">Career</div>
+  <main class="page-shell">
 
-        <h1 class="career-title">
-          <span>Build with FTH D-UNIQ</span>
-        </h1>
+    <section class="hero hero-home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="section-label">FTH D-UNIQ</div>
 
-        <p class="career-hero-text">
-          We welcome applications from people who can support business operations, customer communication,
-          logistics coordination, digital communication, documentation, and structured execution across our
-          building materials supply, procurement, logistics coordination, and project support activities.
-        </p>
+          <h1 class="editorial-headline two-line-hero">
+            <span class="hero-line">Building Materials Supply,</span>
+            <span class="hero-line">Procurement Support</span>
+            <span class="hero-line">&amp; Logistics Coordination</span>
+          </h1>
 
-        <div class="career-actions">
-          <a class="btn btn-primary" href="#apply">Apply Now</a>
-          <a class="btn btn-secondary" href="contact.html">Contact Us</a>
-        </div>
-      </div>
-    </section>
+          <p class="lead">
+            We help busy, remote, and diaspora clients source building materials, coordinate delivery, and follow up on project-related requests across Lagos and selected nearby locations.
+          </p>
 
-    <section class="section">
-      <div class="container career-grid">
-        <article class="career-card">
-          <div class="career-card-kicker">Open Opportunities</div>
-          <h2>Roles we are open to reviewing</h2>
-
-          <ul class="career-list">
-            <li>Business Support Officer</li>
-            <li>Logistics &amp; Delivery Coordination Officer</li>
-            <li>Social Media &amp; Digital Communications Officer</li>
-            <li>Truck Driver</li>
-          </ul>
-        </article>
-
-        <article class="career-card">
-          <div class="career-card-kicker">Application Process</div>
-          <h2>Recruitment flow</h2>
-
-          <ol class="career-process">
-            <li>Submit your application details and upload your CV.</li>
-            <li>Applications are reviewed based on role fit, location, communication, and relevant experience.</li>
-            <li>Only shortlisted candidates will be contacted for the next stage.</li>
-            <li>Interview details may be shared through official communication channels.</li>
-            <li>Successful candidates will receive further instructions before resumption.</li>
-          </ol>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="apply">
-      <div class="container">
-        <details class="career-application-dropdown" open>
-          <summary>Apply Now — Submit CV</summary>
-
-          <div class="application-panel">
-            <h2>Apply to Join FTH D-UNIQ</h2>
-            <p>
-              Please complete the form below and upload your CV. Only shortlisted candidates will be contacted
-              for the next stage.
-            </p>
-
-            <div id="applicationClosedBox" class="application-closed-box">
-              Applications are currently closed for this role. Please check back when another opportunity is announced.
-            </div>
-
-            <form id="careerApplicationForm" class="application-form" enctype="multipart/form-data">
-              <div class="application-grid">
-                <div class="application-field">
-                  <label for="fullName">Full Name</label>
-                  <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="phone">Phone Number / WhatsApp Number</label>
-                  <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="email">Email Address</label>
-                  <input id="email" name="email" type="email" placeholder="Enter your email address" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="location">Location</label>
-                  <input id="location" name="location" type="text" placeholder="Enter your location" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="position">Position Applying For</label>
-                  <select id="position" name="position" required>
-                    <option value="">Select position</option>
-                    <option>Business Support Officer</option>
-                    <option>Logistics &amp; Delivery Coordination Officer</option>
-                    <option>Social Media &amp; Digital Communications Officer</option>
-                    <option>Truck Driver</option>
-                  </select>
-                </div>
-
-                <div class="application-field">
-                  <label for="qualification">Highest Qualification</label>
-                  <select id="qualification" name="qualification" required>
-                    <option value="">Select qualification</option>
-                    <option>SSCE / WAEC / NECO</option>
-                    <option>OND</option>
-                    <option>HND</option>
-                    <option>B.Sc.</option>
-                    <option>NYSC</option>
-                    <option>Industrial Placement Student</option>
-                    <option>Trade / Technical Certification</option>
-                    <option>Driver’s Licence</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-
-                <div class="application-field">
-                  <label for="experience">Years of Relevant Experience</label>
-                  <input id="experience" name="experience" type="text" placeholder="e.g. 1 year, 2 years, NYSC experience" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="onsite">Can you work on-site within Amuwo-Odofin / Festac axis?</label>
-                  <select id="onsite" name="onsite" required>
-                    <option value="">Select answer</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
-                </div>
-
-                <div class="application-field full-span">
-                  <label for="relevantExperience">Briefly describe your relevant experience</label>
-                  <textarea id="relevantExperience" name="relevantExperience" placeholder="Briefly explain your experience, strengths, and why you fit the role." required></textarea>
-                </div>
-
-                <div class="application-field">
-                  <label for="cv">Upload CV</label>
-                  <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required>
-                </div>
-
-                <div class="application-field">
-                  <label for="coverLetter">Upload Cover Letter Optional</label>
-                  <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx">
-                </div>
-              </div>
-
-              <div class="application-actions">
-                <button type="submit" class="btn btn-primary">Submit Application</button>
-                <a class="btn btn-secondary" href="mailto:careers@fthduniq.com">Email Careers</a>
-              </div>
-
-              <div id="applicationStatus" class="application-status">
-                Checking application status...
-              </div>
-            </form>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="services.html">View Services</a>
           </div>
-        </details>
 
-        <div class="shortlisted-note">
-          <h2>Already contacted by FTH D-UNIQ?</h2>
-          <p>
-            Candidates who are shortlisted will receive their next-stage access details through official communication from FTH D-UNIQ Careers.
+          <p class="quote-support-line">
+            For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, and project support.
           </p>
         </div>
+
+        <div class="media-card card">
+          <img src="assets/office_portrait.jpeg" alt="FTH D-UNIQ representative working at a laptop">
+        </div>
       </div>
     </section>
+
+    <section class="clean-home-section">
+      <div class="container preview-panel compact-preview-panel">
+        <div class="preview-copy">
+          <div class="section-label">Trusted Coordination Support</div>
+
+          <h2 class="trusted-headline">
+            <span>For clients who need</span>
+            <span>clear material and delivery</span>
+            <span>coordination.</span>
+          </h2>
+
+          <p>
+            FTH D-UNIQ supports homeowners, contractors, site teams, busy professionals, and diaspora clients who need reliable follow-up with materials, suppliers, trucks, and project-related coordination.
+          </p>
+
+          <div class="preview-actions">
+            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="contact.html">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="media-card card">
+          <img src="assets/support_consultation.jpeg" alt="Consultation meeting showing client support">
+        </div>
+      </div>
+    </section>
+
+    <section class="section clean-home-section">
+      <div class="container">
+        <div class="section-label">What We Coordinate</div>
+
+        <h2 class="section-title compact-title">
+          Materials, procurement, delivery, and project-support requests handled with structure.
+        </h2>
+
+        <div class="clean-service-grid">
+          <article class="clean-service-card card">
+            <h3>Building Materials</h3>
+            <p>Cement, blocks, sand, granite, interlocking stones, kerbs, and related material requests.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Procurement Support</h3>
+            <p>Supplier follow-up, material sourcing, price review, and request coordination.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Logistics Coordination</h3>
+            <p>Truck arrangement, delivery timing, site access, and movement follow-up.</p>
+          </article>
+
+          <article class="clean-service-card card">
+            <h3>Project Support</h3>
+            <p>Project updates, vendor communication, documentation, and execution follow-through.</p>
+          </article>
+        </div>
+
+        <div class="hero-actions" style="margin-top: 30px;">
+          <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+          <a class="btn btn-secondary" href="services.html">View Full Services</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section clean-home-section">
+      <div class="container">
+        <div class="section-label">How to Request</div>
+
+        <h2 class="section-title compact-title">
+          A simple process from request to coordination.
+        </h2>
+
+        <div class="quick-process">
+          <div class="quick-process-item">
+            <span>01</span>
+            <p>Submit your request through the quote form.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>02</span>
+            <p>We review your material, quantity, location, and delivery needs.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>03</span>
+            <p>We confirm supplier availability, pricing, and logistics options.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>04</span>
+            <p>You approve the quote.</p>
+          </div>
+
+          <div class="quick-process-item">
+            <span>05</span>
+            <p>We coordinate procurement, delivery, and follow-up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quote-form" class="section home-quote-section">
+      <div class="container">
+        <div class="section-label">Request a Quote</div>
+
+        <h2 class="section-title compact-title">
+          Tell us what you need and where it should be delivered.
+        </h2>
+
+        <p class="section-intro">
+          For material prices, delivery support, procurement requests, or project coordination, complete the form below so we can review your request properly.
+        </p>
+
+        <div class="quote-form-card card">
+          <form id="quoteRequestForm">
+            <input type="hidden" name="form_source" value="Homepage Quote Request">
+            <input type="hidden" name="subject" value="New Quote Request from FTH D-UNIQ Website">
+
+            <div class="quote-form-grid">
+              <div class="form-field">
+                <label for="full-name">Full Name</label>
+                <input id="full-name" type="text" name="full_name" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-field">
+                <label for="phone-number">Phone / WhatsApp Number</label>
+                <input id="phone-number" type="tel" name="phone_number" placeholder="Enter your phone number" required>
+              </div>
+
+              <div class="form-field">
+                <label for="email-address">Email Address</label>
+                <input id="email-address" type="email" name="email_address" placeholder="Enter your email address">
+              </div>
+
+              <div class="form-field">
+                <label for="location">Delivery / Project Location</label>
+                <input id="location" type="text" name="delivery_location" placeholder="Example: Lekki, Ajah, Ikorodu, etc." required>
+              </div>
+
+              <div class="form-field">
+                <label for="material-needed">Material / Service Needed</label>
+                <select id="material-needed" name="material_or_service_needed" required>
+                  <option value="">Select material or service</option>
+                  <option value="Cement Supply">Cement Supply</option>
+                  <option value="Blocks">Blocks</option>
+                  <option value="Sand">Sand</option>
+                  <option value="Granite">Granite</option>
+                  <option value="Interlocking Stones">Interlocking Stones</option>
+                  <option value="Kerbs">Kerbs</option>
+                  <option value="Building Materials Supply">Building Materials Supply</option>
+                  <option value="Procurement Support">Procurement Support</option>
+                  <option value="Logistics Coordination">Logistics Coordination</option>
+                  <option value="Truck / Delivery Coordination">Truck / Delivery Coordination</option>
+                  <option value="Project Support">Project Support</option>
+                  <option value="Other Construction-Related Request">Other Construction-Related Request</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="quantity">Quantity / Volume</label>
+                <input id="quantity" type="text" name="quantity_or_volume" placeholder="Example: 100 bags, 1 trip, 500 blocks">
+              </div>
+
+              <div class="form-field">
+                <label for="timeline">Preferred Timeline</label>
+                <input id="timeline" type="text" name="preferred_timeline" placeholder="Example: Today, this week, next week">
+              </div>
+
+              <div class="form-field">
+                <label for="site-contact">Site Contact Person</label>
+                <input id="site-contact" type="text" name="site_contact_person" placeholder="Name and phone number, if available">
+              </div>
+
+              <div class="form-field full">
+                <label for="request-details">Request Details</label>
+                <textarea id="request-details" name="request_details" placeholder="Tell us the material needed, quantity, delivery location, site access, delivery timing, and any special instruction." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-submit-row">
+              <button id="quoteSubmitButton" class="btn btn-primary" type="submit">Submit Quote Request</button>
+              <a class="btn btn-secondary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+            </div>
+
+            <div id="quoteFormStatus" class="form-status" aria-live="polite"></div>
+
+            <p class="quote-form-note">
+              Requests are reviewed based on material type, quantity, delivery location, site access, supplier availability, and logistics options.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
+    <div class="container">
+      <div class="footer-quote-panel">
+        <div>
+          <strong>Need building materials, procurement, logistics, or project support?</strong>
+          <p>
+            For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, and project support.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
+      </div>
+    </div>
+
     <div class="container footer-wrap">
       <div class="footer-brand-block">
         <strong>FTH D-UNIQ</strong>
@@ -537,125 +567,61 @@
   </footer>
 
   <script>
-    const careerForm = document.getElementById("careerApplicationForm");
-    const applicationStatus = document.getElementById("applicationStatus");
-    const applicationClosedBox = document.getElementById("applicationClosedBox");
+    const quoteForm = document.getElementById("quoteRequestForm");
+    const quoteStatus = document.getElementById("quoteFormStatus");
+    const quoteSubmitButton = document.getElementById("quoteSubmitButton");
 
-    function closeApplications(message){
-      if(careerForm){
-        careerForm.style.display = "none";
-      }
-
-      if(applicationClosedBox){
-        applicationClosedBox.style.display = "block";
-        applicationClosedBox.textContent =
-          message || "Applications are currently closed for this role. Please check back when another opportunity is announced.";
-      }
-
-      if(applicationStatus){
-        applicationStatus.textContent = "Applications are currently closed.";
-      }
-    }
-
-    async function checkApplicationStatus(){
-      try{
-        const response = await fetch("/api/application-status");
-        const result = await response.json();
-
-        if(result.ok){
-          if(!result.open){
-            closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
-            return;
-          }
-
-          if(applicationStatus){
-            applicationStatus.textContent = "Application status: Open.";
-          }
-        }else{
-          if(applicationStatus){
-            applicationStatus.textContent = "Application status: Open.";
-          }
-        }
-      }catch(error){
-        if(applicationStatus){
-          applicationStatus.textContent = "Application status: Open.";
-        }
-      }
-    }
-
-    checkApplicationStatus();
-
-    if(careerForm){
-      careerForm.addEventListener("submit", async function(e){
+    if (quoteForm) {
+      quoteForm.addEventListener("submit", async function(e) {
         e.preventDefault();
 
-        const cv = document.getElementById("cv").files[0];
-        const coverLetter = document.getElementById("coverLetter").files[0];
-
-        const allowedExtensions = [".pdf", ".doc", ".docx"];
-
-        function isAllowedFile(file){
-          if(!file) return true;
-
-          const name = file.name.toLowerCase();
-
-          return allowedExtensions.some(function(ext){
-            return name.endsWith(ext);
-          });
+        if (quoteStatus) {
+          quoteStatus.className = "form-status";
+          quoteStatus.style.display = "block";
+          quoteStatus.textContent = "Submitting your quote request. Please wait...";
         }
 
-        if(!isAllowedFile(cv)){
-          applicationStatus.textContent = "Please upload your CV as PDF, DOC, or DOCX.";
-          return;
+        if (quoteSubmitButton) {
+          quoteSubmitButton.disabled = true;
+          quoteSubmitButton.textContent = "Submitting...";
         }
 
-        if(!isAllowedFile(coverLetter)){
-          applicationStatus.textContent = "Please upload your cover letter as PDF, DOC, or DOCX.";
-          return;
-        }
+        const formData = new FormData(quoteForm);
 
-        if(cv && cv.size > 5 * 1024 * 1024){
-          applicationStatus.textContent = "CV is too large. Please upload a file below 5MB.";
-          return;
-        }
-
-        if(coverLetter && coverLetter.size > 5 * 1024 * 1024){
-          applicationStatus.textContent = "Cover letter is too large. Please upload a file below 5MB.";
-          return;
-        }
-
-        applicationStatus.textContent = "Submitting your application. Please wait...";
-
-        const formData = new FormData(careerForm);
-
-        try{
-          const response = await fetch("/api/career-email", {
+        try {
+          const response = await fetch("/api/quote-email", {
             method: "POST",
             body: formData
           });
 
           const result = await response.json();
 
-          if(result.ok){
-            applicationStatus.textContent =
-              "Thank you for applying to FTH D-UNIQ. Your application has been received and will be reviewed. Shortlisted candidates will be contacted for the next stage.";
-
-            careerForm.reset();
-
-            if(result.closed){
-              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
+          if (result.ok) {
+            if (quoteStatus) {
+              quoteStatus.className = "form-status success";
+              quoteStatus.textContent =
+                "Thank you. Your quote request has been received. FTH D-UNIQ will review your request and follow up.";
             }
-          }else{
-            if(result.closed){
-              closeApplications("Applications are currently closed for this role. Please check back when another opportunity is announced.");
-            }else{
-              applicationStatus.textContent =
-                result.message || "Application could not be submitted. Please try again.";
+
+            quoteForm.reset();
+          } else {
+            if (quoteStatus) {
+              quoteStatus.className = "form-status error";
+              quoteStatus.textContent =
+                result.message || "Your quote request could not be submitted. Please try again or contact FTH D-UNIQ through WhatsApp.";
             }
           }
-        }catch(error){
-          applicationStatus.textContent =
-            "Application could not be submitted. Please email your CV directly to careers@fthduniq.com.";
+        } catch (error) {
+          if (quoteStatus) {
+            quoteStatus.className = "form-status error";
+            quoteStatus.textContent =
+              "Your quote request could not be submitted. Please use the WhatsApp button or email info@fthduniq.com directly.";
+          }
+        } finally {
+          if (quoteSubmitButton) {
+            quoteSubmitButton.disabled = false;
+            quoteSubmitButton.textContent = "Submit Quote Request";
+          }
         }
       });
     }
