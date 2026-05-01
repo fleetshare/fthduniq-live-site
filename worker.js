@@ -114,6 +114,10 @@ export default {
       return handleCareerEmail(request, env);
     }
 
+    if (url.pathname === "/api/quote-email" && request.method === "POST") {
+      return handleQuoteEmail(request, env);
+    }
+
     if (url.pathname === "/api/candidate-login" && request.method === "POST") {
       return handleCandidateLogin(request, env);
     }
@@ -489,6 +493,7 @@ async function handlePreDocuments(request, env) {
       `<p>Documents were uploaded from the FTH D-UNIQ Candidate Portal.</p>`;
 
     const resendResult = await sendResendEmail(env, {
+      from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
       to: ["careers@fthduniq.com"],
       reply_to: candidate.email,
       subject,
@@ -997,6 +1002,7 @@ async function sendCandidateAccessEmail(env, candidate) {
     `<p>Regards,<br>FTH D-UNIQ Careers</p>`;
 
   return sendResendEmail(env, {
+    from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
     to: [candidate.email],
     reply_to: "careers@fthduniq.com",
     subject,
@@ -1030,6 +1036,7 @@ async function sendCandidateStageUpdateEmail(env, candidate) {
     `<p>Regards,<br>FTH D-UNIQ Careers</p>`;
 
   return sendResendEmail(env, {
+    from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
     to: [candidate.email],
     reply_to: "careers@fthduniq.com",
     subject,
@@ -1037,6 +1044,108 @@ async function sendCandidateStageUpdateEmail(env, candidate) {
     html,
     attachments: []
   });
+}
+
+async function handleQuoteEmail(request, env) {
+  try {
+    if (!env.RESEND_API_KEY) {
+      return json(
+        { ok: false, message: "RESEND_API_KEY is not set in Cloudflare." },
+        500
+      );
+    }
+
+    const formData = await request.formData();
+
+    const fullName = String(formData.get("full_name") || "").trim();
+    const phoneNumber = String(formData.get("phone_number") || "").trim();
+    const emailAddress = String(formData.get("email_address") || "").trim();
+    const deliveryLocation = String(formData.get("delivery_location") || "").trim();
+    const materialOrService = String(formData.get("material_or_service_needed") || "").trim();
+    const quantity = String(formData.get("quantity_or_volume") || "").trim();
+    const timeline = String(formData.get("preferred_timeline") || "").trim();
+    const siteContact = String(formData.get("site_contact_person") || "").trim();
+    const requestDetails = String(formData.get("request_details") || "").trim();
+    const formSource = String(formData.get("form_source") || "Homepage Quote Request").trim();
+
+    if (!fullName || !phoneNumber || !deliveryLocation || !materialOrService || !requestDetails) {
+      return json(
+        {
+          ok: false,
+          message: "Please complete all required quote request fields."
+        },
+        400
+      );
+    }
+
+    const cleanedEmail = cleanEmail(emailAddress);
+
+    const subject = `New Quote Request - ${materialOrService} - ${fullName}`;
+
+    const textBody =
+      `New Quote Request - FTH D-UNIQ\n\n` +
+      `Form Source: ${formSource}\n` +
+      `Full Name: ${fullName}\n` +
+      `Phone / WhatsApp Number: ${phoneNumber}\n` +
+      `Email Address: ${emailAddress || "Not provided"}\n` +
+      `Delivery / Project Location: ${deliveryLocation}\n` +
+      `Material / Service Needed: ${materialOrService}\n` +
+      `Quantity / Volume: ${quantity || "Not provided"}\n` +
+      `Preferred Timeline: ${timeline || "Not provided"}\n` +
+      `Site Contact Person: ${siteContact || "Not provided"}\n\n` +
+      `Request Details:\n${requestDetails}\n\n` +
+      `Submitted from the FTH D-UNIQ website quote form.`;
+
+    const htmlBody =
+      `<h2>New Quote Request - FTH D-UNIQ</h2>` +
+      `<p><strong>Form Source:</strong> ${escapeHtml(formSource)}</p>` +
+      `<p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>` +
+      `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phoneNumber)}</p>` +
+      `<p><strong>Email Address:</strong> ${escapeHtml(emailAddress || "Not provided")}</p>` +
+      `<p><strong>Delivery / Project Location:</strong> ${escapeHtml(deliveryLocation)}</p>` +
+      `<p><strong>Material / Service Needed:</strong> ${escapeHtml(materialOrService)}</p>` +
+      `<p><strong>Quantity / Volume:</strong> ${escapeHtml(quantity || "Not provided")}</p>` +
+      `<p><strong>Preferred Timeline:</strong> ${escapeHtml(timeline || "Not provided")}</p>` +
+      `<p><strong>Site Contact Person:</strong> ${escapeHtml(siteContact || "Not provided")}</p>` +
+      `<h3>Request Details</h3>` +
+      `<p>${escapeHtml(requestDetails).replace(/\n/g, "<br>")}</p>` +
+      `<p>Submitted from the FTH D-UNIQ website quote form.</p>`;
+
+    const emailResult = await sendResendEmail(env, {
+      from: "FTH D-UNIQ Website <info@fthduniq.com>",
+      to: ["info@fthduniq.com"],
+      reply_to: cleanedEmail || "info@fthduniq.com",
+      subject,
+      text: textBody,
+      html: htmlBody,
+      attachments: []
+    });
+
+    if (!emailResult.ok) {
+      return json(
+        {
+          ok: false,
+          message: "Resend could not send the quote request email.",
+          details: emailResult.details
+        },
+        500
+      );
+    }
+
+    return json({
+      ok: true,
+      message: "Quote request submitted successfully."
+    });
+
+  } catch (error) {
+    return json(
+      {
+        ok: false,
+        message: error.message || "Quote request could not be submitted. Please email info@fthduniq.com directly."
+      },
+      500
+    );
+  }
 }
 
 async function handleCareerEmail(request, env) {
@@ -1154,6 +1263,7 @@ async function handleCareerEmail(request, env) {
       `<p>Submitted from the FTH D-UNIQ website career form.</p>`;
 
     const emailResult = await sendResendEmail(env, {
+      from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
       to: ["careers@fthduniq.com"],
       reply_to: cleanedEmail,
       subject,
@@ -1244,7 +1354,7 @@ async function sendResendEmail(env, payload) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      from: "FTH D-UNIQ Careers <careers@fthduniq.com>",
+      from: payload.from || "FTH D-UNIQ Careers <careers@fthduniq.com>",
       to: payload.to,
       reply_to: payload.reply_to,
       subject: payload.subject,
