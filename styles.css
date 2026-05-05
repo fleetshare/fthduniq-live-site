@@ -2139,3 +2139,84 @@ select{
     height:42px;
   }
 }
+/* MOBILE SERVICES PAGE FIX */
+@media (max-width: 768px){
+  .services-page .page-shell{
+    overflow-x: hidden;
+  }
+
+  .services-page .container{
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .services-main-headline{
+    font-size: clamp(1.45rem, 7vw, 2rem);
+    line-height: 1.08;
+    max-width: 100%;
+  }
+
+  .services-main-headline span{
+    display: inline;
+  }
+
+  .services-intro-copy,
+  .quote-note,
+  .section-copy{
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .services-page .service-row{
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 18px 14px;
+    gap: 16px;
+    box-sizing: border-box;
+  }
+
+  .services-page .service-copy h2{
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+    max-width: 100%;
+  }
+
+  .services-page .media-card,
+  .services-page .service-row .card,
+  .text-only-service-card{
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+    aspect-ratio: auto;
+    border-radius: 22px;
+  }
+
+  .services-page .media-card img,
+  .services-page .service-row .card video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-category-grid,
+  .how-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .faq-item summary{
+    padding: 16px;
+    font-size: 0.92rem;
+  }
+
+  .faq-item p{
+    padding: 0 16px 16px;
+    font-size: 0.88rem;
+  }
+
+  .quote-cta-box{
+    padding: 22px 16px;
+  }
+}
