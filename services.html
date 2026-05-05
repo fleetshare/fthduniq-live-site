@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTH D-UNIQ | Our Services</title>
-  <meta name="description" content="Building materials procurement, logistic coordination, and project support services.">
+  <title>FTH D-UNIQ | Services</title>
+  <meta name="description" content="Building materials supply, procurement support, logistics coordination, project support, and procurement record-keeping services across Lagos and selected nearby locations.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
     }
 
     .services-page .page-intro{
-      padding:10px 0 10px;
+      padding:10px 0 22px;
       max-width:1080px;
     }
 
@@ -25,31 +25,41 @@
     }
 
     .services-main-headline{
-      margin:0 0 10px;
+      margin:0 0 12px;
       font-family:"Cormorant Garamond", serif;
       font-size:clamp(2.5rem, 3.3vw, 3.7rem);
       line-height:1.01;
       letter-spacing:-0.02em;
-      max-width:none;
+      max-width:980px;
     }
 
     .services-main-headline span{
       display:block;
-      white-space:nowrap;
     }
 
-.services-intro-copy{
-  margin:0;
-  max-width:none;
-  font-size:0.98rem;
-  line-height:1.72;
-  color:var(--muted);
-}
+    .services-intro-copy{
+      margin:0 0 22px;
+      max-width:760px;
+      font-size:0.98rem;
+      line-height:1.72;
+      color:var(--muted);
+    }
 
-.services-intro-copy span{
-  display:block;
-  white-space:nowrap;
-}
+    .cta-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:18px;
+    }
+
+    .quote-note{
+      margin:10px 0 0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.65;
+    }
 
     .services-page .service-stack{
       display:grid;
@@ -88,15 +98,23 @@
       font-size:clamp(2.15rem, 2.7vw, 3rem);
       line-height:1;
       letter-spacing:-0.025em;
-      max-width:13ch;
+      max-width:15ch;
     }
 
     .services-page .service-copy p{
-      margin:0;
-      max-width:42ch;
+      margin:0 0 12px;
+      max-width:46ch;
       font-size:0.98rem;
       line-height:1.78;
       color:var(--muted);
+    }
+
+    .services-page .service-copy ul{
+      margin:14px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.75;
     }
 
     .services-page .media-card,
@@ -144,6 +162,146 @@
       opacity:.9;
     }
 
+    .category-section,
+    .how-section,
+    .faq-section,
+    .quote-cta-section{
+      padding:22px 0 24px;
+    }
+
+    .section-heading{
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem, 2.5vw, 3rem);
+      line-height:1.05;
+      letter-spacing:-0.02em;
+      margin:0 0 12px;
+    }
+
+    .section-copy{
+      max-width:760px;
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:.98rem;
+      line-height:1.75;
+    }
+
+    .service-category-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .service-category-card{
+      padding:18px 16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .service-category-card h3{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:var(--ink);
+    }
+
+    .service-category-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.6;
+    }
+
+    .how-grid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .how-card{
+      padding:18px 16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .how-card strong{
+      display:block;
+      color:var(--gold-deep);
+      margin-bottom:8px;
+      font-size:.9rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .how-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.6;
+    }
+
+    .faq-list{
+      display:grid;
+      gap:12px;
+      max-width:980px;
+    }
+
+    .faq-item{
+      padding:18px 18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .faq-item h3{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:var(--ink);
+    }
+
+    .faq-item p{
+      margin:0;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.65;
+    }
+
+    .quote-cta-box{
+      padding:28px 30px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(199,155,53,.16);
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .quote-cta-box h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem, 2.5vw, 3rem);
+      line-height:1.05;
+    }
+
+    .quote-cta-box p{
+      max-width:760px;
+      margin:0 auto 18px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    @media (max-width: 1024px){
+      .service-category-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .how-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 920px){
       .services-page .service-row{
         grid-template-columns:1fr;
@@ -166,7 +324,7 @@
       }
 
       .services-page .page-intro{
-        padding:8px 14px 8px;
+        padding:8px 14px 18px;
       }
 
       .services-page .page-intro .section-label{
@@ -174,24 +332,17 @@
       }
 
       .services-main-headline{
-        font-size:clamp(1.28rem, 5.2vw, 1.9rem);
+        font-size:clamp(1.55rem, 6vw, 2.25rem);
         line-height:1.06;
         letter-spacing:-0.01em;
         margin:0 0 10px;
       }
 
-      .services-main-headline span{
-        white-space:normal;
+      .services-intro-copy{
+        font-size:0.9rem;
+        line-height:1.72;
       }
 
-.services-intro-copy{
-  font-size:0.9rem;
-  line-height:1.72;
-}
-
-.services-intro-copy span{
-  white-space:normal;
-}
       .services-page .service-stack{
         gap:18px;
       }
@@ -215,7 +366,8 @@
         margin:0 0 10px;
       }
 
-      .services-page .service-copy p{
+      .services-page .service-copy p,
+      .services-page .service-copy ul{
         max-width:none;
         font-size:0.9rem;
         line-height:1.72;
@@ -236,11 +388,20 @@
       .services-page .service-copy .service-kicker::before{
         width:34px;
       }
+
+      .service-category-grid,
+      .how-grid{
+        grid-template-columns:1fr;
+      }
+
+      .quote-cta-box{
+        padding:24px 18px;
+      }
     }
 
     @media (max-width: 430px){
       .services-main-headline{
-        font-size:clamp(1.14rem, 4.8vw, 1.55rem);
+        font-size:clamp(1.35rem, 6vw, 1.8rem);
       }
 
       .services-page .service-copy h2{
@@ -249,6 +410,7 @@
     }
   </style>
 </head>
+
 <body class="services-page">
   <header class="site-header">
     <div class="container">
@@ -262,12 +424,12 @@
 
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
-        <a class="active" href="services.html">Our Services</a>
-        <a href="featured-services.html">Featured Services</a>
+        <a href="about.html">About</a>
+        <a class="active" href="services.html">Services</a>
         <a href="founder.html">Founder</a>
         <a href="insights.html">Insights</a>
-        <a href="career.html">Career</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="services.html#quote-form">Request a Quote</a>
       </nav>
     </div>
   </header>
@@ -275,14 +437,28 @@
   <main class="page-shell">
     <section>
       <div class="container page-intro">
-        <div class="section-label">Our Services</div>
+        <div class="section-label">Services</div>
 
         <h1 class="services-main-headline">
-          <span>Building materials supply and procurement, logistics coordination,</span>
-          <span>and project support.</span>
+          <span>Building materials supply, procurement support,</span>
+          <span>logistics coordination and project support.</span>
         </h1>
 
-        <p>Core services tailored to sourcing, logistics support, and smoother execution.</p>
+        <p class="services-intro-copy">
+          FTH D-UNIQ supports customers with structured sourcing, supplier follow-up, material procurement,
+          logistics coordination, project-related support, and clearer records for procurement activities across Lagos
+          and selected nearby locations.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn primary" href="services.html#quote-form">Request a Quote</a>
+          <a class="btn secondary" href="contact.html">Contact Us</a>
+        </div>
+
+        <p class="quote-note">
+          For cement, blocks, sand, granite, interlocking stones, kerbs, procurement support, logistics coordination,
+          and project support, kindly use the quote form so we can review your request properly.
+        </p>
       </div>
     </section>
 
@@ -292,8 +468,16 @@
           <div class="service-copy">
             <div class="service-number">01</div>
             <div class="service-kicker">Core Service</div>
-            <h2>Building Materials Supply and Procurement</h2>
-            <p>Dependable support for sourcing essential materials with clearer coordination, supplier follow-up, and structured updates throughout the procurement process.</p>
+            <h2>Building Materials Supply</h2>
+            <p>
+              We support customers with sourcing and supply coordination for cement, blocks, sand, granite,
+              interlocking stones, kerbs, and other related construction materials.
+            </p>
+            <ul>
+              <li>Material sourcing and supplier follow-up</li>
+              <li>Quote review based on quantity and delivery location</li>
+              <li>Support for homeowners, contractors, site teams and project owners</li>
+            </ul>
           </div>
 
           <div class="media-card">
@@ -305,8 +489,37 @@
           <div class="service-copy">
             <div class="service-number">02</div>
             <div class="service-kicker">Core Service</div>
+            <h2>Procurement Support</h2>
+            <p>
+              We help customers review material needs, compare available options, follow up with suppliers,
+              and coordinate procurement requests with better structure and communication.
+            </p>
+            <ul>
+              <li>Supplier sourcing and price comparison</li>
+              <li>Vendor follow-up and procurement documentation</li>
+              <li>Support for local and selected sourcing requests</li>
+            </ul>
+          </div>
+
+          <div class="media-card">
+            <img src="assets/project_support_service_new.jpeg" alt="Procurement and project coordination support">
+          </div>
+        </article>
+
+        <article class="service-row">
+          <div class="service-copy">
+            <div class="service-number">03</div>
+            <div class="service-kicker">Core Service</div>
             <h2>Logistics Coordination</h2>
-            <p>Reliable logistics support for truck movement, loading supervision, site delivery follow-through, and smoother coordination across material movement activities.</p>
+            <p>
+              We support delivery planning, truck coordination, site delivery follow-up, and customer updates
+              where logistics support is required.
+            </p>
+            <ul>
+              <li>Truck and delivery coordination support</li>
+              <li>Site delivery follow-up and customer updates</li>
+              <li>Waybill, invoice and delivery-related documentation support</li>
+            </ul>
           </div>
 
           <div class="card">
@@ -318,18 +531,194 @@
 
         <article class="service-row">
           <div class="service-copy">
-            <div class="service-number">03</div>
-            <div class="service-kicker">Core Service</div>
-            <h2>Project Support Services</h2>
-            <p>Structured operational support for updates, records, sourcing coordination, execution follow-through, and project-related communication support where needed.</p>
+            <div class="service-number">04</div>
+            <div class="service-kicker">Support Service</div>
+            <h2>Project Support</h2>
+            <p>
+              We assist busy clients, homeowners, contractors, and project owners with structured follow-up
+              for material, sourcing, delivery, and coordination needs.
+            </p>
+            <ul>
+              <li>Project-related communication support</li>
+              <li>Follow-up on material and procurement requests</li>
+              <li>Support for remote, busy and diaspora clients</li>
+            </ul>
           </div>
 
           <div class="media-card">
             <img src="assets/project_support_service_new.jpeg" alt="Lady on site representing project support services">
           </div>
         </article>
+
+        <article class="service-row">
+          <div class="service-copy">
+            <div class="service-number">05</div>
+            <div class="service-kicker">Support Service</div>
+            <h2>Procurement Records & Expense Tracking</h2>
+            <p>
+              We help clients organize material purchase records, supplier invoices, delivery costs, and weekly
+              expense summaries for better project accountability.
+            </p>
+            <ul>
+              <li>Purchase record organization</li>
+              <li>Invoice and delivery-cost tracking</li>
+              <li>Weekly procurement breakdowns and expense summaries</li>
+            </ul>
+          </div>
+
+          <div class="media-card">
+            <img src="assets/building_materials_truck_clean.jpeg" alt="Procurement records and expense tracking for building materials">
+          </div>
+        </article>
       </div>
     </section>
+
+    <section class="category-section">
+      <div class="container">
+        <h2 class="section-heading">Service Categories</h2>
+        <p class="section-copy">
+          Customers can request support across different material, procurement, logistics, and project-related needs.
+        </p>
+
+        <div class="service-category-grid">
+          <div class="service-category-card">
+            <h3>Cement Supply</h3>
+            <p>Quote and sourcing support for cement requests based on quantity and location.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Blocks</h3>
+            <p>Support for block sourcing, supply coordination, and delivery follow-up.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Sand</h3>
+            <p>Sharp sand, plaster sand, and related sourcing support depending on availability.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Granite</h3>
+            <p>Granite sourcing and delivery coordination support for site requirements.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Interlocking Stones</h3>
+            <p>Support for interlocking stone inquiries, procurement and delivery coordination.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Kerbs</h3>
+            <p>Kerb sourcing and coordination support for project-related requests.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Truck / Delivery Coordination</h3>
+            <p>Support for truck movement, delivery follow-up, and site coordination.</p>
+          </div>
+          <div class="service-category-card">
+            <h3>Project Support</h3>
+            <p>Structured follow-up for customers managing material and project-related needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section">
+      <div class="container">
+        <h2 class="section-heading">How It Works</h2>
+        <p class="section-copy">
+          Our process helps us review your request properly before sourcing, pricing, or coordinating delivery support.
+        </p>
+
+        <div class="how-grid">
+          <div class="how-card">
+            <strong>Step 1</strong>
+            <p>Submit your request through the quote form.</p>
+          </div>
+          <div class="how-card">
+            <strong>Step 2</strong>
+            <p>We review your material, quantity, location, and delivery needs.</p>
+          </div>
+          <div class="how-card">
+            <strong>Step 3</strong>
+            <p>We confirm supplier availability, pricing, and logistics options.</p>
+          </div>
+          <div class="how-card">
+            <strong>Step 4</strong>
+            <p>You review and approve the quote.</p>
+          </div>
+          <div class="how-card">
+            <strong>Step 5</strong>
+            <p>We coordinate procurement, delivery, and follow-up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-heading">Questions Before You Request a Quote</h2>
+        <p class="section-copy">
+          These answers help customers understand how FTH D-UNIQ supports material requests, procurement, delivery and project-related coordination.
+        </p>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3>What materials can FTH D-UNIQ help source?</h3>
+            <p>We can support requests for cement, blocks, sand, granite, interlocking stones, kerbs, and other construction-related materials, depending on availability and location.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Do you sell directly or coordinate procurement?</h3>
+            <p>FTH D-UNIQ supports material sourcing, procurement coordination, supplier follow-up, and delivery-related support. Some requests may be fulfilled through verified suppliers or partner channels.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I request a quote?</h3>
+            <p>Complete the quote/request form with the material needed, quantity, delivery location, preferred timeline, and any special instructions.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Do you handle delivery?</h3>
+            <p>Yes. Delivery coordination can be arranged depending on the material, quantity, truck availability, site access, and delivery location.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What areas do you serve?</h3>
+            <p>FTH D-UNIQ currently serves Lagos and selected nearby locations. Expanded sourcing support may be available on request.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can you support customers who are not physically available?</h3>
+            <p>Yes. We support busy, remote, and diaspora clients who need structured follow-up for material sourcing, procurement, delivery, and project-related requests.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I request procurement record-keeping support?</h3>
+            <p>Yes. We can help organize material purchase records, supplier invoices, delivery costs, and weekly procurement summaries. This is not tax accounting, audit, or financial advisory.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Why should I use the quote form instead of only calling?</h3>
+            <p>The quote form helps us capture the correct details, including material type, quantity, location, timeline, and site contact, so we can review your request properly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-cta-section">
+      <div class="container">
+        <div class="quote-cta-box">
+          <h2>Need building materials, procurement support or logistics coordination?</h2>
+          <p>
+            Submit your material, quantity, location, and delivery details through the quote form so we can review your request properly.
+          </p>
+          <a class="btn primary" href="services.html#quote-form">Request a Quote</a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      IMPORTANT:
+      If your actual quote form is already in another file or section, keep it there.
+      Just make sure the form section has id="quote-form".
+      Example:
+      <section id="quote-form"> ... your existing quote form ... </section>
+    -->
   </main>
 
   <footer class="site-footer">
@@ -339,6 +728,7 @@
         <div class="footer-meta">Business Name Registration No. 2660716</div>
         <div class="footer-meta">General Enquiries: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
         <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+        <div class="footer-meta">Career page is available only when recruitment is active.</div>
       </div>
 
       <div class="footer-social-block">
@@ -361,14 +751,15 @@
       </div>
     </div>
   </footer>
-  <script>
-  document.addEventListener("contextmenu", function(e){
-    e.preventDefault();
-  });
 
-  document.addEventListener("copy", function(e){
-    e.preventDefault();
-  });
-</script>
+  <script>
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    });
+
+    document.addEventListener("copy", function(e){
+      e.preventDefault();
+    });
+  </script>
 </body>
 </html>
