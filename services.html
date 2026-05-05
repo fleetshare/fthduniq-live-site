@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FTH D-UNIQ | Services</title>
   <meta name="description" content="Building materials supply, procurement support, logistics coordination, project support, and procurement record-keeping services across Lagos and selected nearby locations.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -162,6 +163,36 @@
       opacity:.9;
     }
 
+    .text-only-service-card{
+      width:100%;
+      min-height:100%;
+      aspect-ratio:16 / 10;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at top left, rgba(199,155,53,.16), transparent 36%),
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.58));
+      border:1px solid rgba(199,155,53,.16);
+      box-shadow:var(--shadow);
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .text-only-service-card strong{
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(1.8rem, 2.2vw, 2.5rem);
+      line-height:1;
+      color:var(--ink);
+      margin-bottom:12px;
+    }
+
+    .text-only-service-card span{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.7;
+    }
+
     .category-section,
     .how-section,
     .faq-section,
@@ -242,28 +273,51 @@
       line-height:1.6;
     }
 
-    .faq-list{
+    .faq-accordion{
       display:grid;
       gap:12px;
       max-width:980px;
     }
 
     .faq-item{
-      padding:18px 18px;
       border-radius:22px;
       background:rgba(255,255,255,.66);
       border:1px solid rgba(199,155,53,.14);
       box-shadow:var(--shadow);
+      overflow:hidden;
     }
 
-    .faq-item h3{
-      margin:0 0 8px;
-      font-size:1rem;
+    .faq-item summary{
+      cursor:pointer;
+      list-style:none;
+      padding:18px 20px;
+      font-weight:700;
       color:var(--ink);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .faq-item summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .faq-item summary::after{
+      content:"+";
+      color:var(--gold-deep);
+      font-size:1.4rem;
+      line-height:1;
+      flex-shrink:0;
+    }
+
+    .faq-item[open] summary::after{
+      content:"–";
     }
 
     .faq-item p{
       margin:0;
+      padding:0 20px 18px;
       color:var(--muted);
       font-size:.92rem;
       line-height:1.65;
@@ -374,7 +428,8 @@
       }
 
       .services-page .media-card,
-      .services-page .service-row .card{
+      .services-page .service-row .card,
+      .text-only-service-card{
         aspect-ratio:16 / 10;
         border-radius:24px;
       }
@@ -502,7 +557,7 @@
           </div>
 
           <div class="media-card">
-            <img src="assets/project_support_service_new.jpeg" alt="Procurement and project coordination support">
+            <img src="assets/procurement_support.jpeg" alt="Procurement support and material sourcing coordination">
           </div>
         </article>
 
@@ -566,8 +621,12 @@
             </ul>
           </div>
 
-          <div class="media-card">
-            <img src="assets/building_materials_truck_clean.jpeg" alt="Procurement records and expense tracking for building materials">
+          <div class="text-only-service-card">
+            <strong>Clear records. Better accountability.</strong>
+            <span>
+              A structured way to reduce scattered receipts, track what was bought,
+              review how much was spent, and maintain clearer procurement records.
+            </span>
           </div>
         </article>
       </div>
@@ -585,33 +644,40 @@
             <h3>Cement Supply</h3>
             <p>Quote and sourcing support for cement requests based on quantity and location.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Blocks</h3>
             <p>Support for block sourcing, supply coordination, and delivery follow-up.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Sand</h3>
             <p>Sharp sand, plaster sand, and related sourcing support depending on availability.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Granite</h3>
             <p>Granite sourcing and delivery coordination support for site requirements.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Interlocking Stones</h3>
             <p>Support for interlocking stone inquiries, procurement and delivery coordination.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Kerbs</h3>
             <p>Kerb sourcing and coordination support for project-related requests.</p>
           </div>
+
           <div class="service-category-card">
             <h3>Truck / Delivery Coordination</h3>
             <p>Support for truck movement, delivery follow-up, and site coordination.</p>
           </div>
+
           <div class="service-category-card">
-            <h3>Project Support</h3>
-            <p>Structured follow-up for customers managing material and project-related needs.</p>
+            <h3>Procurement Records</h3>
+            <p>Purchase records, invoice organization, delivery-cost tracking and expense summaries.</p>
           </div>
         </div>
       </div>
@@ -629,18 +695,22 @@
             <strong>Step 1</strong>
             <p>Submit your request through the quote form.</p>
           </div>
+
           <div class="how-card">
             <strong>Step 2</strong>
             <p>We review your material, quantity, location, and delivery needs.</p>
           </div>
+
           <div class="how-card">
             <strong>Step 3</strong>
             <p>We confirm supplier availability, pricing, and logistics options.</p>
           </div>
+
           <div class="how-card">
             <strong>Step 4</strong>
             <p>You review and approve the quote.</p>
           </div>
+
           <div class="how-card">
             <strong>Step 5</strong>
             <p>We coordinate procurement, delivery, and follow-up.</p>
@@ -653,49 +723,49 @@
       <div class="container">
         <h2 class="section-heading">Questions Before You Request a Quote</h2>
         <p class="section-copy">
-          These answers help customers understand how FTH D-UNIQ supports material requests, procurement, delivery and project-related coordination.
+          Quick answers to help you understand our material sourcing, procurement, delivery, and project-support process.
         </p>
 
-        <div class="faq-list">
-          <div class="faq-item">
-            <h3>What materials can FTH D-UNIQ help source?</h3>
+        <div class="faq-accordion">
+          <details class="faq-item">
+            <summary>What materials can FTH D-UNIQ help source?</summary>
             <p>We can support requests for cement, blocks, sand, granite, interlocking stones, kerbs, and other construction-related materials, depending on availability and location.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>Do you sell directly or coordinate procurement?</h3>
+          <details class="faq-item">
+            <summary>Do you sell directly or coordinate procurement?</summary>
             <p>FTH D-UNIQ supports material sourcing, procurement coordination, supplier follow-up, and delivery-related support. Some requests may be fulfilled through verified suppliers or partner channels.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>How do I request a quote?</h3>
+          <details class="faq-item">
+            <summary>How do I request a quote?</summary>
             <p>Complete the quote/request form with the material needed, quantity, delivery location, preferred timeline, and any special instructions.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>Do you handle delivery?</h3>
+          <details class="faq-item">
+            <summary>Do you handle delivery?</summary>
             <p>Yes. Delivery coordination can be arranged depending on the material, quantity, truck availability, site access, and delivery location.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>What areas do you serve?</h3>
+          <details class="faq-item">
+            <summary>What areas do you serve?</summary>
             <p>FTH D-UNIQ currently serves Lagos and selected nearby locations. Expanded sourcing support may be available on request.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>Can you support customers who are not physically available?</h3>
+          <details class="faq-item">
+            <summary>Can you support customers who are not physically available?</summary>
             <p>Yes. We support busy, remote, and diaspora clients who need structured follow-up for material sourcing, procurement, delivery, and project-related requests.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>Can I request procurement record-keeping support?</h3>
+          <details class="faq-item">
+            <summary>Can I request procurement record-keeping support?</summary>
             <p>Yes. We can help organize material purchase records, supplier invoices, delivery costs, and weekly procurement summaries. This is not tax accounting, audit, or financial advisory.</p>
-          </div>
+          </details>
 
-          <div class="faq-item">
-            <h3>Why should I use the quote form instead of only calling?</h3>
+          <details class="faq-item">
+            <summary>Why should I use the quote form instead of only calling?</summary>
             <p>The quote form helps us capture the correct details, including material type, quantity, location, timeline, and site contact, so we can review your request properly.</p>
-          </div>
+          </details>
         </div>
       </div>
     </section>
@@ -712,13 +782,19 @@
       </div>
     </section>
 
-    <!--
+    <!-- 
       IMPORTANT:
-      If your actual quote form is already in another file or section, keep it there.
-      Just make sure the form section has id="quote-form".
-      Example:
-      <section id="quote-form"> ... your existing quote form ... </section>
+      Paste your existing quote form below or keep your existing form section.
+      The main thing is that the section must have id="quote-form"
+      so every Request a Quote button can scroll to it.
     -->
+
+    <!-- Example anchor only. Replace this with your real existing quote form if needed. -->
+    <section id="quote-form" class="quote-cta-section">
+      <div class="container">
+        <!-- Keep your existing quote/request form here. -->
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -736,12 +812,15 @@
           <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
           </a>
+
           <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6 1.4.9 2.3.9s1.7-.3 2.3-.9c.6-.6.9-1.4.9-2.3V3h2.4z"/></svg>
           </a>
+
           <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
           </a>
+
           <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
           </a>
