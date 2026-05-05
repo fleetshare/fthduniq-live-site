@@ -106,10 +106,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    /*
-      This fixes only about.html so it opens as a normal webpage
-      instead of downloading. It does not disturb the rest of the website.
-    */
     if (url.pathname === "/about.html" && request.method === "GET") {
       const response = await env.ASSETS.fetch(request);
       const headers = new Headers(response.headers);
@@ -312,9 +308,11 @@ function publicApplicant(applicant) {
     email: applicant.email,
     location: applicant.location,
     position: applicant.position,
-    qualification: applicant.qualification,
-    experience: applicant.experience,
-    onsite: applicant.onsite,
+    availability: applicant.availability || "",
+    expectedSalary: applicant.expectedSalary || "",
+    qualification: applicant.qualification || "",
+    experience: applicant.experience || "",
+    onsite: applicant.onsite || "",
     relevantExperience: applicant.relevantExperience || "",
     status: applicant.status || "New application",
     directorNote: applicant.directorNote || "",
@@ -1190,7 +1188,7 @@ async function handleCareerEmail(request, env) {
         {
           ok: false,
           closed: true,
-          message: "Applications are currently closed for this role. Please check back when another opportunity is announced."
+          message: "Applications are currently closed. Please check back when another opportunity is announced."
         },
         403
       );
@@ -1198,22 +1196,21 @@ async function handleCareerEmail(request, env) {
 
     const formData = await request.formData();
 
-    const fullName = String(formData.get("fullName") || "").trim();
-    const phone = String(formData.get("phone") || "").trim();
-    const email = String(formData.get("email") || "").trim();
-    const location = String(formData.get("location") || "").trim();
-    const position = String(formData.get("position") || "").trim();
-    const qualification = String(formData.get("qualification") || "").trim();
-    const experience = String(formData.get("experience") || "").trim();
-    const onsite = String(formData.get("onsite") || "").trim();
-    const relevantExperience = String(formData.get("relevantExperience") || "").trim();
+    const fullName = String(formData.get("full_name") || "").trim();
+    const phone = String(formData.get("phone_number") || "").trim();
+    const email = String(formData.get("email_address") || "").trim();
+    const location = String(formData.get("current_location") || "").trim();
+    const position = String(formData.get("role_applied_for") || "").trim();
+    const availability = String(formData.get("availability") || "").trim();
+    const expectedSalary = String(formData.get("expected_salary") || "").trim();
+    const message = String(formData.get("message") || "").trim();
 
-    const cv = formData.get("cv");
-    const coverLetter = formData.get("coverLetter");
+    const cv = formData.get("cv_upload");
+    const coverLetter = formData.get("cover_letter_upload");
 
-    if (!fullName || !phone || !email || !location || !position || !qualification || !experience || !onsite || !relevantExperience) {
+    if (!fullName || !phone || !email || !location || !position || !availability || !expectedSalary || !message) {
       return json(
-        { ok: false, message: "Please complete all required fields." },
+        { ok: false, message: "Please complete all required application fields." },
         400
       );
     }
@@ -1247,6 +1244,13 @@ async function handleCareerEmail(request, env) {
     await addAttachment(cv, "CV", attachments);
     await addAttachment(coverLetter, "Cover Letter", attachments);
 
+    if (attachments.length < 2) {
+      return json(
+        { ok: false, message: "Please upload both your CV and cover letter." },
+        400
+      );
+    }
+
     const newCount = countBefore + 1;
 
     const subject = `Career Application ${newCount} - ${position} - ${fullName}`;
@@ -1257,12 +1261,12 @@ async function handleCareerEmail(request, env) {
       `Full Name: ${fullName}\n` +
       `Phone / WhatsApp Number: ${phone}\n` +
       `Email Address: ${email}\n` +
-      `Location: ${location}\n` +
-      `Position Applying For: ${position}\n` +
-      `Highest Qualification: ${qualification}\n` +
-      `Years of Relevant Experience: ${experience}\n` +
-      `Able to work within Amuwo-Odofin / Festac axis: ${onsite}\n\n` +
-      `Relevant Experience:\n${relevantExperience}\n\n` +
+      `Current Location: ${location}\n` +
+      `Role Applied For: ${position}\n` +
+      `Availability: ${availability}\n` +
+      `Expected Salary: ${expectedSalary}\n\n` +
+      `Brief Message:\n${message}\n\n` +
+      `CV and cover letter are attached.\n\n` +
       `Submitted from the FTH D-UNIQ website career form.`;
 
     const htmlBody =
@@ -1271,13 +1275,13 @@ async function handleCareerEmail(request, env) {
       `<p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>` +
       `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phone)}</p>` +
       `<p><strong>Email Address:</strong> ${escapeHtml(email)}</p>` +
-      `<p><strong>Location:</strong> ${escapeHtml(location)}</p>` +
-      `<p><strong>Position Applying For:</strong> ${escapeHtml(position)}</p>` +
-      `<p><strong>Highest Qualification:</strong> ${escapeHtml(qualification)}</p>` +
-      `<p><strong>Years of Relevant Experience:</strong> ${escapeHtml(experience)}</p>` +
-      `<p><strong>Able to work within Amuwo-Odofin / Festac axis:</strong> ${escapeHtml(onsite)}</p>` +
-      `<h3>Relevant Experience</h3>` +
-      `<p>${escapeHtml(relevantExperience).replace(/\n/g, "<br>")}</p>` +
+      `<p><strong>Current Location:</strong> ${escapeHtml(location)}</p>` +
+      `<p><strong>Role Applied For:</strong> ${escapeHtml(position)}</p>` +
+      `<p><strong>Availability:</strong> ${escapeHtml(availability)}</p>` +
+      `<p><strong>Expected Salary:</strong> ${escapeHtml(expectedSalary)}</p>` +
+      `<h3>Brief Message</h3>` +
+      `<p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>` +
+      `<p><strong>CV and cover letter are attached.</strong></p>` +
       `<p>Submitted from the FTH D-UNIQ website career form.</p>`;
 
     const emailResult = await sendResendEmail(env, {
@@ -1310,10 +1314,9 @@ async function handleCareerEmail(request, env) {
       email: cleanedEmail,
       location,
       position,
-      qualification,
-      experience,
-      onsite,
-      relevantExperience,
+      availability,
+      expectedSalary,
+      relevantExperience: message,
       status: "New application",
       directorNote: "",
       candidateCode: "",
@@ -1407,8 +1410,8 @@ async function addAttachment(file, label, attachments) {
     throw new Error(label + " must be PDF, DOC, DOCX, JPG, JPEG, or PNG.");
   }
 
-  if (file.size > 5 * 1024 * 1024) {
-    throw new Error(label + " is too large. Please upload a file below 5MB.");
+  if (file.size > 10 * 1024 * 1024) {
+    throw new Error(label + " is too large. Please upload a file below 10MB.");
   }
 
   const arrayBuffer = await file.arrayBuffer();
