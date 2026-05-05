@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/styles.css?v=9">
+  <link rel="stylesheet" href="/styles.css?v=10">
 
   <style>
     .services-page .page-shell{
@@ -424,8 +424,15 @@
       .services-page .media-card,
       .services-page .service-row .card,
       .text-only-service-card{
-        aspect-ratio:16 / 10;
+        height:260px;
+        aspect-ratio:auto;
         border-radius:24px;
+      }
+
+      .services-page .media-card img,
+      .services-page .service-row .card video{
+        height:100%;
+        object-fit:cover;
       }
 
       .service-category-grid,
@@ -446,6 +453,12 @@
       .services-page .service-copy h2{
         font-size:clamp(1.55rem, 6.5vw, 2rem);
       }
+
+      .services-page .media-card,
+      .services-page .service-row .card,
+      .text-only-service-card{
+        height:220px;
+      }
     }
   </style>
 </head>
@@ -455,8 +468,8 @@
     <div class="container">
       <div class="brand-top">
         <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
-          <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
-            <source src="assets/hero_brand_video.mp4" type="video/mp4">
+          <video autoplay muted loop playsinline poster="/assets/hero_brand_video_poster.jpg">
+            <source src="/assets/hero_brand_video.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -521,7 +534,7 @@
           </div>
 
           <div class="media-card">
-            <img src="assets/building_materials_truck_clean.jpeg" alt="White truck carrying blocks for building materials procurement">
+            <img src="/assets/building_materials_truck_clean.jpeg" alt="White truck carrying blocks for building materials procurement" loading="lazy">
           </div>
         </article>
 
@@ -542,7 +555,7 @@
           </div>
 
           <div class="media-card">
-            <img src="assets/support_consultation.jpeg" alt="Procurement support and supplier sourcing coordination">
+            <img src="/assets/support_consultation.jpeg" alt="Procurement support and supplier sourcing coordination" loading="lazy">
           </div>
         </article>
 
@@ -563,8 +576,8 @@
           </div>
 
           <div class="card">
-            <video autoplay muted loop playsinline controls poster="assets/logistics_truck_video_poster.jpg">
-              <source src="assets/logistics_truck_video.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline controls poster="/assets/logistics_truck_video_poster.jpg">
+              <source src="/assets/logistics_truck_video.mp4" type="video/mp4">
             </video>
           </div>
         </article>
@@ -586,7 +599,7 @@
           </div>
 
           <div class="media-card">
-            <img src="assets/project_support_service_new.jpeg" alt="Lady on site representing project support services">
+            <img src="/assets/project_support_service_new.jpeg" alt="Lady on site representing project support services" loading="lazy">
           </div>
         </article>
 
