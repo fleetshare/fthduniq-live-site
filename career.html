@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/styles.css?v=13">
+  <link rel="stylesheet" href="/styles.css?v=14">
 
   <style>
     .career-page .page-shell{
@@ -238,6 +238,12 @@
       box-sizing:border-box;
     }
 
+    .form-field input[type="file"]{
+      padding:12px;
+      cursor:pointer;
+      background:#fff;
+    }
+
     .form-field textarea{
       min-height:130px;
       resize:vertical;
@@ -248,6 +254,13 @@
     .form-field textarea:focus{
       border-color:var(--gold);
       box-shadow:0 0 0 4px rgba(199,155,53,.10);
+    }
+
+    .upload-note{
+      margin:0;
+      color:var(--muted);
+      font-size:.86rem;
+      line-height:1.6;
     }
 
     .form-submit-row{
@@ -544,10 +557,10 @@
           </h2>
 
           <p class="career-section-copy">
-            Complete the form below. Kindly ensure your details are accurate and your CV is ready before applying.
+            Complete the form below and upload your CV and cover letter. Kindly ensure your details are accurate before submitting.
           </p>
 
-          <form id="careerApplicationForm" novalidate>
+          <form id="careerApplicationForm" action="/api/career-email" method="POST" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="form_source" value="Career Page Application">
             <input type="hidden" name="subject" value="New Career Application from FTH D-UNIQ Website">
 
@@ -601,8 +614,19 @@
               </div>
 
               <div class="form-field">
-                <label for="cv-link">CV Link / File Link</label>
-                <input id="cv-link" type="url" name="cv_link" placeholder="Paste Google Drive, Dropbox, or LinkedIn CV link">
+                <label for="cv-upload">Upload CV</label>
+                <input id="cv-upload" type="file" name="cv_upload" accept=".pdf,.doc,.docx" required>
+              </div>
+
+              <div class="form-field">
+                <label for="cover-letter-upload">Upload Cover Letter</label>
+                <input id="cover-letter-upload" type="file" name="cover_letter_upload" accept=".pdf,.doc,.docx" required>
+              </div>
+
+              <div class="form-field full">
+                <p class="upload-note">
+                  Accepted file formats: PDF, DOC, and DOCX. Kindly ensure your CV and cover letter are clear and properly named before submission.
+                </p>
               </div>
 
               <div class="form-field full">
@@ -684,10 +708,53 @@
     const careerStatus = document.getElementById("careerFormStatus");
     const careerSubmitButton = document.getElementById("careerSubmitButton");
 
+    function validateCareerFiles() {
+      const cvUpload = document.getElementById("cv-upload");
+      const coverUpload = document.getElementById("cover-letter-upload");
+
+      const allowedExtensions = ["pdf", "doc", "docx"];
+      const maxFileSize = 10 * 1024 * 1024;
+
+      const filesToCheck = [
+        { input: cvUpload, label: "CV" },
+        { input: coverUpload, label: "Cover letter" }
+      ];
+
+      for (const item of filesToCheck) {
+        if (!item.input || !item.input.files || item.input.files.length === 0) {
+          return `${item.label} is required.`;
+        }
+
+        const file = item.input.files[0];
+        const extension = file.name.split(".").pop().toLowerCase();
+
+        if (!allowedExtensions.includes(extension)) {
+          return `${item.label} must be a PDF, DOC, or DOCX file.`;
+        }
+
+        if (file.size > maxFileSize) {
+          return `${item.label} must not be more than 10MB.`;
+        }
+      }
+
+      return "";
+    }
+
     async function submitCareerApplication() {
       if (!careerForm) return;
 
       if (!careerForm.reportValidity()) {
+        return;
+      }
+
+      const fileError = validateCareerFiles();
+
+      if (fileError) {
+        if (careerStatus) {
+          careerStatus.className = "form-status error";
+          careerStatus.style.display = "block";
+          careerStatus.textContent = fileError;
+        }
         return;
       }
 
