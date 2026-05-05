@@ -4,513 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>FTH D-UNIQ | Services</title>
-  <meta name="description" content="Building materials supply, procurement support, logistics coordination, project support, and procurement record-keeping services across Lagos and selected nearby locations.">
+  <title>FTH D-UNIQ | Founder</title>
+  <meta name="description" content="Meet Faith Onyenwenu, founder of FTH D-UNIQ and a multi-disciplinary business professional focused on strategy, procurement, project coordination, web design, digital branding, and structured business support.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/styles.css?v=11">
-
-  <style>
-    .services-page .page-shell{
-      padding-top:14px;
-      overflow-x:hidden;
-    }
-
-    .services-page .page-intro{
-      padding:10px 0 22px;
-      max-width:1080px;
-    }
-
-    .services-page .page-intro .section-label{
-      margin-bottom:18px;
-    }
-
-    .services-main-headline{
-      margin:0 0 12px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.5rem, 3.3vw, 3.7rem);
-      line-height:1.01;
-      letter-spacing:-0.02em;
-      max-width:980px;
-    }
-
-    .services-main-headline span{
-      display:block;
-    }
-
-    .services-intro-copy{
-      margin:0 0 22px;
-      max-width:760px;
-      font-size:0.98rem;
-      line-height:1.72;
-      color:var(--muted);
-    }
-
-    .cta-row{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:18px;
-    }
-
-    .quote-note{
-      margin:10px 0 0;
-      max-width:760px;
-      color:var(--muted);
-      font-size:.92rem;
-      line-height:1.65;
-    }
-
-    .services-page .service-stack{
-      display:grid;
-      gap:22px;
-      padding-bottom:24px;
-    }
-
-    .services-page .service-row{
-      display:grid;
-      grid-template-columns:minmax(0,1.04fr) minmax(360px,0.96fr);
-      gap:28px;
-      align-items:start;
-      padding:28px 30px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(199,155,53,.12);
-      box-shadow:var(--shadow);
-    }
-
-    .services-page .service-copy{
-      min-width:0;
-      max-width:none;
-    }
-
-    .services-page .service-number{
-      margin-bottom:10px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:2.1rem;
-      line-height:1;
-      color:var(--gold-deep);
-    }
-
-    .services-page .service-copy h2{
-      margin:0 0 12px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2.15rem, 2.7vw, 3rem);
-      line-height:1;
-      letter-spacing:-0.025em;
-      max-width:15ch;
-    }
-
-    .services-page .service-copy p{
-      margin:0 0 12px;
-      max-width:46ch;
-      font-size:0.98rem;
-      line-height:1.78;
-      color:var(--muted);
-    }
-
-    .services-page .service-copy ul{
-      margin:14px 0 0;
-      padding-left:18px;
-      color:var(--muted);
-      font-size:.94rem;
-      line-height:1.75;
-    }
-
-    .services-page .media-card,
-    .services-page .service-row .card{
-      width:100%;
-      aspect-ratio:16 / 10;
-      border-radius:28px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(199,155,53,.14);
-    }
-
-    .services-page .media-card img,
-    .services-page .service-row .card video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .services-page .service-row .card video{
-      background:#fff;
-    }
-
-    .services-page .service-copy .service-kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:12px;
-      color:var(--gold-deep);
-      font-size:.82rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      font-weight:700;
-    }
-
-    .services-page .service-copy .service-kicker::before{
-      content:"";
-      width:42px;
-      height:2px;
-      border-radius:999px;
-      background:var(--gold);
-      opacity:.9;
-    }
-
-    .text-only-service-card{
-      width:100%;
-      min-height:100%;
-      aspect-ratio:16 / 10;
-      border-radius:28px;
-      background:
-        radial-gradient(circle at top left, rgba(199,155,53,.16), transparent 36%),
-        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.58));
-      border:1px solid rgba(199,155,53,.16);
-      box-shadow:var(--shadow);
-      padding:28px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .text-only-service-card strong{
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(1.8rem, 2.2vw, 2.5rem);
-      line-height:1;
-      color:var(--ink);
-      margin-bottom:12px;
-    }
-
-    .text-only-service-card span{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.7;
-    }
-
-    .category-section,
-    .how-section,
-    .faq-section,
-    .quote-cta-section{
-      padding:22px 0 24px;
-    }
-
-    .section-heading{
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem, 2.5vw, 3rem);
-      line-height:1.05;
-      letter-spacing:-0.02em;
-      margin:0 0 12px;
-    }
-
-    .section-copy{
-      max-width:760px;
-      margin:0 0 20px;
-      color:var(--muted);
-      font-size:.98rem;
-      line-height:1.75;
-    }
-
-    .service-category-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:14px;
-    }
-
-    .service-category-card{
-      padding:18px 16px;
-      border-radius:22px;
-      background:rgba(255,255,255,.66);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:var(--shadow);
-    }
-
-    .service-category-card h3{
-      margin:0 0 8px;
-      font-size:1rem;
-      color:var(--ink);
-    }
-
-    .service-category-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:.88rem;
-      line-height:1.6;
-    }
-
-    .how-grid{
-      display:grid;
-      grid-template-columns:repeat(5, minmax(0, 1fr));
-      gap:14px;
-    }
-
-    .how-card{
-      padding:18px 16px;
-      border-radius:22px;
-      background:rgba(255,255,255,.66);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:var(--shadow);
-    }
-
-    .how-card strong{
-      display:block;
-      color:var(--gold-deep);
-      margin-bottom:8px;
-      font-size:.9rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .how-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:.88rem;
-      line-height:1.6;
-    }
-
-    .faq-accordion{
-      display:grid;
-      gap:12px;
-      max-width:980px;
-    }
-
-    .faq-item{
-      border-radius:22px;
-      background:rgba(255,255,255,.66);
-      border:1px solid rgba(199,155,53,.14);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .faq-item summary{
-      cursor:pointer;
-      list-style:none;
-      padding:18px 20px;
-      font-weight:700;
-      color:var(--ink);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:18px;
-    }
-
-    .faq-item summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .faq-item summary::after{
-      content:"+";
-      color:var(--gold-deep);
-      font-size:1.4rem;
-      line-height:1;
-      flex-shrink:0;
-    }
-
-    .faq-item[open] summary::after{
-      content:"–";
-    }
-
-    .faq-item p{
-      margin:0;
-      padding:0 20px 18px;
-      color:var(--muted);
-      font-size:.92rem;
-      line-height:1.65;
-    }
-
-    .quote-cta-box{
-      padding:28px 30px;
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(199,155,53,.16);
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-
-    .quote-cta-box h2{
-      margin:0 0 10px;
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(2rem, 2.5vw, 3rem);
-      line-height:1.05;
-    }
-
-    .quote-cta-box p{
-      max-width:760px;
-      margin:0 auto 18px;
-      color:var(--muted);
-      line-height:1.75;
-    }
-
-    @media (max-width: 1024px){
-      .service-category-grid{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-      }
-
-      .how-grid{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 920px){
-      .services-page .service-row{
-        grid-template-columns:1fr;
-        gap:20px;
-        padding:22px;
-      }
-
-      .services-page .service-copy h2,
-      .services-page .service-copy p{
-        max-width:none;
-      }
-    }
-
-    @media (max-width: 768px){
-      .services-page .page-shell{
-        padding-top:12px;
-        overflow-x:hidden;
-      }
-
-      .services-page .container{
-        width:100%;
-        max-width:100%;
-        padding-left:16px;
-        padding-right:16px;
-        box-sizing:border-box;
-      }
-
-      .services-page .page-intro{
-        padding:8px 16px 18px;
-      }
-
-      .services-page .page-intro .section-label{
-        margin-bottom:16px;
-      }
-
-      .services-main-headline{
-        font-size:clamp(1.45rem, 7vw, 2rem);
-        line-height:1.08;
-        letter-spacing:-0.01em;
-        margin:0 0 10px;
-        max-width:100%;
-      }
-
-      .services-main-headline span{
-        display:inline;
-      }
-
-      .services-intro-copy,
-      .quote-note,
-      .section-copy{
-        max-width:100%;
-        font-size:0.9rem;
-        line-height:1.7;
-      }
-
-      .services-page .service-stack{
-        gap:18px;
-      }
-
-      .services-page .service-row{
-        grid-template-columns:1fr;
-        width:100%;
-        padding:18px 14px;
-        gap:16px;
-        box-sizing:border-box;
-      }
-
-      .services-page .service-number{
-        font-size:1.8rem;
-        margin-bottom:8px;
-      }
-
-      .services-page .service-copy h2{
-        font-size:clamp(1.55rem, 7vw, 2.1rem);
-        line-height:1.03;
-        letter-spacing:-0.02em;
-        max-width:100%;
-        margin:0 0 10px;
-      }
-
-      .services-page .service-copy p,
-      .services-page .service-copy ul{
-        max-width:none;
-        font-size:0.9rem;
-        line-height:1.72;
-      }
-
-      .services-page .media-card,
-      .services-page .service-row .card,
-      .text-only-service-card{
-        width:100%;
-        max-width:100%;
-        height:220px;
-        aspect-ratio:auto;
-        border-radius:22px;
-      }
-
-      .services-page .media-card img,
-      .services-page .service-row .card video{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-      }
-
-      .services-page .service-copy .service-kicker{
-        margin-bottom:10px;
-        font-size:.78rem;
-        gap:8px;
-      }
-
-      .services-page .service-copy .service-kicker::before{
-        width:34px;
-      }
-
-      .service-category-grid,
-      .how-grid{
-        grid-template-columns:1fr;
-      }
-
-      .faq-item summary{
-        padding:16px;
-        font-size:0.92rem;
-      }
-
-      .faq-item p{
-        padding:0 16px 16px;
-        font-size:0.88rem;
-      }
-
-      .quote-cta-box{
-        padding:22px 16px;
-      }
-    }
-
-    @media (max-width: 430px){
-      .services-main-headline{
-        font-size:clamp(1.35rem, 6vw, 1.75rem);
-      }
-
-      .services-page .service-copy h2{
-        font-size:clamp(1.5rem, 6.5vw, 1.95rem);
-      }
-
-      .services-page .media-card,
-      .services-page .service-row .card,
-      .text-only-service-card{
-        height:200px;
-      }
-    }
-  </style>
 </head>
 
-<body class="services-page">
+<body>
   <header class="site-header">
     <div class="container">
       <div class="brand-top">
@@ -524,307 +28,185 @@
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="/index.html">Home</a>
         <a href="/about.html">About</a>
-        <a class="active" href="/services.html">Services</a>
-        <a href="/founder.html">Founder</a>
+        <a href="/services.html">Services</a>
+        <a class="active" href="/founder.html">Founder</a>
         <a href="/contact.html">Contact</a>
         <a href="/index.html#quote-form">Request a Quote</a>
       </nav>
     </div>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell founder-page">
 
-    <section>
-      <div class="container page-intro">
-        <div class="section-label">Services</div>
+    <section class="section founder-hero-section">
+      <div class="container founder-hero">
 
-        <h1 class="services-main-headline">
-          <span>Building materials supply, procurement support,</span>
-          <span> logistics coordination and project support.</span>
-        </h1>
+        <div class="founder-copy panel-card">
+          <div class="eyebrow"><span></span> FOUNDER</div>
 
-        <p class="services-intro-copy">
-          FTH D-UNIQ supports customers with structured sourcing, supplier follow-up, material procurement,
-          logistics coordination, project-related support, and clearer records for procurement activities across Lagos
-          and selected nearby locations.
-        </p>
+          <h1 class="founder-name">Faith<br>Onyenwenu</h1>
 
-        <div class="cta-row">
-          <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
-          <a class="btn btn-secondary" href="/contact.html">Contact Us</a>
-        </div>
-
-        <p class="quote-note">
-          For cement, blocks, sand, granite, interlocking stones, kerbs, procurement support, logistics coordination,
-          and project support, kindly use the quote form so we can review your request properly.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container service-stack">
-
-        <article class="service-row">
-          <div class="service-copy">
-            <div class="service-number">01</div>
-            <div class="service-kicker">Core Service</div>
-            <h2>Building Materials Supply</h2>
-            <p>
-              We support customers with sourcing and supply coordination for cement, blocks, sand, granite,
-              interlocking stones, kerbs, and other related construction materials.
-            </p>
-            <ul>
-              <li>Material sourcing and supplier follow-up</li>
-              <li>Quote review based on quantity and delivery location</li>
-              <li>Support for homeowners, contractors, site teams and project owners</li>
-            </ul>
-          </div>
-
-          <div class="media-card">
-            <img src="/assets/building_materials_truck_clean.jpeg" alt="White truck carrying blocks for building materials procurement" loading="lazy">
-          </div>
-        </article>
-
-        <article class="service-row">
-          <div class="service-copy">
-            <div class="service-number">02</div>
-            <div class="service-kicker">Core Service</div>
-            <h2>Procurement Support</h2>
-            <p>
-              We help customers review material needs, compare available options, follow up with suppliers,
-              and coordinate procurement requests with better structure and communication.
-            </p>
-            <ul>
-              <li>Supplier sourcing and price comparison</li>
-              <li>Vendor follow-up and procurement documentation</li>
-              <li>Support for local and selected sourcing requests</li>
-            </ul>
-          </div>
-
-          <div class="media-card">
-            <img src="/assets/support_consultation.jpeg" alt="Procurement support and supplier sourcing coordination" loading="lazy">
-          </div>
-        </article>
-
-        <article class="service-row">
-          <div class="service-copy">
-            <div class="service-number">03</div>
-            <div class="service-kicker">Core Service</div>
-            <h2>Logistics Coordination</h2>
-            <p>
-              We support delivery planning, truck coordination, site delivery follow-up, and customer updates
-              where logistics support is required.
-            </p>
-            <ul>
-              <li>Truck and delivery coordination support</li>
-              <li>Site delivery follow-up and customer updates</li>
-              <li>Waybill, invoice and delivery-related documentation support</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <video autoplay muted loop playsinline controls poster="/assets/logistics_truck_video_poster.jpg">
-              <source src="/assets/logistics_truck_video.mp4" type="video/mp4">
-            </video>
-          </div>
-        </article>
-
-        <article class="service-row">
-          <div class="service-copy">
-            <div class="service-number">04</div>
-            <div class="service-kicker">Support Service</div>
-            <h2>Project Support</h2>
-            <p>
-              We assist busy clients, homeowners, contractors, and project owners with structured follow-up
-              for material, sourcing, delivery, and coordination needs.
-            </p>
-            <ul>
-              <li>Project-related communication support</li>
-              <li>Follow-up on material and procurement requests</li>
-              <li>Support for remote, busy and diaspora clients</li>
-            </ul>
-          </div>
-
-          <div class="media-card">
-            <img src="/assets/project_support_service_new.jpeg" alt="Lady on site representing project support services" loading="lazy">
-          </div>
-        </article>
-
-        <article class="service-row">
-          <div class="service-copy">
-            <div class="service-number">05</div>
-            <div class="service-kicker">Support Service</div>
-            <h2>Procurement Records & Expense Tracking</h2>
-            <p>
-              We help clients organize material purchase records, supplier invoices, delivery costs, and weekly
-              expense summaries for better project accountability.
-            </p>
-            <ul>
-              <li>Purchase record organization</li>
-              <li>Invoice and delivery-cost tracking</li>
-              <li>Weekly procurement breakdowns and expense summaries</li>
-            </ul>
-          </div>
-
-          <div class="text-only-service-card">
-            <strong>Clear records. Better accountability.</strong>
-            <span>
-              A structured way to reduce scattered receipts, track what was bought,
-              review how much was spent, and maintain clearer procurement records.
-            </span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <section class="category-section">
-      <div class="container">
-        <h2 class="section-heading">Service Categories</h2>
-        <p class="section-copy">
-          Customers can request support across different material, procurement, logistics, and project-related needs.
-        </p>
-
-        <div class="service-category-grid">
-          <div class="service-category-card">
-            <h3>Cement Supply</h3>
-            <p>Quote and sourcing support for cement requests based on quantity and location.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Blocks</h3>
-            <p>Support for block sourcing, supply coordination, and delivery follow-up.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Sand</h3>
-            <p>Sharp sand, plaster sand, and related sourcing support depending on availability.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Granite</h3>
-            <p>Granite sourcing and delivery coordination support for site requirements.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Interlocking Stones</h3>
-            <p>Support for interlocking stone inquiries, procurement and delivery coordination.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Kerbs</h3>
-            <p>Kerb sourcing and coordination support for project-related requests.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Truck / Delivery Coordination</h3>
-            <p>Support for truck movement, delivery follow-up, and site coordination.</p>
-          </div>
-
-          <div class="service-category-card">
-            <h3>Procurement Records</h3>
-            <p>Purchase records, invoice organization, delivery-cost tracking and expense summaries.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="how-section">
-      <div class="container">
-        <h2 class="section-heading">How It Works</h2>
-        <p class="section-copy">
-          Our process helps us review your request properly before sourcing, pricing, or coordinating delivery support.
-        </p>
-
-        <div class="how-grid">
-          <div class="how-card">
-            <strong>Step 1</strong>
-            <p>Submit your request through the quote form.</p>
-          </div>
-
-          <div class="how-card">
-            <strong>Step 2</strong>
-            <p>We review your material, quantity, location, and delivery needs.</p>
-          </div>
-
-          <div class="how-card">
-            <strong>Step 3</strong>
-            <p>We confirm supplier availability, pricing, and logistics options.</p>
-          </div>
-
-          <div class="how-card">
-            <strong>Step 4</strong>
-            <p>You review and approve the quote.</p>
-          </div>
-
-          <div class="how-card">
-            <strong>Step 5</strong>
-            <p>We coordinate procurement, delivery, and follow-up.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="faq-section">
-      <div class="container">
-        <h2 class="section-heading">Questions Before You Request a Quote</h2>
-        <p class="section-copy">
-          Quick answers to help you understand our material sourcing, procurement, delivery, and project-support process.
-        </p>
-
-        <div class="faq-accordion">
-          <details class="faq-item">
-            <summary>What materials can FTH D-UNIQ help source?</summary>
-            <p>We can support requests for cement, blocks, sand, granite, interlocking stones, kerbs, and other construction-related materials, depending on availability and location.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Do you sell directly or coordinate procurement?</summary>
-            <p>FTH D-UNIQ supports material sourcing, procurement coordination, supplier follow-up, and delivery-related support. Some requests may be fulfilled through verified suppliers or partner channels.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>How do I request a quote?</summary>
-            <p>Complete the quote/request form with the material needed, quantity, delivery location, preferred timeline, and any special instructions.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Do you handle delivery?</summary>
-            <p>Yes. Delivery coordination can be arranged depending on the material, quantity, truck availability, site access, and delivery location.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>What areas do you serve?</summary>
-            <p>FTH D-UNIQ currently serves Lagos and selected nearby locations. Expanded sourcing support may be available on request.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Can you support customers who are not physically available?</summary>
-            <p>Yes. We support busy, remote, and diaspora clients who need structured follow-up for material sourcing, procurement, delivery, and project-related requests.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Can I request procurement record-keeping support?</summary>
-            <p>Yes. We can help organize material purchase records, supplier invoices, delivery costs, and weekly procurement summaries. This is not tax accounting, audit, or financial advisory.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Why should I use the quote form instead of only calling?</summary>
-            <p>The quote form helps us capture the correct details, including material type, quantity, location, timeline, and site contact, so we can review your request properly.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="quote-cta-section">
-      <div class="container">
-        <div class="quote-cta-box">
-          <h2>Need building materials, procurement support or logistics coordination?</h2>
-          <p>
-            Submit your material, quantity, location, and delivery details through the quote form so we can review your request properly.
+          <p class="founder-headline">
+            Founder | Business Development Strategist | Procurement &amp; Project Coordination Professional | Web Designer &amp; Developer
           </p>
-          <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
+
+          <p class="founder-credentials">
+            B.Sc. Mass Communication (Public Relations &amp; Advertising) | MBA | CIPM Student Member
+          </p>
+
+          <p class="founder-intro">
+            Faith Onyenwenu is a founder and multi-disciplinary business professional with strengths across business development, procurement and project coordination, web design, digital branding, and structured business support. With an academic foundation in Mass Communication and an MBA, she combines communication, strategy, execution, and presentation to support businesses, projects, and growth-focused opportunities with clarity, professionalism, and trust.
+          </p>
+
+          <p class="founder-experience-note">
+            Faith Onyenwenu has over 6 years of experience in production coordination, supplies, procurement, operations, bookkeeping, and management across hollow blocks, interlocking stones, and kerbs. She leads and coordinates execution through production teams while maintaining oversight on supply, records, and business operations.
+          </p>
+
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="/contact.html">Contact FTH D-UNIQ</a>
+          </div>
         </div>
+
+        <div class="founder-portrait-wrap panel-card">
+          <img src="/assets/founder_white_portrait.jpeg" alt="Faith Onyenwenu portrait">
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container founder-grid two-col-grid">
+
+        <article class="panel-card">
+          <div class="eyebrow"><span></span> CORE EXPERTISE</div>
+
+          <ul class="founder-list">
+            <li>
+              <strong>Construction Procurement &amp; Building Materials Coordination</strong><br>
+              Strong practical knowledge of sourcing, pricing, supplier engagement, quantity assessment, and fulfilment coordination across building materials.
+            </li>
+
+            <li>
+              <strong>Construction Logistics &amp; Truck Coordination</strong><br>
+              Hands-on understanding of truck operations, trip coordination, logistics pricing, field realities, and the operational factors that affect profitability in the construction logistics space.
+            </li>
+
+            <li>
+              <strong>Production, Quality &amp; Quantity Control</strong><br>
+              Working knowledge of product standards, quality expectations, and quantity interpretation across blocks, interlocking stones, kerbs, and related materials.
+            </li>
+
+            <li>
+              <strong>Operations Management</strong><br>
+              Experience coordinating processes, supervising execution, improving workflow structure, and managing day-to-day business activity in demanding operating environments.
+            </li>
+
+            <li>
+              <strong>Business Development &amp; Strategic Growth</strong><br>
+              Ability to identify opportunities, structure revenue pathways, build commercial relationships, and grow business models from practical market realities.
+            </li>
+
+            <li>
+              <strong>Leadership &amp; People Management</strong><br>
+              Experience managing teams, working with people across different levels, coordinating talent, and leading operational activities toward business goals.
+            </li>
+
+            <li>
+              <strong>Digital Strategy, Web Design &amp; Platform Thinking</strong><br>
+              Strength in using digital tools, web design, and platform-led thinking to improve visibility, structure business processes, and support scalable execution.
+            </li>
+
+            <li>
+              <strong>Communication, Stakeholder Engagement &amp; Market Positioning</strong><br>
+              Strong communication ability in presenting ideas, engaging stakeholders, guiding clients, and translating complex business concepts into understandable and actionable pathways.
+            </li>
+          </ul>
+        </article>
+
+        <article class="panel-card">
+          <div class="eyebrow"><span></span> PROFESSIONAL FUNCTIONS ACROSS BRANDS AND BUSINESS ENGAGEMENTS</div>
+
+          <div class="brand-functions">
+            <div class="brand-function-item">
+              <h3>FTH D-UNIQ</h3>
+              <p>
+                Building materials supply, procurement support, logistics coordination, project support, procurement records, digital presentation, and founder-led business execution.
+              </p>
+            </div>
+
+            <div class="brand-function-item">
+              <h3>Constracore Services Limited</h3>
+              <p>
+                Business development and strategy, marketplace and co-ownership concept development, branding direction, website design and development, and construction-focused growth planning.
+              </p>
+            </div>
+
+            <div class="brand-function-item">
+              <h3>Micfen Global Enterprise Ltd</h3>
+              <p>
+                Business operations, reporting, record-keeping, procurement coordination, management support, and administrative / people coordination functions.
+              </p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="panel-card">
+          <div class="eyebrow"><span></span> SELECTED WORK &amp; EXPERIENCE HIGHLIGHTS</div>
+
+          <div class="founder-highlight-grid">
+            <div class="highlight-item">
+              <h3>01</h3>
+              <p>Website design and digital presentation work</p>
+            </div>
+
+            <div class="highlight-item">
+              <h3>02</h3>
+              <p>Branding and business identity work</p>
+            </div>
+
+            <div class="highlight-item">
+              <h3>03</h3>
+              <p>Procurement and logistics coordination for clients</p>
+            </div>
+
+            <div class="highlight-item">
+              <h3>04</h3>
+              <p>Business record-keeping, invoicing, and operational support</p>
+            </div>
+
+            <div class="highlight-item">
+              <h3>05</h3>
+              <p>Founder-led project support and execution coordination</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="panel-card founder-cta">
+          <div class="eyebrow"><span></span> WORK WITH FAITH</div>
+
+          <p class="founder-work-copy">
+            Faith is open to consulting engagements, strategic partnerships, speaking opportunities, project collaborations, web design, digital branding, and other professional opportunities aligned with business growth, structured execution, and brand development.
+          </p>
+
+          <p class="founder-soft-line">
+            Faith brings a thoughtful mix of strategy, creativity, and execution, making her a strong fit for collaborations that require trust, structure, and professional follow-through.
+          </p>
+
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="/contact.html">Contact FTH D-UNIQ</a>
+            <a class="btn btn-secondary" href="mailto:diamondrejoice@gmail.com">Work With Faith</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -904,5 +286,7 @@
       }
     });
   </script>
+
+  <script src="/protect.js"></script>
 </body>
 </html>
