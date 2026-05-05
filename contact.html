@@ -3,137 +3,518 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FTH D-UNIQ | Contact Us</title>
-  <meta name="description" content="Get in touch with FTH D-UNIQ for construction procurement, logistics coordination, project support enquiries, partnerships, and business requests.">
+
+  <title>FTH D-UNIQ | Contact</title>
+  <meta name="description" content="Contact FTH D-UNIQ for building materials supply, procurement support, logistics coordination, project support, and procurement record-keeping across Lagos and selected nearby locations.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="/styles.css?v=12">
+
+  <style>
+    .contact-page .page-shell{
+      padding-top:14px;
+      overflow-x:hidden;
+    }
+
+    .contact-hero{
+      padding:18px 0 30px;
+    }
+
+    .contact-hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1.05fr) minmax(360px, .95fr);
+      gap:30px;
+      align-items:center;
+    }
+
+    .contact-headline{
+      margin:0 0 14px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2.6rem, 3.6vw, 4rem);
+      line-height:1;
+      letter-spacing:-0.025em;
+      max-width:900px;
+    }
+
+    .contact-subtitle{
+      margin:0 0 18px;
+      max-width:760px;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.75;
+    }
+
+    .contact-note{
+      margin:0;
+      max-width:780px;
+      color:var(--muted);
+      font-size:.98rem;
+      line-height:1.78;
+    }
+
+    .contact-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .contact-media{
+      width:100%;
+      aspect-ratio:16 / 11;
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:#fff;
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .contact-section{
+      padding:24px 0;
+    }
+
+    .contact-section-heading{
+      margin:0 0 12px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem, 2.7vw, 3.1rem);
+      line-height:1.04;
+      letter-spacing:-0.02em;
+    }
+
+    .contact-section-copy{
+      margin:0 0 22px;
+      max-width:820px;
+      color:var(--muted);
+      font-size:.98rem;
+      line-height:1.75;
+    }
+
+    .contact-card-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .contact-card{
+      padding:24px 22px;
+      border-radius:24px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(199,155,53,.14);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-card h3{
+      margin:0 0 10px;
+      font-size:1.05rem;
+      color:var(--ink);
+    }
+
+    .contact-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.68;
+    }
+
+    .contact-card a{
+      color:var(--gold-deep);
+      font-weight:700;
+      text-decoration:none;
+      word-break:break-word;
+    }
+
+    .contact-card a:hover{
+      text-decoration:underline;
+    }
+
+    .contact-info-panel{
+      padding:28px 30px;
+      border-radius:var(--radius);
+      background:
+        radial-gradient(circle at top left, rgba(199,155,53,.15), transparent 35%),
+        rgba(255,255,255,.7);
+      border:1px solid rgba(199,155,53,.15);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-list{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px 22px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .contact-list li{
+      position:relative;
+      padding-left:24px;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.65;
+    }
+
+    .contact-list li::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--gold);
+      position:absolute;
+      left:0;
+      top:.65em;
+    }
+
+    .quote-direction-panel{
+      padding:32px 30px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(199,155,53,.16);
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .quote-direction-panel h2{
+      margin:0 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(2rem, 2.7vw, 3.1rem);
+      line-height:1.04;
+    }
+
+    .quote-direction-panel p{
+      max-width:780px;
+      margin:0 auto 20px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .quote-direction-panel .contact-actions{
+      justify-content:center;
+      margin-top:0;
+    }
+
+    @media (max-width: 1024px){
+      .contact-card-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 920px){
+      .contact-hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .contact-media{
+        aspect-ratio:16 / 10;
+      }
+    }
+
+    @media (max-width: 768px){
+      .contact-page .container{
+        width:100%;
+        max-width:100%;
+        padding-left:16px;
+        padding-right:16px;
+        box-sizing:border-box;
+      }
+
+      .contact-hero{
+        padding:10px 0 22px;
+      }
+
+      .contact-headline{
+        font-size:clamp(1.8rem, 8vw, 2.5rem);
+        line-height:1.05;
+      }
+
+      .contact-subtitle,
+      .contact-note,
+      .contact-section-copy{
+        font-size:.9rem;
+        line-height:1.7;
+        max-width:100%;
+      }
+
+      .contact-card-grid,
+      .contact-list{
+        grid-template-columns:1fr;
+      }
+
+      .contact-card{
+        padding:20px 16px;
+      }
+
+      .contact-info-panel{
+        padding:22px 18px;
+      }
+
+      .contact-media{
+        height:230px;
+        aspect-ratio:auto;
+        border-radius:24px;
+      }
+
+      .contact-media img{
+        height:100%;
+        object-fit:cover;
+      }
+
+      .quote-direction-panel{
+        padding:26px 18px;
+      }
+    }
+  </style>
 </head>
-<body>
+
+<body class="contact-page">
   <header class="site-header">
     <div class="container">
       <div class="brand-top">
         <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
-          <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
-            <source src="assets/hero_brand_video.mp4" type="video/mp4">
+          <video autoplay muted loop playsinline poster="/assets/hero_brand_video_poster.jpg">
+            <source src="/assets/hero_brand_video.mp4" type="video/mp4">
           </video>
         </div>
       </div>
+
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="index.html">Home</a>
-        <a href="services.html">Our Services</a>
-        <a href="featured-services.html">Featured Services</a>
-        <a href="founder.html">Founder</a>
-        <a href="insights.html">Insights</a>
-        <a href="career.html">Career</a>
-        <a class="active" href="contact.html">Contact Us</a>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/services.html">Services</a>
+        <a href="/founder.html">Founder</a>
+        <a href="/insights.html">Insights</a>
+        <a class="active" href="/contact.html">Contact</a>
+        <a href="/index.html#quote-form">Request a Quote</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="contact-shell">
-          <div class="section-label">Get in Touch</div>
-          <div class="contact-grid">
-            <div class="contact-copy panel-card">
-              <h1 class="contact-title">Contact FTH D-UNIQ</h1>
-              <p class="contact-lead">For construction procurement, logistics coordination, project support enquiries, partnerships, and other business requests, please reach out using the contact details below.</p>
-              <p class="contact-note">Currently serving Lagos and selected nearby locations. Expanded sourcing support and partnership opportunities are available on request.</p>
-              <div class="contact-actions">
-                <a class="btn btn-primary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
-                <a class="btn btn-secondary" href="mailto:info@fthduniq.com">Send an Email</a>
-              </div>
-              <div class="contact-email-block"><p><strong>Info:</strong> <a class="contact-link" href="mailto:info@fthduniq.com">info@fthduniq.com</a></p><p><strong>Support:</strong> <a class="contact-link" href="mailto:support@fthduniq.com">support@fthduniq.com</a></p><p><strong>Careers:</strong> <a class="contact-link" href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></p></div>
-<div class="social-row" aria-label="Social links">
-  <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
-  </a>
-  <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6 1.4.9 2.3.9s1.7-.3 2.3-.9c.6-.6.9-1.4.9-2.3V3h2.4z"/></svg>
-  </a>
-  <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
-  </a>
-  <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
-  </a>
-</div>
-<p class="contact-cta-text">Need reliable support with procurement, coordination, or project follow-through? Reach out today to discuss your business or project needs.</p>
-            </div>
+  <main class="page-shell">
 
-            <div class="contact-qr-card panel-card">
-              <a class="qr-clickable" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="Open FTH D-UNIQ WhatsApp">
-                <img src="assets/whatsapp_qr.jpeg" alt="FTH D-UNIQ WhatsApp QR code">
-              </a>
-            </div>
+    <section class="contact-hero">
+      <div class="container contact-hero-grid">
+        <div>
+          <div class="section-label">Contact FTH D-UNIQ</div>
+
+          <h1 class="contact-headline">
+            Let’s review your material, procurement, logistics or project-support request.
+          </h1>
+
+          <p class="contact-subtitle">
+            FTH D-UNIQ supports customers with building materials supply, procurement support, logistics coordination, project support, and procurement record-keeping across Lagos and selected nearby locations.
+          </p>
+
+          <p class="contact-note">
+            For material prices, delivery support, procurement requests, or project coordination, kindly use the Request a Quote form so we can review your request properly and respond with better structure.
+          </p>
+
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="contact-media">
+          <img src="/assets/support_consultation.jpeg" alt="FTH D-UNIQ customer support and consultation" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="section-label">Contact Channels</div>
+
+        <h2 class="contact-section-heading">
+          Reach us through the right channel.
+        </h2>
+
+        <p class="contact-section-copy">
+          To help us respond properly, kindly include the material or service needed, quantity, delivery location, timeline, and any special instruction when contacting us.
+        </p>
+
+        <div class="contact-card-grid">
+          <article class="contact-card">
+            <h3>General Enquiries</h3>
+            <p>
+              For company enquiries, service information, customer support, and general business communication.
+            </p>
+            <a href="mailto:info@fthduniq.com">info@fthduniq.com</a>
+          </article>
+
+          <article class="contact-card">
+            <h3>Support</h3>
+            <p>
+              For follow-up on requests, procurement support, project coordination, or customer-related assistance.
+            </p>
+            <a href="mailto:support@fthduniq.com">support@fthduniq.com</a>
+          </article>
+
+          <article class="contact-card">
+            <h3>WhatsApp</h3>
+            <p>
+              For quick enquiries, direct communication, and request follow-up through WhatsApp.
+            </p>
+            <a href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat with FTH D-UNIQ</a>
+          </article>
+
+          <article class="contact-card">
+            <h3>Careers</h3>
+            <p>
+              For recruitment-related communication only. Career openings may not always be active.
+            </p>
+            <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a>
+          </article>
+
+          <article class="contact-card">
+            <h3>Services</h3>
+            <p>
+              View our service areas before submitting your request for building materials, procurement, logistics, and project support.
+            </p>
+            <a href="/services.html">View Services</a>
+          </article>
+
+          <article class="contact-card">
+            <h3>Founder / Collaboration</h3>
+            <p>
+              For strategic partnerships, consulting, speaking, project collaboration, or professional engagement enquiries.
+            </p>
+            <a href="mailto:diamondrejoice@gmail.com">Work With Faith</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-info-panel">
+          <div class="section-label">Before You Contact Us</div>
+
+          <h2 class="contact-section-heading">
+            What to include in your request.
+          </h2>
+
+          <p class="contact-section-copy">
+            Providing clear details helps us review your request faster and respond with better sourcing, procurement, and delivery guidance.
+          </p>
+
+          <ul class="contact-list">
+            <li>Material or service needed</li>
+            <li>Quantity or estimated volume</li>
+            <li>Delivery or project location</li>
+            <li>Preferred delivery or service timeline</li>
+            <li>Site contact person, if available</li>
+            <li>Site access or truck movement details</li>
+            <li>Whether delivery coordination is required</li>
+            <li>Any special project or procurement instruction</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="quote-direction-panel">
+          <h2>Need a material, procurement, or logistics quote?</h2>
+
+          <p>
+            The best way to reach us for pricing, sourcing, delivery coordination, or project-support requests is to complete the Request a Quote form. This helps us capture the right details and review your request properly.
+          </p>
+
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
+            <a class="btn btn-secondary" href="/services.html">View Services</a>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-quote-panel">
+        <div>
+          <strong>Need building materials, procurement, logistics, or project support?</strong>
+          <p>
+            For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, project support, and procurement records.
+          </p>
+        </div>
 
-<footer class="site-footer">
-  <div class="container footer-wrap">
-    <div class="footer-brand-block">
-      <strong>FTH D-UNIQ</strong>
-      <div class="footer-meta">Business Name Registration No. 2660716</div>
-      <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
-      <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
-      <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+        <a class="btn btn-primary" href="/index.html#quote-form">Request a Quote</a>
+      </div>
     </div>
-    <div class="footer-social-block">
-      
-<div class="social-follow-block">
-  <p class="social-follow-title">Follow our social media handles</p>
-  <div class="social-row" aria-label="Social links">
-    <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6.9 1.4.9 2.3V3h2.4z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
-    </a>
-    <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
-    </a>
-  </div>
-</div>
 
-      <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+    <div class="container footer-wrap">
+      <div class="footer-brand-block">
+        <strong>FTH D-UNIQ</strong>
+        <div class="footer-meta">Business Name Registration No. 2660716</div>
+        <div class="footer-meta">Info: <a href="mailto:info@fthduniq.com">info@fthduniq.com</a></div>
+        <div class="footer-meta">Support: <a href="mailto:support@fthduniq.com">support@fthduniq.com</a></div>
+        <div class="footer-meta">Careers: <a href="mailto:careers@fthduniq.com">careers@fthduniq.com</a></div>
+      </div>
+
+      <div class="footer-social-block">
+        <div class="social-follow-block">
+          <p class="social-follow-title">Follow our social media handles</p>
+
+          <div class="social-row" aria-label="Social links">
+            <a class="social-link" href="https://www.facebook.com/share/1B9LMqFaTu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H8v3h2.5v8h3z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.tiktok.com/@fth.duniq?_r=1&_t=ZS-95jPH54HFez" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 3c.4 1.1 1.1 2 2 2.7.9.7 1.9 1.1 3 1.2v3c-1.6-.1-3-.6-4.3-1.4v5.6c0 1.8-.6 3.3-1.9 4.5a6.2 6.2 0 0 1-4.5 1.8A6.3 6.3 0 0 1 5.5 19a6 6 0 0 1-1.8-4.5c0-1.8.6-3.3 1.8-4.5a6.2 6.2 0 0 1 4.5-1.8c.3 0 .7 0 1 .1v3.1a3 3 0 0 0-1-.2c-.9 0-1.7.3-2.3 1-.6.6-.9 1.4-.9 2.3s.3 1.7 1 2.3c.6.6 1.4.9 2.3.9s1.7-.3 2.3-1c.6-.6.9-1.4.9-2.3V3h2.4z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.linkedin.com/company/fth-duniq-business-asset-management/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 8.5a1.8 1.8 0 1 1 0-3.5 1.8 1.8 0 0 1 0 3.5zM5 10h3.2v9H5v-9zm5 0h3v1.2h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.7 2.1 3.7 4.8V19h-3.2v-4c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V19H10v-9z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8A8.5 8.5 0 0 1 8 19.2L3.5 20.5 4.8 16A8.5 8.5 0 1 1 20.5 11.8zm-8-5.9c-3.3 0-6 2.7-6 6 0 1 .3 2 .8 2.9l-.8 2.6 2.7-.7c.8.5 1.7.7 2.6.7 3.3 0 6-2.7 6-6s-2.7-6-6-6zm3.5 7.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.3-.1-.5.1l-.4.5c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1.1-.3 0-.4l-.7-1.6c-.1-.2-.2-.2-.4-.2H9c-.1 0-.3.1-.4.2-.1.2-.6.6-.6 1.5s.6 1.8.7 1.9c.1.1 1.2 1.9 3 2.7.4.2.8.3 1 .4.4.1.8.1 1.1.1.3 0 1-.4 1.2-.8.1-.4.1-.8.1-.9 0-.1-.2-.2-.4-.3z"/></svg>
+            </a>
+
+            <a class="social-link" href="https://www.instagram.com/fthduniq_official?igsh=MTE0NHd5cWJ4aG9pbQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9zm9.8 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3zm0 1.8A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-meta">© 2026 FTH D-UNIQ. All rights reserved.</div>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script>
     document.addEventListener("contextmenu", function(e){
-      e.preventDefault();
+      if(!e.target.closest("input, textarea, select, button, a, summary")){
+        e.preventDefault();
+      }
     });
 
     document.addEventListener("copy", function(e){
-      e.preventDefault();
-    });
-  </script>
-    <script>
-    document.addEventListener("contextmenu", function(e){
-      e.preventDefault();
+      if(!e.target.closest("input, textarea")){
+        e.preventDefault();
+      }
     });
 
-    document.addEventListener("copy", function(e){
-      e.preventDefault();
+    document.addEventListener("dragstart", function(e){
+      if(e.target.tagName === "IMG"){
+        e.preventDefault();
+      }
     });
   </script>
+
+  <script src="/protect.js"></script>
 </body>
 </html>
-
-
-
