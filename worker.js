@@ -6,6 +6,8 @@ const APPLICANT_EMAIL_PREFIX = "career_applicant_email:";
 const APPLICANT_PHONE_PREFIX = "career_applicant_phone:";
 const APPLICANT_RECORD_PREFIX = "career_applicant_record:";
 
+const WEBSITE_QUOTE_PREFIX = "website_quote:";
+
 const DEFAULT_INTERVIEW_ROOM = "https://meet.google.com/ixd-aoht-oup";
 
 const SAMPLE_CANDIDATES = {
@@ -132,6 +134,10 @@ export default {
       return handleQuoteEmail(request, env);
     }
 
+    if (url.pathname === "/api/workstation-quotes" && request.method === "GET") {
+      return handleWorkstationQuotes(env);
+    }
+
     if (url.pathname === "/api/candidate-login" && request.method === "POST") {
       return handleCandidateLogin(request, env);
     }
@@ -207,6 +213,10 @@ function cleanPhone(value) {
   return digits;
 }
 
+function cleanText(value) {
+  return String(value || "").trim();
+}
+
 function applicantEmailKey(email) {
   return APPLICANT_EMAIL_PREFIX + cleanEmail(email);
 }
@@ -221,6 +231,70 @@ function applicantRecordKey(applicationNumber) {
 
 function candidateKey(code) {
   return "candidate:" + cleanCode(code);
+}
+
+async function saveWebsiteQuoteToKV(env, quoteRecord) {
+  if (!env.CAREER_KV) {
+    return null;
+  }
+
+  const quoteId = crypto.randomUUID();
+
+  const record = {
+    externalId: quoteId,
+    date: new Date().toISOString().slice(0, 10),
+    submittedAt: new Date().toISOString(),
+    source: "Main Website Quote Form",
+    ...quoteRecord
+  };
+
+  await env.CAREER_KV.put(
+    WEBSITE_QUOTE_PREFIX + quoteId,
+    JSON.stringify(record)
+  );
+
+  return record;
+}
+
+async function handleWorkstationQuotes(env) {
+  if (!env.CAREER_KV) {
+    return json({
+      ok: false,
+      message: "CAREER_KV is not connected.",
+      quotes: []
+    }, 500);
+  }
+
+  const quotes = [];
+  let cursor = undefined;
+
+  do {
+    const result = await env.CAREER_KV.list({
+      prefix: WEBSITE_QUOTE_PREFIX,
+      cursor
+    });
+
+    for (const key of result.keys) {
+      const stored = await env.CAREER_KV.get(key.name);
+
+      if (stored) {
+        try {
+          quotes.push(JSON.parse(stored));
+        } catch (error) {}
+      }
+    }
+
+    cursor = result.list_complete ? undefined : result.cursor;
+  } while (cursor);
+
+  quotes.sort((a, b) => {
+    return new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0);
+  });
+
+  return json({
+    ok: true,
+    quotes
+  });
 }
 
 async function getCandidateRecord(env, code) {
@@ -1073,16 +1147,33 @@ async function handleQuoteEmail(request, env) {
 
     const formData = await request.formData();
 
-    const fullName = String(formData.get("full_name") || "").trim();
-    const phoneNumber = String(formData.get("phone_number") || "").trim();
-    const emailAddress = String(formData.get("email_address") || "").trim();
-    const deliveryLocation = String(formData.get("delivery_location") || "").trim();
-    const materialOrService = String(formData.get("material_or_service_needed") || "").trim();
-    const quantity = String(formData.get("quantity_or_volume") || "").trim();
-    const timeline = String(formData.get("preferred_timeline") || "").trim();
-    const siteContact = String(formData.get("site_contact_person") || "").trim();
-    const requestDetails = String(formData.get("request_details") || "").trim();
-    const formSource = String(formData.get("form_source") || "Homepage Quote Request").trim();
+    const fullName = cleanText(formData.get("full_name"));
+    const phoneNumber = cleanText(formData.get("phone_number"));
+    const emailAddress = cleanText(formData.get("email_address"));
+    const deliveryLocation = cleanText(formData.get("delivery_location"));
+    const materialOrService = cleanText(formData.get("material_or_service_needed"));
+    const quantity = cleanText(formData.get("quantity_or_volume"));
+    const timeline = cleanText(formData.get("preferred_timeline"));
+    const siteContact = cleanText(formData.get("site_contact_person"));
+    const requestDetails = cleanText(formData.get("request_details"));
+    const formSource = cleanText(formData.get("form_source")) || "Homepage Quote Request";
+
+    const unit =
+      cleanText(formData.get("unit")) ||
+      cleanText(formData.get("unit_measurement")) ||
+      cleanText(formData.get("unitMeasurement"));
+
+    const tonnageSize =
+      cleanText(formData.get("tonnage_size")) ||
+      cleanText(formData.get("tonnageSize"));
+
+    const localDescription =
+      cleanText(formData.get("local_order_description")) ||
+      cleanText(formData.get("localDescription"));
+
+    const internalInterpretation =
+      cleanText(formData.get("internal_interpretation")) ||
+      cleanText(formData.get("internalInterpretation"));
 
     if (!fullName || !phoneNumber || !deliveryLocation || !materialOrService || !requestDetails) {
       return json(
@@ -1096,17 +1187,51 @@ async function handleQuoteEmail(request, env) {
 
     const cleanedEmail = cleanEmail(emailAddress);
 
+    const savedQuote = await saveWebsiteQuoteToKV(env, {
+      formSource,
+      source: "Main Website Quote Form",
+      customer: fullName,
+      fullName,
+      phone: phoneNumber,
+      phoneNumber,
+      email: emailAddress,
+      emailAddress,
+      location: deliveryLocation,
+      deliveryLocation,
+      material: materialOrService,
+      materialOrService,
+      quantity,
+      quantityOrVolume: quantity,
+      unit,
+      unitMeasurement: unit,
+      tonnageSize,
+      localDescription,
+      internalInterpretation,
+      timeline,
+      preferredTimeline: timeline,
+      siteContact,
+      details: requestDetails,
+      requestDetails,
+      status: "New Website Quote",
+      directorStatus: "Visible to Director"
+    });
+
     const subject = `New Quote Request - ${materialOrService} - ${fullName}`;
 
     const textBody =
       `New Quote Request - FTH D-UNIQ\n\n` +
       `Form Source: ${formSource}\n` +
+      `Dashboard Reference: ${savedQuote ? savedQuote.externalId : "Not saved to dashboard"}\n` +
       `Full Name: ${fullName}\n` +
       `Phone / WhatsApp Number: ${phoneNumber}\n` +
       `Email Address: ${emailAddress || "Not provided"}\n` +
       `Delivery / Project Location: ${deliveryLocation}\n` +
       `Material / Service Needed: ${materialOrService}\n` +
       `Quantity / Volume: ${quantity || "Not provided"}\n` +
+      `Unit / Measurement: ${unit || "Not provided"}\n` +
+      `Tonnage Size: ${tonnageSize || "Not provided"}\n` +
+      `Local Order Description: ${localDescription || "Not provided"}\n` +
+      `Internal Interpretation: ${internalInterpretation || "Not provided"}\n` +
       `Preferred Timeline: ${timeline || "Not provided"}\n` +
       `Site Contact Person: ${siteContact || "Not provided"}\n\n` +
       `Request Details:\n${requestDetails}\n\n` +
@@ -1115,12 +1240,17 @@ async function handleQuoteEmail(request, env) {
     const htmlBody =
       `<h2>New Quote Request - FTH D-UNIQ</h2>` +
       `<p><strong>Form Source:</strong> ${escapeHtml(formSource)}</p>` +
+      `<p><strong>Dashboard Reference:</strong> ${escapeHtml(savedQuote ? savedQuote.externalId : "Not saved to dashboard")}</p>` +
       `<p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>` +
       `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phoneNumber)}</p>` +
       `<p><strong>Email Address:</strong> ${escapeHtml(emailAddress || "Not provided")}</p>` +
       `<p><strong>Delivery / Project Location:</strong> ${escapeHtml(deliveryLocation)}</p>` +
       `<p><strong>Material / Service Needed:</strong> ${escapeHtml(materialOrService)}</p>` +
       `<p><strong>Quantity / Volume:</strong> ${escapeHtml(quantity || "Not provided")}</p>` +
+      `<p><strong>Unit / Measurement:</strong> ${escapeHtml(unit || "Not provided")}</p>` +
+      `<p><strong>Tonnage Size:</strong> ${escapeHtml(tonnageSize || "Not provided")}</p>` +
+      `<p><strong>Local Order Description:</strong> ${escapeHtml(localDescription || "Not provided")}</p>` +
+      `<p><strong>Internal Interpretation:</strong> ${escapeHtml(internalInterpretation || "Not provided")}</p>` +
       `<p><strong>Preferred Timeline:</strong> ${escapeHtml(timeline || "Not provided")}</p>` +
       `<p><strong>Site Contact Person:</strong> ${escapeHtml(siteContact || "Not provided")}</p>` +
       `<h3>Request Details</h3>` +
@@ -1150,7 +1280,9 @@ async function handleQuoteEmail(request, env) {
 
     return json({
       ok: true,
-      message: "Quote request submitted successfully."
+      message: "Quote request submitted successfully.",
+      savedToDashboard: !!savedQuote,
+      dashboardReference: savedQuote ? savedQuote.externalId : ""
     });
 
   } catch (error) {
