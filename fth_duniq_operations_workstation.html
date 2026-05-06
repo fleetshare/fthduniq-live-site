@@ -34,7 +34,7 @@ body{
 .wrap{max-width:1500px;margin:auto;padding:16px}
 .login{min-height:100vh;display:grid;place-items:center;padding:18px}
 .card,.panel{
-  background:rgba(255,255,255,.84);
+  background:rgba(255,255,255,.88);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:24px;
@@ -47,14 +47,14 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:14px;
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.92);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px 20px;
   box-shadow:var(--shadow);
   position:sticky;
   top:10px;
-  z-index:20;
+  z-index:30;
 }
 .brand h1{
   margin:0;
@@ -142,7 +142,7 @@ button,.btn{
   position:sticky;
   top:110px;
   align-self:start;
-  background:rgba(255,255,255,.86);
+  background:rgba(255,255,255,.88);
   border:1px solid var(--line);
   border-radius:22px;
   padding:12px;
@@ -248,9 +248,24 @@ th{background:#eee5d8;font-weight:900}
 }
 .line-row{
   display:grid;
-  grid-template-columns:1fr 1.1fr .7fr .8fr .9fr .8fr auto;
+  grid-template-columns:1fr 1.2fr .7fr .8fr .9fr .8fr auto;
   gap:8px;
   margin-bottom:8px;
+}
+.signature-box{
+  border:1px solid rgba(157,116,26,.25);
+  border-radius:18px;
+  background:#fff;
+  padding:14px;
+}
+.signature-pad{
+  width:100%;
+  height:170px;
+  border:1px dashed rgba(157,116,26,.45);
+  border-radius:14px;
+  background:#fff;
+  touch-action:none;
+  display:block;
 }
 hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 .director-only{display:none}
@@ -278,7 +293,7 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
   <div class="card">
     <div class="eyebrow">Private Login</div>
     <h2>FTH D-UNIQ Operations Workstation</h2>
-    <p>Private workstation for quotes, invoices, payments, receipts, inventory, procurement, logistics, approvals, reports and archive.</p>
+    <p>Private workstation for quotes, invoices, payments, receipts, waybills, inventory, procurement, logistics, approvals, reports and archive.</p>
 
     <div class="notice">
       <b>Demo PINs:</b><br>
@@ -343,15 +358,22 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         <div class="panel">
           <div class="eyebrow">Director Dashboard</div>
           <h2>Director Control Centre</h2>
-          <p>All website quotes, internal quotes, invoices, uploaded proofs, approvals, reports and movement records appear here.</p>
+          <p>All website quotes, internal quotes, invoices, payment proofs, approvals, waybill movement, dispatch status, inventory updates and reports appear here.</p>
+
           <div class="row">
             <button class="secondary director-only" onclick="syncWebsiteQuotes()">Sync Website Quotes</button>
           </div>
+
           <div class="metrics" id="directorMetrics"></div>
         </div>
 
         <div class="panel">
-          <h2>Items Requiring Attention</h2>
+          <h2>Workflow Movement</h2>
+          <div id="workflowTable"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Items Requiring Director Attention</h2>
           <div id="directorAlerts"></div>
         </div>
 
@@ -365,20 +387,22 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         <div class="panel">
           <div class="eyebrow">Business Support Officer</div>
           <h2>Front Desk / Customer Control Point</h2>
-          <p>Business Support handles customer request entry, invoicing, payment proof upload, receipt generation, stock desk and delivery handover.</p>
+          <p>Business Support handles customer request entry, invoicing, payment upload, receipt generation, stock desk and delivery handover.</p>
 
           <div class="grid-3">
             <div class="section-box">
               <h3>Customer-Facing / Sales Desk</h3>
               <p>Quotes, invoices, sales ledger, payment uploads, receipts and follow-up routing.</p>
             </div>
+
             <div class="section-box">
               <h3>Inventory / Company Stock Desk</h3>
-              <p>Opening stock, sales out, received or produced goods, shortage, damage, excess and closing stock.</p>
+              <p>Opening stock, sales out, received products, produced goods, shortage, damage, excess and closing stock.</p>
             </div>
+
             <div class="section-box">
               <h3>Delivery / Logistics Handover</h3>
-              <p>Delivery instruction, waybill preparation and logistics handover.</p>
+              <p>Waybill preparation and forwarding to Logistics / Inspection Officer.</p>
             </div>
           </div>
         </div>
@@ -388,6 +412,7 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         <div class="panel">
           <div class="eyebrow">Quote / Customer Request Register</div>
           <h2>New Quote / Customer Request</h2>
+          <p>The quote captures invoice-ready details except price and amount.</p>
 
           <form id="quoteForm">
             <div class="grid">
@@ -433,57 +458,13 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Standard Product Code</label>
-                <select name="materialCode" id="quoteMaterialCode" onchange="applyQuoteMaterialCode()"></select>
+                <label>Site Contact Person</label>
+                <input name="siteContact" required>
               </div>
 
               <div>
-                <label>Material / Product Needed</label>
-                <input name="material" required>
-              </div>
-
-              <div>
-                <label>Quantity / Number Requested</label>
-                <input name="quantity" required placeholder="Example: 1, 2, 5, 1000, 30">
-              </div>
-
-              <div>
-                <label>Unit / Measurement</label>
-                <select name="unit" required>
-                  <option value="">Select unit</option>
-                  <option>Bags</option>
-                  <option>Pieces</option>
-                  <option>Tonnes / Tonnage</option>
-                  <option>Square Metres</option>
-                  <option>Trips</option>
-                  <option>Service</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Tonnage Size, If Applicable</label>
-                <select name="tonnageSize">
-                  <option>Not Applicable</option>
-                  <option>5-ton</option>
-                  <option>10-ton</option>
-                  <option>12.5-ton</option>
-                  <option>15-ton</option>
-                  <option>20-ton</option>
-                  <option>30-ton</option>
-                  <option>35-ton</option>
-                  <option>Other / Confirm Before Pricing</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Local Order Description</label>
-                <input name="localDescription" placeholder="Example: 1 trip of 6 tyres sharp sand">
-              </div>
-
-              <div>
-                <label>Internal Interpretation</label>
-                <input name="internalInterpretation" placeholder="Example: 1 trip of 5-ton sharp sand">
+                <label>Site Contact Phone</label>
+                <input name="sitePhone">
               </div>
 
               <div>
@@ -511,12 +492,18 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div class="full">
-                <label>Request Details / Special Instruction</label>
-                <textarea name="details" required></textarea>
+                <label>Customer Instruction / Request Details</label>
+                <textarea name="details"></textarea>
               </div>
             </div>
 
+            <hr>
+
+            <h3>Requested Products / Materials</h3>
+            <div id="quoteLines" class="line-items"></div>
+
             <div class="row">
+              <button class="secondary" type="button" onclick="addQuoteLine()">Add Product Line</button>
               <button class="primary" type="submit">Save Quote / Request</button>
               <button class="secondary director-only" type="button" onclick="syncWebsiteQuotes()">Sync Website Quotes</button>
             </div>
@@ -567,6 +554,16 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
+                <label>Site Contact Person</label>
+                <input name="siteContact" required>
+              </div>
+
+              <div>
+                <label>Site Contact Phone</label>
+                <input name="sitePhone">
+              </div>
+
+              <div>
                 <label>Delivery Date</label>
                 <input name="deliveryDate" type="date">
               </div>
@@ -591,22 +588,51 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div class="full">
-                <label>Invoice Note / Delivery Instruction</label>
+                <label>Invoice Note / Customer Instruction</label>
                 <textarea name="note"></textarea>
               </div>
             </div>
 
             <hr>
 
-            <h3>Invoice Line Items</h3>
+            <h3>Invoice Product Lines</h3>
+            <p>Business Support only adds prices/rates and logistics fee here.</p>
             <div class="line-items" id="invoiceLines"></div>
 
             <div class="row">
-              <button class="secondary" type="button" onclick="addInvoiceLine()">Add Item Line</button>
-              <button class="primary" type="submit">Create Invoice</button>
+              <button class="secondary" type="button" onclick="addInvoiceLine()">Add Invoice Line</button>
             </div>
 
             <div class="notice" id="invoiceCalc">Invoice total will appear here.</div>
+
+            <hr>
+
+            <h3>Officer Signature</h3>
+            <div class="grid">
+              <div>
+                <label>Officer Name</label>
+                <input name="officerName" placeholder="Name of officer signing invoice">
+              </div>
+
+              <div>
+                <label>Typed Signature</label>
+                <input name="typedSignature" placeholder="Typed signature">
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Officer Signature</label>
+                <canvas id="invoiceOfficerSigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="officerSignatureData" id="invoiceOfficerSignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('invoiceOfficerSigPad','invoiceOfficerSignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('invoiceOfficerSigPad','invoiceOfficerSignatureData')">Save Signature</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="primary" type="submit">Create Invoice</button>
+            </div>
           </form>
         </div>
 
@@ -618,8 +644,8 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 
       <section id="payments" class="page">
         <div class="panel">
-          <div class="eyebrow">Payment Proof / Cash Receipt</div>
-          <h2>Upload Payment Proof</h2>
+          <div class="eyebrow">Payment / Receipt</div>
+          <h2>Record Payment</h2>
 
           <form id="paymentForm">
             <div class="grid">
@@ -634,46 +660,67 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Customer Location / Address</label>
-                <input name="location" required>
+                <label>Customer Name</label>
+                <input name="customer" readonly>
               </div>
 
               <div>
-                <label>Amount Paid (₦)</label>
-                <input name="amount" type="number" step="0.01" required>
+                <label>Phone / WhatsApp</label>
+                <input name="phone" readonly>
               </div>
 
               <div>
-                <label>Payment Method</label>
-                <select name="method" required>
-                  <option value="">Select method</option>
-                  <option>Bank Transfer</option>
-                  <option>POS</option>
-                  <option>Cash</option>
-                </select>
+                <label>Delivery / Project Location</label>
+                <input name="location" readonly>
               </div>
 
               <div>
-                <label>Payment Type</label>
-                <select name="paymentType" required>
-                  <option>Full Payment</option>
-                  <option>Part Payment</option>
-                  <option>Balance Payment</option>
-                </select>
+                <label>Invoice Total (₦)</label>
+                <input name="invoiceTotal" type="number" readonly>
               </div>
 
               <div>
-                <label>Payment Proof Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
+                <label>Amount Already Paid (₦)</label>
+                <input name="paidBefore" type="number" readonly>
               </div>
 
               <div>
-                <label>Cash Received By, If Cash</label>
+                <label>Current Balance (₦)</label>
+                <input name="balanceBefore" type="number" readonly>
+              </div>
+
+              <div>
+                <label>Bank Transfer Amount (₦)</label>
+                <input name="transferAmount" type="number" step="0.01" value="0" oninput="calculatePaymentTotal()">
+              </div>
+
+              <div>
+                <label>Transfer Proof Upload</label>
+                <input name="transferProof" type="file" accept=".jpg,.jpeg,.png,.pdf">
+              </div>
+
+              <div>
+                <label>POS Amount (₦)</label>
+                <input name="posAmount" type="number" step="0.01" value="0" oninput="calculatePaymentTotal()">
+              </div>
+
+              <div>
+                <label>POS Proof Upload</label>
+                <input name="posProof" type="file" accept=".jpg,.jpeg,.png,.pdf">
+              </div>
+
+              <div>
+                <label>Cash Amount (₦)</label>
+                <input name="cashAmount" type="number" step="0.01" value="0" oninput="calculatePaymentTotal()">
+              </div>
+
+              <div>
+                <label>Cash Received By</label>
                 <input name="cashReceivedBy">
               </div>
 
               <div>
-                <label>Cash Position, If Cash</label>
+                <label>Cash Status</label>
                 <select name="cashStatus">
                   <option>Not Applicable</option>
                   <option>Cash in Officer’s Possession</option>
@@ -683,18 +730,45 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Balance Due Date, If Part Payment</label>
+                <label>Balance Due Date</label>
                 <input name="balanceDueDate" type="date">
               </div>
 
               <div class="full">
-                <label>Payment Note</label>
+                <label>Optional Payment Note</label>
                 <textarea name="note"></textarea>
               </div>
             </div>
 
+            <div class="notice" id="paymentCalc">Payment total will appear here.</div>
+
+            <hr>
+
+            <h3>Officer Signature</h3>
+            <div class="grid">
+              <div>
+                <label>Officer Name</label>
+                <input name="officerName">
+              </div>
+
+              <div>
+                <label>Typed Signature</label>
+                <input name="typedSignature">
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Officer Signature</label>
+                <canvas id="paymentOfficerSigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="officerSignatureData" id="paymentOfficerSignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('paymentOfficerSigPad','paymentOfficerSignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('paymentOfficerSigPad','paymentOfficerSignatureData')">Save Signature</button>
+                </div>
+              </div>
+            </div>
+
             <div class="row">
-              <button class="primary" type="submit">Submit Payment for Confirmation</button>
+              <button class="primary" type="submit">Submit Payment for Director Confirmation</button>
             </div>
           </form>
         </div>
@@ -705,14 +779,150 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         </div>
 
         <div class="panel">
-          <h2>Receipt / Part Payment Acknowledgement Records</h2>
+          <h2>Receipts / Part Payment Acknowledgements</h2>
           <div id="receiptTable"></div>
         </div>
       </section>
 
-      <section id="businessInventory" class="page">
+      <section id="waybills" class="page">
         <div class="panel">
-          <div class="eyebrow">Inventory / Company Stock Desk</div>
+          <div class="eyebrow">Waybill / Logistics Handover</div>
+          <h2>Create Waybill / Delivery Instruction</h2>
+
+          <form id="waybillForm">
+            <div class="grid">
+              <div>
+                <label>Date</label>
+                <input name="date" type="date" required>
+              </div>
+
+              <div>
+                <label>Invoice</label>
+                <select name="invoiceId" id="waybillInvoiceSelect" required></select>
+              </div>
+
+              <div>
+                <label>Customer Name</label>
+                <input name="customer" required>
+              </div>
+
+              <div>
+                <label>Phone / WhatsApp</label>
+                <input name="phone" required>
+              </div>
+
+              <div>
+                <label>Site Contact Person</label>
+                <input name="siteContact" required>
+              </div>
+
+              <div>
+                <label>Site Contact Phone</label>
+                <input name="sitePhone">
+              </div>
+
+              <div>
+                <label>Delivery Location / Address</label>
+                <input name="location" required>
+              </div>
+
+              <div>
+                <label>Delivery Date</label>
+                <input name="deliveryDate" type="date">
+              </div>
+
+              <div>
+                <label>Delivery Time</label>
+                <input name="deliveryTime" type="time">
+              </div>
+
+              <div>
+                <label>AM / PM</label>
+                <select name="deliveryPeriod">
+                  <option value="">Select period</option>
+                  <option>AM</option>
+                  <option>PM</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Logistics Fee Charged (₦)</label>
+                <input name="logisticsFee" type="number" step="0.01" value="0">
+              </div>
+
+              <div>
+                <label>Payment / Supply Status</label>
+                <select name="supplyStatus" required>
+                  <option>Fully Paid - Ready for Dispatch</option>
+                  <option>Part Payment - Director Approval Required</option>
+                  <option>No Payment - Director Approval Required</option>
+                  <option>Approved for Supply</option>
+                </select>
+              </div>
+
+              <div class="full">
+                <label>Products for Delivery</label>
+                <textarea name="products" required></textarea>
+              </div>
+
+              <div class="full">
+                <label>Delivery Instruction</label>
+                <textarea name="instruction"></textarea>
+              </div>
+
+              <div>
+                <label>Prepared By</label>
+                <input name="preparedBy" required>
+              </div>
+
+              <div>
+                <label>Forward To</label>
+                <select name="forwardTo" required>
+                  <option>Logistics / Inspection Officer</option>
+                </select>
+              </div>
+            </div>
+
+            <hr>
+
+            <h3>Company / Officer Signature</h3>
+            <div class="grid">
+              <div>
+                <label>Officer Name</label>
+                <input name="officerName">
+              </div>
+
+              <div>
+                <label>Typed Signature</label>
+                <input name="typedSignature">
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Company / Officer Signature</label>
+                <canvas id="waybillOfficerSigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="officerSignatureData" id="waybillOfficerSignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('waybillOfficerSigPad','waybillOfficerSignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('waybillOfficerSigPad','waybillOfficerSignatureData')">Save Signature</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="primary" type="submit">Create & Forward Waybill</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h2>Waybill / Delivery Instruction Records</h2>
+          <div id="waybillTable"></div>
+        </div>
+      </section>
+
+      <section id="inventory" class="page">
+        <div class="panel">
+          <div class="eyebrow">Inventory / Stock Reconciliation</div>
           <h2>Stock Movement</h2>
 
           <form id="inventoryForm">
@@ -778,13 +988,13 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Proof Upload, If Any</label>
+                <label>Proof Upload</label>
                 <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
               </div>
 
               <div class="full">
                 <label>Note / Reason</label>
-                <textarea name="note" required></textarea>
+                <textarea name="note"></textarea>
               </div>
             </div>
 
@@ -794,12 +1004,12 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
           </form>
 
           <div class="notice">
-            Field guide for bag stock: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags.
+            Field guide: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags.
           </div>
         </div>
 
         <div class="panel">
-          <h2>Current Stock Position</h2>
+          <h2>Current Closing Stock Position</h2>
           <div id="stockPositionTable"></div>
         </div>
 
@@ -809,145 +1019,12 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         </div>
       </section>
 
-      <section id="deliveryHandover" class="page">
-        <div class="panel">
-          <div class="eyebrow">Delivery / Logistics Handover</div>
-          <h2>Create Waybill / Delivery Instruction</h2>
-
-          <form id="waybillForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Invoice</label>
-                <select name="invoiceId" id="waybillInvoiceSelect" required></select>
-              </div>
-
-              <div>
-                <label>Customer Name</label>
-                <input name="customer" required>
-              </div>
-
-              <div>
-                <label>Phone / WhatsApp</label>
-                <input name="phone" required>
-              </div>
-
-              <div>
-                <label>Delivery Location / Address</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Delivery Date</label>
-                <input name="deliveryDate" type="date">
-              </div>
-
-              <div>
-                <label>Delivery Time</label>
-                <input name="deliveryTime" type="time">
-              </div>
-
-              <div>
-                <label>AM / PM</label>
-                <select name="deliveryPeriod">
-                  <option value="">Select period</option>
-                  <option>AM</option>
-                  <option>PM</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Payment / Supply Status</label>
-                <select name="supplyStatus" required>
-                  <option>Fully Paid - Ready for Dispatch</option>
-                  <option>Part Payment - Approval Required</option>
-                  <option>No Payment - Approval Required</option>
-                  <option>Approved for Supply</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Logistics Fee Charged to Customer (₦)</label>
-                <input name="logisticsFee" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>Logistics Release Status</label>
-                <select name="logisticsReleaseStatus" required>
-                  <option>No Release Needed Yet</option>
-                  <option>Pending Approval</option>
-                  <option>Approved</option>
-                </select>
-              </div>
-
-              <div class="full">
-                <label>Products Requiring Delivery / Logistics</label>
-                <textarea name="products" required placeholder="Example: 100 blocks, 10 bags sharp sand, 1 trip granite, 20 bags cement"></textarea>
-              </div>
-
-              <div class="full">
-                <label>Delivery Instruction</label>
-                <textarea name="instruction" required></textarea>
-              </div>
-
-              <div>
-                <label>Prepared By</label>
-                <input name="preparedBy" required>
-              </div>
-
-              <div>
-                <label>Forward To</label>
-                <select name="forwardTo" required>
-                  <option>Logistics / Inspection Officer</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Create & Forward Delivery Instruction</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Waybill / Delivery Instruction Records</h2>
-          <div id="waybillTable"></div>
-        </div>
-      </section>
-
-      <section id="procurementDashboard" class="page">
+      <section id="procurement" class="page">
         <div class="panel">
           <div class="eyebrow">Procurement Officer</div>
-          <h2>Procurement Workstation</h2>
-          <p>Procurement records goods, source, condition, quantity, evidence and approval status.</p>
+          <h2>Procurement / Received Goods / Client Resale</h2>
 
-          <div class="grid-3">
-            <div class="section-box">
-              <h3>Company Stock / Goods Received</h3>
-              <p>Products sourced or received into company stock.</p>
-            </div>
-            <div class="section-box">
-              <h3>External Industry Procurement</h3>
-              <p>Goods sourced from another supplier or industry for a request.</p>
-            </div>
-            <div class="section-box">
-              <h3>Client Goods Received for Resale</h3>
-              <p>Client resale/return requests after inspection and approval.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="procurementCompany" class="page">
-        <div class="panel">
-          <div class="eyebrow">Company Goods Received</div>
-          <h2>Company Stock / Goods Received</h2>
-
-          <form id="companyProcurementForm">
+          <form id="procurementForm">
             <div class="grid">
               <div>
                 <label>Date</label>
@@ -955,200 +1032,28 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Supplier / Company Sourced From</label>
-                <input name="supplier" required>
+                <label>Procurement Type</label>
+                <select name="procurementType" required>
+                  <option>Company Goods Received</option>
+                  <option>Produced Goods Received</option>
+                  <option>External Industry Procurement</option>
+                  <option>Client Goods for Resale / Return Review</option>
+                </select>
               </div>
 
               <div>
-                <label>Supplier / Source Location</label>
+                <label>Supplier / Source / Client Name</label>
+                <input name="sourceName" required>
+              </div>
+
+              <div>
+                <label>Source / Inspection Location</label>
                 <input name="sourceLocation" required>
               </div>
 
               <div>
                 <label>Standard Product Code</label>
                 <select name="materialCode" id="procurementMaterialCode" onchange="applyProcurementMaterialCode()"></select>
-              </div>
-
-              <div>
-                <label>Material / Product Received</label>
-                <input name="material" required>
-              </div>
-
-              <div>
-                <label>Quantity</label>
-                <input name="quantity" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Unit</label>
-                <select name="unit" required>
-                  <option>Bags</option>
-                  <option>Pieces</option>
-                  <option>Tonnes / Tonnage</option>
-                  <option>Square Metres</option>
-                  <option>Trips</option>
-                  <option>Units</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Product Proof / Receipt Evidence Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div>
-                <label>Condition of Goods</label>
-                <select name="condition" required>
-                  <option>Good Condition</option>
-                  <option>Fair Condition</option>
-                  <option>Damaged</option>
-                  <option>Shortage Noticed</option>
-                  <option>Excess Noticed</option>
-                  <option>Needs Review</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Received By</label>
-                <input name="receivedBy" required>
-              </div>
-
-              <div>
-                <label>Stock-In Status</label>
-                <select name="stockStatus" required>
-                  <option>Pending Approval</option>
-                  <option>Not Yet Stocked In</option>
-                </select>
-              </div>
-
-              <div class="full">
-                <label>Note</label>
-                <textarea name="note"></textarea>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Goods Received Record</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Company Goods Received Records</h2>
-          <div id="companyProcurementTable"></div>
-        </div>
-      </section>
-
-      <section id="producedGoods" class="page">
-        <div class="panel">
-          <div class="eyebrow">Produced Goods</div>
-          <h2>Produced Goods / Compound Quantity</h2>
-
-          <form id="producedGoodsForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Compound / Stock Location</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Product Produced</label>
-                <input name="product" required>
-              </div>
-
-              <div>
-                <label>Quantity Produced</label>
-                <input name="quantity" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Unit</label>
-                <select name="unit" required>
-                  <option>Pieces</option>
-                  <option>Bags</option>
-                  <option>Units</option>
-                  <option>Square Metres</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Condition / Quality Note</label>
-                <select name="condition" required>
-                  <option>Good Condition</option>
-                  <option>Fair Condition</option>
-                  <option>Damage Noticed</option>
-                  <option>Needs Review</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Proof Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div>
-                <label>Confirmed By</label>
-                <input name="confirmedBy" required>
-              </div>
-
-              <div class="full">
-                <label>Note</label>
-                <textarea name="note"></textarea>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Produced Goods Record</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Produced Goods Records</h2>
-          <div id="producedGoodsTable"></div>
-        </div>
-      </section>
-
-      <section id="externalProcurement" class="page">
-        <div class="panel">
-          <div class="eyebrow">External Industry Procurement</div>
-          <h2>Product Sourced From External Supplier / Industry</h2>
-
-          <form id="externalProcurementForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Customer / Invoice / Quote Reference</label>
-                <input name="reference" required>
-              </div>
-
-              <div>
-                <label>Customer / Delivery Location</label>
-                <input name="customerLocation" required>
-              </div>
-
-              <div>
-                <label>Supplier / Industry Sourced From</label>
-                <input name="supplier" required>
-              </div>
-
-              <div>
-                <label>Supplier / Industry Location</label>
-                <input name="supplierLocation" required>
-              </div>
-
-              <div>
-                <label>Standard Product Code</label>
-                <select name="materialCode" id="externalMaterialCode" onchange="applyExternalMaterialCode()"></select>
               </div>
 
               <div>
@@ -1174,17 +1079,33 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
 
               <div>
-                <label>Proof / Product Evidence Upload</label>
+                <label>Condition</label>
+                <select name="condition" required>
+                  <option>Good Condition</option>
+                  <option>Fair Condition</option>
+                  <option>Damaged</option>
+                  <option>Shortage Noticed</option>
+                  <option>Excess Noticed</option>
+                  <option>Needs Director Review</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Received / Recorded By</label>
+                <input name="recordedBy" required>
+              </div>
+
+              <div>
+                <label>Proof Upload</label>
                 <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
               </div>
 
               <div>
-                <label>Condition / Status</label>
-                <select name="condition" required>
-                  <option>Pending Approval</option>
-                  <option>Supplier Confirmed</option>
-                  <option>Goods Available</option>
-                  <option>Needs Review</option>
+                <label>Terms Accepted, If Client Resale?</label>
+                <select name="termsAccepted">
+                  <option>Not Applicable</option>
+                  <option>Yes</option>
+                  <option>No</option>
                 </select>
               </div>
 
@@ -1195,117 +1116,23 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit External Procurement Record</button>
+              <button class="primary" type="submit">Submit Procurement Record</button>
             </div>
           </form>
         </div>
 
         <div class="panel">
-          <h2>External Procurement Records</h2>
-          <div id="externalProcurementTable"></div>
+          <h2>Procurement Records</h2>
+          <div id="procurementTable"></div>
         </div>
       </section>
 
-      <section id="clientResale" class="page">
-        <div class="panel">
-          <div class="eyebrow">Client Goods Received for Resale</div>
-          <h2>Internal Client Resale / Return Request</h2>
-
-          <form id="clientResaleForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Request Source</label>
-                <select name="source" required>
-                  <option>WhatsApp</option>
-                  <option>Chatbot</option>
-                  <option>Phone Call</option>
-                  <option>Email</option>
-                  <option>Private Evidence Link</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Client / Owner Name</label>
-                <input name="client" required>
-              </div>
-
-              <div>
-                <label>Client Phone</label>
-                <input name="phone" required>
-              </div>
-
-              <div>
-                <label>Goods Location / Inspection Address</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Product / Material</label>
-                <input name="product" required>
-              </div>
-
-              <div>
-                <label>Quantity Claimed</label>
-                <input name="quantity" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Unit</label>
-                <select name="unit" required>
-                  <option>Bags</option>
-                  <option>Pieces</option>
-                  <option>Tonnes / Tonnage</option>
-                  <option>Square Metres</option>
-                  <option>Trips</option>
-                  <option>Units</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Terms Accepted by Client?</label>
-                <select name="termsAccepted" required>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
-              </div>
-
-              <div class="full">
-                <label>Client Request / Reason</label>
-                <textarea name="reason" required></textarea>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Record Request & Send to Inspection</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Client Goods Resale Records</h2>
-          <div id="clientResaleTable"></div>
-        </div>
-      </section>
-
-      <section id="logisticsDashboard" class="page">
+      <section id="logistics" class="page">
         <div class="panel">
           <div class="eyebrow">Logistics / Inspection Officer</div>
-          <h2>Delivery, Dispatch, Inspection & Field Verification</h2>
-          <p>Logistics/Inspection handles delivery jobs, waybill execution, vehicle details, movement records, delivery proof and inspection reports.</p>
-        </div>
-      </section>
+          <h2>Dispatch, Delivery Proof & Case Closure</h2>
 
-      <section id="deliveryJobs" class="page">
-        <div class="panel">
-          <div class="eyebrow">Waybill / Dispatch Desk</div>
-          <h2>Update Delivery / Dispatch Job</h2>
-
-          <form id="logisticsUpdateForm">
+          <form id="logisticsForm">
             <div class="grid">
               <div>
                 <label>Date</label>
@@ -1354,18 +1181,18 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 
               <div>
                 <label>Dispatch Time</label>
-                <input name="dispatchTime" type="datetime-local" required>
+                <input name="dispatchTime" type="datetime-local">
               </div>
 
               <div>
                 <label>Delivery Status</label>
                 <select name="deliveryStatus" required>
-                  <option>Pending Dispatch</option>
-                  <option>Loaded</option>
+                  <option>Received by Logistics</option>
+                  <option>Goods Dispatched</option>
                   <option>In Transit</option>
                   <option>Delivered</option>
-                  <option>Delivered - Signed Waybill Pending</option>
-                  <option>Delivered - Signed Waybill Uploaded</option>
+                  <option>Signed Waybill Uploaded</option>
+                  <option>Goods Confirmed and Supplied</option>
                   <option>Closed</option>
                 </select>
               </div>
@@ -1381,8 +1208,58 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
               </div>
             </div>
 
+            <hr>
+
+            <h3>Delivery Signatures</h3>
+            <div class="grid">
+              <div>
+                <label>Company / Officer Name</label>
+                <input name="companySigner">
+              </div>
+
+              <div>
+                <label>Driver Name</label>
+                <input name="driverSigner">
+              </div>
+
+              <div>
+                <label>Customer / Site Receiver Name</label>
+                <input name="customerSigner">
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Company / Officer Signature</label>
+                <canvas id="logCompanySigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="companySignatureData" id="logCompanySignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('logCompanySigPad','logCompanySignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('logCompanySigPad','logCompanySignatureData')">Save Signature</button>
+                </div>
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Driver Signature</label>
+                <canvas id="logDriverSigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="driverSignatureData" id="logDriverSignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('logDriverSigPad','logDriverSignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('logDriverSigPad','logDriverSignatureData')">Save Signature</button>
+                </div>
+              </div>
+
+              <div class="signature-box full">
+                <label>Draw Customer / Site Receiver Signature</label>
+                <canvas id="logCustomerSigPad" class="signature-pad"></canvas>
+                <input type="hidden" name="customerSignatureData" id="logCustomerSignatureData">
+                <div class="row">
+                  <button class="secondary small" type="button" onclick="clearSignature('logCustomerSigPad','logCustomerSignatureData')">Clear</button>
+                  <button class="primary small" type="button" onclick="saveSignature('logCustomerSigPad','logCustomerSignatureData')">Save Signature</button>
+                </div>
+              </div>
+            </div>
+
             <div class="row">
-              <button class="primary" type="submit">Update Logistics Record</button>
+              <button class="primary" type="submit">Update Delivery Record</button>
             </div>
           </form>
         </div>
@@ -1393,166 +1270,15 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         </div>
 
         <div class="panel">
-          <h2>Logistics Movement Records</h2>
-          <div id="logisticsMovementTable"></div>
+          <h2>Logistics Movement / Delivery Proof Records</h2>
+          <div id="logisticsTable"></div>
         </div>
       </section>
 
-      <section id="inspectionJobs" class="page">
-        <div class="panel">
-          <div class="eyebrow">Inspection / Field Verification</div>
-          <h2>Client Goods Inspection</h2>
-
-          <form id="inspectionForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Inspection Job</label>
-                <select name="inspectionId" id="inspectionSelect" required></select>
-              </div>
-
-              <div>
-                <label>Inspection Location / Address</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Quantity Verified</label>
-                <input name="verifiedQuantity" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Condition of Goods</label>
-                <select name="condition" required>
-                  <option>Good Condition</option>
-                  <option>Fair Condition</option>
-                  <option>Poor Condition</option>
-                  <option>Damaged</option>
-                  <option>Quantity Not Matching Claim</option>
-                  <option>Needs Further Inspection</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Recommendation</label>
-                <select name="recommendation" required>
-                  <option>Recommend Acceptance</option>
-                  <option>Director to Review</option>
-                  <option>Recommend Rejection</option>
-                  <option>Needs Further Inspection</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Inspection Evidence Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div>
-                <label>Inspected By</label>
-                <input name="inspectedBy" required>
-              </div>
-
-              <div class="full">
-                <label>Inspection Note</label>
-                <textarea name="note" required></textarea>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Inspection</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Inspection Records</h2>
-          <div id="inspectionTable"></div>
-        </div>
-      </section>
-
-      <section id="logisticsIssues" class="page">
-        <div class="panel">
-          <div class="eyebrow">Issues / Field Notes</div>
-          <h2>Logistics / Field Issue Report</h2>
-
-          <form id="issueForm">
-            <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Location / Address</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Related Reference</label>
-                <input name="reference" required>
-              </div>
-
-              <div>
-                <label>Issue Type</label>
-                <select name="issueType" required>
-                  <option>Driver Delay</option>
-                  <option>Wrong Address</option>
-                  <option>Customer Not Available</option>
-                  <option>Shortage Noticed</option>
-                  <option>Damage Noticed</option>
-                  <option>Truck Breakdown</option>
-                  <option>Signed Waybill Not Returned</option>
-                  <option>Customer Dispute</option>
-                  <option>Product Condition Issue</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Proof Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div>
-                <label>Reported By</label>
-                <input name="reportedBy" required>
-              </div>
-
-              <div class="full">
-                <label>Issue Details</label>
-                <textarea name="details" required></textarea>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Issue</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2>Issue Records</h2>
-          <div id="issueTable"></div>
-        </div>
-      </section>
-
-      <section id="approvalCenter" class="page">
-        <div class="panel">
-          <div class="eyebrow">Director Approval Centre</div>
-          <h2>Approvals & Confirmations</h2>
-          <div id="approvalTable"></div>
-        </div>
-      </section>
-
-      <section id="followUp" class="page">
+      <section id="followup" class="page">
         <div class="panel">
           <div class="eyebrow">Client Follow-Up</div>
-          <h2>Customer Satisfaction / Review / Complaint Follow-Up</h2>
+          <h2>Customer Satisfaction / Complaint / Review Follow-Up</h2>
 
           <form id="followUpForm">
             <div class="grid">
@@ -1601,7 +1327,7 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 
               <div class="full">
                 <label>Follow-Up Note</label>
-                <textarea name="note" required></textarea>
+                <textarea name="note"></textarea>
               </div>
             </div>
 
@@ -1614,6 +1340,14 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
         <div class="panel">
           <h2>Follow-Up Records</h2>
           <div id="followUpTable"></div>
+        </div>
+      </section>
+
+      <section id="approvals" class="page">
+        <div class="panel">
+          <div class="eyebrow">Director Approval Centre</div>
+          <h2>Approvals & Confirmations</h2>
+          <div id="approvalTable"></div>
         </div>
       </section>
 
@@ -1644,7 +1378,7 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
           </div>
 
           <div class="notice">
-            Business Support can print invoices and receipts only. Report PDF, archive, monthly reconciliation and clearing are Director-only.
+            Business Support can print invoices, receipts and waybills only. Report PDF, archive, monthly reconciliation and dashboard clearing are Director-only.
           </div>
         </div>
 
@@ -1654,7 +1388,7 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
       <section id="archive" class="page">
         <div class="panel">
           <div class="eyebrow">Archive</div>
-          <h2>PDF / Report Archive</h2>
+          <h2>Report / Cleared Data Archive</h2>
           <div id="archiveTable"></div>
         </div>
       </section>
@@ -1665,31 +1399,31 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
           <h2>Clear Dashboard Data</h2>
 
           <div class="notice warning">
-            Archive or export records before clearing active dashboard views.
+            Archive or print important records before clearing. Only Director can clear dashboards.
           </div>
 
           <div class="grid">
             <div class="section-box">
               <h3>Business Support Section</h3>
-              <p>Quotes, invoices, payments, receipts, inventory and delivery handover.</p>
+              <p>Quotes, invoices, payments, receipts, inventory and waybills.</p>
               <button class="red director-only" onclick="directorClearGroup('support')">Archive & Clear Business Support Data</button>
             </div>
 
             <div class="section-box">
               <h3>Procurement Section</h3>
-              <p>Company goods, produced goods, external procurement and client resale.</p>
+              <p>Procurement and received goods records.</p>
               <button class="red director-only" onclick="directorClearGroup('procurement')">Archive & Clear Procurement Data</button>
             </div>
 
             <div class="section-box">
               <h3>Logistics / Inspection Section</h3>
-              <p>Waybills, logistics movements, inspections and field issues.</p>
+              <p>Waybill movement, dispatch, delivery proof and logistics records.</p>
               <button class="red director-only" onclick="directorClearGroup('logistics')">Archive & Clear Logistics Data</button>
             </div>
 
             <div class="section-box">
               <h3>Monthly Dashboard</h3>
-              <p>Archive all active data and clear dashboard for a new month.</p>
+              <p>Archive all active data and clear dashboard for another month.</p>
               <button class="dark director-only" onclick="directorClearGroup('all')">Archive & Clear All Active Data</button>
             </div>
           </div>
@@ -1701,13 +1435,15 @@ hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 </div>
 
 <script>
-const KEY = 'fth_duniq_operations_workstation_v5_full';
+const KEY = 'fth_duniq_operations_workstation_v6';
+const LOGO_SRC = 'assets/logo.png';
 const COMPANY_EMAIL = 'info@fthduniq.com';
 const REPORT_EMAIL = 'report@fthduniq.com';
 const COMPANY_WHATSAPP_LINK = 'https://wa.me/message/VH7OMDVMXQ7YN1?src=qr';
 
 const MATERIAL_CODES = [
   {code:'CEM-001', name:'Cement', category:'Cement', unit:'Bags', tonnage:'Not Applicable'},
+  {code:'BLK-004', name:'4” Blocks', category:'Blocks', unit:'Pieces', tonnage:'Not Applicable'},
   {code:'BLK-006', name:'6” Blocks', category:'Blocks', unit:'Pieces', tonnage:'Not Applicable'},
   {code:'BLK-009', name:'9” Blocks', category:'Blocks', unit:'Pieces', tonnage:'Not Applicable'},
   {code:'SND-SHP-BAG', name:'Sharp Sand - Bag Sales', category:'Sand / Granite / Plaster', unit:'Bags', tonnage:'Not Applicable'},
@@ -1752,49 +1488,35 @@ const pages = {
     ['quotes','Central Quotes'],
     ['invoices','Invoices / Sales'],
     ['payments','Payments / Receipts'],
-    ['businessInventory','Inventory'],
-    ['deliveryHandover','Delivery Handover'],
-    ['procurementDashboard','Procurement Overview'],
-    ['procurementCompany','Company Goods Received'],
-    ['producedGoods','Produced Goods'],
-    ['externalProcurement','External Procurement'],
-    ['clientResale','Client Goods Resale'],
-    ['logisticsDashboard','Logistics Overview'],
-    ['deliveryJobs','Delivery Jobs'],
-    ['inspectionJobs','Inspection Jobs'],
-    ['logisticsIssues','Issues / Field Notes'],
-    ['followUp','Client Follow-Up'],
-    ['approvalCenter','Approval Centre'],
+    ['waybills','Waybills'],
+    ['inventory','Inventory'],
+    ['procurement','Procurement'],
+    ['logistics','Logistics / Inspection'],
+    ['followup','Client Follow-Up'],
+    ['approvals','Approval Centre'],
     ['reports','Reports'],
     ['archive','Archive'],
     ['clearData','Clear Controls']
   ],
   support: [
     ['supportDashboard','Support Overview'],
-    ['quotes','Central Quotes'],
+    ['quotes','Quotes'],
     ['invoices','Invoices / Sales'],
     ['payments','Payments / Receipts'],
-    ['businessInventory','Inventory Desk'],
-    ['deliveryHandover','Delivery Handover'],
+    ['waybills','Waybills'],
+    ['inventory','Inventory Desk'],
     ['reports','Daily Report']
   ],
   procurement: [
-    ['procurementDashboard','Procurement Overview'],
-    ['procurementCompany','Company Goods Received'],
-    ['producedGoods','Produced Goods'],
-    ['externalProcurement','External Procurement'],
-    ['clientResale','Client Goods Resale'],
+    ['procurement','Procurement'],
     ['reports','Daily Report']
   ],
   logistics: [
-    ['logisticsDashboard','Logistics Overview'],
-    ['deliveryJobs','Delivery Jobs'],
-    ['inspectionJobs','Inspection Jobs'],
-    ['logisticsIssues','Issues / Field Notes'],
+    ['logistics','Logistics / Inspection'],
     ['reports','Daily Report']
   ],
   followup: [
-    ['followUp','Client Follow-Up'],
+    ['followup','Client Follow-Up'],
     ['reports','Daily Report']
   ]
 };
@@ -1811,15 +1533,10 @@ function blankDB(){
     invoices:[],
     payments:[],
     receipts:[],
-    inventory:[],
     waybills:[],
-    companyProcurements:[],
-    producedGoods:[],
-    externalProcurements:[],
-    clientResales:[],
-    inspections:[],
-    logisticsMovements:[],
-    issues:[],
+    inventory:[],
+    procurements:[],
+    logistics:[],
     followUps:[],
     staffReports:[],
     archives:[],
@@ -1828,15 +1545,10 @@ function blankDB(){
       invoice:0,
       payment:0,
       receipt:0,
-      inventory:0,
       waybill:0,
-      companyProcurement:0,
-      producedGoods:0,
-      externalProcurement:0,
-      clientResale:0,
-      inspection:0,
+      inventory:0,
+      procurement:0,
       logistics:0,
-      issue:0,
       followUp:0,
       staffReport:0,
       archive:0
@@ -1860,6 +1572,7 @@ function saveDB(){
 }
 
 function today(){return new Date().toISOString().slice(0,10)}
+function nowISO(){return new Date().toISOString()}
 function id(type){
   db.count[type] = (db.count[type] || 0) + 1;
   return 'FTH-' + type.toUpperCase() + '-' + new Date().getFullYear() + '-' + String(db.count[type]).padStart(4,'0');
@@ -1869,6 +1582,12 @@ function num(n){return Number(n || 0).toLocaleString('en-NG',{maximumFractionDig
 function esc(v){return String(v || '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function niceDate(d){return d ? new Date(d).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'2-digit'}) : ''}
 function formObj(form){return Object.fromEntries(new FormData(form).entries())}
+function tag(text,type='info'){return '<span class="tag '+type+'">'+esc(text)+'</span>'}
+function proofLink(r, field='proof'){
+  if(field === 'transfer' && r.transferProofData) return '<a target="_blank" href="'+r.transferProofData+'">'+esc(r.transferProofName || 'Transfer Proof')+'</a>';
+  if(field === 'pos' && r.posProofData) return '<a target="_blank" href="'+r.posProofData+'">'+esc(r.posProofName || 'POS Proof')+'</a>';
+  return r && r.proofData ? '<a target="_blank" href="'+r.proofData+'">'+esc(r.proofName || 'View Proof')+'</a>' : '-';
+}
 function table(rows, heads, map, empty='No records yet.'){
   if(!rows || !rows.length) return '<div class="empty">'+empty+'</div>';
   return '<div class="table"><table><thead><tr>' +
@@ -1877,8 +1596,6 @@ function table(rows, heads, map, empty='No records yet.'){
     rows.map((r,i) => '<tr>'+map(r,i).map(c => '<td>'+c+'</td>').join('')+'</tr>').join('') +
     '</tbody></table></div>';
 }
-function tag(text,type='info'){return '<span class="tag '+type+'">'+esc(text)+'</span>'}
-function proofLink(r){return r && r.proofData ? '<a target="_blank" href="'+r.proofData+'">'+esc(r.proofName || 'View Proof')+'</a>' : '-'}
 function ensureDirector(){
   if(currentRole !== 'director'){
     alert('Only Director can perform this action.');
@@ -1900,52 +1617,19 @@ function populateMaterialCodeSelects(){
     `<option value="${m.code}">${m.code} — ${m.name}</option>`
   ).join('');
 
-  document.querySelectorAll('#quoteMaterialCode,#inventoryMaterialCode,#procurementMaterialCode,#externalMaterialCode').forEach(sel=>{
+  document.querySelectorAll('#inventoryMaterialCode,#procurementMaterialCode').forEach(sel=>{
     if(sel) sel.innerHTML = html;
   });
+}
 
-  document.querySelectorAll('.line-code').forEach(sel=>{
-    const current = sel.value;
-    sel.innerHTML = html;
-    sel.value = current;
-  });
+function materialOptions(selected=''){
+  return '<option value="">Code</option>' + MATERIAL_CODES.map(m =>
+    `<option value="${m.code}" ${selected===m.code?'selected':''}>${m.code}</option>`
+  ).join('');
 }
 
 function getMaterialByCode(code){
   return MATERIAL_CODES.find(m => m.code === code);
-}
-
-function applyQuoteMaterialCode(){
-  const f = document.getElementById('quoteForm');
-  const m = getMaterialByCode(f.materialCode.value);
-  if(!m) return;
-  f.material.value = m.name;
-  f.unit.value = m.unit;
-  f.tonnageSize.value = m.tonnage;
-}
-
-function applyInventoryMaterialCode(){
-  const f = document.getElementById('inventoryForm');
-  const m = getMaterialByCode(f.materialCode.value);
-  if(!m) return;
-  f.item.value = m.name;
-  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
-}
-
-function applyProcurementMaterialCode(){
-  const f = document.getElementById('companyProcurementForm');
-  const m = getMaterialByCode(f.materialCode.value);
-  if(!m) return;
-  f.material.value = m.name;
-  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
-}
-
-function applyExternalMaterialCode(){
-  const f = document.getElementById('externalProcurementForm');
-  const m = getMaterialByCode(f.materialCode.value);
-  if(!m) return;
-  f.material.value = m.name;
-  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
 }
 
 function applyLineCode(select){
@@ -1957,15 +1641,29 @@ function applyLineCode(select){
   row.querySelector('.line-unit').value = m.unit;
   row.querySelector('.line-tonnage').value = m.tonnage;
 
-  if(m.category === 'Logistics Fee'){
-    row.querySelector('.line-type').value = 'Logistics Fee';
-  }else if(m.category === 'Service'){
-    row.querySelector('.line-type').value = 'Service';
-  }else{
-    row.querySelector('.line-type').value = 'Product';
+  if(row.querySelector('.line-type')){
+    if(m.category === 'Logistics Fee') row.querySelector('.line-type').value = 'Logistics Fee';
+    else if(m.category === 'Service') row.querySelector('.line-type').value = 'Service';
+    else row.querySelector('.line-type').value = 'Product';
   }
 
-  calculateInvoiceTotal();
+  if(typeof calculateInvoiceTotal === 'function') calculateInvoiceTotal();
+}
+
+function applyInventoryMaterialCode(){
+  const f = document.getElementById('inventoryForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.item.value = m.name;
+  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
+}
+
+function applyProcurementMaterialCode(){
+  const f = document.getElementById('procurementForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.material.value = m.name;
+  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
 }
 
 document.getElementById('loginForm').onsubmit = function(e){
@@ -2005,7 +1703,11 @@ function startApp(){
 
   setDefaultDates();
   populateMaterialCodeSelects();
+
+  if(!document.querySelector('#quoteLines .line-row')) addQuoteLine();
   if(!document.querySelector('#invoiceLines .line-row')) addInvoiceLine();
+
+  initAllSignaturePads();
   applyRoleVisibility();
   renderAll();
   syncWebsiteQuotes();
@@ -2033,6 +1735,7 @@ function showPage(pageId){
   }
 
   document.getElementById('mobileNav').value = pageId;
+  initAllSignaturePads();
   applyRoleVisibility();
   renderAll();
 }
@@ -2054,20 +1757,19 @@ function setDefaultDates(){
 function renderAll(){
   populateMaterialCodeSelects();
   renderDirectorDashboard();
+  renderWorkflow();
   renderQuotes();
   renderSelects();
   renderInvoices();
   renderPayments();
   renderReceipts();
-  renderInventory();
   renderWaybills();
-  renderProcurements();
+  renderInventory();
+  renderProcurement();
   renderLogistics();
-  renderInspections();
-  renderIssues();
   renderFollowUps();
-  renderStaffReports();
   renderApprovals();
+  renderStaffReports();
   renderArchive();
   applyRoleVisibility();
 }
@@ -2088,6 +1790,16 @@ async function syncWebsiteQuotes(){
 
       db.importedWebsiteQuoteIds.push(externalId);
 
+      const line = {
+        code:q.materialCode || '',
+        item:q.material || q.materialOrService || '',
+        quantity:q.quantity || q.quantityOrVolume || '',
+        unit:q.unit || q.unitMeasurement || '',
+        tonnage:q.tonnageSize || 'Not Applicable',
+        localDescription:q.localDescription || '',
+        internalInterpretation:q.internalInterpretation || ''
+      };
+
       db.quotes.unshift({
         id:id('quote'),
         externalId,
@@ -2097,20 +1809,18 @@ async function syncWebsiteQuotes(){
         phone:q.phone || q.phoneNumber || '',
         email:q.email || q.emailAddress || '',
         location:q.location || q.deliveryLocation || '',
-        material:q.material || q.materialOrService || '',
-        quantity:q.quantity || q.quantityOrVolume || '',
-        unit:q.unit || q.unitMeasurement || '',
-        tonnageSize:q.tonnageSize || 'Not Applicable',
-        localDescription:q.localDescription || '',
-        internalInterpretation:q.internalInterpretation || '',
+        siteContact:q.siteContact || '',
+        sitePhone:q.sitePhone || '',
         deliveryDate:q.deliveryDate || '',
         deliveryTime:q.deliveryTime || '',
         deliveryPeriod:q.deliveryPeriod || '',
         officer:'Website Submission',
         details:q.details || q.requestDetails || '',
+        lines:[line],
         status:'New Website Quote',
         directorStatus:'Visible to Director',
-        createdAt:q.submittedAt || new Date().toISOString(),
+        workflow:'Quote Received',
+        createdAt:q.submittedAt || nowISO(),
         enteredByRole:'Website'
       });
 
@@ -2121,21 +1831,81 @@ async function syncWebsiteQuotes(){
   }catch(e){}
 }
 
+function addQuoteLine(defaults={}){
+  const wrap = document.getElementById('quoteLines');
+  const row = document.createElement('div');
+  row.className = 'line-row';
+
+  row.innerHTML = `
+    <select class="line-code" onchange="applyLineCode(this)">${materialOptions(defaults.code || '')}</select>
+    <input class="line-item" placeholder="Product / Material" value="${esc(defaults.item || '')}">
+    <input class="line-qty" placeholder="Qty / Number" value="${esc(defaults.quantity || '')}">
+    <select class="line-unit">
+      <option ${defaults.unit==='Bags'?'selected':''}>Bags</option>
+      <option ${defaults.unit==='Pieces'?'selected':''}>Pieces</option>
+      <option ${defaults.unit==='Tonnes / Tonnage'?'selected':''}>Tonnes / Tonnage</option>
+      <option ${defaults.unit==='Square Metres'?'selected':''}>Square Metres</option>
+      <option ${defaults.unit==='Trips'?'selected':''}>Trips</option>
+      <option ${defaults.unit==='Service'?'selected':''}>Service</option>
+      <option ${defaults.unit==='Other'?'selected':''}>Other</option>
+    </select>
+    <select class="line-tonnage">
+      <option ${defaults.tonnage==='Not Applicable'?'selected':''}>Not Applicable</option>
+      <option ${defaults.tonnage==='5-ton'?'selected':''}>5-ton</option>
+      <option ${defaults.tonnage==='10-ton'?'selected':''}>10-ton</option>
+      <option ${defaults.tonnage==='12.5-ton'?'selected':''}>12.5-ton</option>
+      <option ${defaults.tonnage==='15-ton'?'selected':''}>15-ton</option>
+      <option ${defaults.tonnage==='20-ton'?'selected':''}>20-ton</option>
+      <option ${defaults.tonnage==='30-ton'?'selected':''}>30-ton</option>
+      <option ${defaults.tonnage==='35-ton'?'selected':''}>35-ton</option>
+    </select>
+    <input class="line-local" placeholder="Local description" value="${esc(defaults.localDescription || '')}">
+    <button type="button" class="small red" onclick="this.closest('.line-row').remove()">X</button>
+    <input class="line-internal full" placeholder="Internal interpretation" value="${esc(defaults.internalInterpretation || '')}">
+  `;
+
+  wrap.appendChild(row);
+}
+
+function getQuoteLines(){
+  return [...document.querySelectorAll('#quoteLines .line-row')].map(r=>({
+    code:r.querySelector('.line-code').value,
+    item:r.querySelector('.line-item').value.trim(),
+    quantity:r.querySelector('.line-qty').value.trim(),
+    unit:r.querySelector('.line-unit').value,
+    tonnage:r.querySelector('.line-tonnage').value,
+    localDescription:r.querySelector('.line-local').value.trim(),
+    internalInterpretation:r.querySelector('.line-internal').value.trim()
+  })).filter(x=>x.item && x.quantity);
+}
+
 document.getElementById('quoteForm').onsubmit = function(e){
   e.preventDefault();
 
   const x = formObj(this);
+  const lines = getQuoteLines();
+
+  if(!lines.length){
+    alert('Add at least one product/material line.');
+    return;
+  }
+
   const record = {
     id:id('quote'),
     status:'New Quote',
     directorStatus:'Visible to Director',
-    createdAt:new Date().toISOString(),
+    workflow:'Quote Received',
+    createdAt:nowISO(),
     enteredByRole:roleNames[currentRole],
+    lines,
     ...x
   };
 
   db.quotes.unshift(record);
+
   this.reset();
+  document.getElementById('quoteLines').innerHTML = '';
+  addQuoteLine();
   setDefaultDates();
   saveDB();
 };
@@ -2143,7 +1913,7 @@ document.getElementById('quoteForm').onsubmit = function(e){
 function renderQuotes(){
   document.getElementById('quoteTable').innerHTML = table(
     db.quotes,
-    ['Date','Quote','Source','Entered By','Customer','Phone','Location','Material','Qty / Unit','Delivery Time','Status','Action'],
+    ['Date','Quote','Source','Entered By','Customer','Phone','Location','Site Contact','Products','Delivery Time','Status','Action'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2152,8 +1922,8 @@ function renderQuotes(){
       esc(r.customer),
       esc(r.phone),
       esc(r.location),
-      esc(r.material),
-      esc(r.quantity)+' '+esc(r.unit)+' '+(r.tonnageSize && r.tonnageSize!=='Not Applicable' ? '('+esc(r.tonnageSize)+')' : ''),
+      esc(r.siteContact || '-')+'<br><small>'+esc(r.sitePhone || '')+'</small>',
+      (r.lines || []).map(l=>esc(l.code || '')+' '+esc(l.item)+' — '+esc(l.quantity)+' '+esc(l.unit)+' '+(l.tonnage!=='Not Applicable'?'('+esc(l.tonnage)+')':'')).join('<br>'),
       esc(r.deliveryDate || '-')+' '+esc(r.deliveryTime || '')+' '+esc(r.deliveryPeriod || ''),
       tag(r.status,'info'),
       currentRole === 'support' || currentRole === 'director'
@@ -2166,8 +1936,7 @@ function renderQuotes(){
 
 function renderSelects(){
   const selectedQuote = document.getElementById('invoiceQuoteSelect')?.value || '';
-
-  const quoteOptions = db.quotes.map(q=>'<option value="'+q.id+'">'+q.id+' — '+esc(q.customer)+' — '+esc(q.material)+'</option>').join('');
+  const quoteOptions = db.quotes.map(q=>'<option value="'+q.id+'">'+q.id+' — '+esc(q.customer)+' — '+((q.lines || [])[0]?.item || 'Request')+'</option>').join('');
   document.getElementById('invoiceQuoteSelect').innerHTML = '<option value="">Select quote</option>'+quoteOptions;
   document.getElementById('invoiceQuoteSelect').value = selectedQuote;
 
@@ -2177,9 +1946,6 @@ function renderSelects(){
 
   const waybillOptions = db.waybills.map(w=>'<option value="'+w.id+'">'+w.id+' — '+esc(w.customer)+' — '+esc(w.location)+'</option>').join('');
   document.getElementById('logisticsWaybillSelect').innerHTML = '<option value="">Select waybill</option>'+waybillOptions;
-
-  const inspectionOptions = db.inspections.map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.client)+' — '+esc(i.product)+'</option>').join('');
-  document.getElementById('inspectionSelect').innerHTML = '<option value="">Select inspection job</option>'+inspectionOptions;
 }
 
 document.getElementById('invoiceQuoteSelect').onchange = function(){
@@ -2199,6 +1965,8 @@ function fillInvoiceFromQuote(qid, openPage=true){
   f.phone.value = q.phone || '';
   f.email.value = q.email || '';
   f.location.value = q.location || '';
+  f.siteContact.value = q.siteContact || '';
+  f.sitePhone.value = q.sitePhone || '';
   f.deliveryDate.value = q.deliveryDate || '';
   f.deliveryTime.value = q.deliveryTime || '';
   f.deliveryPeriod.value = q.deliveryPeriod || '';
@@ -2206,15 +1974,17 @@ function fillInvoiceFromQuote(qid, openPage=true){
 
   document.getElementById('invoiceLines').innerHTML = '';
 
-  addInvoiceLine({
-    code:q.materialCode || '',
-    type:'Product',
-    item:q.material || '',
-    qty:q.quantity || '',
-    unit:q.unit || '',
-    tonnage:q.tonnageSize || 'Not Applicable',
-    rate:'',
-    note:q.localDescription || q.internalInterpretation || ''
+  (q.lines || []).forEach(l=>{
+    addInvoiceLine({
+      code:l.code || '',
+      type:'Product',
+      item:l.item || '',
+      qty:l.quantity || '',
+      unit:l.unit || '',
+      tonnage:l.tonnage || 'Not Applicable',
+      rate:'',
+      note:l.localDescription || l.internalInterpretation || ''
+    });
   });
 
   calculateInvoiceTotal();
@@ -2225,12 +1995,8 @@ function addInvoiceLine(defaults={}){
   const row = document.createElement('div');
   row.className = 'line-row';
 
-  const codeOptions = '<option value="">Code</option>' + MATERIAL_CODES.map(m =>
-    `<option value="${m.code}" ${defaults.code===m.code?'selected':''}>${m.code}</option>`
-  ).join('');
-
   row.innerHTML = `
-    <select class="line-code" onchange="applyLineCode(this)">${codeOptions}</select>
+    <select class="line-code" onchange="applyLineCode(this)">${materialOptions(defaults.code || '')}</select>
     <input class="line-item" placeholder="Item" value="${esc(defaults.item || '')}">
     <input class="line-qty" type="number" step="0.01" placeholder="Qty" value="${esc(defaults.qty || '')}" oninput="calculateInvoiceTotal()">
     <select class="line-unit">
@@ -2305,6 +2071,8 @@ function calculateInvoiceTotal(){
 document.getElementById('invoiceForm').onsubmit = function(e){
   e.preventDefault();
 
+  saveSignature('invoiceOfficerSigPad','invoiceOfficerSignatureData',false);
+
   const x = formObj(this);
   const lines = getInvoiceLines();
 
@@ -2322,7 +2090,8 @@ document.getElementById('invoiceForm').onsubmit = function(e){
 
   const inv = {
     id:id('invoice'),
-    status:'Unpaid',
+    status:'Invoice Created / Awaiting Payment',
+    workflow:'Invoice Generated',
     paid:0,
     balance:total,
     productTotal,
@@ -2330,23 +2099,24 @@ document.getElementById('invoiceForm').onsubmit = function(e){
     serviceTotal,
     total,
     lines,
-    deliveryDate:x.deliveryDate || '',
-    deliveryTime:x.deliveryTime || '',
-    deliveryPeriod:x.deliveryPeriod || '',
-    logisticsFee:Number(x.logisticsFee || 0),
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    ...x
+    createdAt:nowISO(),
+    ...x,
+    logisticsFee:Number(x.logisticsFee || 0)
   };
 
   db.invoices.unshift(inv);
 
   const q = db.quotes.find(q=>q.id===x.quoteId);
-  if(q) q.status = 'Invoice Created';
+  if(q){
+    q.status = 'Invoice Created';
+    q.workflow = 'Invoice Generated';
+  }
 
   this.reset();
   document.getElementById('invoiceLines').innerHTML = '';
   addInvoiceLine();
+  clearSignature('invoiceOfficerSigPad','invoiceOfficerSignatureData');
   setDefaultDates();
   saveDB();
 };
@@ -2354,7 +2124,7 @@ document.getElementById('invoiceForm').onsubmit = function(e){
 function renderInvoices(){
   document.getElementById('invoiceTable').innerHTML = table(
     db.invoices,
-    ['Date','Invoice','Customer','Location / Delivery Time','Items','Product','Logistics','Total','Paid','Balance','Status','Actions'],
+    ['Date','Invoice','Customer','Location / Delivery','Items','Product','Logistics','Total','Paid','Balance','Status','Actions'],
     i => [
       niceDate(i.date),
       i.id,
@@ -2366,25 +2136,54 @@ function renderInvoices(){
       money(i.total),
       money(i.paid),
       money(i.balance),
-      tag(i.status, i.status==='Paid'?'ok':i.status==='Unpaid'?'bad':'info'),
-      '<button class="small secondary" onclick="printInvoice(\''+i.id+'\')">Print</button> '+
-      '<button class="small green" onclick="sendInvoiceToCompanyWhatsApp(\''+i.id+'\')">Company WhatsApp</button> '+
-      '<button class="small blue" onclick="emailInvoiceToCompany(\''+i.id+'\')">Company Email</button>'
+      tag(i.status, i.status==='Paid'?'ok':i.status.includes('Part')?'info':'warn'),
+      '<button class="small secondary" onclick="printInvoice(\''+i.id+'\')">Download / Print</button> '+
+      '<button class="small green" onclick="sendInvoiceToCompanyWhatsApp(\''+i.id+'\')">WhatsApp</button> '+
+      '<button class="small blue" onclick="emailInvoiceToCompany(\''+i.id+'\')">Email</button>'
     ],
     'No invoice yet.'
   );
 }
 
 document.getElementById('paymentInvoiceSelect').onchange = function(){
-  const inv = db.invoices.find(i=>i.id===this.value);
-  if(inv){
-    document.getElementById('paymentForm').location.value = inv.location || '';
-    document.getElementById('paymentForm').amount.value = inv.balance || 0;
-  }
+  fillPaymentFromInvoice(this.value);
 };
+
+function fillPaymentFromInvoice(invoiceId){
+  const inv = db.invoices.find(i=>i.id===invoiceId);
+  if(!inv) return;
+
+  const f = document.getElementById('paymentForm');
+  f.customer.value = inv.customer;
+  f.phone.value = inv.phone;
+  f.location.value = inv.location;
+  f.invoiceTotal.value = inv.total;
+  f.paidBefore.value = inv.paid;
+  f.balanceBefore.value = inv.balance;
+  calculatePaymentTotal();
+}
+
+function calculatePaymentTotal(){
+  const f = document.getElementById('paymentForm');
+  const transfer = Number(f.transferAmount.value || 0);
+  const pos = Number(f.posAmount.value || 0);
+  const cash = Number(f.cashAmount.value || 0);
+  const total = transfer + pos + cash;
+  const balanceBefore = Number(f.balanceBefore.value || 0);
+  const balanceAfter = Math.max(balanceBefore - total, 0);
+
+  document.getElementById('paymentCalc').innerHTML =
+    '<b>Transfer:</b> '+money(transfer)+
+    ' | <b>POS:</b> '+money(pos)+
+    ' | <b>Cash:</b> '+money(cash)+
+    ' | <b>Total Received:</b> '+money(total)+
+    ' | <b>Balance After:</b> '+money(balanceAfter);
+}
 
 document.getElementById('paymentForm').onsubmit = async function(e){
   e.preventDefault();
+
+  saveSignature('paymentOfficerSigPad','paymentOfficerSignatureData',false);
 
   const x = formObj(this);
   const inv = db.invoices.find(i=>i.id===x.invoiceId);
@@ -2394,24 +2193,45 @@ document.getElementById('paymentForm').onsubmit = async function(e){
     return;
   }
 
-  const proof = await readFile(this.proof.files[0]);
+  const transferProof = await readFile(this.transferProof.files[0]);
+  const posProof = await readFile(this.posProof.files[0]);
+
+  const transferAmount = Number(x.transferAmount || 0);
+  const posAmount = Number(x.posAmount || 0);
+  const cashAmount = Number(x.cashAmount || 0);
+  const totalReceived = transferAmount + posAmount + cashAmount;
+
+  if(totalReceived <= 0){
+    alert('Enter at least one payment amount.');
+    return;
+  }
 
   db.payments.unshift({
     id:id('payment'),
     invoiceId:inv.id,
     customer:inv.customer,
     phone:inv.phone,
+    location:inv.location,
     status:'Awaiting Director Confirmation',
+    workflow:'Payment Uploaded',
     confirmedBy:'',
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    proofName:proof.name,
-    proofData:proof.data,
+    createdAt:nowISO(),
+    transferProofName:transferProof.name,
+    transferProofData:transferProof.data,
+    posProofName:posProof.name,
+    posProofData:posProof.data,
     ...x,
-    amount:Number(x.amount || 0)
+    transferAmount,
+    posAmount,
+    cashAmount,
+    totalReceived
   });
 
+  inv.workflow = 'Payment Uploaded / Awaiting Confirmation';
+
   this.reset();
+  clearSignature('paymentOfficerSigPad','paymentOfficerSignatureData');
   setDefaultDates();
   saveDB();
 };
@@ -2419,18 +2239,19 @@ document.getElementById('paymentForm').onsubmit = async function(e){
 function renderPayments(){
   document.getElementById('paymentTable').innerHTML = table(
     db.payments,
-    ['Date','Payment','Invoice','Customer','Location','Amount','Method','Type','Cash Status','Proof','Status','Director Action'],
+    ['Date','Payment','Invoice','Customer','Location','Transfer','POS','Cash','Total','Cash Receiver','Proofs','Status','Director Action'],
     p => [
       niceDate(p.date),
       p.id,
       p.invoiceId,
       esc(p.customer),
       esc(p.location),
-      money(p.amount),
-      esc(p.method),
-      esc(p.paymentType),
-      esc(p.cashStatus || '-'),
-      proofLink(p),
+      money(p.transferAmount),
+      money(p.posAmount),
+      money(p.cashAmount),
+      money(p.totalReceived),
+      esc(p.cashReceivedBy || '-'),
+      'Transfer: '+proofLink(p,'transfer')+'<br>POS: '+proofLink(p,'pos'),
       tag(p.status, p.status.includes('Confirmed')?'ok':p.status.includes('Rejected')?'bad':'info'),
       currentRole==='director' && p.status==='Awaiting Director Confirmation'
         ? '<button class="small green" onclick="approvePayment(\''+p.id+'\')">Confirm</button> <button class="small red" onclick="rejectPayment(\''+p.id+'\')">Reject</button>'
@@ -2450,14 +2271,16 @@ function approvePayment(paymentId){
   if(!inv) return;
 
   if(!p.counted){
-    inv.paid = Number(inv.paid || 0) + Number(p.amount || 0);
+    inv.paid = Number(inv.paid || 0) + Number(p.totalReceived || 0);
     inv.balance = Math.max(Number(inv.total || 0) - Number(inv.paid || 0), 0);
     inv.status = inv.balance <= 0 ? 'Paid' : 'Part Payment';
+    inv.workflow = inv.balance <= 0 ? 'Payment Confirmed / Paid' : 'Part Payment Confirmed';
     p.counted = true;
   }
 
   p.status = 'Confirmed by Director';
   p.confirmedBy = 'Director';
+  p.workflow = 'Payment Confirmed';
 
   const receiptType = inv.balance <= 0 ? 'Official Payment Receipt' : 'Part Payment Acknowledgement';
 
@@ -2469,13 +2292,16 @@ function approvePayment(paymentId){
     customer:inv.customer,
     phone:inv.phone,
     location:inv.location,
-    amount:p.amount,
+    amount:p.totalReceived,
     invoiceTotal:inv.total,
     balance:inv.balance,
-    method:p.method,
+    method:paymentMethodLabel(p),
     type:receiptType,
     status:'Generated After Director Confirmation',
-    createdAt:new Date().toISOString()
+    createdAt:nowISO(),
+    officerName:p.officerName || '',
+    typedSignature:p.typedSignature || '',
+    officerSignatureData:p.officerSignatureData || ''
   });
 
   saveDB();
@@ -2486,7 +2312,16 @@ function rejectPayment(paymentId){
   const p = db.payments.find(x=>x.id===paymentId);
   if(!p) return;
   p.status = 'Rejected by Director';
+  p.workflow = 'Payment Rejected';
   saveDB();
+}
+
+function paymentMethodLabel(p){
+  const parts = [];
+  if(Number(p.transferAmount || 0) > 0) parts.push('Transfer '+money(p.transferAmount));
+  if(Number(p.posAmount || 0) > 0) parts.push('POS '+money(p.posAmount));
+  if(Number(p.cashAmount || 0) > 0) parts.push('Cash '+money(p.cashAmount));
+  return parts.join(' + ');
 }
 
 function renderReceipts(){
@@ -2503,10 +2338,93 @@ function renderReceipts(){
       money(r.amount),
       money(r.balance),
       esc(r.method),
-      '<button class="small secondary" onclick="printReceipt(\''+r.id+'\')">Print</button> '+
-      '<button class="small green" onclick="sendReceiptToCompanyWhatsApp(\''+r.id+'\')">Company WhatsApp</button>'
+      '<button class="small secondary" onclick="printReceipt(\''+r.id+'\')">Download / Print</button> '+
+      '<button class="small green" onclick="sendReceiptToCompanyWhatsApp(\''+r.id+'\')">WhatsApp</button>'
     ],
     'No receipt or acknowledgement generated yet.'
+  );
+}
+
+document.getElementById('waybillInvoiceSelect').onchange = function(){
+  fillWaybillFromInvoice(this.value);
+};
+
+function fillWaybillFromInvoice(invoiceId){
+  const inv = db.invoices.find(i=>i.id===invoiceId);
+  if(!inv) return;
+
+  const f = document.getElementById('waybillForm');
+  f.customer.value = inv.customer;
+  f.phone.value = inv.phone;
+  f.siteContact.value = inv.siteContact || '';
+  f.sitePhone.value = inv.sitePhone || '';
+  f.location.value = inv.location;
+  f.deliveryDate.value = inv.deliveryDate || '';
+  f.deliveryTime.value = inv.deliveryTime || '';
+  f.deliveryPeriod.value = inv.deliveryPeriod || '';
+  f.products.value = inv.lines.filter(l=>l.type!=='Logistics Fee').map(l=>`${l.item} - ${l.qty} ${l.unit} ${l.tonnage !== 'Not Applicable' ? '('+l.tonnage+')' : ''}`).join('\n');
+  f.logisticsFee.value = inv.logisticsTotal || 0;
+
+  if(inv.balance <= 0) f.supplyStatus.value = 'Fully Paid - Ready for Dispatch';
+  else if(inv.paid > 0) f.supplyStatus.value = 'Part Payment - Director Approval Required';
+  else f.supplyStatus.value = 'No Payment - Director Approval Required';
+}
+
+document.getElementById('waybillForm').onsubmit = function(e){
+  e.preventDefault();
+
+  saveSignature('waybillOfficerSigPad','waybillOfficerSignatureData',false);
+
+  const x = formObj(this);
+  const inv = db.invoices.find(i=>i.id===x.invoiceId);
+
+  let status = 'Forwarded to Logistics / Awaiting Dispatch';
+  if(x.supplyStatus.includes('Director Approval Required')){
+    status = 'Pending Director Approval';
+  }
+
+  db.waybills.unshift({
+    id:id('waybill'),
+    status,
+    workflow:'Waybill Created',
+    logisticsStatus:'Not Yet Dispatched',
+    caseStatus:'Open',
+    createdBy:roleNames[currentRole],
+    createdAt:nowISO(),
+    inventoryDeducted:false,
+    ...x,
+    logisticsFee:Number(x.logisticsFee || 0)
+  });
+
+  if(inv){
+    inv.workflow = 'Waybill Created';
+  }
+
+  this.reset();
+  clearSignature('waybillOfficerSigPad','waybillOfficerSignatureData');
+  setDefaultDates();
+  saveDB();
+};
+
+function renderWaybills(){
+  document.getElementById('waybillTable').innerHTML = table(
+    db.waybills,
+    ['Date','Waybill','Invoice','Customer','Location','Delivery Time','Products','Supply Status','Logistics Fee','Status','Case','Actions'],
+    w => [
+      niceDate(w.date),
+      w.id,
+      w.invoiceId,
+      esc(w.customer),
+      esc(w.location),
+      esc(w.deliveryDate || '-')+' '+esc(w.deliveryTime || '')+' '+esc(w.deliveryPeriod || ''),
+      esc(w.products).replace(/\n/g,'<br>'),
+      esc(w.supplyStatus),
+      money(w.logisticsFee),
+      tag(w.status, w.status.includes('Pending')?'warn':w.status.includes('Closed')?'ok':'info'),
+      tag(w.caseStatus || 'Open', w.caseStatus==='Closed'?'ok':'info'),
+      '<button class="small secondary" onclick="printWaybill(\''+w.id+'\')">Download / Print</button>'
+    ],
+    'No waybill/delivery instruction yet.'
   );
 }
 
@@ -2519,7 +2437,7 @@ document.getElementById('inventoryForm').onsubmit = async function(e){
     id:id('inventory'),
     status:'Recorded',
     enteredBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
+    createdAt:nowISO(),
     proofName:proof.name,
     proofData:proof.data,
     ...x,
@@ -2567,83 +2485,23 @@ function renderInventory(){
       esc(r.unit),
       r.indicator && r.indicator.includes('Red') ? tag(r.indicator,'bad') : r.indicator && r.indicator.includes('Green') ? tag(r.indicator,'ok') : tag(r.indicator,'info'),
       proofLink(r),
-      esc(r.note)
+      esc(r.note || '-')
     ],
     'No inventory movement recorded yet.'
   );
 }
 
-document.getElementById('waybillInvoiceSelect').onchange = function(){
-  const inv = db.invoices.find(i=>i.id===this.value);
-  if(!inv) return;
-
-  const f = document.getElementById('waybillForm');
-  f.customer.value = inv.customer;
-  f.phone.value = inv.phone;
-  f.location.value = inv.location;
-  f.deliveryDate.value = inv.deliveryDate || '';
-  f.deliveryTime.value = inv.deliveryTime || '';
-  f.deliveryPeriod.value = inv.deliveryPeriod || '';
-  f.products.value = inv.lines.filter(l=>l.type!=='Logistics Fee').map(l=>`${l.item} - ${l.qty} ${l.unit} ${l.tonnage !== 'Not Applicable' ? '('+l.tonnage+')' : ''}`).join('\n');
-  f.logisticsFee.value = inv.logisticsTotal || 0;
-};
-
-document.getElementById('waybillForm').onsubmit = function(e){
-  e.preventDefault();
-
-  const x = formObj(this);
-
-  let status = 'Forwarded to Logistics / Awaiting Dispatch';
-  if(x.supplyStatus.includes('Approval Required') || x.logisticsReleaseStatus === 'Pending Approval'){
-    status = 'Pending Approval';
-  }
-
-  db.waybills.unshift({
-    id:id('waybill'),
-    status,
-    logisticsStatus:'Not Yet Updated by Logistics',
-    createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    ...x,
-    logisticsFee:Number(x.logisticsFee || 0)
-  });
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-function renderWaybills(){
-  document.getElementById('waybillTable').innerHTML = table(
-    db.waybills,
-    ['Date','Waybill','Invoice','Customer','Location','Delivery Time','Products','Supply Status','Logistics Fee','Status','Actions'],
-    w => [
-      niceDate(w.date),
-      w.id,
-      w.invoiceId,
-      esc(w.customer),
-      esc(w.location),
-      esc(w.deliveryDate || '-')+' '+esc(w.deliveryTime || '')+' '+esc(w.deliveryPeriod || ''),
-      esc(w.products).replace(/\n/g,'<br>'),
-      esc(w.supplyStatus),
-      money(w.logisticsFee),
-      tag(w.status, w.status.includes('Pending')?'warn':'info'),
-      '<button class="small secondary" onclick="printWaybill(\''+w.id+'\')">Print</button>'
-    ],
-    'No waybill/delivery instruction yet.'
-  );
-}
-
-document.getElementById('companyProcurementForm').onsubmit = async function(e){
+document.getElementById('procurementForm').onsubmit = async function(e){
   e.preventDefault();
   const x = formObj(this);
   const proof = await readFile(this.proof.files[0]);
 
-  db.companyProcurements.unshift({
-    id:id('companyProcurement'),
+  db.procurements.unshift({
+    id:id('procurement'),
     directorStatus:'Pending Approval',
+    stockStatus:'Not Yet Stocked In',
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
+    createdAt:nowISO(),
     proofName:proof.name,
     proofData:proof.data,
     ...x,
@@ -2655,162 +2513,89 @@ document.getElementById('companyProcurementForm').onsubmit = async function(e){
   saveDB();
 };
 
-document.getElementById('producedGoodsForm').onsubmit = async function(e){
-  e.preventDefault();
-  const x = formObj(this);
-  const proof = await readFile(this.proof.files[0]);
-
-  db.producedGoods.unshift({
-    id:id('producedGoods'),
-    directorStatus:'Pending Approval',
-    createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    proofName:proof.name,
-    proofData:proof.data,
-    ...x,
-    quantity:Number(x.quantity || 0)
-  });
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-document.getElementById('externalProcurementForm').onsubmit = async function(e){
-  e.preventDefault();
-  const x = formObj(this);
-  const proof = await readFile(this.proof.files[0]);
-
-  db.externalProcurements.unshift({
-    id:id('externalProcurement'),
-    directorStatus:'Pending Approval',
-    createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    proofName:proof.name,
-    proofData:proof.data,
-    ...x,
-    quantity:Number(x.quantity || 0)
-  });
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-document.getElementById('clientResaleForm').onsubmit = function(e){
-  e.preventDefault();
-  const x = formObj(this);
-
-  const resale = {
-    id:id('clientResale'),
-    status:'Request Received / Pending Inspection',
-    directorStatus:'Visible to Director',
-    createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    ...x,
-    quantity:Number(x.quantity || 0)
-  };
-
-  db.clientResales.unshift(resale);
-
-  db.inspections.unshift({
-    id:id('inspection'),
-    resaleId:resale.id,
-    client:resale.client,
-    phone:resale.phone,
-    product:resale.product,
-    claimedQuantity:resale.quantity,
-    unit:resale.unit,
-    location:resale.location,
-    date:resale.date,
-    status:'Pending Inspection',
-    directorStatus:'Awaiting Inspection Report',
-    createdAt:new Date().toISOString()
-  });
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-function renderProcurements(){
-  document.getElementById('companyProcurementTable').innerHTML = table(
-    db.companyProcurements,
-    ['Date','ID','Supplier / Source','Source Location','Material','Qty','Unit','Condition','Received By','Proof','Status'],
+function renderProcurement(){
+  document.getElementById('procurementTable').innerHTML = table(
+    db.procurements,
+    ['Date','ID','Type','Source / Client','Location','Material','Qty','Unit','Condition','Recorded By','Proof','Status','Director Action'],
     r => [
       niceDate(r.date),
       r.id,
-      esc(r.supplier),
+      esc(r.procurementType),
+      esc(r.sourceName),
       esc(r.sourceLocation),
       esc(r.material),
       num(r.quantity),
       esc(r.unit),
       esc(r.condition),
-      esc(r.receivedBy),
+      esc(r.recordedBy),
       proofLink(r),
-      tag(r.directorStatus, r.directorStatus.includes('Approved')?'ok':'info')
+      tag(r.directorStatus, r.directorStatus.includes('Approved')?'ok':r.directorStatus.includes('Rejected')?'bad':'info'),
+      currentRole==='director' && r.directorStatus==='Pending Approval'
+        ? '<button class="small green" onclick="approveProcurement(\''+r.id+'\')">Approve</button> <button class="small red" onclick="rejectProcurement(\''+r.id+'\')">Reject</button>'
+        : ''
     ],
-    'No company goods received record yet.'
-  );
-
-  document.getElementById('producedGoodsTable').innerHTML = table(
-    db.producedGoods,
-    ['Date','ID','Location','Product','Qty','Unit','Condition','Confirmed By','Proof','Status'],
-    r => [
-      niceDate(r.date),
-      r.id,
-      esc(r.location),
-      esc(r.product),
-      num(r.quantity),
-      esc(r.unit),
-      esc(r.condition),
-      esc(r.confirmedBy),
-      proofLink(r),
-      tag(r.directorStatus, r.directorStatus.includes('Approved')?'ok':'info')
-    ],
-    'No produced goods record yet.'
-  );
-
-  document.getElementById('externalProcurementTable').innerHTML = table(
-    db.externalProcurements,
-    ['Date','ID','Reference','Customer Location','Supplier','Supplier Location','Material','Qty','Unit','Proof','Status'],
-    r => [
-      niceDate(r.date),
-      r.id,
-      esc(r.reference),
-      esc(r.customerLocation),
-      esc(r.supplier),
-      esc(r.supplierLocation),
-      esc(r.material),
-      num(r.quantity),
-      esc(r.unit),
-      proofLink(r),
-      tag(r.directorStatus, r.directorStatus.includes('Approved')?'ok':'info')
-    ],
-    'No external procurement record yet.'
-  );
-
-  document.getElementById('clientResaleTable').innerHTML = table(
-    db.clientResales,
-    ['Date','ID','Client','Phone','Location','Product','Qty','Unit','Terms','Status'],
-    r => [
-      niceDate(r.date),
-      r.id,
-      esc(r.client),
-      esc(r.phone),
-      esc(r.location),
-      esc(r.product),
-      num(r.quantity),
-      esc(r.unit),
-      esc(r.termsAccepted),
-      tag(r.status, r.status.includes('Rejected')?'bad':r.status.includes('Approved')?'ok':'info')
-    ],
-    'No client resale/return request yet.'
+    'No procurement record yet.'
   );
 }
 
-document.getElementById('logisticsUpdateForm').onsubmit = async function(e){
+function approveProcurement(idv){
+  if(!ensureDirector()) return;
+
+  const r = db.procurements.find(x=>x.id===idv);
+  if(!r) return;
+
+  r.directorStatus = 'Approved';
+  r.stockStatus = 'Stocked In';
+
+  const movementType = r.procurementType === 'Produced Goods Received' ? 'Produced Product' : 'Received Product';
+
+  if(r.procurementType !== 'Client Goods for Resale / Return Review'){
+    db.inventory.unshift({
+      id:id('inventory'),
+      date:r.date,
+      location:r.sourceLocation,
+      item:r.material,
+      type:movementType,
+      quantity:Number(r.quantity || 0),
+      unit:r.unit,
+      indicator:r.condition.includes('Damaged') || r.condition.includes('Shortage') ? 'Red - Damage / Shortage / Attention' : 'Normal',
+      note:'Auto stock-in from approved procurement '+r.id,
+      proofName:r.proofName,
+      proofData:r.proofData,
+      enteredBy:'Director Approval / Procurement',
+      createdAt:nowISO()
+    });
+  }
+
+  saveDB();
+}
+
+function rejectProcurement(idv){
+  if(!ensureDirector()) return;
+  const r = db.procurements.find(x=>x.id===idv);
+  if(!r) return;
+  r.directorStatus = 'Rejected / Query';
+  saveDB();
+}
+
+document.getElementById('logisticsWaybillSelect').onchange = function(){
+  fillLogisticsFromWaybill(this.value);
+};
+
+function fillLogisticsFromWaybill(wid){
+  const w = db.waybills.find(x=>x.id===wid);
+  if(!w) return;
+
+  const f = document.getElementById('logisticsForm');
+  f.deliveryLocation.value = w.location;
+}
+
+document.getElementById('logisticsForm').onsubmit = async function(e){
   e.preventDefault();
+
+  saveSignature('logCompanySigPad','logCompanySignatureData',false);
+  saveSignature('logDriverSigPad','logDriverSignatureData',false);
+  saveSignature('logCustomerSigPad','logCustomerSignatureData',false);
 
   const x = formObj(this);
   const w = db.waybills.find(w=>w.id===x.waybillId);
@@ -2831,25 +2616,84 @@ document.getElementById('logisticsUpdateForm').onsubmit = async function(e){
     products:w.products,
     status:x.deliveryStatus,
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
+    createdAt:nowISO(),
     proofName:proof.name,
     proofData:proof.data,
     ...x
   };
 
-  db.logisticsMovements.unshift(movement);
+  db.logistics.unshift(movement);
 
   w.logisticsStatus = x.deliveryStatus;
   w.status = x.deliveryStatus;
+  w.workflow = x.deliveryStatus;
+  w.latestLogisticsId = movement.id;
 
-  if(x.deliveryStatus === 'Loaded' || x.deliveryStatus === 'In Transit' || x.deliveryStatus.includes('Delivered')){
+  const inv = db.invoices.find(i=>i.id===w.invoiceId);
+  if(inv) inv.workflow = x.deliveryStatus;
+
+  if(x.deliveryStatus === 'Goods Dispatched' || x.deliveryStatus === 'In Transit' || x.deliveryStatus.includes('Delivered') || x.deliveryStatus.includes('Confirmed')){
     createInventorySalesOutFromWaybill(w, movement);
   }
 
+  if(x.deliveryStatus === 'Signed Waybill Uploaded' || x.deliveryStatus === 'Goods Confirmed and Supplied'){
+    w.status = 'Goods Confirmed and Supplied';
+    w.workflow = 'Goods Confirmed and Supplied';
+  }
+
+  if(x.deliveryStatus === 'Closed'){
+    w.caseStatus = 'Closed';
+    w.status = 'Closed';
+    w.workflow = 'Closed';
+  }
+
   this.reset();
+  clearSignature('logCompanySigPad','logCompanySignatureData');
+  clearSignature('logDriverSigPad','logDriverSignatureData');
+  clearSignature('logCustomerSigPad','logCustomerSignatureData');
   setDefaultDates();
   saveDB();
 };
+
+function dispatchWaybill(wid){
+  const w = db.waybills.find(x=>x.id===wid);
+  if(!w) return;
+
+  if(w.status === 'Pending Director Approval'){
+    alert('This waybill still requires Director approval before dispatch.');
+    return;
+  }
+
+  w.status = 'Goods Dispatched';
+  w.workflow = 'Goods Dispatched';
+  w.logisticsStatus = 'Goods Dispatched';
+  w.dispatchTime = new Date().toLocaleString();
+
+  const inv = db.invoices.find(i=>i.id===w.invoiceId);
+  if(inv) inv.workflow = 'Goods Dispatched';
+
+  createInventorySalesOutFromWaybill(w, {date:today(), deliveryLocation:w.location, id:'dispatch'});
+  saveDB();
+}
+
+function closeWaybillCase(wid){
+  const w = db.waybills.find(x=>x.id===wid);
+  if(!w) return;
+
+  if(!w.status.includes('Confirmed') && w.status !== 'Signed Waybill Uploaded'){
+    alert('Upload signed waybill or confirm supply before closing.');
+    return;
+  }
+
+  w.caseStatus = 'Closed';
+  w.status = 'Closed';
+  w.workflow = 'Closed';
+
+  const inv = db.invoices.find(i=>i.id===w.invoiceId);
+  if(inv) inv.workflow = 'Closed';
+
+  saveDB();
+}
 
 function createInventorySalesOutFromWaybill(w, movement){
   const inv = db.invoices.find(i=>i.id===w.invoiceId);
@@ -2858,8 +2702,8 @@ function createInventorySalesOutFromWaybill(w, movement){
   inv.lines.filter(l=>l.type==='Product').forEach(l=>{
     db.inventory.unshift({
       id:id('inventory'),
-      date:movement.date,
-      location:movement.deliveryLocation,
+      date:movement.date || today(),
+      location:movement.deliveryLocation || w.location,
       item:l.item,
       type:'Sales Out / Dispatched',
       quantity:Number(l.qty || 0),
@@ -2869,7 +2713,7 @@ function createInventorySalesOutFromWaybill(w, movement){
       proofName:'',
       proofData:'',
       enteredBy:'System / Logistics Dispatch',
-      createdAt:new Date().toISOString()
+      createdAt:nowISO()
     });
   });
 
@@ -2879,27 +2723,29 @@ function createInventorySalesOutFromWaybill(w, movement){
 function renderLogistics(){
   document.getElementById('deliveryJobsTable').innerHTML = table(
     db.waybills,
-    ['Date','Waybill','Invoice','Customer','Location','Delivery Time','Products','Status','Logistics Status','Action'],
+    ['Date','Waybill','Invoice','Customer','Location','Products','Status','Case','Actions'],
     w => [
       niceDate(w.date),
       w.id,
       w.invoiceId,
       esc(w.customer),
       esc(w.location),
-      esc(w.deliveryDate || '-')+' '+esc(w.deliveryTime || '')+' '+esc(w.deliveryPeriod || ''),
       esc(w.products).replace(/\n/g,'<br>'),
-      tag(w.status, w.status.includes('Pending')?'warn':'info'),
-      esc(w.logisticsStatus || '-'),
-      currentRole==='logistics' || currentRole==='director'
-        ? '<button class="small secondary" onclick="fillLogisticsFromWaybill(\''+w.id+'\')">Update</button>'
-        : ''
+      tag(w.status, w.status.includes('Pending')?'warn':w.status==='Closed'?'ok':'info'),
+      tag(w.caseStatus || 'Open', w.caseStatus==='Closed'?'ok':'info'),
+      (currentRole==='logistics' || currentRole==='director'
+        ? '<button class="small green" onclick="dispatchWaybill(\''+w.id+'\')">Dispatch</button> '+
+          '<button class="small secondary" onclick="showPage(\'logistics\');document.getElementById(\'logisticsWaybillSelect\').value=\''+w.id+'\';fillLogisticsFromWaybill(\''+w.id+'\')">Update</button> '+
+          '<button class="small blue" onclick="printDeliveryConfirmation(\''+w.id+'\')">Print Proof</button> '+
+          '<button class="small dark" onclick="closeWaybillCase(\''+w.id+'\')">Close Case</button>'
+        : '')
     ],
     'No delivery job assigned yet.'
   );
 
-  document.getElementById('logisticsMovementTable').innerHTML = table(
-    db.logisticsMovements,
-    ['Date','Movement','Waybill','Customer','Delivery Location','Loading Point','Driver','Truck','Capacity','Trips','Dispatch Time','Status','Proof'],
+  document.getElementById('logisticsTable').innerHTML = table(
+    db.logistics,
+    ['Date','Movement','Waybill','Customer','Delivery Location','Loading Point','Driver','Truck','Capacity','Trips','Status','Proof'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2911,113 +2757,10 @@ function renderLogistics(){
       esc(r.truckNumber),
       esc(r.vehicleCapacity),
       esc(r.tripCount),
-      esc(r.dispatchTime),
-      tag(r.status, r.status.includes('Pending')?'warn':r.status.includes('Closed')?'ok':'info'),
+      tag(r.status, r.status.includes('Closed') || r.status.includes('Confirmed')?'ok':'info'),
       proofLink(r)
     ],
     'No logistics movement record yet.'
-  );
-}
-
-function fillLogisticsFromWaybill(wid){
-  showPage('deliveryJobs');
-  const w = db.waybills.find(x=>x.id===wid);
-  if(!w) return;
-
-  const f = document.getElementById('logisticsUpdateForm');
-  f.waybillId.value = w.id;
-  f.deliveryLocation.value = w.location;
-}
-
-document.getElementById('inspectionForm').onsubmit = async function(e){
-  e.preventDefault();
-  const x = formObj(this);
-  const inspection = db.inspections.find(i=>i.id===x.inspectionId);
-
-  if(!inspection){
-    alert('Select a valid inspection job.');
-    return;
-  }
-
-  const proof = await readFile(this.proof.files[0]);
-
-  Object.assign(inspection,{
-    ...x,
-    status:'Inspection Submitted',
-    directorStatus:'Pending Review',
-    proofName:proof.name,
-    proofData:proof.data,
-    submittedAt:new Date().toISOString()
-  });
-
-  const resale = db.clientResales.find(r=>r.id===inspection.resaleId);
-  if(resale){
-    resale.status = 'Inspection Completed / Pending Approval';
-    resale.directorStatus = 'Pending Review';
-  }
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-function renderInspections(){
-  document.getElementById('inspectionTable').innerHTML = table(
-    db.inspections,
-    ['Date','Inspection','Client','Product','Claimed Qty','Location','Verified Qty','Condition','Recommendation','Proof','Status'],
-    r => [
-      niceDate(r.date),
-      r.id,
-      esc(r.client),
-      esc(r.product),
-      num(r.claimedQuantity)+' '+esc(r.unit),
-      esc(r.location),
-      r.verifiedQuantity ? num(r.verifiedQuantity) : '-',
-      esc(r.condition || '-'),
-      esc(r.recommendation || '-'),
-      proofLink(r),
-      tag(r.status, r.status && r.status.includes('Submitted')?'info':'warn')
-    ],
-    'No inspection job yet.'
-  );
-}
-
-document.getElementById('issueForm').onsubmit = async function(e){
-  e.preventDefault();
-  const x = formObj(this);
-  const proof = await readFile(this.proof.files[0]);
-
-  db.issues.unshift({
-    id:id('issue'),
-    status:'Submitted',
-    createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
-    proofName:proof.name,
-    proofData:proof.data,
-    ...x
-  });
-
-  this.reset();
-  setDefaultDates();
-  saveDB();
-};
-
-function renderIssues(){
-  document.getElementById('issueTable').innerHTML = table(
-    db.issues,
-    ['Date','Issue','Location','Reference','Type','Reported By','Proof','Status','Details'],
-    r => [
-      niceDate(r.date),
-      r.id,
-      esc(r.location),
-      esc(r.reference),
-      esc(r.issueType),
-      esc(r.reportedBy),
-      proofLink(r),
-      tag(r.status,'warn'),
-      esc(r.details)
-    ],
-    'No issue/field note yet.'
   );
 }
 
@@ -3028,7 +2771,7 @@ document.getElementById('followUpForm').onsubmit = function(e){
   db.followUps.unshift({
     id:id('followUp'),
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString(),
+    createdAt:nowISO(),
     ...x
   });
 
@@ -3049,7 +2792,7 @@ function renderFollowUps(){
       esc(r.type),
       tag(r.outcome, r.outcome.includes('Satisfied')?'ok':r.outcome.includes('Attention')?'bad':'info'),
       esc(r.handledBy),
-      esc(r.note)
+      esc(r.note || '-')
     ],
     'No follow-up record yet.'
   );
@@ -3059,15 +2802,11 @@ function renderDirectorDashboard(){
   if(!document.getElementById('directorMetrics')) return;
 
   const pendingPayments = db.payments.filter(p=>p.status==='Awaiting Director Confirmation').length;
-  const pendingWaybills = db.waybills.filter(w=>w.status==='Pending Approval').length;
-  const pendingProc = [
-    ...db.companyProcurements,
-    ...db.producedGoods,
-    ...db.externalProcurements
-  ].filter(r=>r.directorStatus==='Pending Approval').length;
-  const pendingInspections = db.inspections.filter(i=>i.directorStatus==='Pending Review').length;
+  const pendingWaybills = db.waybills.filter(w=>w.status==='Pending Director Approval').length;
+  const pendingProc = db.procurements.filter(r=>r.directorStatus==='Pending Approval').length;
   const redStock = db.inventory.filter(i=>i.indicator && i.indicator.includes('Red')).length;
-  const signedPending = db.logisticsMovements.filter(l=>l.status==='Delivered - Signed Waybill Pending').length;
+  const openCases = db.waybills.filter(w=>w.caseStatus !== 'Closed').length;
+  const closedCases = db.waybills.filter(w=>w.caseStatus === 'Closed').length;
 
   document.getElementById('directorMetrics').innerHTML = [
     ['Quotes',db.quotes.length],
@@ -3075,22 +2814,53 @@ function renderDirectorDashboard(){
     ['Payments Pending',pendingPayments],
     ['Waybills Pending',pendingWaybills],
     ['Procurement Pending',pendingProc],
-    ['Inspections Pending',pendingInspections],
     ['Stock Red Flags',redStock],
-    ['Signed Waybills Pending',signedPending]
+    ['Open Delivery Cases',openCases],
+    ['Closed Cases',closedCases]
   ].map(m=>'<div class="metric"><span>'+m[0]+'</span><strong>'+m[1]+'</strong></div>').join('');
 
   const alerts = [];
-  db.payments.filter(p=>p.status==='Awaiting Director Confirmation').forEach(p=>alerts.push(['Payment Confirmation',p.id,p.customer,p.location,p.amount]));
-  db.waybills.filter(w=>w.status==='Pending Approval').forEach(w=>alerts.push(['Waybill / Supply Approval',w.id,w.customer,w.location,w.logisticsFee]));
-  db.inventory.filter(i=>i.indicator && i.indicator.includes('Red')).forEach(i=>alerts.push(['Stock Red Flag',i.id,i.item,i.location,i.quantity]));
-  db.inspections.filter(i=>i.directorStatus==='Pending Review').forEach(i=>alerts.push(['Inspection Review',i.id,i.client,i.location,i.verifiedQuantity || 0]));
+  db.payments.filter(p=>p.status==='Awaiting Director Confirmation').forEach(p=>alerts.push(['Payment Confirmation',p.id,p.customer,p.location,money(p.totalReceived)]));
+  db.waybills.filter(w=>w.status==='Pending Director Approval').forEach(w=>alerts.push(['Waybill / Supply Approval',w.id,w.customer,w.location,money(w.logisticsFee)]));
+  db.procurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>alerts.push(['Procurement Approval',r.id,r.material,r.sourceLocation,num(r.quantity)+' '+r.unit]));
+  db.inventory.filter(i=>i.indicator && i.indicator.includes('Red')).forEach(i=>alerts.push(['Stock Red Flag',i.id,i.item,i.location,num(i.quantity)+' '+i.unit]));
 
   document.getElementById('directorAlerts').innerHTML = table(
     alerts,
     ['Type','Reference','Name / Item','Location','Amount / Qty'],
-    a => [esc(a[0]),esc(a[1]),esc(a[2]),esc(a[3]),typeof a[4]==='number'?num(a[4]):esc(a[4])],
+    a => [esc(a[0]),esc(a[1]),esc(a[2]),esc(a[3]),esc(a[4])],
     'No urgent Director alert at the moment.'
+  );
+}
+
+function renderWorkflow(){
+  const rows = db.invoices.map(inv=>{
+    const quote = db.quotes.find(q=>q.id===inv.quoteId);
+    const payments = db.payments.filter(p=>p.invoiceId===inv.id);
+    const waybill = db.waybills.find(w=>w.invoiceId===inv.id);
+
+    return {
+      invoice:inv,
+      quote,
+      paymentStatus:payments.length ? payments[0].status : 'No Payment Yet',
+      waybillStatus:waybill ? waybill.status : 'No Waybill Yet',
+      caseStatus:waybill ? (waybill.caseStatus || 'Open') : '-'
+    };
+  });
+
+  document.getElementById('workflowTable').innerHTML = table(
+    rows,
+    ['Invoice','Customer','Quote','Invoice Status','Payment','Waybill / Dispatch','Case'],
+    r => [
+      r.invoice.id,
+      esc(r.invoice.customer),
+      r.quote ? r.quote.id+'<br>'+esc(r.quote.status) : '-',
+      tag(r.invoice.status,'info'),
+      tag(r.paymentStatus, r.paymentStatus.includes('Confirmed')?'ok':r.paymentStatus.includes('Rejected')?'bad':'warn'),
+      tag(r.waybillStatus, r.waybillStatus==='Closed'?'ok':r.waybillStatus.includes('Pending')?'warn':'info'),
+      tag(r.caseStatus, r.caseStatus==='Closed'?'ok':'info')
+    ],
+    'No workflow record yet.'
   );
 }
 
@@ -3123,14 +2893,14 @@ function renderApprovals(){
       date:p.date,
       name:p.customer,
       location:p.location,
-      detail:money(p.amount)+' — '+p.method,
-      proof:proofLink(p),
+      detail:money(p.totalReceived)+' — '+paymentMethodLabel(p),
+      proof:'Transfer: '+proofLink(p,'transfer')+'<br>POS: '+proofLink(p,'pos'),
       approve:`approvePayment('${p.id}')`,
       reject:`rejectPayment('${p.id}')`
     });
   });
 
-  db.waybills.filter(w=>w.status==='Pending Approval').forEach(w=>{
+  db.waybills.filter(w=>w.status==='Pending Director Approval').forEach(w=>{
     rows.push({
       type:'Waybill / Supply Approval',
       id:w.id,
@@ -3144,59 +2914,17 @@ function renderApprovals(){
     });
   });
 
-  db.companyProcurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
+  db.procurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
     rows.push({
-      type:'Company Goods Stock-In Approval',
+      type:'Procurement Approval',
       id:r.id,
       date:r.date,
       name:r.material,
       location:r.sourceLocation,
-      detail:'Qty '+num(r.quantity)+' '+r.unit+' | Condition: '+r.condition,
+      detail:r.procurementType+' | Qty '+num(r.quantity)+' '+r.unit+' | Condition: '+r.condition,
       proof:proofLink(r),
-      approve:`approveCompanyProcurement('${r.id}')`,
-      reject:`rejectCompanyProcurement('${r.id}')`
-    });
-  });
-
-  db.producedGoods.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
-    rows.push({
-      type:'Produced Goods Approval',
-      id:r.id,
-      date:r.date,
-      name:r.product,
-      location:r.location,
-      detail:'Qty '+num(r.quantity)+' '+r.unit+' | Condition: '+r.condition,
-      proof:proofLink(r),
-      approve:`approveProducedGoods('${r.id}')`,
-      reject:`rejectProducedGoods('${r.id}')`
-    });
-  });
-
-  db.externalProcurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
-    rows.push({
-      type:'External Procurement Approval',
-      id:r.id,
-      date:r.date,
-      name:r.material,
-      location:r.supplierLocation,
-      detail:'Supplier: '+r.supplier+' | Qty '+num(r.quantity)+' '+r.unit,
-      proof:proofLink(r),
-      approve:`approveExternalProcurement('${r.id}')`,
-      reject:`rejectExternalProcurement('${r.id}')`
-    });
-  });
-
-  db.inspections.filter(r=>r.directorStatus==='Pending Review').forEach(r=>{
-    rows.push({
-      type:'Inspection / Client Goods Resale Review',
-      id:r.id,
-      date:r.date,
-      name:r.client,
-      location:r.location,
-      detail:'Product: '+r.product+' | '+r.condition+' | '+r.recommendation,
-      proof:proofLink(r),
-      approve:`approveInspection('${r.id}')`,
-      reject:`rejectInspection('${r.id}')`
+      approve:`approveProcurement('${r.id}')`,
+      reject:`rejectProcurement('${r.id}')`
     });
   });
 
@@ -3223,6 +2951,7 @@ function approveWaybill(idv){
   const r = db.waybills.find(x=>x.id===idv);
   if(!r) return;
   r.status = 'Approved / Forwarded to Logistics';
+  r.workflow = 'Approved for Dispatch';
   saveDB();
 }
 function rejectWaybill(idv){
@@ -3230,115 +2959,7 @@ function rejectWaybill(idv){
   const r = db.waybills.find(x=>x.id===idv);
   if(!r) return;
   r.status = 'Rejected / Query';
-  saveDB();
-}
-function approveCompanyProcurement(idv){
-  if(!ensureDirector()) return;
-  const r = db.companyProcurements.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Approved for Stock-In';
-  r.stockStatus = 'Stocked In';
-
-  db.inventory.unshift({
-    id:id('inventory'),
-    date:r.date,
-    location:r.sourceLocation,
-    item:r.material,
-    type:'Received Product',
-    quantity:Number(r.quantity || 0),
-    unit:r.unit,
-    indicator:r.condition.includes('Damaged') || r.condition.includes('Shortage') ? 'Red - Damage / Shortage / Attention' : 'Normal',
-    note:'Auto stock-in from approved procurement '+r.id,
-    proofName:r.proofName,
-    proofData:r.proofData,
-    enteredBy:'Director Approval / Procurement',
-    createdAt:new Date().toISOString()
-  });
-
-  saveDB();
-}
-function rejectCompanyProcurement(idv){
-  if(!ensureDirector()) return;
-  const r = db.companyProcurements.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Rejected / Query';
-  saveDB();
-}
-function approveProducedGoods(idv){
-  if(!ensureDirector()) return;
-  const r = db.producedGoods.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Approved for Stock-In';
-
-  db.inventory.unshift({
-    id:id('inventory'),
-    date:r.date,
-    location:r.location,
-    item:r.product,
-    type:'Produced Product',
-    quantity:Number(r.quantity || 0),
-    unit:r.unit,
-    indicator:r.condition.includes('Damage') ? 'Red - Damage / Shortage / Attention' : 'Normal',
-    note:'Auto stock-in from approved produced goods '+r.id,
-    proofName:r.proofName,
-    proofData:r.proofData,
-    enteredBy:'Director Approval / Production Output',
-    createdAt:new Date().toISOString()
-  });
-
-  saveDB();
-}
-function rejectProducedGoods(idv){
-  if(!ensureDirector()) return;
-  const r = db.producedGoods.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Rejected / Query';
-  saveDB();
-}
-function approveExternalProcurement(idv){
-  if(!ensureDirector()) return;
-  const r = db.externalProcurements.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Approved to Source / Proceed';
-  saveDB();
-}
-function rejectExternalProcurement(idv){
-  if(!ensureDirector()) return;
-  const r = db.externalProcurements.find(x=>x.id===idv);
-  if(!r) return;
-  r.directorStatus = 'Rejected / Query';
-  saveDB();
-}
-function approveInspection(idv){
-  if(!ensureDirector()) return;
-  const r = db.inspections.find(x=>x.id===idv);
-  if(!r) return;
-
-  r.directorStatus = 'Approved for Procurement / Resale';
-  r.status = 'Approved After Inspection';
-
-  const resale = db.clientResales.find(x=>x.id===r.resaleId);
-  if(resale){
-    resale.status = 'Approved for Resale / Procurement Officer to Proceed';
-    resale.directorStatus = 'Approved';
-  }
-
-  saveDB();
-}
-function rejectInspection(idv){
-  if(!ensureDirector()) return;
-  const r = db.inspections.find(x=>x.id===idv);
-  if(!r) return;
-
-  r.directorStatus = 'Rejected';
-  r.status = 'Rejected After Inspection';
-
-  const resale = db.clientResales.find(x=>x.id===r.resaleId);
-  if(resale){
-    resale.status = 'Rejected After Inspection';
-    resale.directorStatus = 'Rejected';
-  }
-
+  r.workflow = 'Waybill Rejected';
   saveDB();
 }
 
@@ -3349,6 +2970,7 @@ Date: ${niceDate(inv.date)}
 Customer: ${inv.customer}
 Phone: ${inv.phone}
 Location: ${inv.location}
+Site Contact: ${inv.siteContact || '-'} ${inv.sitePhone || ''}
 Delivery: ${inv.deliveryDate || '-'} ${inv.deliveryTime || ''} ${inv.deliveryPeriod || ''}
 
 Items:
@@ -3409,6 +3031,7 @@ function printInvoice(idv){
     <b>Phone:</b> ${esc(inv.phone)}<br>
     <b>Email:</b> ${esc(inv.email || '-')}<br>
     <b>Delivery / Project Location:</b> ${esc(inv.location)}<br>
+    <b>Site Contact:</b> ${esc(inv.siteContact || '-')} ${esc(inv.sitePhone || '')}<br>
     <b>Delivery Time:</b> ${esc(inv.deliveryDate || '-')} ${esc(inv.deliveryTime || '')} ${esc(inv.deliveryPeriod || '')}<br>
     <b>Date:</b> ${niceDate(inv.date)}</p>
 
@@ -3426,7 +3049,7 @@ function printInvoice(idv){
     </table>
 
     <p><b>Note:</b> ${esc(inv.note || '-')}</p>
-    <p style="margin-top:40px">Prepared By: ${esc(inv.createdBy)} &nbsp;&nbsp; Signature: ____________________</p>
+    ${signatureBlock('Officer Signature', inv.officerName, inv.typedSignature, inv.officerSignatureData)}
   `);
 
   printWin(html,'Invoice '+inv.id);
@@ -3448,7 +3071,7 @@ function printReceipt(idv){
       <tr><th>Method</th><td>${esc(r.method)}</td></tr>
       <tr><th>Status</th><td>${esc(r.status)}</td></tr>
     </table>
-    <p style="margin-top:40px">Authorized Signature: ____________________</p>
+    ${signatureBlock('Officer Signature', r.officerName, r.typedSignature, r.officerSignatureData)}
   `);
 
   printWin(html,'Receipt '+r.id);
@@ -3458,35 +3081,83 @@ function printWaybill(idv){
   const w = db.waybills.find(x=>x.id===idv);
   if(!w) return;
 
+  const latest = db.logistics.find(l=>l.id===w.latestLogisticsId) || {};
+
   const html = docShell('WAYBILL / DELIVERY INSTRUCTION', w.id, `
     <table>
       <tr><th>Date</th><td>${niceDate(w.date)}</td></tr>
       <tr><th>Invoice</th><td>${esc(w.invoiceId)}</td></tr>
       <tr><th>Customer</th><td>${esc(w.customer)}</td></tr>
       <tr><th>Phone</th><td>${esc(w.phone)}</td></tr>
+      <tr><th>Site Contact</th><td>${esc(w.siteContact || '-')} ${esc(w.sitePhone || '')}</td></tr>
       <tr><th>Delivery Location</th><td>${esc(w.location)}</td></tr>
       <tr><th>Delivery Time</th><td>${esc(w.deliveryDate || '-')} ${esc(w.deliveryTime || '')} ${esc(w.deliveryPeriod || '')}</td></tr>
       <tr><th>Products</th><td>${esc(w.products).replace(/\n/g,'<br>')}</td></tr>
       <tr><th>Supply Status</th><td>${esc(w.supplyStatus)}</td></tr>
       <tr><th>Logistics Fee</th><td>${money(w.logisticsFee)}</td></tr>
-      <tr><th>Delivery Instruction</th><td>${esc(w.instruction)}</td></tr>
-      <tr><th>Prepared By</th><td>${esc(w.preparedBy)}</td></tr>
+      <tr><th>Delivery Instruction</th><td>${esc(w.instruction || '-')}</td></tr>
       <tr><th>Status</th><td>${esc(w.status)}</td></tr>
     </table>
-    <p style="margin-top:40px">Driver Signature: ____________________</p>
-    <p>Customer/Site Receiver Signature: ____________________ Date: ____________________</p>
+
+    ${signatureBlock('Company / Officer Signature', w.officerName, w.typedSignature, w.officerSignatureData)}
+    ${signatureBlock('Driver Signature', latest.driverSigner || latest.driver, '', latest.driverSignatureData)}
+    ${signatureBlock('Customer / Site Receiver Signature', latest.customerSigner || '', '', latest.customerSignatureData)}
   `);
 
   printWin(html,'Waybill '+w.id);
+}
+
+function printDeliveryConfirmation(wid){
+  const w = db.waybills.find(x=>x.id===wid);
+  if(!w) return;
+
+  const latest = db.logistics.find(l=>l.id===w.latestLogisticsId) || {};
+
+  const html = docShell('DELIVERY CONFIRMATION / PROOF', w.id, `
+    <table>
+      <tr><th>Waybill</th><td>${esc(w.id)}</td></tr>
+      <tr><th>Invoice</th><td>${esc(w.invoiceId)}</td></tr>
+      <tr><th>Customer</th><td>${esc(w.customer)}</td></tr>
+      <tr><th>Delivery Location</th><td>${esc(w.location)}</td></tr>
+      <tr><th>Products Supplied</th><td>${esc(w.products).replace(/\n/g,'<br>')}</td></tr>
+      <tr><th>Driver</th><td>${esc(latest.driver || '-')} ${esc(latest.driverPhone || '')}</td></tr>
+      <tr><th>Truck</th><td>${esc(latest.truckNumber || '-')}</td></tr>
+      <tr><th>Vehicle Capacity</th><td>${esc(latest.vehicleCapacity || '-')}</td></tr>
+      <tr><th>Trips / Movements</th><td>${esc(latest.tripCount || '-')}</td></tr>
+      <tr><th>Dispatch Time</th><td>${esc(latest.dispatchTime || w.dispatchTime || '-')}</td></tr>
+      <tr><th>Delivery Status</th><td>${esc(w.status)}</td></tr>
+      <tr><th>Case Status</th><td>${esc(w.caseStatus || 'Open')}</td></tr>
+    </table>
+
+    ${signatureBlock('Company / Officer Signature', latest.companySigner || '', '', latest.companySignatureData)}
+    ${signatureBlock('Driver Signature', latest.driverSigner || latest.driver || '', '', latest.driverSignatureData)}
+    ${signatureBlock('Customer / Site Receiver Signature', latest.customerSigner || '', '', latest.customerSignatureData)}
+  `);
+
+  printWin(html,'Delivery Confirmation '+w.id);
+}
+
+function signatureBlock(title,name,typed,img){
+  return `
+    <div style="margin-top:25px;border:1px solid #bbb;padding:12px;border-radius:10px">
+      <b>${esc(title)}</b><br>
+      Name: ${esc(name || '-') }<br>
+      Typed Signature: ${esc(typed || '-') }<br>
+      ${img ? `<img src="${img}" style="max-width:260px;max-height:100px;margin-top:8px;border:1px solid #ddd">` : '<br><br>Signature: __________________________'}
+    </div>
+  `;
 }
 
 function docShell(title, ref, body){
   return `
     <div class="print-doc">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:4px solid #1d4f91;padding-bottom:14px;margin-bottom:20px">
-        <div>
-          <h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:40px">FTH D-UNIQ</h1>
-          <b>${title}</b>
+        <div style="display:flex;gap:12px;align-items:center">
+          <img src="${LOGO_SRC}" onerror="this.style.display='none'" style="width:70px;height:70px;object-fit:contain">
+          <div>
+            <h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:40px">FTH D-UNIQ</h1>
+            <b>${title}</b>
+          </div>
         </div>
         <div style="text-align:right">
           <b>${ref}</b><br>
@@ -3532,19 +3203,12 @@ function buildDailyReportHtml(){
   const confirmedPayments = payments.filter(x=>x.status==='Confirmed by Director');
   const inventory = db.inventory.filter(x=>x.date===d);
   const waybills = db.waybills.filter(x=>x.date===d);
-  const procurement = [
-    ...db.companyProcurements.filter(x=>x.date===d),
-    ...db.producedGoods.filter(x=>x.date===d),
-    ...db.externalProcurements.filter(x=>x.date===d),
-    ...db.clientResales.filter(x=>x.date===d)
-  ];
-  const logistics = db.logisticsMovements.filter(x=>x.date===d);
-  const inspections = db.inspections.filter(x=>x.date===d);
-  const issues = db.issues.filter(x=>x.date===d);
+  const procurement = db.procurements.filter(x=>x.date===d);
+  const logistics = db.logistics.filter(x=>x.date===d);
   const followUps = db.followUps.filter(x=>x.date===d);
 
   const salesValue = invoices.reduce((a,b)=>a+Number(b.total || 0),0);
-  const paidValue = confirmedPayments.reduce((a,b)=>a+Number(b.amount || 0),0);
+  const paidValue = confirmedPayments.reduce((a,b)=>a+Number(b.totalReceived || 0),0);
   const outstanding = db.invoices.reduce((a,b)=>a+Number(b.balance || 0),0);
 
   const productSummary = {};
@@ -3568,10 +3232,8 @@ function buildDailyReportHtml(){
       <tr><th>Total Confirmed Payment</th><td>${money(paidValue)}</td></tr>
       <tr><th>Total Outstanding Balance</th><td>${money(outstanding)}</td></tr>
       <tr><th>Waybills Created</th><td>${waybills.length}</td></tr>
-      <tr><th>Procurement / Resale Records</th><td>${procurement.length}</td></tr>
+      <tr><th>Procurement Records</th><td>${procurement.length}</td></tr>
       <tr><th>Logistics Movements</th><td>${logistics.length}</td></tr>
-      <tr><th>Inspections</th><td>${inspections.length}</td></tr>
-      <tr><th>Issues / Field Notes</th><td>${issues.length}</td></tr>
     </table>
 
     <h2>Product Sales Summary</h2>
@@ -3579,44 +3241,30 @@ function buildDailyReportHtml(){
       esc(r.item),num(r.qty),esc(r.unit),money(r.value)
     ],'No product sales for this date.')}
 
-    <h2>Quote Records</h2>
-    ${table(quotes,['Quote','Customer','Location','Material','Qty / Unit','Source','Status'],r=>[
-      r.id,esc(r.customer),esc(r.location),esc(r.material),esc(r.quantity)+' '+esc(r.unit),esc(r.source),esc(r.status)
-    ],'No quotes for this date.')}
-
     <h2>Payment Summary</h2>
-    ${table(payments,['Payment','Customer','Location','Amount','Method','Status'],r=>[
-      r.id,esc(r.customer),esc(r.location),money(r.amount),esc(r.method),esc(r.status)
+    ${table(payments,['Payment','Customer','Location','Amount','Status'],r=>[
+      r.id,esc(r.customer),esc(r.location),money(r.totalReceived),esc(r.status)
     ],'No payments for this date.')}
 
     <h2>Inventory Movement</h2>
     ${table(inventory,['ID','Location','Item','Movement','Qty','Unit','Indicator','Note'],r=>[
-      r.id,esc(r.location),esc(r.item),esc(r.type),num(r.quantity),esc(r.unit),esc(r.indicator),esc(r.note)
+      r.id,esc(r.location),esc(r.item),esc(r.type),num(r.quantity),esc(r.unit),esc(r.indicator),esc(r.note || '-')
     ],'No inventory movement for this date.')}
 
     <h2>Waybill / Delivery Summary</h2>
-    ${table(waybills,['Waybill','Customer','Location','Delivery Time','Products','Status'],r=>[
-      r.id,esc(r.customer),esc(r.location),esc(r.deliveryDate || '-')+' '+esc(r.deliveryTime || '')+' '+esc(r.deliveryPeriod || ''),esc(r.products).replace(/\n/g,'<br>'),esc(r.status)
+    ${table(waybills,['Waybill','Customer','Location','Products','Status','Case'],r=>[
+      r.id,esc(r.customer),esc(r.location),esc(r.products).replace(/\n/g,'<br>'),esc(r.status),esc(r.caseStatus || 'Open')
     ],'No waybills for this date.')}
 
-    <h2>Logistics / Inspection Summary</h2>
+    <h2>Logistics Movement</h2>
     ${table(logistics,['Movement','Waybill','Delivery Location','Driver','Truck','Status'],r=>[
       r.id,r.waybillId,esc(r.deliveryLocation),esc(r.driver),esc(r.truckNumber),esc(r.status)
     ],'No logistics movement for this date.')}
 
-    <h2>Procurement / Resale Summary</h2>
-    ${table(procurement,['Reference','Type','Name / Product','Location','Status'],r=>[
-      r.id || '-',
-      r.supplier ? 'Company / External Procurement' : r.client ? 'Client Goods Resale' : 'Produced Goods',
-      esc(r.material || r.product || r.client || '-'),
-      esc(r.sourceLocation || r.location || r.customerLocation || '-'),
-      esc(r.directorStatus || r.status || '-')
-    ],'No procurement/resale record for this date.')}
-
-    <h2>Issues / Field Notes</h2>
-    ${table(issues,['Issue','Location','Reference','Type','Details'],r=>[
-      r.id,esc(r.location),esc(r.reference),esc(r.issueType),esc(r.details)
-    ],'No issue recorded for this date.')}
+    <h2>Procurement Summary</h2>
+    ${table(procurement,['Reference','Type','Product','Location','Qty','Status'],r=>[
+      r.id,esc(r.procurementType),esc(r.material),esc(r.sourceLocation),num(r.quantity)+' '+esc(r.unit),esc(r.directorStatus)
+    ],'No procurement record for this date.')}
 
     <h2>Client Follow-Up</h2>
     ${table(followUps,['Reference','Location','Type','Outcome','Handled By'],r=>[
@@ -3645,7 +3293,7 @@ function submitDailyReportToDirector(){
     role:currentRole,
     status:'Submitted to Director',
     html:currentReportHtml,
-    createdAt:new Date().toISOString()
+    createdAt:nowISO()
   });
 
   saveDB();
@@ -3673,17 +3321,11 @@ function generateMonthlyReport(){
   const payments = db.payments.filter(startsWithMonth);
   const confirmedPayments = payments.filter(x=>x.status==='Confirmed by Director');
   const inventory = db.inventory.filter(startsWithMonth);
-  const procurement = [
-    ...db.companyProcurements.filter(startsWithMonth),
-    ...db.producedGoods.filter(startsWithMonth),
-    ...db.externalProcurements.filter(startsWithMonth),
-    ...db.clientResales.filter(startsWithMonth)
-  ];
-  const logistics = db.logisticsMovements.filter(startsWithMonth);
-  const issues = db.issues.filter(startsWithMonth);
+  const procurement = db.procurements.filter(startsWithMonth);
+  const logistics = db.logistics.filter(startsWithMonth);
 
   const salesValue = invoices.reduce((a,b)=>a+Number(b.total || 0),0);
-  const paidValue = confirmedPayments.reduce((a,b)=>a+Number(b.amount || 0),0);
+  const paidValue = confirmedPayments.reduce((a,b)=>a+Number(b.totalReceived || 0),0);
   const outstanding = db.invoices.reduce((a,b)=>a+Number(b.balance || 0),0);
   const logisticsIncome = invoices.reduce((a,b)=>a+Number(b.logisticsTotal || 0),0);
 
@@ -3697,9 +3339,8 @@ function generateMonthlyReport(){
       <tr><th>Outstanding Balance</th><td>${money(outstanding)}</td></tr>
       <tr><th>Logistics Fee Income Captured</th><td>${money(logisticsIncome)}</td></tr>
       <tr><th>Total Invoices</th><td>${invoices.length}</td></tr>
-      <tr><th>Procurement / Resale Records</th><td>${procurement.length}</td></tr>
+      <tr><th>Procurement Records</th><td>${procurement.length}</td></tr>
       <tr><th>Logistics Movements</th><td>${logistics.length}</td></tr>
-      <tr><th>Issues / Field Notes</th><td>${issues.length}</td></tr>
     </table>
 
     <h2>Current Closing Stock Position</h2>
@@ -3714,11 +3355,6 @@ function generateMonthlyReport(){
     ${table(inventory,['Date','Item','Location','Movement','Qty','Unit','Indicator'],r=>[
       niceDate(r.date),esc(r.item),esc(r.location),esc(r.type),num(r.quantity),esc(r.unit),esc(r.indicator)
     ],'No inventory movement for this month.')}
-
-    <h2>Pending Issues</h2>
-    ${table(issues,['Date','Reference','Location','Type','Details'],r=>[
-      niceDate(r.date),esc(r.reference),esc(r.location),esc(r.issueType),esc(r.details)
-    ],'No issue recorded for this month.')}
 
     <p style="margin-top:40px">Director Monthly Review: ____________________ Date: ____________________</p>
   `);
@@ -3742,7 +3378,7 @@ function archiveCurrentReport(){
     title:currentReportTitle || 'FTH D-UNIQ Report',
     html:currentReportHtml,
     createdBy:roleNames[currentRole],
-    createdAt:new Date().toISOString()
+    createdAt:nowISO()
   });
 
   saveDB();
@@ -3775,7 +3411,6 @@ function printArchive(idv){
 
 function directorClearGroup(group){
   if(!ensureDirector()) return;
-
   if(!confirm('Archive and clear selected active dashboard data?')) return;
 
   const archive = {
@@ -3783,7 +3418,7 @@ function directorClearGroup(group){
     date:today(),
     title:'Cleared Data Archive - '+group+' - '+new Date().toLocaleString(),
     createdBy:'Director',
-    createdAt:new Date().toISOString(),
+    createdAt:nowISO(),
     html:''
   };
 
@@ -3806,34 +3441,111 @@ function directorClearGroup(group){
   }
 
   if(group === 'procurement' || group === 'all'){
-    archive.html += '<h2>Procurement Cleared Data</h2><pre>'+esc(JSON.stringify({
-      companyProcurements:db.companyProcurements,
-      producedGoods:db.producedGoods,
-      externalProcurements:db.externalProcurements,
-      clientResales:db.clientResales
-    },null,2))+'</pre>';
-
-    db.companyProcurements = [];
-    db.producedGoods = [];
-    db.externalProcurements = [];
-    db.clientResales = [];
+    archive.html += '<h2>Procurement Cleared Data</h2><pre>'+esc(JSON.stringify({procurements:db.procurements},null,2))+'</pre>';
+    db.procurements = [];
   }
 
   if(group === 'logistics' || group === 'all'){
-    archive.html += '<h2>Logistics / Inspection Cleared Data</h2><pre>'+esc(JSON.stringify({
-      logisticsMovements:db.logisticsMovements,
-      inspections:db.inspections,
-      issues:db.issues
-    },null,2))+'</pre>';
-
-    db.logisticsMovements = [];
-    db.inspections = [];
-    db.issues = [];
+    archive.html += '<h2>Logistics Cleared Data</h2><pre>'+esc(JSON.stringify({logistics:db.logistics},null,2))+'</pre>';
+    db.logistics = [];
   }
 
   db.archives.unshift(archive);
   saveDB();
   alert('Selected dashboard data has been archived and cleared.');
+}
+
+function initAllSignaturePads(){
+  [
+    'invoiceOfficerSigPad',
+    'paymentOfficerSigPad',
+    'waybillOfficerSigPad',
+    'logCompanySigPad',
+    'logDriverSigPad',
+    'logCustomerSigPad'
+  ].forEach(setupSignaturePad);
+}
+
+function setupSignaturePad(canvasId){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas || canvas.dataset.ready === 'yes') return;
+
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+
+  function resizeCanvas(){
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const rect = canvas.getBoundingClientRect();
+    const old = canvas.toDataURL();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#1d1714';
+
+    if(old && old.length > 100){
+      const img = new Image();
+      img.onload = function(){ctx.drawImage(img,0,0,rect.width,rect.height)}
+      img.src = old;
+    }
+  }
+
+  function pos(e){
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return {x:t.clientX - rect.left, y:t.clientY - rect.top};
+  }
+
+  function start(e){
+    e.preventDefault();
+    drawing = true;
+    const p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+  }
+
+  function draw(e){
+    if(!drawing) return;
+    e.preventDefault();
+    const p = pos(e);
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+  }
+
+  function stop(){drawing = false}
+
+  setTimeout(resizeCanvas,100);
+
+  canvas.addEventListener('mousedown',start);
+  canvas.addEventListener('mousemove',draw);
+  canvas.addEventListener('mouseup',stop);
+  canvas.addEventListener('mouseleave',stop);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',draw,{passive:false});
+  canvas.addEventListener('touchend',stop);
+
+  canvas.dataset.ready = 'yes';
+}
+
+function clearSignature(canvasId,inputId){
+  const canvas = document.getElementById(canvasId);
+  const input = document.getElementById(inputId);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(input) input.value = '';
+}
+
+function saveSignature(canvasId,inputId,showAlert=true){
+  const canvas = document.getElementById(canvasId);
+  const input = document.getElementById(inputId);
+  if(!canvas || !input) return;
+
+  input.value = canvas.toDataURL('image/png');
+  if(showAlert) alert('Signature saved.');
 }
 
 const oldRole = sessionStorage.getItem('fth_role');
