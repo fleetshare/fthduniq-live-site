@@ -180,99 +180,130 @@
       </div>
     </section>
 
-    <section id="quote-form" class="section home-quote-section">
-      <div class="container">
-        <div class="section-label">Request a Quote</div>
+    <section id="request-quote" class="section quote-section">
+  <div class="container">
+    <div class="quote-card panel-card">
+      <div class="eyebrow"><span></span> REQUEST A QUOTE</div>
+      <h2>Request Building Materials, Procurement or Logistics Support</h2>
+      <p>
+        Fill in your request details and our team will review your material, quantity, delivery location and timeline.
+      </p>
 
-        <h2 class="section-title compact-title">
-          Tell us what you need and where it should be delivered.
-        </h2>
+      <form id="quoteRequestForm" class="quote-form" action="/api/quote-email" method="POST">
+        <input type="hidden" name="form_source" value="Homepage Quote Request">
+        <input type="hidden" name="quote_lines" id="quote_lines">
 
-        <p class="section-intro">
-          For material prices, delivery support, procurement requests, or project coordination, complete the form below so we can review your request properly.
-        </p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="full_name">Full Name</label>
+            <input id="full_name" name="full_name" type="text" required>
+          </div>
 
-        <div class="quote-form-card card">
-          <form id="quoteRequestForm" novalidate>
-            <input type="hidden" name="form_source" value="Homepage Quote Request">
-            <input type="hidden" name="subject" value="New Quote Request from FTH D-UNIQ Website">
+          <div class="form-field">
+            <label for="phone_number">Phone Number / WhatsApp</label>
+            <input id="phone_number" name="phone_number" type="tel" required>
+          </div>
 
-            <div class="quote-form-grid">
-              <div class="form-field">
-                <label for="full-name">Full Name</label>
-                <input id="full-name" type="text" name="full_name" placeholder="Enter your full name" required>
-              </div>
+          <div class="form-field">
+            <label for="email_address">Email Address</label>
+            <input id="email_address" name="email_address" type="email">
+          </div>
 
-              <div class="form-field">
-                <label for="phone-number">Phone / WhatsApp Number</label>
-                <input id="phone-number" type="tel" name="phone_number" placeholder="Enter your phone number" required>
-              </div>
+          <div class="form-field">
+            <label for="date_of_order">Date of Order</label>
+            <input id="date_of_order" name="date_of_order" type="date" required>
+          </div>
 
-              <div class="form-field">
-                <label for="email-address">Email Address</label>
-                <input id="email-address" type="email" name="email_address" placeholder="Enter your email address">
-              </div>
+          <div class="form-field">
+            <label for="delivery_location">Delivery / Project Location</label>
+            <input id="delivery_location" name="delivery_location" type="text" required>
+          </div>
 
-              <div class="form-field">
-                <label for="location">Delivery / Project Location</label>
-                <input id="location" type="text" name="delivery_location" placeholder="Example: Lekki, Ajah, Ikorodu, etc." required>
-              </div>
+          <div class="form-field">
+            <label for="site_contact_person">Site Contact Person</label>
+            <input id="site_contact_person" name="site_contact_person" type="text" required>
+          </div>
 
-              <div class="form-field">
-                <label for="material-needed">Material / Service Needed</label>
-                <select id="material-needed" name="material_or_service_needed" required>
-                  <option value="">Select material or service</option>
-                  <option value="Cement Supply">Cement Supply</option>
-                  <option value="Blocks">Blocks</option>
-                  <option value="Sand">Sand</option>
-                  <option value="Granite">Granite</option>
-                  <option value="Interlocking Stones">Interlocking Stones</option>
-                  <option value="Kerbs">Kerbs</option>
-                  <option value="Building Materials Supply">Building Materials Supply</option>
-                  <option value="Procurement Support">Procurement Support</option>
-                  <option value="Logistics Coordination">Logistics Coordination</option>
-                  <option value="Truck / Delivery Coordination">Truck / Delivery Coordination</option>
-                  <option value="Project Support">Project Support</option>
-                  <option value="Procurement Records & Expense Tracking">Procurement Records &amp; Expense Tracking</option>
-                  <option value="Other Construction-Related Request">Other Construction-Related Request</option>
-                </select>
-              </div>
+          <div class="form-field">
+            <label for="site_contact_phone">Site Contact Number</label>
+            <input id="site_contact_phone" name="site_contact_phone" type="tel">
+          </div>
 
-              <div class="form-field">
-                <label for="quantity">Quantity / Volume</label>
-                <input id="quantity" type="text" name="quantity_or_volume" placeholder="Example: 100 bags, 1 trip, 500 blocks">
-              </div>
+          <div class="form-field">
+            <label for="logistic_service_needed">Logistics Service Needed?</label>
+            <select id="logistic_service_needed" name="logistic_service_needed" required>
+              <option value="">Select option</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="Not Sure Yet">Not Sure Yet</option>
+            </select>
+          </div>
 
-              <div class="form-field">
-                <label for="timeline">Preferred Timeline</label>
-                <input id="timeline" type="text" name="preferred_timeline" placeholder="Example: Today, this week, next week">
-              </div>
+          <div class="form-field">
+            <label for="preferred_timeline">Preferred Timeline</label>
+            <select id="preferred_timeline" name="preferred_timeline" required>
+              <option value="">Select timeline</option>
+              <option value="Urgent / Same Day">Urgent / Same Day</option>
+              <option value="Within 24 Hours">Within 24 Hours</option>
+              <option value="Within 2 - 3 Days">Within 2 - 3 Days</option>
+              <option value="Within One Week">Within One Week</option>
+              <option value="Flexible / To Be Confirmed">Flexible / To Be Confirmed</option>
+            </select>
+          </div>
 
-              <div class="form-field">
-                <label for="site-contact">Site Contact Person</label>
-                <input id="site-contact" type="text" name="site_contact_person" placeholder="Name and phone number, if available">
-              </div>
+          <div class="form-field">
+            <label for="delivery_date">Date Goods Are Needed / To Be Supplied</label>
+            <input id="delivery_date" name="delivery_date" type="date" required>
+          </div>
 
-              <div class="form-field full">
-                <label for="request-details">Request Details</label>
-                <textarea id="request-details" name="request_details" placeholder="Tell us the material needed, quantity, delivery location, site access, delivery timing, and any special instruction." required></textarea>
-              </div>
-            </div>
+          <div class="form-field">
+            <label for="delivery_time">Preferred Delivery Time</label>
+            <select id="delivery_time" name="delivery_time" required>
+              <option value="">Select time</option>
+              <option value="Morning">Morning</option>
+              <option value="Afternoon">Afternoon</option>
+              <option value="Evening">Evening</option>
+              <option value="Specific Time">Specific Time</option>
+              <option value="To Be Confirmed">To Be Confirmed</option>
+            </select>
+          </div>
 
-            <div class="form-submit-row">
-              <button id="quoteSubmitButton" class="btn btn-primary" type="button">Submit Quote Request</button>
-              <a class="btn btn-secondary" href="https://wa.me/message/VH7OMDVMXQ7YN1?src=qr" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
-            </div>
-
-            <div id="quoteFormStatus" class="form-status" aria-live="polite"></div>
-
-            <p class="quote-form-note">
-              Requests are reviewed based on material type, quantity, delivery location, site access, supplier availability, and logistics options.
-            </p>
-          </form>
+          <div class="form-field">
+            <label for="delivery_period">Time Zone / Period</label>
+            <select id="delivery_period" name="delivery_period" required>
+              <option value="">Select period</option>
+              <option value="AM - WAT">AM - WAT</option>
+              <option value="PM - WAT">PM - WAT</option>
+              <option value="WAT - To Be Confirmed">WAT - To Be Confirmed</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <div class="quote-products-block">
+          <h3>Products / Services Needed</h3>
+          <p>You can add up to 10 different products or services in one request.</p>
+
+          <div id="quoteProductLines"></div>
+
+          <button type="button" class="btn btn-secondary" id="addProductLineBtn">
+            Add Another Product / Service
+          </button>
+        </div>
+
+        <div class="form-field full">
+          <label for="request_details">Additional Request Details / Customer Instruction</label>
+          <textarea id="request_details" name="request_details" rows="5" placeholder="Add any delivery instruction, site direction, product details, or other information."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Submit Quote Request
+        </button>
+
+        <p id="quoteFormMessage" class="form-message"></p>
+      </form>
+    </div>
+  </div>
+</section>
 
   </main>
 
