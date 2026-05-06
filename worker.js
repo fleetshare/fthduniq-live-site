@@ -195,6 +195,10 @@ function json(data, status = 200) {
   });
 }
 
+function cleanText(value) {
+  return String(value || "").trim();
+}
+
 function cleanCode(value) {
   return String(value || "").trim().toUpperCase();
 }
@@ -213,10 +217,6 @@ function cleanPhone(value) {
   return digits;
 }
 
-function cleanText(value) {
-  return String(value || "").trim();
-}
-
 function applicantEmailKey(email) {
   return APPLICANT_EMAIL_PREFIX + cleanEmail(email);
 }
@@ -233,6 +233,145 @@ function candidateKey(code) {
   return "candidate:" + cleanCode(code);
 }
 
+function websiteQuoteKey(id) {
+  return WEBSITE_QUOTE_PREFIX + id;
+}
+
+function parseQuoteLines(formData) {
+  const rawLines =
+    cleanText(formData.get("quote_lines")) ||
+    cleanText(formData.get("quoteLines")) ||
+    cleanText(formData.get("product_lines")) ||
+    cleanText(formData.get("productLines"));
+
+  if (rawLines) {
+    try {
+      const parsed = JSON.parse(rawLines);
+
+      if (Array.isArray(parsed)) {
+        const lines = parsed
+          .map((line) => ({
+            code: cleanText(line.code || line.materialCode || ""),
+            item: cleanText(line.item || line.material || line.materialOrService || line.product || ""),
+            quantity: cleanText(line.quantity || line.qty || line.quantityRequested || ""),
+            unit: cleanText(line.unit || line.preferredUnit || line.unitMeasurement || ""),
+            tonnage: cleanText(line.tonnage || line.tonnageSize || ""),
+            localDescription: cleanText(line.localDescription || line.local_order_description || ""),
+            internalInterpretation: cleanText(line.internalInterpretation || line.internal_interpretation || "")
+          }))
+          .filter((line) => line.item || line.quantity);
+
+        if (lines.length) {
+          return lines;
+        }
+      }
+    } catch (error) {}
+  }
+
+  const material =
+    cleanText(formData.get("material_or_service_needed")) ||
+    cleanText(formData.get("material")) ||
+    cleanText(formData.get("product"));
+
+  const quantity =
+    cleanText(formData.get("quantity_or_volume")) ||
+    cleanText(formData.get("quantity")) ||
+    cleanText(formData.get("quantity_requested"));
+
+  const unit =
+    cleanText(formData.get("unit")) ||
+    cleanText(formData.get("preferred_unit")) ||
+    cleanText(formData.get("unit_measurement"));
+
+  const tonnage =
+    cleanText(formData.get("tonnage_size")) ||
+    cleanText(formData.get("tonnage"));
+
+  const localDescription =
+    cleanText(formData.get("local_order_description")) ||
+    cleanText(formData.get("localDescription")) ||
+    cleanText(formData.get("local_description"));
+
+  const internalInterpretation =
+    cleanText(formData.get("internal_interpretation")) ||
+    cleanText(formData.get("internalInterpretation"));
+
+  if (material || quantity) {
+    return [
+      {
+        code: cleanText(formData.get("material_code")),
+        item: material,
+        quantity,
+        unit,
+        tonnage,
+        localDescription,
+        internalInterpretation
+      }
+    ];
+  }
+
+  return [];
+}
+
+function quoteLinesSummary(lines) {
+  if (!Array.isArray(lines) || !lines.length) return "No product line provided.";
+
+  return lines
+    .map((line, index) => {
+      const parts = [
+        `${index + 1}.`,
+        line.code ? `[${line.code}]` : "",
+        line.item || "",
+        line.quantity ? `- ${line.quantity}` : "",
+        line.unit || "",
+        line.tonnage ? `(${line.tonnage})` : "",
+        line.localDescription ? `| Local: ${line.localDescription}` : "",
+        line.internalInterpretation ? `| Interpretation: ${line.internalInterpretation}` : ""
+      ];
+
+      return parts.filter(Boolean).join(" ");
+    })
+    .join("\n");
+}
+
+function quoteLinesHtml(lines) {
+  if (!Array.isArray(lines) || !lines.length) {
+    return `<p>No product line provided.</p>`;
+  }
+
+  return (
+    `<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;">` +
+    `<thead>` +
+    `<tr>` +
+    `<th>Code</th>` +
+    `<th>Product / Material</th>` +
+    `<th>Quantity</th>` +
+    `<th>Unit</th>` +
+    `<th>Tonnage / Trip</th>` +
+    `<th>Local Description</th>` +
+    `<th>Internal Interpretation</th>` +
+    `</tr>` +
+    `</thead>` +
+    `<tbody>` +
+    lines
+      .map(
+        (line) =>
+          `<tr>` +
+          `<td>${escapeHtml(line.code || "-")}</td>` +
+          `<td>${escapeHtml(line.item || "-")}</td>` +
+          `<td>${escapeHtml(line.quantity || "-")}</td>` +
+          `<td>${escapeHtml(line.unit || "-")}</td>` +
+          `<td>${escapeHtml(line.tonnage || "-")}</td>` +
+          `<td>${escapeHtml(line.localDescription || "-")}</td>` +
+          `<td>${escapeHtml(line.internalInterpretation || "-")}</td>` +
+          `</tr>`
+      )
+      .join("") +
+    `</tbody>` +
+    `</table>`
+  );
+}
+
 async function saveWebsiteQuoteToKV(env, quoteRecord) {
   if (!env.CAREER_KV) {
     return null;
@@ -245,11 +384,14 @@ async function saveWebsiteQuoteToKV(env, quoteRecord) {
     date: new Date().toISOString().slice(0, 10),
     submittedAt: new Date().toISOString(),
     source: "Main Website Quote Form",
+    status: "New Website Quote",
+    directorStatus: "Visible to Director",
+    workflow: "Quote Received",
     ...quoteRecord
   };
 
   await env.CAREER_KV.put(
-    WEBSITE_QUOTE_PREFIX + quoteId,
+    websiteQuoteKey(quoteId),
     JSON.stringify(record)
   );
 
@@ -516,7 +658,7 @@ async function handlePreDocuments(request, env) {
 
     const candidateCode = cleanCode(formData.get("candidateCode"));
     const candidateEmail = cleanEmail(formData.get("candidateEmail"));
-    const candidateNotes = String(formData.get("candidateNotes") || "").trim();
+    const candidateNotes = cleanText(formData.get("candidateNotes"));
 
     const candidate = await getCandidateRecord(env, candidateCode);
 
@@ -743,9 +885,9 @@ async function handleDirectorUpdateApplicant(request, env) {
       }, 500);
     }
 
-    const applicantId = String(body.applicantId || "").trim();
-    const status = String(body.status || "").trim();
-    const directorNote = String(body.directorNote || "").trim();
+    const applicantId = cleanText(body.applicantId);
+    const status = cleanText(body.status);
+    const directorNote = cleanText(body.directorNote);
 
     if (!applicantId || !status) {
       return json({
@@ -843,17 +985,17 @@ async function handleDirectorCreateCandidate(request, env) {
       }, 500);
     }
 
-    const applicantId = String(body.applicantId || "").trim();
+    const applicantId = cleanText(body.applicantId);
     let applicant = null;
 
     if (applicantId) {
       applicant = await getApplicantRecord(env, applicantId);
     }
 
-    const name = String(body.name || (applicant ? applicant.fullName : "") || "").trim();
+    const name = cleanText(body.name || (applicant ? applicant.fullName : ""));
     const email = cleanEmail(body.email || (applicant ? applicant.email : ""));
-    const role = String(body.role || (applicant ? applicant.position : "") || "").trim();
-    const accessType = String(body.accessType || "interview").trim();
+    const role = cleanText(body.role || (applicant ? applicant.position : ""));
+    const accessType = cleanText(body.accessType || "interview");
 
     if (!name || !email || !role) {
       return json({
@@ -871,10 +1013,10 @@ async function handleDirectorCreateCandidate(request, env) {
       email,
       role,
       stage,
-      interviewDate: String(body.interviewDate || "").trim(),
-      interviewTime: String(body.interviewTime || "").trim(),
-      meetUrl: String(body.meetUrl || DEFAULT_INTERVIEW_ROOM).trim(),
-      message: String(body.message || "").trim() || defaultMessageForStage(stage),
+      interviewDate: cleanText(body.interviewDate),
+      interviewTime: cleanText(body.interviewTime),
+      meetUrl: cleanText(body.meetUrl || DEFAULT_INTERVIEW_ROOM),
+      message: cleanText(body.message) || defaultMessageForStage(stage),
       applicantId: applicantId || "",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -889,7 +1031,7 @@ async function handleDirectorCreateCandidate(request, env) {
 
       applicant.candidateCode = code;
       applicant.candidateStage = stage;
-      applicant.directorNote = String(body.directorNote || applicant.directorNote || "").trim();
+      applicant.directorNote = cleanText(body.directorNote || applicant.directorNote || "");
       applicant.updatedAt = new Date().toISOString();
 
       await saveApplicantRecord(env, applicant);
@@ -1000,9 +1142,9 @@ async function handleDirectorUpdateCandidate(request, env) {
 
     const candidateCode = cleanCode(body.candidateCode);
     const candidateEmail = cleanEmail(body.candidateEmail);
-    const newStage = String(body.stage || "").trim();
-    const sendEmailNotice = String(body.sendEmailNotice || "yes").trim();
-    const updatedMessage = String(body.message || "").trim();
+    const newStage = cleanText(body.stage);
+    const sendEmailNotice = cleanText(body.sendEmailNotice || "yes");
+    const updatedMessage = cleanText(body.message);
 
     if (!candidateCode || !candidateEmail || !newStage) {
       return json({
@@ -1151,45 +1293,52 @@ async function handleQuoteEmail(request, env) {
     const phoneNumber = cleanText(formData.get("phone_number"));
     const emailAddress = cleanText(formData.get("email_address"));
     const deliveryLocation = cleanText(formData.get("delivery_location"));
-    const materialOrService = cleanText(formData.get("material_or_service_needed"));
-    const quantity = cleanText(formData.get("quantity_or_volume"));
-    const timeline = cleanText(formData.get("preferred_timeline"));
     const siteContact = cleanText(formData.get("site_contact_person"));
+    const sitePhone =
+      cleanText(formData.get("site_contact_phone")) ||
+      cleanText(formData.get("site_phone"));
+    const deliveryDate =
+      cleanText(formData.get("delivery_date")) ||
+      cleanText(formData.get("preferred_delivery_date"));
+    const deliveryTime =
+      cleanText(formData.get("delivery_time")) ||
+      cleanText(formData.get("preferred_delivery_time"));
+    const deliveryPeriod =
+      cleanText(formData.get("delivery_period")) ||
+      cleanText(formData.get("am_pm"));
+    const timeline = cleanText(formData.get("preferred_timeline"));
     const requestDetails = cleanText(formData.get("request_details"));
-    const formSource = cleanText(formData.get("form_source")) || "Homepage Quote Request";
+    const formSource = cleanText(formData.get("form_source")) || "Main Website Quote Form";
 
-    const unit =
-      cleanText(formData.get("unit")) ||
-      cleanText(formData.get("unit_measurement")) ||
-      cleanText(formData.get("unitMeasurement"));
+    const lines = parseQuoteLines(formData);
 
-    const tonnageSize =
-      cleanText(formData.get("tonnage_size")) ||
-      cleanText(formData.get("tonnageSize"));
-
-    const localDescription =
-      cleanText(formData.get("local_order_description")) ||
-      cleanText(formData.get("localDescription"));
-
-    const internalInterpretation =
-      cleanText(formData.get("internal_interpretation")) ||
-      cleanText(formData.get("internalInterpretation"));
-
-    if (!fullName || !phoneNumber || !deliveryLocation || !materialOrService || !requestDetails) {
+    if (!fullName || !phoneNumber || !deliveryLocation) {
       return json(
         {
           ok: false,
-          message: "Please complete all required quote request fields."
+          message: "Please complete customer name, phone number, and delivery/project location."
         },
         400
       );
     }
 
+    if (!lines.length) {
+      return json(
+        {
+          ok: false,
+          message: "Please add at least one product/material line."
+        },
+        400
+      );
+    }
+
+    const firstLine = lines[0] || {};
     const cleanedEmail = cleanEmail(emailAddress);
+    const productSummary = quoteLinesSummary(lines);
 
     const savedQuote = await saveWebsiteQuoteToKV(env, {
       formSource,
-      source: "Main Website Quote Form",
+      source: formSource,
       customer: fullName,
       fullName,
       phone: phoneNumber,
@@ -1198,25 +1347,31 @@ async function handleQuoteEmail(request, env) {
       emailAddress,
       location: deliveryLocation,
       deliveryLocation,
-      material: materialOrService,
-      materialOrService,
-      quantity,
-      quantityOrVolume: quantity,
-      unit,
-      unitMeasurement: unit,
-      tonnageSize,
-      localDescription,
-      internalInterpretation,
+      siteContact,
+      sitePhone,
+      deliveryDate,
+      deliveryTime,
+      deliveryPeriod,
       timeline,
       preferredTimeline: timeline,
-      siteContact,
       details: requestDetails,
       requestDetails,
-      status: "New Website Quote",
-      directorStatus: "Visible to Director"
+      lines,
+
+      material: firstLine.item || "",
+      materialOrService: firstLine.item || "",
+      materialCode: firstLine.code || "",
+      quantity: firstLine.quantity || "",
+      quantityOrVolume: firstLine.quantity || "",
+      unit: firstLine.unit || "",
+      unitMeasurement: firstLine.unit || "",
+      tonnageSize: firstLine.tonnage || "",
+      localDescription: firstLine.localDescription || "",
+      internalInterpretation: firstLine.internalInterpretation || "",
+      productSummary
     });
 
-    const subject = `New Quote Request - ${materialOrService} - ${fullName}`;
+    const subject = `New Quote Request - ${fullName}`;
 
     const textBody =
       `New Quote Request - FTH D-UNIQ\n\n` +
@@ -1226,15 +1381,13 @@ async function handleQuoteEmail(request, env) {
       `Phone / WhatsApp Number: ${phoneNumber}\n` +
       `Email Address: ${emailAddress || "Not provided"}\n` +
       `Delivery / Project Location: ${deliveryLocation}\n` +
-      `Material / Service Needed: ${materialOrService}\n` +
-      `Quantity / Volume: ${quantity || "Not provided"}\n` +
-      `Unit / Measurement: ${unit || "Not provided"}\n` +
-      `Tonnage Size: ${tonnageSize || "Not provided"}\n` +
-      `Local Order Description: ${localDescription || "Not provided"}\n` +
-      `Internal Interpretation: ${internalInterpretation || "Not provided"}\n` +
-      `Preferred Timeline: ${timeline || "Not provided"}\n` +
-      `Site Contact Person: ${siteContact || "Not provided"}\n\n` +
-      `Request Details:\n${requestDetails}\n\n` +
+      `Site Contact Person: ${siteContact || "Not provided"}\n` +
+      `Site Contact Phone: ${sitePhone || "Not provided"}\n` +
+      `Preferred Delivery Date: ${deliveryDate || "Not provided"}\n` +
+      `Preferred Delivery Time: ${deliveryTime || "Not provided"} ${deliveryPeriod || ""}\n` +
+      `Preferred Timeline: ${timeline || "Not provided"}\n\n` +
+      `Requested Product / Material Lines:\n${productSummary}\n\n` +
+      `Customer Instruction / Request Details:\n${requestDetails || "No additional instruction provided."}\n\n` +
       `Submitted from the FTH D-UNIQ website quote form.`;
 
     const htmlBody =
@@ -1245,16 +1398,15 @@ async function handleQuoteEmail(request, env) {
       `<p><strong>Phone / WhatsApp Number:</strong> ${escapeHtml(phoneNumber)}</p>` +
       `<p><strong>Email Address:</strong> ${escapeHtml(emailAddress || "Not provided")}</p>` +
       `<p><strong>Delivery / Project Location:</strong> ${escapeHtml(deliveryLocation)}</p>` +
-      `<p><strong>Material / Service Needed:</strong> ${escapeHtml(materialOrService)}</p>` +
-      `<p><strong>Quantity / Volume:</strong> ${escapeHtml(quantity || "Not provided")}</p>` +
-      `<p><strong>Unit / Measurement:</strong> ${escapeHtml(unit || "Not provided")}</p>` +
-      `<p><strong>Tonnage Size:</strong> ${escapeHtml(tonnageSize || "Not provided")}</p>` +
-      `<p><strong>Local Order Description:</strong> ${escapeHtml(localDescription || "Not provided")}</p>` +
-      `<p><strong>Internal Interpretation:</strong> ${escapeHtml(internalInterpretation || "Not provided")}</p>` +
-      `<p><strong>Preferred Timeline:</strong> ${escapeHtml(timeline || "Not provided")}</p>` +
       `<p><strong>Site Contact Person:</strong> ${escapeHtml(siteContact || "Not provided")}</p>` +
-      `<h3>Request Details</h3>` +
-      `<p>${escapeHtml(requestDetails).replace(/\n/g, "<br>")}</p>` +
+      `<p><strong>Site Contact Phone:</strong> ${escapeHtml(sitePhone || "Not provided")}</p>` +
+      `<p><strong>Preferred Delivery Date:</strong> ${escapeHtml(deliveryDate || "Not provided")}</p>` +
+      `<p><strong>Preferred Delivery Time:</strong> ${escapeHtml((deliveryTime || "Not provided") + " " + (deliveryPeriod || ""))}</p>` +
+      `<p><strong>Preferred Timeline:</strong> ${escapeHtml(timeline || "Not provided")}</p>` +
+      `<h3>Requested Product / Material Lines</h3>` +
+      quoteLinesHtml(lines) +
+      `<h3>Customer Instruction / Request Details</h3>` +
+      `<p>${escapeHtml(requestDetails || "No additional instruction provided.").replace(/\n/g, "<br>")}</p>` +
       `<p>Submitted from the FTH D-UNIQ website quote form.</p>`;
 
     const emailResult = await sendResendEmail(env, {
@@ -1328,14 +1480,14 @@ async function handleCareerEmail(request, env) {
 
     const formData = await request.formData();
 
-    const fullName = String(formData.get("full_name") || "").trim();
-    const phone = String(formData.get("phone_number") || "").trim();
-    const email = String(formData.get("email_address") || "").trim();
-    const location = String(formData.get("current_location") || "").trim();
-    const position = String(formData.get("role_applied_for") || "").trim();
-    const availability = String(formData.get("availability") || "").trim();
-    const expectedSalary = String(formData.get("expected_salary") || "").trim();
-    const message = String(formData.get("message") || "").trim();
+    const fullName = cleanText(formData.get("full_name"));
+    const phone = cleanText(formData.get("phone_number"));
+    const email = cleanText(formData.get("email_address"));
+    const location = cleanText(formData.get("current_location"));
+    const position = cleanText(formData.get("role_applied_for"));
+    const availability = cleanText(formData.get("availability"));
+    const expectedSalary = cleanText(formData.get("expected_salary"));
+    const message = cleanText(formData.get("message"));
 
     const cv = formData.get("cv_upload");
     const coverLetter = formData.get("cover_letter_upload");
