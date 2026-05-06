@@ -508,22 +508,44 @@ function table(rows,heads,map,empty='No records yet.'){
   return'<div class="table"><table><thead><tr>'+heads.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.map((r,i)=>'<tr>'+map(r,i).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';
 }
 
-document.getElementById('loginForm').onsubmit=e=>{
+document.getElementById('loginForm').onsubmit = function(e){
   e.preventDefault();
 
-  const selectedRole=document.getElementById('role').value;
-  const enteredPin=document.getElementById('pin').value.trim();
+  const roleSelect = document.getElementById('role');
+  const pinInput = document.getElementById('pin');
+  const loginMsg = document.getElementById('loginMsg');
 
-  if(!selectedRole||pins[selectedRole]!==enteredPin){
-    document.getElementById('loginMsg').textContent='Invalid role or PIN. Use Director 0000, Business Support 1111, Procurement/Logistics 2222, or Client Follow-Up 3333.';
+  let selectedRole = String(roleSelect.value || '').trim().toLowerCase();
+  const selectedText = String(roleSelect.options[roleSelect.selectedIndex]?.text || '').trim().toLowerCase();
+  const enteredPin = String(pinInput.value || '').replace(/\s/g,'').trim();
+
+  if(!selectedRole){
+    if(selectedText.includes('director')) selectedRole = 'director';
+    if(selectedText.includes('business')) selectedRole = 'support';
+    if(selectedText.includes('procurement') || selectedText.includes('logistics')) selectedRole = 'logistics';
+    if(selectedText.includes('social') || selectedText.includes('follow')) selectedRole = 'social';
+  }
+
+  const allowedPins = {
+    director: '0000',
+    support: '1111',
+    logistics: '2222',
+    social: '3333'
+  };
+
+  if(!selectedRole || allowedPins[selectedRole] !== enteredPin){
+    loginMsg.textContent =
+      'Invalid role or PIN. Detected role: ' + (selectedRole || 'none') +
+      '. Please use Director 0000, Business Support 1111, Procurement/Logistics 2222, or Client Follow-Up 3333.';
     return;
   }
 
-  currentRole=selectedRole;
-  sessionStorage.setItem('fth_role',selectedRole);
+  currentRole = selectedRole;
+  sessionStorage.setItem('fth_role', selectedRole);
+
+  loginMsg.textContent = '';
   start();
 };
-
 function start(){
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
