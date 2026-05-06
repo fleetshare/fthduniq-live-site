@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>FTH D-UNIQ | Operations Workstation</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +39,7 @@ body{
   padding:18px;
 }
 .card,.panel{
-  background:rgba(255,255,255,.8);
+  background:rgba(255,255,255,.82);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:24px;
@@ -53,7 +52,7 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:14px;
-  background:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.86);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px 20px;
@@ -167,7 +166,7 @@ button,.btn{
   position:sticky;
   top:110px;
   align-self:start;
-  background:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.86);
   border:1px solid var(--line);
   border-radius:22px;
   padding:12px;
@@ -210,11 +209,11 @@ button,.btn{
   margin:12px 0;
 }
 .warning{
-  border-left:4px solid var(--red);
+  border-left-color:var(--red);
   background:rgba(153,27,27,.08);
 }
 .success{
-  border-left:4px solid var(--green);
+  border-left-color:var(--green);
   background:rgba(22,101,52,.08);
 }
 .metrics{
@@ -303,6 +302,7 @@ hr{
   border-top:1px solid rgba(157,116,26,.18);
   margin:18px 0;
 }
+.director-only{display:none}
 @media(max-width:1100px){
   .layout{grid-template-columns:1fr}
   .side{display:none}
@@ -327,18 +327,15 @@ hr{
   <div class="card">
     <div class="eyebrow">Private Login</div>
     <h2>FTH D-UNIQ Operations Workstation</h2>
-    <p>
-      Controlled workstation for quotes, invoices, sales ledger, payment proof, receipts,
-      inventory, procurement, logistics/inspection, approvals, reports, archive and Director clearing.
-    </p>
+    <p>Private workstation for quote tracking, customer records, invoicing, stock movement, procurement, logistics, approvals, reporting and archive.</p>
 
     <div class="notice">
       <b>Demo PINs:</b><br>
       Director: 0000 |
-      Business Support Officer: 1111 |
-      Procurement Officer: 2222 |
-      Logistics / Inspection Officer: 3333 |
-      Client Follow-Up Officer: 4444
+      Business Support: 1111 |
+      Procurement: 2222 |
+      Logistics/Inspection: 3333 |
+      Client Follow-Up: 4444
     </div>
 
     <form id="loginForm">
@@ -354,6 +351,7 @@ hr{
             <option value="followup">Client Follow-Up Officer</option>
           </select>
         </div>
+
         <div>
           <label for="pin">PIN</label>
           <input id="pin" type="password" required>
@@ -394,16 +392,21 @@ hr{
         <div class="panel">
           <div class="eyebrow">Director Dashboard</div>
           <h2>Director Control Centre</h2>
-          <p>
-            All quotes, invoices, uploaded proofs, approvals, inventory, procurement, logistics,
-            reports and clearing controls reflect here.
-          </p>
+          <p>All active records, website quote requests, internal quote entries, uploaded proofs, and pending confirmations appear here.</p>
+          <div class="row">
+            <button class="secondary director-only" onclick="syncWebsiteQuotes()">Sync Website Quote Requests</button>
+          </div>
           <div class="metrics" id="directorMetrics"></div>
         </div>
 
         <div class="panel">
-          <h2>Director Attention / Red Flags</h2>
+          <h2>Items Requiring Attention</h2>
           <div id="directorAlerts"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Submitted Staff Reports</h2>
+          <div id="staffReportTable"></div>
         </div>
       </section>
 
@@ -411,23 +414,20 @@ hr{
         <div class="panel">
           <div class="eyebrow">Business Support Officer</div>
           <h2>Front Desk / Customer Control Point</h2>
-          <p>
-            Business Support handles customer-facing sales, company inventory desk, and logistics handover.
-            All important records also reflect on the Director dashboard.
-          </p>
+          <p>Business Support handles customer requests, invoicing, payment uploads, customer records, stock desk and delivery handover.</p>
 
           <div class="grid-3">
             <div class="section-box">
-              <h3>1. Customer-Facing / Sales Desk</h3>
-              <p>Quote intake, invoice, sales ledger, payment proof, cash receipt, receipt and follow-up.</p>
+              <h3>Customer-Facing / Sales Desk</h3>
+              <p>Quotes, invoices, sales ledger, payment uploads, receipts and customer follow-up.</p>
             </div>
             <div class="section-box">
-              <h3>2. Inventory / Company Stock Desk</h3>
-              <p>Opening stock, sales out, received/produced goods, damage, shortage, excess and closing stock.</p>
+              <h3>Inventory / Company Stock Desk</h3>
+              <p>Opening stock, sales out, received or produced goods, shortage, damage, excess and closing stock.</p>
             </div>
             <div class="section-box">
-              <h3>3. Delivery / Logistics Handover Desk</h3>
-              <p>Waybill/delivery instruction, logistics bill request and forwarding to Logistics/Inspection.</p>
+              <h3>Delivery / Logistics Handover</h3>
+              <p>Delivery instruction, waybill preparation and logistics handover.</p>
             </div>
           </div>
         </div>
@@ -437,11 +437,6 @@ hr{
         <div class="panel">
           <div class="eyebrow">Quote / Customer Request Register</div>
           <h2>New Quote / Customer Request</h2>
-
-          <div class="notice">
-            All customers must start as a quote/request first — website, walk-in, WhatsApp, phone call, referral or social media.
-            Vehicle capacity is not captured here. Vehicle capacity belongs to Logistics/Inspection.
-          </div>
 
           <form id="quoteForm">
             <div class="grid">
@@ -454,7 +449,9 @@ hr{
                 <label>Source of Request</label>
                 <select name="source" required>
                   <option value="">Select source</option>
-                  <option>Website Quote Form</option>
+                  <option>Main Website Quote Form</option>
+                  <option>Director Entry / Phone Call</option>
+                  <option>Business Support Entry</option>
                   <option>Walk-in</option>
                   <option>WhatsApp</option>
                   <option>Phone Call</option>
@@ -481,7 +478,7 @@ hr{
 
               <div>
                 <label>Delivery / Project Location</label>
-                <input name="location" required placeholder="Customer delivery address / site location">
+                <input name="location" required>
               </div>
 
               <div>
@@ -548,11 +545,11 @@ hr{
 
               <div>
                 <label>Preferred Delivery Timeline</label>
-                <input name="timeline" required placeholder="Today, tomorrow, this week, etc.">
+                <input name="timeline" required>
               </div>
 
               <div>
-                <label>Officer Entering Request</label>
+                <label>Entered By</label>
                 <input name="officer" required>
               </div>
 
@@ -564,12 +561,13 @@ hr{
 
             <div class="row">
               <button class="primary" type="submit">Save Quote / Request</button>
+              <button class="secondary director-only" type="button" onclick="syncWebsiteQuotes()">Sync Website Quotes</button>
             </div>
           </form>
         </div>
 
         <div class="panel">
-          <h2>Quote Records</h2>
+          <h2>Central Quote Records</h2>
           <div id="quoteTable"></div>
         </div>
       </section>
@@ -620,10 +618,6 @@ hr{
             <hr>
 
             <h3>Invoice Line Items</h3>
-            <div class="notice">
-              Product fee and logistics fee must remain separate. Add logistics as a separate line with type “Logistics Fee”.
-            </div>
-
             <div class="line-items" id="invoiceLines"></div>
 
             <div class="row">
@@ -679,7 +673,7 @@ hr{
               </div>
 
               <div>
-                <label>Payment Status Type</label>
+                <label>Payment Type</label>
                 <select name="paymentType" required>
                   <option>Full Payment</option>
                   <option>Part Payment</option>
@@ -694,7 +688,7 @@ hr{
 
               <div>
                 <label>Cash Received By, If Cash</label>
-                <input name="cashReceivedBy" placeholder="Officer name">
+                <input name="cashReceivedBy">
               </div>
 
               <div>
@@ -719,7 +713,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit Payment for Director Confirmation</button>
+              <button class="primary" type="submit">Submit Payment for Confirmation</button>
             </div>
           </form>
         </div>
@@ -737,8 +731,8 @@ hr{
 
       <section id="businessInventory" class="page">
         <div class="panel">
-          <div class="eyebrow">Business Support Inventory / Company Stock Desk</div>
-          <h2>Opening Stock, Sales Out, Received / Produced, Damage, Shortage, Excess</h2>
+          <div class="eyebrow">Inventory / Company Stock Desk</div>
+          <h2>Stock Movement</h2>
 
           <form id="inventoryForm">
             <div class="grid">
@@ -813,12 +807,8 @@ hr{
             </div>
           </form>
 
-          <hr>
-
-          <h3>Bag Conversion Guide for Sand / Granite / Plaster</h3>
           <div class="notice">
-            Field assumptions: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags.
-            Officer should still record physical excess or shortage because bucket sizes vary.
+            Field guide for bag stock: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags. Adjustments can be recorded where physical stock differs.
           </div>
         </div>
 
@@ -835,13 +825,8 @@ hr{
 
       <section id="deliveryHandover" class="page">
         <div class="panel">
-          <div class="eyebrow">Delivery / Logistics Handover Desk</div>
-          <h2>Create Waybill / Delivery Instruction for Logistics</h2>
-
-          <div class="notice">
-            Business Support creates the delivery instruction after invoice/payment/Director approval stage.
-            Logistics/Inspection Officer handles driver, truck, vehicle capacity, number of movements, dispatch and proof.
-          </div>
+          <div class="eyebrow">Delivery / Logistics Handover</div>
+          <h2>Create Waybill / Delivery Instruction</h2>
 
           <form id="waybillForm">
             <div class="grid">
@@ -874,9 +859,9 @@ hr{
                 <label>Payment / Supply Status</label>
                 <select name="supplyStatus" required>
                   <option>Fully Paid - Ready for Dispatch</option>
-                  <option>Part Payment - Director Approval Required</option>
-                  <option>No Payment - Director Approval Required</option>
-                  <option>Director Already Approved Supply</option>
+                  <option>Part Payment - Approval Required</option>
+                  <option>No Payment - Approval Required</option>
+                  <option>Approved for Supply</option>
                 </select>
               </div>
 
@@ -886,11 +871,11 @@ hr{
               </div>
 
               <div>
-                <label>Logistics Bill / Release Status</label>
+                <label>Logistics Release Status</label>
                 <select name="logisticsReleaseStatus" required>
                   <option>No Release Needed Yet</option>
-                  <option>Pending Director Approval</option>
-                  <option>Director Approved</option>
+                  <option>Pending Approval</option>
+                  <option>Approved</option>
                 </select>
               </div>
 
@@ -933,23 +918,20 @@ hr{
         <div class="panel">
           <div class="eyebrow">Procurement Officer</div>
           <h2>Procurement Workstation</h2>
-          <p>
-            Procurement records goods and evidence only. Cost price, payment, transport cost,
-            handling cost, profit and margin are Director-only and not shown here.
-          </p>
+          <p>Procurement records goods, source, condition, quantity, evidence and approval status.</p>
 
           <div class="grid-3">
             <div class="section-box">
-              <h3>1. Company Stock / Goods Received</h3>
-              <p>Products sourced or received into the company, with proof and condition.</p>
+              <h3>Company Stock / Goods Received</h3>
+              <p>Products sourced or received into company stock.</p>
             </div>
             <div class="section-box">
-              <h3>2. External Industry Procurement</h3>
-              <p>Goods sourced from another industry or supplier for customer request.</p>
+              <h3>External Industry Procurement</h3>
+              <p>Goods sourced from another supplier or industry for a request.</p>
             </div>
             <div class="section-box">
-              <h3>3. Client Goods Received for Resale</h3>
-              <p>Internal resale/return process after client request, inspection and Director approval.</p>
+              <h3>Client Goods Received for Resale</h3>
+              <p>Client resale/return requests after inspection and approval.</p>
             </div>
           </div>
         </div>
@@ -957,7 +939,7 @@ hr{
 
       <section id="procurementCompany" class="page">
         <div class="panel">
-          <div class="eyebrow">Procurement / Company Goods Received</div>
+          <div class="eyebrow">Company Goods Received</div>
           <h2>Company Stock / Goods Received</h2>
 
           <form id="companyProcurementForm">
@@ -1012,7 +994,7 @@ hr{
                   <option>Damaged</option>
                   <option>Shortage Noticed</option>
                   <option>Excess Noticed</option>
-                  <option>Needs Director Review</option>
+                  <option>Needs Review</option>
                 </select>
               </div>
 
@@ -1024,7 +1006,7 @@ hr{
               <div>
                 <label>Stock-In Status</label>
                 <select name="stockStatus" required>
-                  <option>Pending Director Approval</option>
+                  <option>Pending Approval</option>
                   <option>Not Yet Stocked In</option>
                 </select>
               </div>
@@ -1036,7 +1018,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit for Director Approval</button>
+              <button class="primary" type="submit">Submit Goods Received Record</button>
             </div>
           </form>
         </div>
@@ -1049,12 +1031,8 @@ hr{
 
       <section id="producedGoods" class="page">
         <div class="panel">
-          <div class="eyebrow">Produced Goods Quantity Confirmation</div>
+          <div class="eyebrow">Produced Goods</div>
           <h2>Produced Goods / Compound Quantity</h2>
-
-          <div class="notice">
-            This section records quantity/output only. No production expenses, cost price, labour cost or profit calculation is shown here.
-          </div>
 
           <form id="producedGoodsForm">
             <div class="grid">
@@ -1094,7 +1072,7 @@ hr{
                   <option>Good Condition</option>
                   <option>Fair Condition</option>
                   <option>Damage Noticed</option>
-                  <option>Needs Director Review</option>
+                  <option>Needs Review</option>
                 </select>
               </div>
 
@@ -1115,7 +1093,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit Produced Goods for Director Approval</button>
+              <button class="primary" type="submit">Submit Produced Goods Record</button>
             </div>
           </form>
         </div>
@@ -1129,7 +1107,7 @@ hr{
       <section id="externalProcurement" class="page">
         <div class="panel">
           <div class="eyebrow">External Industry Procurement</div>
-          <h2>Product Sourced From External Industry / Supplier</h2>
+          <h2>Product Sourced From External Supplier / Industry</h2>
 
           <form id="externalProcurementForm">
             <div class="grid">
@@ -1188,10 +1166,10 @@ hr{
               <div>
                 <label>Condition / Status</label>
                 <select name="condition" required>
-                  <option>Pending Director Approval</option>
+                  <option>Pending Approval</option>
                   <option>Supplier Confirmed</option>
                   <option>Goods Available</option>
-                  <option>Needs Director Review</option>
+                  <option>Needs Review</option>
                 </select>
               </div>
 
@@ -1202,7 +1180,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit External Procurement for Director Approval</button>
+              <button class="primary" type="submit">Submit External Procurement Record</button>
             </div>
           </form>
         </div>
@@ -1217,11 +1195,6 @@ hr{
         <div class="panel">
           <div class="eyebrow">Client Goods Received for Resale</div>
           <h2>Internal Client Resale / Return Request</h2>
-
-          <div class="notice warning">
-            This is not a public return-goods page. Customer request must come through WhatsApp, chatbot,
-            phone, email or private evidence link. Goods are subject to inspection, condition and Director approval.
-          </div>
 
           <form id="clientResaleForm">
             <div class="grid">
@@ -1308,23 +1281,20 @@ hr{
         <div class="panel">
           <div class="eyebrow">Logistics / Inspection Officer</div>
           <h2>Delivery, Dispatch, Inspection & Field Verification</h2>
-          <p>
-            Logistics/Inspection handles waybill execution, driver/truck details, vehicle capacity,
-            number of trips/movements, dispatch time, signed waybill upload, delivery proof, and field inspection.
-          </p>
+          <p>Logistics/Inspection handles delivery jobs, waybill execution, vehicle details, movement records, delivery proof and inspection reports.</p>
 
           <div class="grid-3">
             <div class="section-box">
-              <h3>1. Assigned Delivery Jobs</h3>
-              <p>Jobs forwarded from Business Support after invoice/payment/approval stage.</p>
+              <h3>Assigned Delivery Jobs</h3>
+              <p>Delivery instructions forwarded from Business Support.</p>
             </div>
             <div class="section-box">
-              <h3>2. Waybill / Dispatch Desk</h3>
-              <p>Driver, truck, vehicle capacity, loading point, trips, dispatch and delivery status.</p>
+              <h3>Waybill / Dispatch Desk</h3>
+              <p>Driver, truck, vehicle capacity, trips, loading point, dispatch and delivery status.</p>
             </div>
             <div class="section-box">
-              <h3>3. Inspection / Field Verification</h3>
-              <p>Inspect client goods, upload evidence, record condition and recommendation.</p>
+              <h3>Inspection / Field Verification</h3>
+              <p>Inspection evidence, condition notes and recommendations.</p>
             </div>
           </div>
         </div>
@@ -1494,7 +1464,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit Inspection to Director</button>
+              <button class="primary" type="submit">Submit Inspection</button>
             </div>
           </form>
         </div>
@@ -1507,7 +1477,7 @@ hr{
 
       <section id="logisticsIssues" class="page">
         <div class="panel">
-          <div class="eyebrow">Issues / Dispute Notes</div>
+          <div class="eyebrow">Issues / Field Notes</div>
           <h2>Logistics / Field Issue Report</h2>
 
           <form id="issueForm">
@@ -1524,7 +1494,7 @@ hr{
 
               <div>
                 <label>Related Reference</label>
-                <input name="reference" required placeholder="Waybill / Invoice / Inspection reference">
+                <input name="reference" required>
               </div>
 
               <div>
@@ -1560,7 +1530,7 @@ hr{
             </div>
 
             <div class="row">
-              <button class="primary" type="submit">Submit Issue to Director</button>
+              <button class="primary" type="submit">Submit Issue</button>
             </div>
           </form>
         </div>
@@ -1574,11 +1544,7 @@ hr{
       <section id="approvalCenter" class="page">
         <div class="panel">
           <div class="eyebrow">Director Approval Centre</div>
-          <h2>Approvals, Confirmations, Queries & Authorization</h2>
-          <p>
-            Uploaded proofs, payment confirmations, cash receipts, waybills, procurement records,
-            inspections and sensitive requests appear here for Director action.
-          </p>
+          <h2>Approvals & Confirmations</h2>
           <div id="approvalTable"></div>
         </div>
       </section>
@@ -1662,18 +1628,23 @@ hr{
               <input id="reportDate" type="date">
             </div>
 
-            <div>
+            <div class="director-only">
               <label>Monthly Report</label>
               <input id="reportMonth" type="month">
             </div>
           </div>
 
           <div class="row">
-            <button class="primary" onclick="generateDailyReport()">Generate Daily Report</button>
-            <button class="secondary" onclick="printCurrentReport()">Print / Save PDF</button>
-            <button class="dark" onclick="emailCurrentReport()">Email Report</button>
-            <button class="green" onclick="archiveCurrentReport()">Archive Report</button>
-            <button class="blue" onclick="generateMonthlyReport()">Generate Monthly Reconciliation</button>
+            <button class="primary" onclick="generateDailyReport()">Generate Daily Report Preview</button>
+            <button class="dark" onclick="submitDailyReportToDirector()">Send Daily Report to Director</button>
+
+            <button class="secondary director-only" onclick="printCurrentReport()">Print / Save PDF</button>
+            <button class="green director-only" onclick="archiveCurrentReport()">Archive Report</button>
+            <button class="blue director-only" onclick="generateMonthlyReport()">Generate Monthly Reconciliation</button>
+          </div>
+
+          <div class="notice">
+            Invoice and payment receipt can be printed from their sections. Report PDF, archive, monthly reconciliation and clearing are Director-only.
           </div>
         </div>
 
@@ -1691,36 +1662,35 @@ hr{
       <section id="clearData" class="page">
         <div class="panel">
           <div class="eyebrow">Director Clear Controls</div>
-          <h2>Clear Dashboard Data After Review / Export / Archive</h2>
+          <h2>Clear Dashboard Data</h2>
 
           <div class="notice warning">
-            Only Director can clear data from the interface. Staff cannot clear or delete records.
-            Use archive/export before clearing active dashboard data.
+            Archive or export records before clearing active dashboard views.
           </div>
 
           <div class="grid">
             <div class="section-box">
               <h3>Business Support Section</h3>
-              <p>Quotes, invoices, payments, receipts, inventory, delivery handover.</p>
-              <button class="red" onclick="directorClearGroup('support')">Archive & Clear Business Support Data</button>
+              <p>Quotes, invoices, payments, receipts, inventory and delivery handover.</p>
+              <button class="red director-only" onclick="directorClearGroup('support')">Archive & Clear Business Support Data</button>
             </div>
 
             <div class="section-box">
               <h3>Procurement Section</h3>
-              <p>Company goods received, produced goods, external procurement, client resale.</p>
-              <button class="red" onclick="directorClearGroup('procurement')">Archive & Clear Procurement Data</button>
+              <p>Company goods, produced goods, external procurement and client resale.</p>
+              <button class="red director-only" onclick="directorClearGroup('procurement')">Archive & Clear Procurement Data</button>
             </div>
 
             <div class="section-box">
               <h3>Logistics / Inspection Section</h3>
               <p>Waybills, logistics movements, inspections and field issues.</p>
-              <button class="red" onclick="directorClearGroup('logistics')">Archive & Clear Logistics Data</button>
+              <button class="red director-only" onclick="directorClearGroup('logistics')">Archive & Clear Logistics Data</button>
             </div>
 
             <div class="section-box">
               <h3>Monthly Dashboard</h3>
               <p>Archive all active data and clear dashboard for a new month.</p>
-              <button class="dark" onclick="directorClearGroup('all')">Archive & Clear All Active Data</button>
+              <button class="dark director-only" onclick="directorClearGroup('all')">Archive & Clear All Active Data</button>
             </div>
           </div>
         </div>
@@ -1731,7 +1701,7 @@ hr{
 </div>
 
 <script>
-const KEY = 'fth_duniq_operations_workstation_locked_v1';
+const KEY = 'fth_duniq_operations_workstation_clean_v3';
 
 const COMPANY_EMAIL = 'info@fthduniq.com';
 const REPORT_EMAIL = 'report@fthduniq.com';
@@ -1756,7 +1726,7 @@ const roleNames = {
 const pages = {
   director: [
     ['directorDashboard','Director Dashboard'],
-    ['quotes','Quotes'],
+    ['quotes','Central Quotes'],
     ['invoices','Invoices / Sales'],
     ['payments','Payments / Receipts'],
     ['businessInventory','Inventory'],
@@ -1769,7 +1739,7 @@ const pages = {
     ['logisticsDashboard','Logistics Overview'],
     ['deliveryJobs','Delivery Jobs'],
     ['inspectionJobs','Inspection Jobs'],
-    ['logisticsIssues','Issues / Disputes'],
+    ['logisticsIssues','Issues / Field Notes'],
     ['followUp','Client Follow-Up'],
     ['approvalCenter','Approval Centre'],
     ['reports','Reports'],
@@ -1778,7 +1748,7 @@ const pages = {
   ],
   support: [
     ['supportDashboard','Support Overview'],
-    ['quotes','Quotes'],
+    ['quotes','Central Quotes'],
     ['invoices','Invoices / Sales'],
     ['payments','Payments / Receipts'],
     ['businessInventory','Inventory Desk'],
@@ -1797,7 +1767,7 @@ const pages = {
     ['logisticsDashboard','Logistics Overview'],
     ['deliveryJobs','Delivery Jobs'],
     ['inspectionJobs','Inspection Jobs'],
-    ['logisticsIssues','Issues / Disputes'],
+    ['logisticsIssues','Issues / Field Notes'],
     ['reports','Daily Report']
   ],
   followup: [
@@ -1814,6 +1784,7 @@ let db = loadDB();
 function blankDB(){
   return {
     quotes:[],
+    importedWebsiteQuoteIds:[],
     invoices:[],
     payments:[],
     receipts:[],
@@ -1827,6 +1798,7 @@ function blankDB(){
     logisticsMovements:[],
     issues:[],
     followUps:[],
+    staffReports:[],
     archives:[],
     count:{
       quote:0,
@@ -1843,6 +1815,7 @@ function blankDB(){
       logistics:0,
       issue:0,
       followUp:0,
+      staffReport:0,
       archive:0
     }
   };
@@ -1850,7 +1823,9 @@ function blankDB(){
 
 function loadDB(){
   try{
-    return JSON.parse(localStorage.getItem(KEY)) || blankDB();
+    const data = JSON.parse(localStorage.getItem(KEY)) || blankDB();
+    const base = blankDB();
+    return {...base,...data,count:{...base.count,...(data.count || {})}};
   }catch(e){
     return blankDB();
   }
@@ -1962,8 +1937,10 @@ function startApp(){
   if(rolePages.length) document.getElementById(rolePages[0][0]).classList.add('active');
 
   setDefaultDates();
-  addInvoiceLine();
+  if(!document.querySelector('#invoiceLines .line-row')) addInvoiceLine();
+  applyRoleVisibility();
   renderAll();
+  syncWebsiteQuotes();
 }
 
 function logout(){
@@ -1988,7 +1965,14 @@ function showPage(pageId){
   }
 
   document.getElementById('mobileNav').value = pageId;
+  applyRoleVisibility();
   renderAll();
+}
+
+function applyRoleVisibility(){
+  document.querySelectorAll('.director-only').forEach(el=>{
+    el.style.display = currentRole === 'director' ? 'inline-flex' : 'none';
+  });
 }
 
 function setDefaultDates(){
@@ -2013,12 +1997,62 @@ function renderAll(){
   renderInspections();
   renderIssues();
   renderFollowUps();
+  renderStaffReports();
   renderApprovals();
   renderArchive();
+  applyRoleVisibility();
+}
+
+async function syncWebsiteQuotes(){
+  try{
+    const response = await fetch('/api/workstation-quotes', {cache:'no-store'});
+    if(!response.ok) return;
+
+    const result = await response.json();
+    if(!result.ok || !Array.isArray(result.quotes)) return;
+
+    let imported = 0;
+
+    result.quotes.forEach(q=>{
+      const externalId = q.externalId || q.id || q.submittedAt;
+      if(!externalId || db.importedWebsiteQuoteIds.includes(externalId)) return;
+
+      db.importedWebsiteQuoteIds.push(externalId);
+
+      db.quotes.unshift({
+        id:id('quote'),
+        externalId,
+        date:q.date || today(),
+        source:'Main Website Quote Form',
+        customer:q.customer || q.fullName || '',
+        phone:q.phone || q.phoneNumber || '',
+        email:q.email || q.emailAddress || '',
+        location:q.location || q.deliveryLocation || '',
+        material:q.material || q.materialOrService || '',
+        quantity:q.quantity || q.quantityOrVolume || '',
+        unit:q.unit || q.unitMeasurement || '',
+        tonnageSize:q.tonnageSize || 'Not Applicable',
+        localDescription:q.localDescription || '',
+        internalInterpretation:q.internalInterpretation || '',
+        timeline:q.timeline || q.preferredTimeline || '',
+        officer:'Website Submission',
+        details:q.details || q.requestDetails || '',
+        status:'New Website Quote',
+        directorStatus:'Visible to Director',
+        createdAt:q.submittedAt || new Date().toISOString(),
+        enteredByRole:'Website'
+      });
+
+      imported++;
+    });
+
+    if(imported > 0) saveDB();
+  }catch(e){}
 }
 
 document.getElementById('quoteForm').onsubmit = function(e){
   e.preventDefault();
+
   const x = formObj(this);
   const record = {
     id:id('quote'),
@@ -2028,6 +2062,7 @@ document.getElementById('quoteForm').onsubmit = function(e){
     enteredByRole:roleNames[currentRole],
     ...x
   };
+
   db.quotes.unshift(record);
   this.reset();
   setDefaultDates();
@@ -2037,11 +2072,12 @@ document.getElementById('quoteForm').onsubmit = function(e){
 function renderQuotes(){
   document.getElementById('quoteTable').innerHTML = table(
     db.quotes,
-    ['Date','Quote','Source','Customer','Phone','Location','Material','Qty / Unit','Local Wording','Internal Interpretation','Status','Action'],
+    ['Date','Quote','Source','Entered By','Customer','Phone','Location','Material','Qty / Unit','Local Wording','Internal Interpretation','Status','Action'],
     r => [
       niceDate(r.date),
       r.id,
       esc(r.source),
+      esc(r.enteredByRole || r.officer || '-'),
       esc(r.customer),
       esc(r.phone),
       esc(r.location),
@@ -2176,6 +2212,7 @@ function calculateInvoiceTotal(){
 
 document.getElementById('invoiceForm').onsubmit = function(e){
   e.preventDefault();
+
   const x = formObj(this);
   const lines = getInvoiceLines();
 
@@ -2457,8 +2494,8 @@ document.getElementById('waybillForm').onsubmit = function(e){
   const x = formObj(this);
 
   let status = 'Forwarded to Logistics / Awaiting Dispatch';
-  if(x.supplyStatus.includes('Director Approval Required') || x.logisticsReleaseStatus === 'Pending Director Approval'){
-    status = 'Pending Director Approval';
+  if(x.supplyStatus.includes('Approval Required') || x.logisticsReleaseStatus === 'Pending Approval'){
+    status = 'Pending Approval';
   }
 
   db.waybills.unshift({
@@ -2503,7 +2540,7 @@ document.getElementById('companyProcurementForm').onsubmit = async function(e){
 
   db.companyProcurements.unshift({
     id:id('companyProcurement'),
-    directorStatus:'Pending Director Approval',
+    directorStatus:'Pending Approval',
     createdBy:roleNames[currentRole],
     createdAt:new Date().toISOString(),
     proofName:proof.name,
@@ -2524,7 +2561,7 @@ document.getElementById('producedGoodsForm').onsubmit = async function(e){
 
   db.producedGoods.unshift({
     id:id('producedGoods'),
-    directorStatus:'Pending Director Approval',
+    directorStatus:'Pending Approval',
     createdBy:roleNames[currentRole],
     createdAt:new Date().toISOString(),
     proofName:proof.name,
@@ -2545,7 +2582,7 @@ document.getElementById('externalProcurementForm').onsubmit = async function(e){
 
   db.externalProcurements.unshift({
     id:id('externalProcurement'),
-    directorStatus:'Pending Director Approval',
+    directorStatus:'Pending Approval',
     createdBy:roleNames[currentRole],
     createdAt:new Date().toISOString(),
     proofName:proof.name,
@@ -2598,7 +2635,7 @@ document.getElementById('clientResaleForm').onsubmit = function(e){
 function renderProcurements(){
   document.getElementById('companyProcurementTable').innerHTML = table(
     db.companyProcurements,
-    ['Date','ID','Supplier / Source','Source Location','Material','Qty','Unit','Condition','Received By','Proof','Director Status'],
+    ['Date','ID','Supplier / Source','Source Location','Material','Qty','Unit','Condition','Received By','Proof','Status'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2617,7 +2654,7 @@ function renderProcurements(){
 
   document.getElementById('producedGoodsTable').innerHTML = table(
     db.producedGoods,
-    ['Date','ID','Location','Product','Qty','Unit','Condition','Confirmed By','Proof','Director Status'],
+    ['Date','ID','Location','Product','Qty','Unit','Condition','Confirmed By','Proof','Status'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2635,7 +2672,7 @@ function renderProcurements(){
 
   document.getElementById('externalProcurementTable').innerHTML = table(
     db.externalProcurements,
-    ['Date','ID','Reference','Customer Location','Supplier','Supplier Location','Material','Qty','Unit','Proof','Director Status'],
+    ['Date','ID','Reference','Customer Location','Supplier','Supplier Location','Material','Qty','Unit','Proof','Status'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2654,7 +2691,7 @@ function renderProcurements(){
 
   document.getElementById('clientResaleTable').innerHTML = table(
     db.clientResales,
-    ['Date','ID','Client','Phone','Location','Product','Qty','Unit','Terms','Status','Director Status'],
+    ['Date','ID','Client','Phone','Location','Product','Qty','Unit','Terms','Status'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2665,8 +2702,7 @@ function renderProcurements(){
       num(r.quantity),
       esc(r.unit),
       esc(r.termsAccepted),
-      tag(r.status, r.status.includes('Rejected')?'bad':r.status.includes('Approved')?'ok':'info'),
-      tag(r.directorStatus || 'Visible to Director','info')
+      tag(r.status, r.status.includes('Rejected')?'bad':r.status.includes('Approved')?'ok':'info')
     ],
     'No client resale/return request yet.'
   );
@@ -2805,8 +2841,8 @@ document.getElementById('inspectionForm').onsubmit = async function(e){
 
   Object.assign(inspection,{
     ...x,
-    status:'Inspection Submitted to Director',
-    directorStatus:'Pending Director Review',
+    status:'Inspection Submitted',
+    directorStatus:'Pending Review',
     proofName:proof.name,
     proofData:proof.data,
     submittedAt:new Date().toISOString()
@@ -2814,8 +2850,8 @@ document.getElementById('inspectionForm').onsubmit = async function(e){
 
   const resale = db.clientResales.find(r=>r.id===inspection.resaleId);
   if(resale){
-    resale.status = 'Inspection Completed / Pending Director Approval';
-    resale.directorStatus = 'Pending Director Review';
+    resale.status = 'Inspection Completed / Pending Approval';
+    resale.directorStatus = 'Pending Review';
   }
 
   this.reset();
@@ -2826,7 +2862,7 @@ document.getElementById('inspectionForm').onsubmit = async function(e){
 function renderInspections(){
   document.getElementById('inspectionTable').innerHTML = table(
     db.inspections,
-    ['Date','Inspection','Client','Product','Claimed Qty','Location','Verified Qty','Condition','Recommendation','Proof','Status','Director Status'],
+    ['Date','Inspection','Client','Product','Claimed Qty','Location','Verified Qty','Condition','Recommendation','Proof','Status'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2838,8 +2874,7 @@ function renderInspections(){
       esc(r.condition || '-'),
       esc(r.recommendation || '-'),
       proofLink(r),
-      tag(r.status, r.status && r.status.includes('Submitted')?'info':'warn'),
-      tag(r.directorStatus || '-','info')
+      tag(r.status, r.status && r.status.includes('Submitted')?'info':'warn')
     ],
     'No inspection job yet.'
   );
@@ -2852,7 +2887,7 @@ document.getElementById('issueForm').onsubmit = async function(e){
 
   db.issues.unshift({
     id:id('issue'),
-    status:'Submitted to Director',
+    status:'Submitted',
     createdBy:roleNames[currentRole],
     createdAt:new Date().toISOString(),
     proofName:proof.name,
@@ -2880,7 +2915,7 @@ function renderIssues(){
       tag(r.status,'warn'),
       esc(r.details)
     ],
-    'No issue/dispute note yet.'
+    'No issue/field note yet.'
   );
 }
 
@@ -2922,13 +2957,13 @@ function renderDirectorDashboard(){
   if(!document.getElementById('directorMetrics')) return;
 
   const pendingPayments = db.payments.filter(p=>p.status==='Awaiting Director Confirmation').length;
-  const pendingWaybills = db.waybills.filter(w=>w.status==='Pending Director Approval').length;
+  const pendingWaybills = db.waybills.filter(w=>w.status==='Pending Approval').length;
   const pendingProc = [
     ...db.companyProcurements,
     ...db.producedGoods,
     ...db.externalProcurements
-  ].filter(r=>r.directorStatus==='Pending Director Approval').length;
-  const pendingInspections = db.inspections.filter(i=>i.directorStatus==='Pending Director Review').length;
+  ].filter(r=>r.directorStatus==='Pending Approval').length;
+  const pendingInspections = db.inspections.filter(i=>i.directorStatus==='Pending Review').length;
   const redStock = db.inventory.filter(i=>i.indicator && i.indicator.includes('Red')).length;
   const signedPending = db.logisticsMovements.filter(l=>l.status==='Delivered - Signed Waybill Pending').length;
 
@@ -2945,15 +2980,34 @@ function renderDirectorDashboard(){
 
   const alerts = [];
   db.payments.filter(p=>p.status==='Awaiting Director Confirmation').forEach(p=>alerts.push(['Payment Confirmation',p.id,p.customer,p.location,p.amount]));
-  db.waybills.filter(w=>w.status==='Pending Director Approval').forEach(w=>alerts.push(['Waybill / Supply Approval',w.id,w.customer,w.location,w.logisticsFee]));
+  db.waybills.filter(w=>w.status==='Pending Approval').forEach(w=>alerts.push(['Waybill / Supply Approval',w.id,w.customer,w.location,w.logisticsFee]));
   db.inventory.filter(i=>i.indicator && i.indicator.includes('Red')).forEach(i=>alerts.push(['Stock Red Flag',i.id,i.item,i.location,i.quantity]));
-  db.inspections.filter(i=>i.directorStatus==='Pending Director Review').forEach(i=>alerts.push(['Inspection Review',i.id,i.client,i.location,i.verifiedQuantity || 0]));
+  db.inspections.filter(i=>i.directorStatus==='Pending Review').forEach(i=>alerts.push(['Inspection Review',i.id,i.client,i.location,i.verifiedQuantity || 0]));
 
   document.getElementById('directorAlerts').innerHTML = table(
     alerts,
     ['Type','Reference','Name / Item','Location','Amount / Qty'],
     a => [esc(a[0]),esc(a[1]),esc(a[2]),esc(a[3]),typeof a[4]==='number'?num(a[4]):esc(a[4])],
     'No urgent Director alert at the moment.'
+  );
+}
+
+function renderStaffReports(){
+  document.getElementById('staffReportTable').innerHTML = table(
+    db.staffReports,
+    ['Date','Report ID','Submitted By','Role','Report Date','Status','Action'],
+    r => [
+      niceDate(r.submittedDate),
+      r.id,
+      esc(r.submittedBy),
+      esc(r.role),
+      niceDate(r.reportDate),
+      tag(r.status,'info'),
+      currentRole === 'director'
+        ? '<button class="small secondary" onclick="viewStaffReport(\''+r.id+'\')">View</button>'
+        : ''
+    ],
+    'No staff report submitted yet.'
   );
 }
 
@@ -2974,7 +3028,7 @@ function renderApprovals(){
     });
   });
 
-  db.waybills.filter(w=>w.status==='Pending Director Approval').forEach(w=>{
+  db.waybills.filter(w=>w.status==='Pending Approval').forEach(w=>{
     rows.push({
       type:'Waybill / Supply Approval',
       id:w.id,
@@ -2988,7 +3042,7 @@ function renderApprovals(){
     });
   });
 
-  db.companyProcurements.filter(r=>r.directorStatus==='Pending Director Approval').forEach(r=>{
+  db.companyProcurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
     rows.push({
       type:'Company Goods Stock-In Approval',
       id:r.id,
@@ -3002,7 +3056,7 @@ function renderApprovals(){
     });
   });
 
-  db.producedGoods.filter(r=>r.directorStatus==='Pending Director Approval').forEach(r=>{
+  db.producedGoods.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
     rows.push({
       type:'Produced Goods Approval',
       id:r.id,
@@ -3016,7 +3070,7 @@ function renderApprovals(){
     });
   });
 
-  db.externalProcurements.filter(r=>r.directorStatus==='Pending Director Approval').forEach(r=>{
+  db.externalProcurements.filter(r=>r.directorStatus==='Pending Approval').forEach(r=>{
     rows.push({
       type:'External Procurement Approval',
       id:r.id,
@@ -3030,7 +3084,7 @@ function renderApprovals(){
     });
   });
 
-  db.inspections.filter(r=>r.directorStatus==='Pending Director Review').forEach(r=>{
+  db.inspections.filter(r=>r.directorStatus==='Pending Review').forEach(r=>{
     rows.push({
       type:'Inspection / Client Goods Resale Review',
       id:r.id,
@@ -3066,7 +3120,7 @@ function approveWaybill(idv){
   if(!ensureDirector()) return;
   const r = db.waybills.find(x=>x.id===idv);
   if(!r) return;
-  r.status = 'Director Approved / Forwarded to Logistics';
+  r.status = 'Approved / Forwarded to Logistics';
   saveDB();
 }
 
@@ -3074,7 +3128,7 @@ function rejectWaybill(idv){
   if(!ensureDirector()) return;
   const r = db.waybills.find(x=>x.id===idv);
   if(!r) return;
-  r.status = 'Rejected / Query by Director';
+  r.status = 'Rejected / Query';
   saveDB();
 }
 
@@ -3108,7 +3162,7 @@ function rejectCompanyProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.companyProcurements.find(x=>x.id===idv);
   if(!r) return;
-  r.directorStatus = 'Rejected / Query by Director';
+  r.directorStatus = 'Rejected / Query';
   saveDB();
 }
 
@@ -3141,7 +3195,7 @@ function rejectProducedGoods(idv){
   if(!ensureDirector()) return;
   const r = db.producedGoods.find(x=>x.id===idv);
   if(!r) return;
-  r.directorStatus = 'Rejected / Query by Director';
+  r.directorStatus = 'Rejected / Query';
   saveDB();
 }
 
@@ -3157,7 +3211,7 @@ function rejectExternalProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.externalProcurements.find(x=>x.id===idv);
   if(!r) return;
-  r.directorStatus = 'Rejected / Query by Director';
+  r.directorStatus = 'Rejected / Query';
   saveDB();
 }
 
@@ -3166,13 +3220,13 @@ function approveInspection(idv){
   const r = db.inspections.find(x=>x.id===idv);
   if(!r) return;
 
-  r.directorStatus = 'Director Approved for Procurement / Resale';
+  r.directorStatus = 'Approved for Procurement / Resale';
   r.status = 'Approved After Inspection';
 
   const resale = db.clientResales.find(x=>x.id===r.resaleId);
   if(resale){
     resale.status = 'Approved for Resale / Procurement Officer to Proceed';
-    resale.directorStatus = 'Director Approved';
+    resale.directorStatus = 'Approved';
   }
 
   saveDB();
@@ -3183,13 +3237,13 @@ function rejectInspection(idv){
   const r = db.inspections.find(x=>x.id===idv);
   if(!r) return;
 
-  r.directorStatus = 'Rejected by Director';
+  r.directorStatus = 'Rejected';
   r.status = 'Rejected After Inspection';
 
   const resale = db.clientResales.find(x=>x.id===r.resaleId);
   if(resale){
     resale.status = 'Rejected After Inspection';
-    resale.directorStatus = 'Rejected by Director';
+    resale.directorStatus = 'Rejected';
   }
 
   saveDB();
@@ -3303,7 +3357,7 @@ function printReceipt(idv){
       <tr><th>Method</th><td>${esc(r.method)}</td></tr>
       <tr><th>Status</th><td>${esc(r.status)}</td></tr>
     </table>
-    <p style="margin-top:40px">Director / Authorized Signature: ____________________</p>
+    <p style="margin-top:40px">Authorized Signature: ____________________</p>
   `);
 
   printWin(html,'Receipt '+r.id);
@@ -3377,7 +3431,7 @@ function printWin(content,title){
   w.document.close();
 }
 
-function generateDailyReport(){
+function buildDailyReportHtml(){
   const d = document.getElementById('reportDate').value || today();
 
   const quotes = db.quotes.filter(x=>x.date===d);
@@ -3413,7 +3467,7 @@ function generateDailyReport(){
 
   currentReportTitle = 'FTH D-UNIQ Daily Report - '+d;
 
-  currentReportHtml = docShell('DAILY OPERATIONS REPORT', 'DATE: '+niceDate(d), `
+  return docShell('DAILY OPERATIONS REPORT', 'DATE: '+niceDate(d), `
     <h2>Executive Summary</h2>
     <table>
       <tr><th>Total Quotes</th><td>${quotes.length}</td></tr>
@@ -3425,7 +3479,7 @@ function generateDailyReport(){
       <tr><th>Procurement / Resale Records</th><td>${procurement.length}</td></tr>
       <tr><th>Logistics Movements</th><td>${logistics.length}</td></tr>
       <tr><th>Inspections</th><td>${inspections.length}</td></tr>
-      <tr><th>Issues / Disputes</th><td>${issues.length}</td></tr>
+      <tr><th>Issues / Field Notes</th><td>${issues.length}</td></tr>
     </table>
 
     <h2>Product Sales Summary</h2>
@@ -3467,7 +3521,7 @@ function generateDailyReport(){
       esc(r.directorStatus || r.status || '-')
     ],'No procurement/resale record for this date.')}
 
-    <h2>Issues / Red Flags</h2>
+    <h2>Issues / Field Notes</h2>
     ${table(issues,['Issue','Location','Reference','Type','Details'],r=>[
       r.id,esc(r.location),esc(r.reference),esc(r.issueType),esc(r.details)
     ],'No issue recorded for this date.')}
@@ -3479,11 +3533,47 @@ function generateDailyReport(){
 
     <p style="margin-top:40px">Director Review: ____________________ Date: ____________________</p>
   `);
+}
 
+function generateDailyReport(){
+  currentReportHtml = buildDailyReportHtml();
+  document.getElementById('reportOutput').innerHTML = currentReportHtml;
+}
+
+function submitDailyReportToDirector(){
+  if(!currentReportHtml) generateDailyReport();
+
+  const reportDate = document.getElementById('reportDate').value || today();
+
+  db.staffReports.unshift({
+    id:id('staffReport'),
+    submittedDate:today(),
+    reportDate,
+    submittedBy:roleNames[currentRole],
+    role:currentRole,
+    status:'Submitted to Director',
+    html:currentReportHtml,
+    createdAt:new Date().toISOString()
+  });
+
+  saveDB();
+
+  location.href = 'mailto:'+REPORT_EMAIL+'?subject='+encodeURIComponent('FTH D-UNIQ Daily Report Submitted - '+reportDate)+'&body='+encodeURIComponent('A daily report has been submitted from the FTH D-UNIQ Operations Workstation.\n\nSubmitted By: '+roleNames[currentRole]+'\nReport Date: '+reportDate+'\n\nPlease review from the Director dashboard.');
+}
+
+function viewStaffReport(idv){
+  if(!ensureDirector()) return;
+  const r = db.staffReports.find(x=>x.id===idv);
+  if(!r) return;
+  currentReportHtml = r.html;
+  currentReportTitle = 'Staff Report - '+r.id;
+  showPage('reports');
   document.getElementById('reportOutput').innerHTML = currentReportHtml;
 }
 
 function generateMonthlyReport(){
+  if(!ensureDirector()) return;
+
   const m = document.getElementById('reportMonth').value || today().slice(0,7);
   const startsWithMonth = x => String(x.date || '').startsWith(m);
 
@@ -3491,7 +3581,6 @@ function generateMonthlyReport(){
   const payments = db.payments.filter(startsWithMonth);
   const confirmedPayments = payments.filter(x=>x.status==='Confirmed by Director');
   const inventory = db.inventory.filter(startsWithMonth);
-  const waybills = db.waybills.filter(startsWithMonth);
   const procurement = [
     ...db.companyProcurements.filter(startsWithMonth),
     ...db.producedGoods.filter(startsWithMonth),
@@ -3516,10 +3605,9 @@ function generateMonthlyReport(){
       <tr><th>Outstanding Balance</th><td>${money(outstanding)}</td></tr>
       <tr><th>Logistics Fee Income Captured</th><td>${money(logisticsIncome)}</td></tr>
       <tr><th>Total Invoices</th><td>${invoices.length}</td></tr>
-      <tr><th>Waybills</th><td>${waybills.length}</td></tr>
       <tr><th>Procurement / Resale Records</th><td>${procurement.length}</td></tr>
       <tr><th>Logistics Movements</th><td>${logistics.length}</td></tr>
-      <tr><th>Issues / Red Flags</th><td>${issues.length}</td></tr>
+      <tr><th>Issues / Field Notes</th><td>${issues.length}</td></tr>
     </table>
 
     <h2>Current Closing Stock Position</h2>
@@ -3547,16 +3635,18 @@ function generateMonthlyReport(){
 }
 
 function printCurrentReport(){
+  if(!ensureDirector()) return;
   if(!currentReportHtml) generateDailyReport();
   printWin(currentReportHtml, currentReportTitle || 'FTH D-UNIQ Report');
 }
 
 function emailCurrentReport(){
   if(!currentReportHtml) generateDailyReport();
-  location.href = 'mailto:'+REPORT_EMAIL+'?subject='+encodeURIComponent(currentReportTitle || 'FTH D-UNIQ Report')+'&body='+encodeURIComponent('Please find the generated report summary from the FTH D-UNIQ Operations Workstation. Use Print/Save PDF to archive a full copy.');
+  location.href = 'mailto:'+REPORT_EMAIL+'?subject='+encodeURIComponent(currentReportTitle || 'FTH D-UNIQ Report')+'&body='+encodeURIComponent('Please find the generated report summary from the FTH D-UNIQ Operations Workstation. Use the Director dashboard for PDF/archive.');
 }
 
 function archiveCurrentReport(){
+  if(!ensureDirector()) return;
   if(!currentReportHtml) generateDailyReport();
 
   db.archives.unshift({
@@ -3581,13 +3671,16 @@ function renderArchive(){
       a.id,
       esc(a.title),
       esc(a.createdBy),
-      '<button class="small secondary" onclick="printArchive(\''+a.id+'\')">Print</button>'
+      currentRole === 'director'
+        ? '<button class="small secondary" onclick="printArchive(\''+a.id+'\')">Print</button>'
+        : ''
     ],
     'No archived report yet.'
   );
 }
 
 function printArchive(idv){
+  if(!ensureDirector()) return;
   const a = db.archives.find(x=>x.id===idv);
   if(!a) return;
   printWin(a.html,a.title);
@@ -3596,7 +3689,7 @@ function printArchive(idv){
 function directorClearGroup(group){
   if(!ensureDirector()) return;
 
-  const confirmText = 'This will archive the selected active data group and clear it from the active dashboard. Continue?';
+  const confirmText = 'Archive and clear selected active dashboard data?';
   if(!confirm(confirmText)) return;
 
   const archive = {
