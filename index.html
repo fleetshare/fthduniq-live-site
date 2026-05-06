@@ -932,6 +932,235 @@
     });
   })();
 </script>
-  
+  <script>
+(function () {
+  const productOptions = [
+    { code: "CEM-001", item: "Cement", unit: "Bags", tonnage: "Not Applicable" },
+    { code: "BLK-004", item: "4 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
+    { code: "BLK-006", item: "6 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
+    { code: "BLK-009", item: "9 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
+    { code: "SND-SHP-BAG", item: "Sharp Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
+    { code: "SND-SHP-5T", item: "Sharp Sand - 5 Ton / 6 Tyres Trip", unit: "Trips", tonnage: "5 Ton" },
+    { code: "SND-SHP-10T", item: "Sharp Sand - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
+    { code: "SND-SHP-15T", item: "Sharp Sand - 12.5 / 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
+    { code: "GRT-BAG", item: "Granite - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
+    { code: "GRT-5T", item: "Granite - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
+    { code: "GRT-10T", item: "Granite - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
+    { code: "GRT-15T", item: "Granite - 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
+    { code: "GRT-20T", item: "Granite - 20 Ton Trip", unit: "Trips", tonnage: "20 Ton" },
+    { code: "GRT-30T", item: "Granite - 30 Ton Trip", unit: "Trips", tonnage: "30 Ton" },
+    { code: "GRT-35T", item: "Granite - 35 Ton Trip", unit: "Trips", tonnage: "35 Ton" },
+    { code: "INT-001", item: "Interlocking Stones", unit: "Square Metres", tonnage: "Not Applicable" },
+    { code: "KRB-001", item: "Kerbs", unit: "Pieces", tonnage: "Not Applicable" },
+    { code: "SRV-PRC", item: "Procurement Support", unit: "Service", tonnage: "Not Applicable" },
+    { code: "SRV-LOG", item: "Logistics Coordination", unit: "Service", tonnage: "Not Applicable" },
+    { code: "SRV-PROJ", item: "Project Support", unit: "Service", tonnage: "Not Applicable" },
+    { code: "OTH-001", item: "Other / To Be Confirmed", unit: "Other", tonnage: "Not Applicable" }
+  ];
+
+  const quoteForm = document.getElementById("quoteRequestForm");
+  const quoteStatus = document.getElementById("quoteFormStatus") || document.getElementById("quoteFormMessage");
+  const quoteLinesInput = document.getElementById("quote_lines");
+  const productLinesContainer = document.getElementById("quoteProductLines");
+  const addProductLineBtn = document.getElementById("addProductLineBtn");
+  const submitBtn = quoteForm ? quoteForm.querySelector('button[type="submit"]') : null;
+
+  function productOptionsHtml() {
+    return '<option value="">Select product / service</option>' + productOptions.map(function (p) {
+      return '<option value="' + p.code + '">' + p.code + ' — ' + p.item + '</option>';
+    }).join("");
+  }
+
+  function addProductLine() {
+    if (!productLinesContainer) return;
+
+    const count = productLinesContainer.querySelectorAll(".quote-product-row").length;
+
+    if (count >= 10) {
+      alert("You can add a maximum of 10 products or services.");
+      return;
+    }
+
+    const row = document.createElement("div");
+    row.className = "quote-product-row";
+    row.style.marginTop = "14px";
+    row.style.padding = "16px";
+    row.style.border = "1px solid rgba(199,155,53,.18)";
+    row.style.borderRadius = "18px";
+    row.style.background = "rgba(255,255,255,.65)";
+
+    row.innerHTML =
+      '<div class="quote-form-grid">' +
+        '<div class="form-field">' +
+          '<label>Product / Service Needed</label>' +
+          '<select class="line-code" required>' + productOptionsHtml() + '</select>' +
+        '</div>' +
+
+        '<div class="form-field">' +
+          '<label>Quantity / Volume</label>' +
+          '<input class="line-quantity" type="text" placeholder="e.g. 30, 5, 1" required>' +
+        '</div>' +
+
+        '<div class="form-field">' +
+          '<label>Unit</label>' +
+          '<select class="line-unit" required>' +
+            '<option value="">Select unit</option>' +
+            '<option value="Bags">Bags</option>' +
+            '<option value="Pieces">Pieces</option>' +
+            '<option value="Trips">Trips</option>' +
+            '<option value="Tonnes / Tonnage">Tonnes / Tonnage</option>' +
+            '<option value="Square Metres">Square Metres</option>' +
+            '<option value="Service">Service</option>' +
+            '<option value="Other">Other</option>' +
+          '</select>' +
+        '</div>' +
+
+        '<div class="form-field">' +
+          '<label>Tonnage / Trip Size</label>' +
+          '<select class="line-tonnage">' +
+            '<option value="Not Applicable">Not Applicable</option>' +
+            '<option value="5 Ton">5 Ton</option>' +
+            '<option value="10 Ton">10 Ton</option>' +
+            '<option value="12.5 Ton">12.5 Ton</option>' +
+            '<option value="15 Ton">15 Ton</option>' +
+            '<option value="20 Ton">20 Ton</option>' +
+            '<option value="30 Ton">30 Ton</option>' +
+            '<option value="35 Ton">35 Ton</option>' +
+          '</select>' +
+        '</div>' +
+
+        '<div class="form-field full">' +
+          '<label>Local Description</label>' +
+          '<input class="line-local" type="text" placeholder="Example: 1 trip of 6 tyres sharp sand, 30 pieces of 4 inches block">' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="form-submit-row" style="margin-top:12px;">' +
+        '<button type="button" class="btn btn-secondary remove-line">Remove This Product</button>' +
+      '</div>';
+
+    const codeSelect = row.querySelector(".line-code");
+    const unitSelect = row.querySelector(".line-unit");
+    const tonnageSelect = row.querySelector(".line-tonnage");
+
+    codeSelect.addEventListener("change", function () {
+      const selected = productOptions.find(function (p) {
+        return p.code === codeSelect.value;
+      });
+
+      if (selected) {
+        unitSelect.value = selected.unit;
+        tonnageSelect.value = selected.tonnage;
+      }
+    });
+
+    row.querySelector(".remove-line").addEventListener("click", function () {
+      const rows = productLinesContainer.querySelectorAll(".quote-product-row");
+
+      if (rows.length <= 1) {
+        alert("At least one product/service line is required.");
+        return;
+      }
+
+      row.remove();
+    });
+
+    productLinesContainer.appendChild(row);
+  }
+
+  function collectLines() {
+    if (!productLinesContainer) return [];
+
+    return Array.from(productLinesContainer.querySelectorAll(".quote-product-row")).map(function (row) {
+      const code = row.querySelector(".line-code").value;
+      const selected = productOptions.find(function (p) {
+        return p.code === code;
+      });
+
+      return {
+        code: code,
+        item: selected ? selected.item : "",
+        quantity: row.querySelector(".line-quantity").value.trim(),
+        unit: row.querySelector(".line-unit").value,
+        tonnage: row.querySelector(".line-tonnage").value,
+        localDescription: row.querySelector(".line-local").value.trim()
+      };
+    }).filter(function (line) {
+      return line.code && line.quantity;
+    });
+  }
+
+  function showStatus(message, type) {
+    if (!quoteStatus) {
+      alert(message);
+      return;
+    }
+
+    quoteStatus.style.display = "block";
+    quoteStatus.className = "form-status " + type;
+    quoteStatus.textContent = message;
+  }
+
+  if (addProductLineBtn) {
+    addProductLineBtn.addEventListener("click", addProductLine);
+  }
+
+  if (productLinesContainer && productLinesContainer.children.length === 0) {
+    addProductLine();
+  }
+
+  if (quoteForm) {
+    quoteForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (!quoteForm.reportValidity()) return;
+
+      const lines = collectLines();
+
+      if (!lines.length) {
+        showStatus("Please add at least one product or material line.", "error");
+        return;
+      }
+
+      if (quoteLinesInput) {
+        quoteLinesInput.value = JSON.stringify(lines);
+      }
+
+      showStatus("Submitting your quote request. Please wait...", "success");
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+      }
+
+      try {
+        const response = await fetch("/api/quote-email", {
+          method: "POST",
+          body: new FormData(quoteForm)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.message || "Quote request could not be submitted.");
+        }
+
+        quoteForm.reset();
+        productLinesContainer.innerHTML = "";
+        addProductLine();
+
+        showStatus("Thank you. Your quote request has been received. FTH D-UNIQ will review and follow up.", "success");
+      } catch (error) {
+        showStatus(error.message || "Quote request could not be submitted. Please try again.", "error");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Quote Request";
+        }
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
