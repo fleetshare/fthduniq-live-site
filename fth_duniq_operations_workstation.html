@@ -32,14 +32,9 @@ body{
   background:linear-gradient(180deg,#fbf6ee,#efe3d0);
 }
 .wrap{max-width:1500px;margin:auto;padding:16px}
-.login{
-  min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:18px;
-}
+.login{min-height:100vh;display:grid;place-items:center;padding:18px}
 .card,.panel{
-  background:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.84);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:24px;
@@ -52,7 +47,7 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:14px;
-  background:rgba(255,255,255,.86);
+  background:rgba(255,255,255,.88);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px 20px;
@@ -100,25 +95,11 @@ h2{
   line-height:1;
   margin-bottom:10px;
 }
-h3{font-size:1.05rem}
 p{color:var(--muted);line-height:1.7}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .full{grid-column:1/-1}
-label{
-  display:block;
-  font-size:.84rem;
-  font-weight:900;
-  margin-bottom:7px;
-}
+label{display:block;font-size:.84rem;font-weight:900;margin-bottom:7px}
 input,select,textarea{
   width:100%;
   border:1px solid rgba(157,116,26,.28);
@@ -156,12 +137,7 @@ button,.btn{
 .small{font-size:.76rem;padding:8px 11px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
 .app{display:none}
-.layout{
-  display:grid;
-  grid-template-columns:280px 1fr;
-  gap:16px;
-  margin-top:16px;
-}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:16px;margin-top:16px}
 .side{
   position:sticky;
   top:110px;
@@ -208,20 +184,8 @@ button,.btn{
   line-height:1.65;
   margin:12px 0;
 }
-.warning{
-  border-left-color:var(--red);
-  background:rgba(153,27,27,.08);
-}
-.success{
-  border-left-color:var(--green);
-  background:rgba(22,101,52,.08);
-}
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
-  margin-top:16px;
-}
+.warning{border-left-color:var(--red);background:rgba(153,27,27,.08)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
 .metric{
   background:#fff;
   border:1px solid var(--line);
@@ -236,22 +200,14 @@ button,.btn{
   text-transform:uppercase;
   letter-spacing:.08em;
 }
-.metric strong{
-  display:block;
-  margin-top:7px;
-  font-size:1.35rem;
-}
+.metric strong{display:block;margin-top:7px;font-size:1.35rem}
 .table{
   overflow:auto;
   background:#fff;
   border:1px solid var(--line);
   border-radius:18px;
 }
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:900px;
-}
+table{width:100%;border-collapse:collapse;min-width:900px}
 th,td{
   padding:11px;
   border-bottom:1px solid rgba(157,116,26,.15);
@@ -284,7 +240,6 @@ th{background:#eee5d8;font-weight:900}
   background:rgba(255,255,255,.55);
   margin-bottom:14px;
 }
-.section-box h3{margin-bottom:6px}
 .line-items{
   border:1px dashed rgba(157,116,26,.4);
   border-radius:18px;
@@ -293,15 +248,11 @@ th{background:#eee5d8;font-weight:900}
 }
 .line-row{
   display:grid;
-  grid-template-columns:1.2fr .75fr .8fr .7fr .9fr .8fr auto;
+  grid-template-columns:1fr 1.1fr .7fr .8fr .9fr .8fr auto;
   gap:8px;
   margin-bottom:8px;
 }
-hr{
-  border:0;
-  border-top:1px solid rgba(157,116,26,.18);
-  margin:18px 0;
-}
+hr{border:0;border-top:1px solid rgba(157,116,26,.18);margin:18px 0}
 .director-only{display:none}
 @media(max-width:1100px){
   .layout{grid-template-columns:1fr}
@@ -327,7 +278,7 @@ hr{
   <div class="card">
     <div class="eyebrow">Private Login</div>
     <h2>FTH D-UNIQ Operations Workstation</h2>
-    <p>Private workstation for quote tracking, customer records, invoicing, stock movement, procurement, logistics, approvals, reporting and archive.</p>
+    <p>Private workstation for quotes, invoices, payments, receipts, inventory, procurement, logistics, approvals, reports and archive.</p>
 
     <div class="notice">
       <b>Demo PINs:</b><br>
@@ -392,9 +343,9 @@ hr{
         <div class="panel">
           <div class="eyebrow">Director Dashboard</div>
           <h2>Director Control Centre</h2>
-          <p>All active records, website quote requests, internal quote entries, uploaded proofs, and pending confirmations appear here.</p>
+          <p>All website quotes, internal quotes, invoices, uploaded proofs, approvals, reports and movement records appear here.</p>
           <div class="row">
-            <button class="secondary director-only" onclick="syncWebsiteQuotes()">Sync Website Quote Requests</button>
+            <button class="secondary director-only" onclick="syncWebsiteQuotes()">Sync Website Quotes</button>
           </div>
           <div class="metrics" id="directorMetrics"></div>
         </div>
@@ -414,12 +365,12 @@ hr{
         <div class="panel">
           <div class="eyebrow">Business Support Officer</div>
           <h2>Front Desk / Customer Control Point</h2>
-          <p>Business Support handles customer requests, invoicing, payment uploads, customer records, stock desk and delivery handover.</p>
+          <p>Business Support handles customer request entry, invoicing, payment proof upload, receipt generation, stock desk and delivery handover.</p>
 
           <div class="grid-3">
             <div class="section-box">
               <h3>Customer-Facing / Sales Desk</h3>
-              <p>Quotes, invoices, sales ledger, payment uploads, receipts and customer follow-up.</p>
+              <p>Quotes, invoices, sales ledger, payment uploads, receipts and follow-up routing.</p>
             </div>
             <div class="section-box">
               <h3>Inventory / Company Stock Desk</h3>
@@ -482,21 +433,13 @@ hr{
               </div>
 
               <div>
+                <label>Standard Product Code</label>
+                <select name="materialCode" id="quoteMaterialCode" onchange="applyQuoteMaterialCode()"></select>
+              </div>
+
+              <div>
                 <label>Material / Product Needed</label>
-                <select name="material" required>
-                  <option value="">Select material/product</option>
-                  <option>Cement</option>
-                  <option>6” Blocks</option>
-                  <option>9” Blocks</option>
-                  <option>Sharp Sand</option>
-                  <option>Plaster Sand</option>
-                  <option>Granite</option>
-                  <option>Interlocking Stones</option>
-                  <option>Kerbs</option>
-                  <option>Procurement Support</option>
-                  <option>Logistics / Delivery Support</option>
-                  <option>Other</option>
-                </select>
+                <input name="material" required>
               </div>
 
               <div>
@@ -534,18 +477,32 @@ hr{
               </div>
 
               <div>
-                <label>Local Order Description, If Applicable</label>
+                <label>Local Order Description</label>
                 <input name="localDescription" placeholder="Example: 1 trip of 6 tyres sharp sand">
               </div>
 
               <div>
-                <label>Internal Interpretation, If Applicable</label>
+                <label>Internal Interpretation</label>
                 <input name="internalInterpretation" placeholder="Example: 1 trip of 5-ton sharp sand">
               </div>
 
               <div>
-                <label>Preferred Delivery Timeline</label>
-                <input name="timeline" required>
+                <label>Preferred Delivery Date</label>
+                <input name="deliveryDate" type="date">
+              </div>
+
+              <div>
+                <label>Preferred Delivery Time</label>
+                <input name="deliveryTime" type="time">
+              </div>
+
+              <div>
+                <label>AM / PM</label>
+                <select name="deliveryPeriod">
+                  <option value="">Select period</option>
+                  <option>AM</option>
+                  <option>PM</option>
+                </select>
               </div>
 
               <div>
@@ -607,6 +564,30 @@ hr{
               <div>
                 <label>Delivery / Project Location</label>
                 <input name="location" required>
+              </div>
+
+              <div>
+                <label>Delivery Date</label>
+                <input name="deliveryDate" type="date">
+              </div>
+
+              <div>
+                <label>Delivery Time</label>
+                <input name="deliveryTime" type="time">
+              </div>
+
+              <div>
+                <label>AM / PM</label>
+                <select name="deliveryPeriod">
+                  <option value="">Select period</option>
+                  <option>AM</option>
+                  <option>PM</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Logistics Fee Charged to Customer (₦)</label>
+                <input name="logisticsFee" type="number" step="0.01" value="0" oninput="calculateInvoiceTotal()">
               </div>
 
               <div class="full">
@@ -747,6 +728,11 @@ hr{
               </div>
 
               <div>
+                <label>Standard Product Code</label>
+                <select name="materialCode" id="inventoryMaterialCode" onchange="applyInventoryMaterialCode()"></select>
+              </div>
+
+              <div>
                 <label>Material / Product</label>
                 <input name="item" required>
               </div>
@@ -808,7 +794,7 @@ hr{
           </form>
 
           <div class="notice">
-            Field guide for bag stock: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags. Adjustments can be recorded where physical stock differs.
+            Field guide for bag stock: 5-ton sharp sand ≈ 120 bags; 5-ton plaster sand ≈ 120 bags; 5-ton granite ≈ 90–100 bags.
           </div>
         </div>
 
@@ -853,6 +839,25 @@ hr{
               <div>
                 <label>Delivery Location / Address</label>
                 <input name="location" required>
+              </div>
+
+              <div>
+                <label>Delivery Date</label>
+                <input name="deliveryDate" type="date">
+              </div>
+
+              <div>
+                <label>Delivery Time</label>
+                <input name="deliveryTime" type="time">
+              </div>
+
+              <div>
+                <label>AM / PM</label>
+                <select name="deliveryPeriod">
+                  <option value="">Select period</option>
+                  <option>AM</option>
+                  <option>PM</option>
+                </select>
               </div>
 
               <div>
@@ -957,6 +962,11 @@ hr{
               <div>
                 <label>Supplier / Source Location</label>
                 <input name="sourceLocation" required>
+              </div>
+
+              <div>
+                <label>Standard Product Code</label>
+                <select name="materialCode" id="procurementMaterialCode" onchange="applyProcurementMaterialCode()"></select>
               </div>
 
               <div>
@@ -1137,6 +1147,11 @@ hr{
               </div>
 
               <div>
+                <label>Standard Product Code</label>
+                <select name="materialCode" id="externalMaterialCode" onchange="applyExternalMaterialCode()"></select>
+              </div>
+
+              <div>
                 <label>Material / Product</label>
                 <input name="material" required>
               </div>
@@ -1282,21 +1297,6 @@ hr{
           <div class="eyebrow">Logistics / Inspection Officer</div>
           <h2>Delivery, Dispatch, Inspection & Field Verification</h2>
           <p>Logistics/Inspection handles delivery jobs, waybill execution, vehicle details, movement records, delivery proof and inspection reports.</p>
-
-          <div class="grid-3">
-            <div class="section-box">
-              <h3>Assigned Delivery Jobs</h3>
-              <p>Delivery instructions forwarded from Business Support.</p>
-            </div>
-            <div class="section-box">
-              <h3>Waybill / Dispatch Desk</h3>
-              <p>Driver, truck, vehicle capacity, trips, loading point, dispatch and delivery status.</p>
-            </div>
-            <div class="section-box">
-              <h3>Inspection / Field Verification</h3>
-              <p>Inspection evidence, condition notes and recommendations.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1644,7 +1644,7 @@ hr{
           </div>
 
           <div class="notice">
-            Invoice and payment receipt can be printed from their sections. Report PDF, archive, monthly reconciliation and clearing are Director-only.
+            Business Support can print invoices and receipts only. Report PDF, archive, monthly reconciliation and clearing are Director-only.
           </div>
         </div>
 
@@ -1701,11 +1701,34 @@ hr{
 </div>
 
 <script>
-const KEY = 'fth_duniq_operations_workstation_clean_v3';
-
+const KEY = 'fth_duniq_operations_workstation_v5_full';
 const COMPANY_EMAIL = 'info@fthduniq.com';
 const REPORT_EMAIL = 'report@fthduniq.com';
 const COMPANY_WHATSAPP_LINK = 'https://wa.me/message/VH7OMDVMXQ7YN1?src=qr';
+
+const MATERIAL_CODES = [
+  {code:'CEM-001', name:'Cement', category:'Cement', unit:'Bags', tonnage:'Not Applicable'},
+  {code:'BLK-006', name:'6” Blocks', category:'Blocks', unit:'Pieces', tonnage:'Not Applicable'},
+  {code:'BLK-009', name:'9” Blocks', category:'Blocks', unit:'Pieces', tonnage:'Not Applicable'},
+  {code:'SND-SHP-BAG', name:'Sharp Sand - Bag Sales', category:'Sand / Granite / Plaster', unit:'Bags', tonnage:'Not Applicable'},
+  {code:'SND-SHP-5T', name:'Sharp Sand - 5-ton / 6 tyres trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'5-ton'},
+  {code:'SND-SHP-10T', name:'Sharp Sand - 10-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'10-ton'},
+  {code:'SND-SHP-15T', name:'Sharp Sand - 12.5/15-ton / 10 tyres trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'15-ton'},
+  {code:'SND-PLS-BAG', name:'Plaster Sand - Bag Sales', category:'Sand / Granite / Plaster', unit:'Bags', tonnage:'Not Applicable'},
+  {code:'SND-PLS-5T', name:'Plaster Sand - 5-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'5-ton'},
+  {code:'GRT-BAG', name:'Granite - Bag Sales', category:'Sand / Granite / Plaster', unit:'Bags', tonnage:'Not Applicable'},
+  {code:'GRT-5T', name:'Granite - 5-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'5-ton'},
+  {code:'GRT-10T', name:'Granite - 10-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'10-ton'},
+  {code:'GRT-15T', name:'Granite - 15-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'15-ton'},
+  {code:'GRT-20T', name:'Granite - 20-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'20-ton'},
+  {code:'GRT-30T', name:'Granite - 30-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'30-ton'},
+  {code:'GRT-35T', name:'Granite - 35-ton trip', category:'Sand / Granite / Plaster', unit:'Trips', tonnage:'35-ton'},
+  {code:'INT-001', name:'Interlocking Stones', category:'Interlocking / Kerbs', unit:'Square Metres', tonnage:'Not Applicable'},
+  {code:'KRB-001', name:'Kerbs', category:'Interlocking / Kerbs', unit:'Pieces', tonnage:'Not Applicable'},
+  {code:'LOG-001', name:'Logistics / Delivery Fee', category:'Logistics Fee', unit:'Service', tonnage:'Not Applicable'},
+  {code:'SRV-PRC', name:'Procurement Support', category:'Service', unit:'Service', tonnage:'Not Applicable'},
+  {code:'OTH-001', name:'Other / Confirm Details', category:'Other', unit:'Other', tonnage:'Not Applicable'}
+];
 
 const pins = {
   director:'0000',
@@ -1836,36 +1859,16 @@ function saveDB(){
   renderAll();
 }
 
-function today(){
-  return new Date().toISOString().slice(0,10);
-}
-
+function today(){return new Date().toISOString().slice(0,10)}
 function id(type){
   db.count[type] = (db.count[type] || 0) + 1;
   return 'FTH-' + type.toUpperCase() + '-' + new Date().getFullYear() + '-' + String(db.count[type]).padStart(4,'0');
 }
-
-function money(n){
-  return '₦' + Number(n || 0).toLocaleString('en-NG',{maximumFractionDigits:2});
-}
-
-function num(n){
-  return Number(n || 0).toLocaleString('en-NG',{maximumFractionDigits:2});
-}
-
-function esc(v){
-  return String(v || '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-}
-
-function niceDate(d){
-  if(!d) return '';
-  return new Date(d).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'2-digit'});
-}
-
-function formObj(form){
-  return Object.fromEntries(new FormData(form).entries());
-}
-
+function money(n){return '₦' + Number(n || 0).toLocaleString('en-NG',{maximumFractionDigits:2})}
+function num(n){return Number(n || 0).toLocaleString('en-NG',{maximumFractionDigits:2})}
+function esc(v){return String(v || '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+function niceDate(d){return d ? new Date(d).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'2-digit'}) : ''}
+function formObj(form){return Object.fromEntries(new FormData(form).entries())}
 function table(rows, heads, map, empty='No records yet.'){
   if(!rows || !rows.length) return '<div class="empty">'+empty+'</div>';
   return '<div class="table"><table><thead><tr>' +
@@ -1874,16 +1877,15 @@ function table(rows, heads, map, empty='No records yet.'){
     rows.map((r,i) => '<tr>'+map(r,i).map(c => '<td>'+c+'</td>').join('')+'</tr>').join('') +
     '</tbody></table></div>';
 }
-
-function tag(text,type='info'){
-  return '<span class="tag '+type+'">'+esc(text)+'</span>';
+function tag(text,type='info'){return '<span class="tag '+type+'">'+esc(text)+'</span>'}
+function proofLink(r){return r && r.proofData ? '<a target="_blank" href="'+r.proofData+'">'+esc(r.proofName || 'View Proof')+'</a>' : '-'}
+function ensureDirector(){
+  if(currentRole !== 'director'){
+    alert('Only Director can perform this action.');
+    return false;
+  }
+  return true;
 }
-
-function proofLink(r){
-  if(!r || !r.proofData) return '-';
-  return '<a target="_blank" href="'+r.proofData+'">'+esc(r.proofName || 'View Proof')+'</a>';
-}
-
 function readFile(file){
   return new Promise(resolve=>{
     if(!file) return resolve({name:'',data:''});
@@ -1893,12 +1895,77 @@ function readFile(file){
   });
 }
 
-function ensureDirector(){
-  if(currentRole !== 'director'){
-    alert('Only Director can perform this action.');
-    return false;
+function populateMaterialCodeSelects(){
+  const html = '<option value="">Select standard code</option>' + MATERIAL_CODES.map(m =>
+    `<option value="${m.code}">${m.code} — ${m.name}</option>`
+  ).join('');
+
+  document.querySelectorAll('#quoteMaterialCode,#inventoryMaterialCode,#procurementMaterialCode,#externalMaterialCode').forEach(sel=>{
+    if(sel) sel.innerHTML = html;
+  });
+
+  document.querySelectorAll('.line-code').forEach(sel=>{
+    const current = sel.value;
+    sel.innerHTML = html;
+    sel.value = current;
+  });
+}
+
+function getMaterialByCode(code){
+  return MATERIAL_CODES.find(m => m.code === code);
+}
+
+function applyQuoteMaterialCode(){
+  const f = document.getElementById('quoteForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.material.value = m.name;
+  f.unit.value = m.unit;
+  f.tonnageSize.value = m.tonnage;
+}
+
+function applyInventoryMaterialCode(){
+  const f = document.getElementById('inventoryForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.item.value = m.name;
+  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
+}
+
+function applyProcurementMaterialCode(){
+  const f = document.getElementById('companyProcurementForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.material.value = m.name;
+  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
+}
+
+function applyExternalMaterialCode(){
+  const f = document.getElementById('externalProcurementForm');
+  const m = getMaterialByCode(f.materialCode.value);
+  if(!m) return;
+  f.material.value = m.name;
+  f.unit.value = m.unit === 'Service' ? 'Units' : m.unit;
+}
+
+function applyLineCode(select){
+  const row = select.closest('.line-row');
+  const m = getMaterialByCode(select.value);
+  if(!row || !m) return;
+
+  row.querySelector('.line-item').value = m.name;
+  row.querySelector('.line-unit').value = m.unit;
+  row.querySelector('.line-tonnage').value = m.tonnage;
+
+  if(m.category === 'Logistics Fee'){
+    row.querySelector('.line-type').value = 'Logistics Fee';
+  }else if(m.category === 'Service'){
+    row.querySelector('.line-type').value = 'Service';
+  }else{
+    row.querySelector('.line-type').value = 'Product';
   }
-  return true;
+
+  calculateInvoiceTotal();
 }
 
 document.getElementById('loginForm').onsubmit = function(e){
@@ -1937,6 +2004,7 @@ function startApp(){
   if(rolePages.length) document.getElementById(rolePages[0][0]).classList.add('active');
 
   setDefaultDates();
+  populateMaterialCodeSelects();
   if(!document.querySelector('#invoiceLines .line-row')) addInvoiceLine();
   applyRoleVisibility();
   renderAll();
@@ -1984,6 +2052,7 @@ function setDefaultDates(){
 }
 
 function renderAll(){
+  populateMaterialCodeSelects();
   renderDirectorDashboard();
   renderQuotes();
   renderSelects();
@@ -2034,7 +2103,9 @@ async function syncWebsiteQuotes(){
         tonnageSize:q.tonnageSize || 'Not Applicable',
         localDescription:q.localDescription || '',
         internalInterpretation:q.internalInterpretation || '',
-        timeline:q.timeline || q.preferredTimeline || '',
+        deliveryDate:q.deliveryDate || '',
+        deliveryTime:q.deliveryTime || '',
+        deliveryPeriod:q.deliveryPeriod || '',
         officer:'Website Submission',
         details:q.details || q.requestDetails || '',
         status:'New Website Quote',
@@ -2072,7 +2143,7 @@ document.getElementById('quoteForm').onsubmit = function(e){
 function renderQuotes(){
   document.getElementById('quoteTable').innerHTML = table(
     db.quotes,
-    ['Date','Quote','Source','Entered By','Customer','Phone','Location','Material','Qty / Unit','Local Wording','Internal Interpretation','Status','Action'],
+    ['Date','Quote','Source','Entered By','Customer','Phone','Location','Material','Qty / Unit','Delivery Time','Status','Action'],
     r => [
       niceDate(r.date),
       r.id,
@@ -2083,8 +2154,7 @@ function renderQuotes(){
       esc(r.location),
       esc(r.material),
       esc(r.quantity)+' '+esc(r.unit)+' '+(r.tonnageSize && r.tonnageSize!=='Not Applicable' ? '('+esc(r.tonnageSize)+')' : ''),
-      esc(r.localDescription || '-'),
-      esc(r.internalInterpretation || '-'),
+      esc(r.deliveryDate || '-')+' '+esc(r.deliveryTime || '')+' '+esc(r.deliveryPeriod || ''),
       tag(r.status,'info'),
       currentRole === 'support' || currentRole === 'director'
         ? '<button class="small secondary" onclick="fillInvoiceFromQuote(\''+r.id+'\')">Create Invoice</button>'
@@ -2095,8 +2165,11 @@ function renderQuotes(){
 }
 
 function renderSelects(){
+  const selectedQuote = document.getElementById('invoiceQuoteSelect')?.value || '';
+
   const quoteOptions = db.quotes.map(q=>'<option value="'+q.id+'">'+q.id+' — '+esc(q.customer)+' — '+esc(q.material)+'</option>').join('');
   document.getElementById('invoiceQuoteSelect').innerHTML = '<option value="">Select quote</option>'+quoteOptions;
+  document.getElementById('invoiceQuoteSelect').value = selectedQuote;
 
   const invoiceOptions = db.invoices.map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.customer)+' — Balance '+money(i.balance)+'</option>').join('');
   document.getElementById('paymentInvoiceSelect').innerHTML = '<option value="">Select invoice</option>'+invoiceOptions;
@@ -2120,39 +2193,44 @@ function fillInvoiceFromQuote(qid, openPage=true){
   if(openPage) showPage('invoices');
 
   const f = document.getElementById('invoiceForm');
+
   f.quoteId.value = q.id;
-  f.customer.value = q.customer;
-  f.phone.value = q.phone;
+  f.customer.value = q.customer || '';
+  f.phone.value = q.phone || '';
   f.email.value = q.email || '';
-  f.location.value = q.location;
+  f.location.value = q.location || '';
+  f.deliveryDate.value = q.deliveryDate || '';
+  f.deliveryTime.value = q.deliveryTime || '';
+  f.deliveryPeriod.value = q.deliveryPeriod || '';
   f.note.value = q.details || '';
 
-  const lineWrap = document.getElementById('invoiceLines');
-  lineWrap.innerHTML = '';
+  document.getElementById('invoiceLines').innerHTML = '';
+
   addInvoiceLine({
+    code:q.materialCode || '',
     type:'Product',
-    item:q.material,
-    qty:q.quantity,
-    unit:q.unit,
+    item:q.material || '',
+    qty:q.quantity || '',
+    unit:q.unit || '',
     tonnage:q.tonnageSize || 'Not Applicable',
     rate:'',
     note:q.localDescription || q.internalInterpretation || ''
   });
 
-  q.status = 'Invoice Started';
-  saveDB();
+  calculateInvoiceTotal();
 }
 
 function addInvoiceLine(defaults={}){
   const wrap = document.getElementById('invoiceLines');
   const row = document.createElement('div');
   row.className = 'line-row';
+
+  const codeOptions = '<option value="">Code</option>' + MATERIAL_CODES.map(m =>
+    `<option value="${m.code}" ${defaults.code===m.code?'selected':''}>${m.code}</option>`
+  ).join('');
+
   row.innerHTML = `
-    <select class="line-type" onchange="calculateInvoiceTotal()">
-      <option ${defaults.type==='Product'?'selected':''}>Product</option>
-      <option ${defaults.type==='Logistics Fee'?'selected':''}>Logistics Fee</option>
-      <option ${defaults.type==='Service'?'selected':''}>Service</option>
-    </select>
+    <select class="line-code" onchange="applyLineCode(this)">${codeOptions}</select>
     <input class="line-item" placeholder="Item" value="${esc(defaults.item || '')}">
     <input class="line-qty" type="number" step="0.01" placeholder="Qty" value="${esc(defaults.qty || '')}" oninput="calculateInvoiceTotal()">
     <select class="line-unit">
@@ -2176,8 +2254,14 @@ function addInvoiceLine(defaults={}){
     </select>
     <input class="line-rate" type="number" step="0.01" placeholder="Rate ₦" value="${esc(defaults.rate || '')}" oninput="calculateInvoiceTotal()">
     <button type="button" class="small red" onclick="this.closest('.line-row').remove();calculateInvoiceTotal()">X</button>
+    <select class="line-type full" onchange="calculateInvoiceTotal()">
+      <option ${defaults.type==='Product'?'selected':''}>Product</option>
+      <option ${defaults.type==='Logistics Fee'?'selected':''}>Logistics Fee</option>
+      <option ${defaults.type==='Service'?'selected':''}>Service</option>
+    </select>
     <input class="line-note full" placeholder="Line note / local description" value="${esc(defaults.note || '')}">
   `;
+
   wrap.appendChild(row);
   calculateInvoiceTotal();
 }
@@ -2188,6 +2272,7 @@ function getInvoiceLines(){
     const qty = Number(r.querySelector('.line-qty').value || 0);
     const rate = Number(r.querySelector('.line-rate').value || 0);
     return {
+      code:r.querySelector('.line-code').value,
       type:r.querySelector('.line-type').value,
       item:r.querySelector('.line-item').value.trim(),
       qty,
@@ -2202,12 +2287,19 @@ function getInvoiceLines(){
 
 function calculateInvoiceTotal(){
   const lines = getInvoiceLines();
+
   const productTotal = lines.filter(l=>l.type==='Product').reduce((a,b)=>a+b.amount,0);
-  const logisticsTotal = lines.filter(l=>l.type==='Logistics Fee').reduce((a,b)=>a+b.amount,0);
   const serviceTotal = lines.filter(l=>l.type==='Service').reduce((a,b)=>a+b.amount,0);
-  const total = productTotal + logisticsTotal + serviceTotal;
+  const lineLogisticsTotal = lines.filter(l=>l.type==='Logistics Fee').reduce((a,b)=>a+b.amount,0);
+  const formLogisticsFee = Number(document.getElementById('invoiceForm').logisticsFee?.value || 0);
+  const logisticsTotal = lineLogisticsTotal + formLogisticsFee;
+  const total = productTotal + serviceTotal + logisticsTotal;
+
   document.getElementById('invoiceCalc').innerHTML =
-    '<b>Product Total:</b> '+money(productTotal)+' | <b>Logistics Fee:</b> '+money(logisticsTotal)+' | <b>Service:</b> '+money(serviceTotal)+' | <b>Grand Total:</b> '+money(total);
+    '<b>Product:</b> '+money(productTotal)+
+    ' | <b>Logistics:</b> '+money(logisticsTotal)+
+    ' | <b>Service:</b> '+money(serviceTotal)+
+    ' | <b>Total:</b> '+money(total);
 }
 
 document.getElementById('invoiceForm').onsubmit = function(e){
@@ -2222,8 +2314,10 @@ document.getElementById('invoiceForm').onsubmit = function(e){
   }
 
   const productTotal = lines.filter(l=>l.type==='Product').reduce((a,b)=>a+b.amount,0);
-  const logisticsTotal = lines.filter(l=>l.type==='Logistics Fee').reduce((a,b)=>a+b.amount,0);
   const serviceTotal = lines.filter(l=>l.type==='Service').reduce((a,b)=>a+b.amount,0);
+  const lineLogisticsTotal = lines.filter(l=>l.type==='Logistics Fee').reduce((a,b)=>a+b.amount,0);
+  const logisticsFeeFromField = Number(x.logisticsFee || 0);
+  const logisticsTotal = lineLogisticsTotal + logisticsFeeFromField;
   const total = productTotal + logisticsTotal + serviceTotal;
 
   const inv = {
@@ -2236,6 +2330,10 @@ document.getElementById('invoiceForm').onsubmit = function(e){
     serviceTotal,
     total,
     lines,
+    deliveryDate:x.deliveryDate || '',
+    deliveryTime:x.deliveryTime || '',
+    deliveryPeriod:x.deliveryPeriod || '',
+    logisticsFee:Number(x.logisticsFee || 0),
     createdBy:roleNames[currentRole],
     createdAt:new Date().toISOString(),
     ...x
@@ -2256,13 +2354,13 @@ document.getElementById('invoiceForm').onsubmit = function(e){
 function renderInvoices(){
   document.getElementById('invoiceTable').innerHTML = table(
     db.invoices,
-    ['Date','Invoice','Customer','Location','Items','Product','Logistics','Total','Paid','Balance','Status','Actions'],
+    ['Date','Invoice','Customer','Location / Delivery Time','Items','Product','Logistics','Total','Paid','Balance','Status','Actions'],
     i => [
       niceDate(i.date),
       i.id,
       esc(i.customer)+'<br><small>'+esc(i.phone)+'</small>',
-      esc(i.location),
-      i.lines.map(l=>esc(l.item)+' — '+num(l.qty)+' '+esc(l.unit)+' '+(l.tonnage!=='Not Applicable'?'('+esc(l.tonnage)+')':'')).join('<br>'),
+      esc(i.location)+'<br><small>Delivery: '+esc(i.deliveryDate || '-')+' '+esc(i.deliveryTime || '')+' '+esc(i.deliveryPeriod || '')+'</small>',
+      i.lines.map(l=>esc(l.code || '')+' '+esc(l.item)+' — '+num(l.qty)+' '+esc(l.unit)+' '+(l.tonnage!=='Not Applicable'?'('+esc(l.tonnage)+')':'')).join('<br>'),
       money(i.productTotal),
       money(i.logisticsTotal),
       money(i.total),
@@ -2298,7 +2396,7 @@ document.getElementById('paymentForm').onsubmit = async function(e){
 
   const proof = await readFile(this.proof.files[0]);
 
-  const payment = {
+  db.payments.unshift({
     id:id('payment'),
     invoiceId:inv.id,
     customer:inv.customer,
@@ -2311,9 +2409,8 @@ document.getElementById('paymentForm').onsubmit = async function(e){
     proofData:proof.data,
     ...x,
     amount:Number(x.amount || 0)
-  };
+  });
 
-  db.payments.unshift(payment);
   this.reset();
   setDefaultDates();
   saveDB();
@@ -2484,6 +2581,9 @@ document.getElementById('waybillInvoiceSelect').onchange = function(){
   f.customer.value = inv.customer;
   f.phone.value = inv.phone;
   f.location.value = inv.location;
+  f.deliveryDate.value = inv.deliveryDate || '';
+  f.deliveryTime.value = inv.deliveryTime || '';
+  f.deliveryPeriod.value = inv.deliveryPeriod || '';
   f.products.value = inv.lines.filter(l=>l.type!=='Logistics Fee').map(l=>`${l.item} - ${l.qty} ${l.unit} ${l.tonnage !== 'Not Applicable' ? '('+l.tonnage+')' : ''}`).join('\n');
   f.logisticsFee.value = inv.logisticsTotal || 0;
 };
@@ -2516,13 +2616,14 @@ document.getElementById('waybillForm').onsubmit = function(e){
 function renderWaybills(){
   document.getElementById('waybillTable').innerHTML = table(
     db.waybills,
-    ['Date','Waybill','Invoice','Customer','Location','Products','Supply Status','Logistics Fee','Status','Actions'],
+    ['Date','Waybill','Invoice','Customer','Location','Delivery Time','Products','Supply Status','Logistics Fee','Status','Actions'],
     w => [
       niceDate(w.date),
       w.id,
       w.invoiceId,
       esc(w.customer),
       esc(w.location),
+      esc(w.deliveryDate || '-')+' '+esc(w.deliveryTime || '')+' '+esc(w.deliveryPeriod || ''),
       esc(w.products).replace(/\n/g,'<br>'),
       esc(w.supplyStatus),
       money(w.logisticsFee),
@@ -2778,13 +2879,14 @@ function createInventorySalesOutFromWaybill(w, movement){
 function renderLogistics(){
   document.getElementById('deliveryJobsTable').innerHTML = table(
     db.waybills,
-    ['Date','Waybill','Invoice','Customer','Location','Products','Status','Logistics Status','Action'],
+    ['Date','Waybill','Invoice','Customer','Location','Delivery Time','Products','Status','Logistics Status','Action'],
     w => [
       niceDate(w.date),
       w.id,
       w.invoiceId,
       esc(w.customer),
       esc(w.location),
+      esc(w.deliveryDate || '-')+' '+esc(w.deliveryTime || '')+' '+esc(w.deliveryPeriod || ''),
       esc(w.products).replace(/\n/g,'<br>'),
       tag(w.status, w.status.includes('Pending')?'warn':'info'),
       esc(w.logisticsStatus || '-'),
@@ -3123,7 +3225,6 @@ function approveWaybill(idv){
   r.status = 'Approved / Forwarded to Logistics';
   saveDB();
 }
-
 function rejectWaybill(idv){
   if(!ensureDirector()) return;
   const r = db.waybills.find(x=>x.id===idv);
@@ -3131,7 +3232,6 @@ function rejectWaybill(idv){
   r.status = 'Rejected / Query';
   saveDB();
 }
-
 function approveCompanyProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.companyProcurements.find(x=>x.id===idv);
@@ -3157,7 +3257,6 @@ function approveCompanyProcurement(idv){
 
   saveDB();
 }
-
 function rejectCompanyProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.companyProcurements.find(x=>x.id===idv);
@@ -3165,7 +3264,6 @@ function rejectCompanyProcurement(idv){
   r.directorStatus = 'Rejected / Query';
   saveDB();
 }
-
 function approveProducedGoods(idv){
   if(!ensureDirector()) return;
   const r = db.producedGoods.find(x=>x.id===idv);
@@ -3190,7 +3288,6 @@ function approveProducedGoods(idv){
 
   saveDB();
 }
-
 function rejectProducedGoods(idv){
   if(!ensureDirector()) return;
   const r = db.producedGoods.find(x=>x.id===idv);
@@ -3198,7 +3295,6 @@ function rejectProducedGoods(idv){
   r.directorStatus = 'Rejected / Query';
   saveDB();
 }
-
 function approveExternalProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.externalProcurements.find(x=>x.id===idv);
@@ -3206,7 +3302,6 @@ function approveExternalProcurement(idv){
   r.directorStatus = 'Approved to Source / Proceed';
   saveDB();
 }
-
 function rejectExternalProcurement(idv){
   if(!ensureDirector()) return;
   const r = db.externalProcurements.find(x=>x.id===idv);
@@ -3214,7 +3309,6 @@ function rejectExternalProcurement(idv){
   r.directorStatus = 'Rejected / Query';
   saveDB();
 }
-
 function approveInspection(idv){
   if(!ensureDirector()) return;
   const r = db.inspections.find(x=>x.id===idv);
@@ -3231,7 +3325,6 @@ function approveInspection(idv){
 
   saveDB();
 }
-
 function rejectInspection(idv){
   if(!ensureDirector()) return;
   const r = db.inspections.find(x=>x.id===idv);
@@ -3256,9 +3349,10 @@ Date: ${niceDate(inv.date)}
 Customer: ${inv.customer}
 Phone: ${inv.phone}
 Location: ${inv.location}
+Delivery: ${inv.deliveryDate || '-'} ${inv.deliveryTime || ''} ${inv.deliveryPeriod || ''}
 
 Items:
-${inv.lines.map(l=>`- ${l.item}: ${l.qty} ${l.unit} ${l.tonnage !== 'Not Applicable' ? '('+l.tonnage+')' : ''} @ ${money(l.rate)} = ${money(l.amount)}`).join('\n')}
+${inv.lines.map(l=>`- ${l.code || ''} ${l.item}: ${l.qty} ${l.unit} ${l.tonnage !== 'Not Applicable' ? '('+l.tonnage+')' : ''} @ ${money(l.rate)} = ${money(l.amount)}`).join('\n')}
 
 Product Total: ${money(inv.productTotal)}
 Logistics Fee: ${money(inv.logisticsTotal)}
@@ -3267,8 +3361,7 @@ Grand Total: ${money(inv.total)}
 Paid: ${money(inv.paid)}
 Balance: ${money(inv.balance)}
 
-Note: ${inv.note || '-'}
-`;
+Note: ${inv.note || '-'}`;
 }
 
 function receiptText(r){
@@ -3291,13 +3384,11 @@ function sendInvoiceToCompanyWhatsApp(idv){
   alert('Invoice text copied. Company WhatsApp will open. Paste and forward to the customer.');
   window.open(COMPANY_WHATSAPP_LINK,'_blank');
 }
-
 function emailInvoiceToCompany(idv){
   const inv = db.invoices.find(i=>i.id===idv);
   if(!inv) return;
   location.href = 'mailto:'+COMPANY_EMAIL+'?subject='+encodeURIComponent('FTH D-UNIQ Invoice '+inv.id)+'&body='+encodeURIComponent(invoiceText(inv));
 }
-
 function sendReceiptToCompanyWhatsApp(idv){
   const r = db.receipts.find(x=>x.id===idv);
   if(!r) return;
@@ -3305,7 +3396,6 @@ function sendReceiptToCompanyWhatsApp(idv){
   alert('Receipt text copied. Company WhatsApp will open. Paste and forward to the customer.');
   window.open(COMPANY_WHATSAPP_LINK,'_blank');
 }
-
 function copyToClipboard(text){
   if(navigator.clipboard) navigator.clipboard.writeText(text);
 }
@@ -3319,10 +3409,11 @@ function printInvoice(idv){
     <b>Phone:</b> ${esc(inv.phone)}<br>
     <b>Email:</b> ${esc(inv.email || '-')}<br>
     <b>Delivery / Project Location:</b> ${esc(inv.location)}<br>
+    <b>Delivery Time:</b> ${esc(inv.deliveryDate || '-')} ${esc(inv.deliveryTime || '')} ${esc(inv.deliveryPeriod || '')}<br>
     <b>Date:</b> ${niceDate(inv.date)}</p>
 
-    ${table(inv.lines,['Type','Item','Qty','Unit','Tonnage','Rate','Amount'],l=>[
-      esc(l.type),esc(l.item),num(l.qty),esc(l.unit),esc(l.tonnage),money(l.rate),money(l.amount)
+    ${table(inv.lines,['Code','Type','Item','Qty','Unit','Tonnage','Rate','Amount'],l=>[
+      esc(l.code || '-'),esc(l.type),esc(l.item),num(l.qty),esc(l.unit),esc(l.tonnage),money(l.rate),money(l.amount)
     ])}
 
     <table>
@@ -3374,6 +3465,7 @@ function printWaybill(idv){
       <tr><th>Customer</th><td>${esc(w.customer)}</td></tr>
       <tr><th>Phone</th><td>${esc(w.phone)}</td></tr>
       <tr><th>Delivery Location</th><td>${esc(w.location)}</td></tr>
+      <tr><th>Delivery Time</th><td>${esc(w.deliveryDate || '-')} ${esc(w.deliveryTime || '')} ${esc(w.deliveryPeriod || '')}</td></tr>
       <tr><th>Products</th><td>${esc(w.products).replace(/\n/g,'<br>')}</td></tr>
       <tr><th>Supply Status</th><td>${esc(w.supplyStatus)}</td></tr>
       <tr><th>Logistics Fee</th><td>${money(w.logisticsFee)}</td></tr>
@@ -3503,8 +3595,8 @@ function buildDailyReportHtml(){
     ],'No inventory movement for this date.')}
 
     <h2>Waybill / Delivery Summary</h2>
-    ${table(waybills,['Waybill','Customer','Location','Products','Status'],r=>[
-      r.id,esc(r.customer),esc(r.location),esc(r.products).replace(/\n/g,'<br>'),esc(r.status)
+    ${table(waybills,['Waybill','Customer','Location','Delivery Time','Products','Status'],r=>[
+      r.id,esc(r.customer),esc(r.location),esc(r.deliveryDate || '-')+' '+esc(r.deliveryTime || '')+' '+esc(r.deliveryPeriod || ''),esc(r.products).replace(/\n/g,'<br>'),esc(r.status)
     ],'No waybills for this date.')}
 
     <h2>Logistics / Inspection Summary</h2>
@@ -3640,11 +3732,6 @@ function printCurrentReport(){
   printWin(currentReportHtml, currentReportTitle || 'FTH D-UNIQ Report');
 }
 
-function emailCurrentReport(){
-  if(!currentReportHtml) generateDailyReport();
-  location.href = 'mailto:'+REPORT_EMAIL+'?subject='+encodeURIComponent(currentReportTitle || 'FTH D-UNIQ Report')+'&body='+encodeURIComponent('Please find the generated report summary from the FTH D-UNIQ Operations Workstation. Use the Director dashboard for PDF/archive.');
-}
-
 function archiveCurrentReport(){
   if(!ensureDirector()) return;
   if(!currentReportHtml) generateDailyReport();
@@ -3689,8 +3776,7 @@ function printArchive(idv){
 function directorClearGroup(group){
   if(!ensureDirector()) return;
 
-  const confirmText = 'Archive and clear selected active dashboard data?';
-  if(!confirm(confirmText)) return;
+  if(!confirm('Archive and clear selected active dashboard data?')) return;
 
   const archive = {
     id:id('archive'),
