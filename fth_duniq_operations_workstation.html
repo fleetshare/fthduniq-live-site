@@ -132,17 +132,20 @@ body{
 }
 
 h2,h3{margin-top:0}
+
 h2{
   font-family:Cormorant Garamond,serif;
   font-size:clamp(1.8rem,3vw,3rem);
   line-height:1;
   margin-bottom:10px;
 }
+
 h3{
   font-family:Cormorant Garamond,serif;
   font-size:1.8rem;
   margin-bottom:12px;
 }
+
 p{color:var(--muted);line-height:1.7}
 
 .grid{
@@ -150,11 +153,13 @@ p{color:var(--muted);line-height:1.7}
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
+
 .grid3{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:14px;
 }
+
 .full{grid-column:1/-1}
 
 label{
@@ -390,7 +395,7 @@ th{background:#eee5d8;font-weight:900}
 <section id="login" class="login">
   <div class="card">
     <div class="document-logo-wrap">
-      <img src="assets/fth-duniq-logo.jpeg" class="document-logo" alt="FTH D-UNIQ Logo">
+      <img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo">
     </div>
 
     <div class="eyebrow">Private Login</div>
@@ -436,7 +441,7 @@ th{background:#eee5d8;font-weight:900}
 <div id="app" class="app wrap">
   <header class="top">
     <div class="brand">
-      <img src="assets/fth-duniq-logo.jpeg" class="brand-logo" alt="FTH D-UNIQ Logo">
+      <img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo">
       <div>
         <h1>FTH D-UNIQ</h1>
         <p>Operations Workstation</p>
@@ -1270,7 +1275,56 @@ th{background:#eee5d8;font-weight:900}
           <h2>Follow-Up Records</h2>
           <div id="followupTable"></div>
         </div>
-      </section>rniq_workstation_full_v12";
+      </section>
+
+      <section id="reports" class="page">
+        <div class="panel">
+          <div class="eyebrow">Reports</div>
+          <h2>Daily Report / Monthly Reconciliation</h2>
+
+          <div class="grid">
+            <div>
+              <label>Select Date</label>
+              <input id="reportDate" type="date">
+            </div>
+
+            <div>
+              <label>Select Month</label>
+              <input id="reportMonth" type="month">
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button>
+            <button class="secondary director-only-inline" type="button" onclick="printDailyReport()">Director Print / Save PDF</button>
+            <button class="dark director-only-inline" type="button" onclick="archiveDailyReport()">Director Archive Daily Report</button>
+            <button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button>
+            <button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button>
+            <button class="red director-only-inline" type="button" onclick="clearOperationalData()">Director Clear Dashboard Data</button>
+          </div>
+
+          <div class="notice">
+            Business Support can submit daily report to Director. Report PDF generation, archiving, monthly reconciliation and clearing are Director-only.
+          </div>
+        </div>
+
+        <div id="reportBox"></div>
+      </section>
+
+      <section id="archive" class="page">
+        <div class="panel">
+          <div class="eyebrow">Director Archive</div>
+          <h2>Archived Reports</h2>
+          <div id="archiveTable"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+const KEY = "fth_duniq_workstation_full_v12";
 
 const LOGO_PATH = "assets/fth-duniq-logo.PNG";
 
