@@ -1270,56 +1270,7 @@ th{background:#eee5d8;font-weight:900}
           <h2>Follow-Up Records</h2>
           <div id="followupTable"></div>
         </div>
-      </section>
-
-      <section id="reports" class="page">
-        <div class="panel">
-          <div class="eyebrow">Reports</div>
-          <h2>Daily Report / Monthly Reconciliation</h2>
-
-          <div class="grid">
-            <div>
-              <label>Select Date</label>
-              <input id="reportDate" type="date">
-            </div>
-
-            <div>
-              <label>Select Month</label>
-              <input id="reportMonth" type="month">
-            </div>
-          </div>
-
-          <div class="row">
-            <button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button>
-            <button class="secondary director-only-inline" type="button" onclick="printDailyReport()">Director Print / Save PDF</button>
-            <button class="dark director-only-inline" type="button" onclick="archiveDailyReport()">Director Archive Daily Report</button>
-            <button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button>
-            <button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button>
-            <button class="red director-only-inline" type="button" onclick="clearOperationalData()">Director Clear Dashboard Data</button>
-          </div>
-
-          <div class="notice">
-            Business Support can submit daily report to Director. Report PDF generation, archiving, monthly reconciliation and clearing are Director-only.
-          </div>
-        </div>
-
-        <div id="reportBox"></div>
-      </section>
-
-      <section id="archive" class="page">
-        <div class="panel">
-          <div class="eyebrow">Director Archive</div>
-          <h2>Archived Reports</h2>
-          <div id="archiveTable"></div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-</div>
-
-<script>
-const KEY = "fth_duniq_workstation_full_v12";
+      </section>rniq_workstation_full_v12";
 
 const LOGO_PATH = "assets/fth-duniq-logo.PNG";
 
