@@ -15,7 +15,7 @@
   --muted:#706860;
   --gold:#d4a62a;
   --gold2:#9d741a;
-  --soft:#fbf6ee;
+  --bg:#fbf6ee;
   --line:rgba(157,116,26,.22);
   --shadow:0 18px 45px rgba(53,37,15,.08);
   --radius:26px;
@@ -24,415 +24,36 @@
   --blue:#1e3a8a;
   --amber:#92400e;
 }
-
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Inter,sans-serif;
-  color:var(--ink);
-  background:linear-gradient(180deg,#fbf6ee,#efe3d0);
-}
-
+body{margin:0;font-family:Inter,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fbf6ee,#efe3d0)}
 .wrap{max-width:1500px;margin:auto;padding:16px}
-
-.top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  background:rgba(255,255,255,.82);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px 20px;
-  box-shadow:var(--shadow);
-  position:sticky;
-  top:10px;
-  z-index:10;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.brand-logo{
-  width:58px;
-  height:58px;
-  border-radius:999px;
-  object-fit:contain;
-  background:#fff;
-  border:1px solid var(--line);
-  padding:5px;
-}
-
-.brand h1{
-  margin:0;
-  font-family:Cormorant Garamond,serif;
-  font-size:clamp(1.8rem,4vw,3rem);
-  line-height:1;
-}
-
-.brand p{
-  margin:4px 0 0;
-  color:var(--muted);
-  font-weight:800;
-  font-size:.78rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.chip{
-  display:inline-flex;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:#fff;
-  padding:9px 12px;
-  font-weight:900;
-  color:var(--gold2);
-}
-
-.login{
-  min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:18px;
-}
-
-.card,.panel{
-  background:rgba(255,255,255,.82);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:24px;
-  box-shadow:var(--shadow);
-  margin-bottom:16px;
-}
-
-.login .card{max-width:650px;width:100%}
-
-.eyebrow{
-  display:inline-flex;
-  gap:10px;
-  align-items:center;
-  color:var(--gold2);
-  font-size:.78rem;
-  font-weight:900;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
-
-.eyebrow:before{
-  content:"";
-  width:36px;
-  height:2px;
-  background:var(--gold);
-  border-radius:999px;
-}
-
-h2,h3{margin-top:0}
-
-h2{
-  font-family:Cormorant Garamond,serif;
-  font-size:clamp(1.8rem,3vw,3rem);
-  line-height:1;
-  margin-bottom:10px;
-}
-
-h3{
-  font-family:Cormorant Garamond,serif;
-  font-size:1.8rem;
-  margin-bottom:12px;
-}
-
-p{color:var(--muted);line-height:1.7}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
-
-.full{grid-column:1/-1}
-
-label{
-  display:block;
-  font-size:.86rem;
-  font-weight:900;
-  margin-bottom:7px;
-}
-
-input,select,textarea{
-  width:100%;
-  border:1px solid rgba(157,116,26,.25);
-  border-radius:16px;
-  padding:13px;
-  font:inherit;
-  background:#fff;
-  color:var(--ink);
-}
-
-textarea{min-height:105px;resize:vertical}
-
-button,.btn{
-  border:0;
-  border-radius:999px;
-  padding:12px 17px;
-  font-weight:900;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
-
-.primary{background:linear-gradient(135deg,#e0b744,#b78119);color:#fff}
-.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
-.dark{background:var(--ink);color:#fff}
-.green{background:var(--green);color:#fff}
-.red{background:var(--red);color:#fff}
-.blue{background:var(--blue);color:#fff}
-.small{font-size:.78rem;padding:8px 11px}
-
-.row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-top:14px;
-}
-
-.app{display:none}
-
-.layout{
-  display:grid;
-  grid-template-columns:285px 1fr;
-  gap:16px;
-  margin-top:16px;
-}
-
-.side{
-  position:sticky;
-  top:110px;
-  align-self:start;
-  background:rgba(255,255,255,.82);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:12px;
-  box-shadow:var(--shadow);
-  max-height:calc(100vh - 130px);
-  overflow:auto;
-}
-
-.nav{
-  width:100%;
-  background:transparent;
-  color:var(--muted);
-  text-align:left;
-  margin-bottom:6px;
-  border-radius:15px;
-}
-
-.nav.active{
-  background:#fff5df;
-  color:var(--ink);
-  border:1px solid var(--line);
-}
-
-.page{display:none}
-.page.active{display:block}
-
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
-}
-
-.metric{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-}
-
-.metric span{
-  display:block;
-  color:var(--muted);
-  font-size:.75rem;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.metric strong{
-  display:block;
-  margin-top:7px;
-  font-size:1.45rem;
-}
-
-.table{
-  overflow:auto;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:980px;
-}
-
-th,td{
-  padding:11px;
-  border-bottom:1px solid rgba(157,116,26,.15);
-  text-align:left;
-  vertical-align:top;
-  font-size:.86rem;
-}
-
-th{background:#eee5d8;font-weight:900}
-
-.tag{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 8px;
-  font-size:.72rem;
-  font-weight:900;
-  background:#fff4d8;
-  color:var(--gold2);
-  border:1px solid var(--line);
-}
-
-.tag.ok{background:rgba(22,101,52,.1);color:var(--green)}
-.tag.bad{background:rgba(153,27,27,.1);color:var(--red)}
-.tag.info{background:rgba(30,58,138,.1);color:var(--blue)}
-.tag.warn{background:rgba(146,64,14,.12);color:var(--amber)}
-
-.notice{
-  border-left:4px solid var(--gold);
-  background:rgba(212,166,42,.09);
-  border-radius:16px;
-  padding:13px 15px;
-  color:var(--muted);
-  line-height:1.65;
-  margin:12px 0;
-}
-
-.empty{padding:20px;text-align:center;color:var(--muted)}
-.mobile{display:none;margin-top:14px}
-
-.product-box{
-  border:1px dashed rgba(157,116,26,.38);
-  background:rgba(255,255,255,.55);
-  border-radius:20px;
-  padding:14px;
-  margin-top:12px;
-}
-
-.signature-box{
-  margin-top:14px;
-  background:rgba(255,255,255,.72);
-  border:1px solid rgba(157,116,26,.22);
-  border-radius:18px;
-  padding:14px;
-}
-
-.signature-canvas{
-  width:100%;
-  height:170px;
-  display:block;
-  background:#fff;
-  border:1px solid rgba(157,116,26,.28);
-  border-radius:14px;
-  touch-action:none;
-}
-
-.document-logo-wrap{
-  display:flex;
-  justify-content:center;
-  margin:10px 0 18px;
-}
-
-.document-logo{
-  width:120px;
-  height:auto;
-  max-width:35%;
-  object-fit:contain;
-}
-
-.print-only{display:none}
-
-@media(max-width:1050px){
-  .layout{grid-template-columns:1fr}
-  .side{display:none}
-  .mobile{display:block}
-  .metrics{grid-template-columns:repeat(2,1fr)}
-}
-
-@media(max-width:760px){
-  .wrap{padding:10px}
-  .top{position:relative;top:auto;flex-direction:column;align-items:flex-start}
-  .grid,.grid3,.metrics{grid-template-columns:1fr}
-  .card,.panel{padding:18px}
-  button,.btn{width:100%}
-  .small{width:auto}
-  .brand-logo{width:50px;height:50px}
-}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:10}
+.brand{display:flex;align-items:center;gap:14px}.brand-logo{width:58px;height:58px;border-radius:999px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:5px}.brand h1{margin:0;font-family:Cormorant Garamond,serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1}.brand p{margin:4px 0 0;color:var(--muted);font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.chip{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:#fff;padding:9px 12px;font-weight:900;color:var(--gold2)}
+.login{min-height:100vh;display:grid;place-items:center;padding:18px}.card,.panel{background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}.login .card{max-width:650px;width:100%}
+.eyebrow{display:inline-flex;gap:10px;align-items:center;color:var(--gold2);font-size:.78rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}.eyebrow:before{content:"";width:36px;height:2px;background:var(--gold);border-radius:999px}
+h2,h3{margin-top:0}h2{font-family:Cormorant Garamond,serif;font-size:clamp(1.8rem,3vw,3rem);line-height:1;margin-bottom:10px}h3{font-family:Cormorant Garamond,serif;font-size:1.8rem;margin-bottom:12px}p{color:var(--muted);line-height:1.7}.small-copy{font-size:.86rem;color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}
+label{display:block;font-size:.86rem;font-weight:900;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid rgba(157,116,26,.25);border-radius:16px;padding:13px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:105px;resize:vertical}
+button,.btn{border:0;border-radius:999px;padding:12px 17px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:linear-gradient(135deg,#e0b744,#b78119);color:#fff}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}.dark{background:var(--ink);color:#fff}.green{background:var(--green);color:#fff}.red{background:var(--red);color:#fff}.blue{background:var(--blue);color:#fff}.small{font-size:.78rem;padding:8px 11px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.app{display:none}.layout{display:grid;grid-template-columns:285px 1fr;gap:16px;margin-top:16px}.side{position:sticky;top:110px;align-self:start;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:var(--shadow);max-height:calc(100vh - 130px);overflow:auto}.nav{width:100%;background:transparent;color:var(--muted);text-align:left;margin-bottom:6px;border-radius:15px}.nav.active{background:#fff5df;color:var(--ink);border:1px solid var(--line)}.page{display:none}.page.active{display:block}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}.metric span{display:block;color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.metric strong{display:block;margin-top:7px;font-size:1.45rem}.table{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:11px;border-bottom:1px solid rgba(157,116,26,.15);text-align:left;vertical-align:top;font-size:.86rem}th{background:#eee5d8;font-weight:900}.tag{display:inline-flex;border-radius:999px;padding:5px 8px;font-size:.72rem;font-weight:900;background:#fff4d8;color:var(--gold2);border:1px solid var(--line)}.tag.ok{background:rgba(22,101,52,.1);color:var(--green)}.tag.bad{background:rgba(153,27,27,.1);color:var(--red)}.tag.info{background:rgba(30,58,138,.1);color:var(--blue)}.tag.warn{background:rgba(146,64,14,.12);color:var(--amber)}.notice{border-left:4px solid var(--gold);background:rgba(212,166,42,.09);border-radius:16px;padding:13px 15px;color:var(--muted);line-height:1.65;margin:12px 0}.empty{padding:20px;text-align:center;color:var(--muted)}.mobile{display:none;margin-top:14px}.product-box{border:1px dashed rgba(157,116,26,.38);background:rgba(255,255,255,.55);border-radius:20px;padding:14px;margin-top:12px}.signature-box{margin-top:14px;background:rgba(255,255,255,.72);border:1px solid rgba(157,116,26,.22);border-radius:18px;padding:14px}.signature-canvas{width:100%;height:170px;display:block;background:#fff;border:1px solid rgba(157,116,26,.28);border-radius:14px;touch-action:none}.document-logo-wrap{display:flex;justify-content:center;margin:10px 0 18px}.document-logo{width:120px;height:auto;max-width:35%;object-fit:contain}.disabled-note{opacity:.75;pointer-events:none;filter:grayscale(.4)}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.side{display:none}.mobile{display:block}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.wrap{padding:10px}.top{position:relative;top:auto;flex-direction:column;align-items:flex-start}.grid,.grid3,.metrics{grid-template-columns:1fr}.card,.panel{padding:18px}button,.btn{width:100%}.small{width:auto}.brand-logo{width:50px;height:50px}table{min-width:760px}}
 </style>
 </head>
-
 <body>
 
 <section id="login" class="login">
   <div class="card">
-    <div class="document-logo-wrap">
-      <img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo">
-    </div>
-
+    <div class="document-logo-wrap"><img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo"></div>
     <div class="eyebrow">Private Login</div>
     <h2>FTH D-UNIQ Operations Workstation</h2>
-    <p>
-      For quotes, invoices, payment confirmation, receipts, waybills, inventory, procurement, logistics/inspection, follow-up and Director reports.
-    </p>
-
-    <div class="notice">
-      <b>Demo PINs:</b> Director 0000 | Business Support 1111 | Procurement 2222 | Logistics/Inspection 3333 | Client Follow-Up 4444.
-      Change these before real use.
-    </div>
-
+    <p>For quotes, invoices, payment approvals, receipts, waybills, inventory, procurement, logistics/inspection, follow-up and Director reports.</p>
+    <div class="notice"><b>Demo PINs:</b> Director 0000 | Business Support 1111 | Procurement 2222 | Logistics/Inspection 3333 | Client Follow-Up 4444.</div>
     <form id="loginForm">
       <div class="grid">
-        <div>
-          <label>Role</label>
-          <select id="role" required>
-            <option value="">Select role</option>
-            <option value="director">Director</option>
-            <option value="support">Business Support Officer</option>
-            <option value="procurement">Procurement Officer</option>
-            <option value="logistics">Logistics / Inspection Officer</option>
-            <option value="social">Client Follow-Up Officer</option>
-          </select>
-        </div>
-
-        <div>
-          <label>PIN</label>
-          <input id="pin" type="password" required>
-        </div>
+        <div><label>Role</label><select id="role" required><option value="">Select role</option><option value="director">Director</option><option value="support">Business Support Officer</option><option value="procurement">Procurement Officer</option><option value="logistics">Logistics / Inspection Officer</option><option value="social">Client Follow-Up Officer</option></select></div>
+        <div><label>PIN</label><input id="pin" type="password" required></div>
       </div>
-
-      <div class="row">
-        <button class="primary" type="submit">Enter Workstation</button>
-      </div>
-
+      <div class="row"><button class="primary" type="submit">Enter Workstation</button></div>
       <p id="loginMsg"></p>
     </form>
   </div>
@@ -440,379 +61,114 @@ th{background:#eee5d8;font-weight:900}
 
 <div id="app" class="app wrap">
   <header class="top">
-    <div class="brand">
-      <img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo">
-      <div>
-        <h1>FTH D-UNIQ</h1>
-        <p>Operations Workstation</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <span class="chip" id="roleName"></span>
-      <span class="chip" id="dateNow"></span>
-      <button class="dark" onclick="logout()">Logout</button>
-    </div>
+    <div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div>
+    <div class="row"><span class="chip" id="roleName"></span><span class="chip" id="dateNow"></span><button class="dark" onclick="logout()">Logout</button></div>
   </header>
-
   <select id="mobileNav" class="mobile" onchange="showPage(this.value)"></select>
-
   <div class="layout">
     <aside class="side" id="side"></aside>
-
     <main>
-
       <section id="dashboard" class="page active">
-        <div class="panel">
-          <div class="eyebrow">Dashboard</div>
-          <h2>Business Position</h2>
-          <p>Live summary of quotes, invoices, payments, waybills, stock, procurement, inspections and approvals.</p>
-
-          <div class="metrics" id="metrics"></div>
-        </div>
-
-        <div class="panel director-only">
-          <h2>Director Approval Center</h2>
-          <div id="approvalMini"></div>
-        </div>
-
-        <div class="panel">
-          <h2>Recent Workflow Movement</h2>
-          <div id="workflowMini"></div>
-        </div>
+        <div class="panel"><div class="eyebrow">Dashboard</div><h2>Business Position</h2><p>Live summary of quotes, invoices, payment approvals, receipts, waybills, stock, procurement, inspections and approvals.</p><div class="metrics" id="metrics"></div></div>
+        <div class="panel director-only"><h2>Director Approval Center</h2><div id="approvalMini"></div></div>
+        <div class="panel"><h2>Recent Workflow Movement</h2><div id="workflowMini"></div></div>
       </section>
 
       <section id="quotes" class="page">
         <div class="panel">
           <div class="eyebrow">Customer-Facing / Sales Desk</div>
           <h2>New Quote / Customer Request</h2>
-          <p>This captures invoice-ready details except price and amount.</p>
-
+          <p>This captures invoice-ready details except price and amount. Business Support can mark stock availability and send out-of-stock items to Procurement.</p>
           <form id="quoteForm">
             <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Source of Request</label>
-                <select name="source" required>
-                  <option value="">Select source</option>
-                  <option>Website Quote Form</option>
-                  <option>Walk-in</option>
-                  <option>Phone Call</option>
-                  <option>WhatsApp</option>
-                  <option>Social Media</option>
-                  <option>Referral</option>
-                  <option>Director Entry</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Customer Name</label>
-                <input name="customer" required>
-              </div>
-
-              <div>
-                <label>Phone / WhatsApp</label>
-                <input name="phone" required>
-              </div>
-
-              <div>
-                <label>Email Address</label>
-                <input name="email" type="email">
-              </div>
-
-              <div>
-                <label>Delivery / Project Location</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Site Contact Person</label>
-                <input name="siteContact" required>
-              </div>
-
-              <div>
-                <label>Site Contact Phone</label>
-                <input name="sitePhone">
-              </div>
-
-              <div>
-                <label>Preferred Delivery Date</label>
-                <input name="deliveryDate" type="date" required>
-              </div>
-
-              <div>
-                <label>Preferred Delivery Time</label>
-                <input name="deliveryTime" type="time">
-              </div>
-
-              <div>
-                <label>AM / PM</label>
-                <select name="deliveryPeriod" required>
-                  <option value="">Select period</option>
-                  <option>AM - WAT</option>
-                  <option>PM - WAT</option>
-                  <option>To Be Confirmed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Logistics Service Needed?</label>
-                <select name="logisticsServiceNeeded" required>
-                  <option value="">Select option</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                  <option>Not Sure Yet</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Other Service Needed?</label>
-                <select name="otherServiceNeeded">
-                  <option value="">No other service needed</option>
-                  <option>Procurement Support</option>
-                  <option>Logistics Coordination</option>
-                  <option>Project Support</option>
-                  <option>Procurement Records & Expense Tracking</option>
-                  <option>Site Follow-Up / Customer Follow-Up</option>
-                  <option>Other / To Be Confirmed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Entered By</label>
-                <input name="enteredBy" placeholder="Officer name">
-              </div>
-
-              <div class="full">
-                <label>Customer Instruction / Request Details</label>
-                <textarea name="details"></textarea>
-              </div>
+              <div><label>Date</label><input name="date" type="date" required></div>
+              <div><label>Source of Request</label><select name="source" required><option value="">Select source</option><option>Website Quote Form</option><option>Walk-in</option><option>Phone Call</option><option>WhatsApp</option><option>Social Media</option><option>Referral</option><option>Director Entry</option></select></div>
+              <div><label>Customer Name</label><input name="customer" required></div>
+              <div><label>Phone / WhatsApp</label><input name="phone" required></div>
+              <div><label>Email Address</label><input name="email" type="email"></div>
+              <div><label>Delivery / Project Location</label><input name="location" required></div>
+              <div><label>Site Contact Person</label><input name="siteContact" required></div>
+              <div><label>Site Contact Phone</label><input name="sitePhone"></div>
+              <div><label>Preferred Delivery Date</label><input name="deliveryDate" type="date" required></div>
+              <div><label>Preferred Delivery Time</label><input name="deliveryTime" type="time"></div>
+              <div><label>AM / PM</label><select name="deliveryPeriod" required><option value="">Select period</option><option>AM - WAT</option><option>PM - WAT</option><option>To Be Confirmed</option></select></div>
+              <div><label>Logistics Service Needed?</label><select name="logisticsServiceNeeded" required><option value="">Select option</option><option>Yes</option><option>No</option><option>Not Sure Yet</option></select></div>
+              <div><label>Other Service Needed?</label><select name="otherServiceNeeded"><option value="">No other service needed</option><option>Procurement Support</option><option>Logistics Coordination</option><option>Project Support</option><option>Procurement Records & Expense Tracking</option><option>Site Follow-Up / Customer Follow-Up</option><option>Other / To Be Confirmed</option></select></div>
+              <div><label>Entered By</label><input name="enteredBy" placeholder="Officer name"></div>
+              <div class="full"><label>Customer Instruction / Request Details</label><textarea name="details"></textarea></div>
             </div>
-
-            <hr>
-
-            <h3>Requested Products / Materials / Services</h3>
+            <hr><h3>Requested Products / Materials / Services</h3>
             <div id="quoteLines"></div>
-
-            <div class="row">
-              <button type="button" class="secondary" onclick="addQuoteLine()">
-                Add Product / Material / Service Line
-              </button>
-              <button class="primary" type="submit">Save Quote Request</button>
-            </div>
+            <div class="row"><button type="button" class="secondary" onclick="addQuoteLine()">Add Product / Material / Service Line</button><button class="primary" type="submit">Save Quote Request</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Central Quotes</h2>
-          <div id="quoteTable"></div>
-        </div>
+        <div class="panel"><h2>Central Quotes</h2><div id="quoteTable"></div></div>
       </section>
 
       <section id="invoices" class="page">
         <div class="panel">
           <div class="eyebrow">Invoice / Sales Ledger</div>
           <h2>Create Invoice from Quote</h2>
-
+          <p>Invoices created by Business Support enter Director approval queue before they become approved transaction records.</p>
           <form id="invoiceForm">
             <div class="grid">
-              <div>
-                <label>Invoice Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>From Quote</label>
-                <select name="quoteId" id="invoiceQuoteSelect">
-                  <option value="">Manual invoice</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Customer Name</label>
-                <input name="customer" required>
-              </div>
-
-              <div>
-                <label>Phone / WhatsApp</label>
-                <input name="phone" required>
-              </div>
-
-              <div>
-                <label>Email Address</label>
-                <input name="email" type="email">
-              </div>
-
-              <div>
-                <label>Delivery / Project Location</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Site Contact Person</label>
-                <input name="siteContact">
-              </div>
-
-              <div>
-                <label>Site Contact Phone</label>
-                <input name="sitePhone">
-              </div>
-
-              <div>
-                <label>Delivery Date</label>
-                <input name="deliveryDate" type="date">
-              </div>
-
-              <div>
-                <label>Delivery Time</label>
-                <input name="deliveryTime" type="time">
-              </div>
-
-              <div>
-                <label>AM / PM</label>
-                <select name="deliveryPeriod">
-                  <option>AM - WAT</option>
-                  <option>PM - WAT</option>
-                  <option>To Be Confirmed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Officer Name</label>
-                <input name="officerName">
-              </div>
-
-              <div class="full">
-                <label>Invoice Note / Delivery Instruction</label>
-                <textarea name="note"></textarea>
-              </div>
+              <div><label>Invoice Date</label><input name="date" type="date" required></div>
+              <div><label>From Quote</label><select name="quoteId" id="invoiceQuoteSelect"><option value="">Manual invoice</option></select></div>
+              <div><label>Customer Name</label><input name="customer" required></div>
+              <div><label>Phone / WhatsApp</label><input name="phone" required></div>
+              <div><label>Email Address</label><input name="email" type="email"></div>
+              <div><label>Delivery / Project Location</label><input name="location" required></div>
+              <div><label>Site Contact Person</label><input name="siteContact"></div>
+              <div><label>Site Contact Phone</label><input name="sitePhone"></div>
+              <div><label>Delivery Date</label><input name="deliveryDate" type="date"></div>
+              <div><label>Delivery Time</label><input name="deliveryTime" type="time"></div>
+              <div><label>AM / PM</label><select name="deliveryPeriod"><option>AM - WAT</option><option>PM - WAT</option><option>To Be Confirmed</option></select></div>
+              <div><label>Officer Name</label><input name="officerName"></div>
+              <div class="full"><label>Invoice Note / Delivery Instruction</label><textarea name="note"></textarea></div>
             </div>
-
-            <hr>
-
-            <h3>Invoice Line Items</h3>
-            <div id="invoiceLines"></div>
-
-            <div class="row">
-              <button type="button" class="secondary" onclick="addInvoiceLine()">Add Invoice Line</button>
-            </div>
-
-            <div class="grid" style="margin-top:14px;">
-              <div>
-                <label>Logistics Fee / Delivery Fee (₦)</label>
-                <input name="logisticsFee" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>Discount (₦)</label>
-                <input name="discount" type="number" step="0.01" value="0">
-              </div>
-            </div>
-
+            <hr><h3>Invoice Line Items</h3><div id="invoiceLines"></div>
+            <div class="row"><button type="button" class="secondary" onclick="addInvoiceLine()">Add Invoice Line</button></div>
+            <div class="grid" style="margin-top:14px;"><div><label>Logistics Fee / Delivery Fee (₦)</label><input name="logisticsFee" type="number" step="0.01" value="0"></div><div><label>Discount (₦)</label><input name="discount" type="number" step="0.01" value="0"></div></div>
             <div class="notice" id="invoiceCalc">Invoice calculation appears here.</div>
-
-            <div class="signature-box">
-              <label>Draw Officer Signature for Invoice</label>
-              <canvas id="invoiceOfficerSignatureCanvas" class="signature-canvas"></canvas>
-              <input type="hidden" id="invoiceOfficerSignatureData" name="invoiceOfficerSignatureData">
-              <div class="row">
-                <button type="button" class="secondary small" id="clearInvoiceOfficerSignature">Clear Signature</button>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Create Invoice</button>
-            </div>
+            <div class="signature-box"><label>Draw Officer Signature for Invoice</label><canvas id="invoiceOfficerSignatureCanvas" class="signature-canvas"></canvas><input type="hidden" id="invoiceOfficerSignatureData" name="invoiceOfficerSignatureData"><div class="row"><button type="button" class="secondary small" id="clearInvoiceOfficerSignature">Clear Signature</button></div></div>
+            <div class="row"><button class="primary" type="submit">Submit Invoice for Director Approval</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Invoice / Sales Ledger Records</h2>
-          <div id="invoiceTable"></div>
-        </div>
+        <div class="panel"><h2>Invoice / Sales Ledger Records</h2><div id="invoiceTable"></div></div>
       </section>
 
       <section id="payments" class="page">
         <div class="panel">
           <div class="eyebrow">Payments / Receipts</div>
           <h2>Payment Confirmation</h2>
-
+          <p>Payment proof entered by Business Support must be approved by Director before receipt or part-payment acknowledgement can be printed.</p>
           <form id="paymentForm">
             <div class="grid">
-              <div>
-                <label>Select Invoice</label>
-                <select name="invoiceId" id="paymentInvoiceSelect" required></select>
-              </div>
-
-              <div>
-                <label>Customer</label>
-                <input name="customer" readonly>
-              </div>
-
-              <div>
-                <label>Invoice Amount (₦)</label>
-                <input name="invoiceTotal" readonly>
-              </div>
-
-              <div>
-                <label>Current Balance (₦)</label>
-                <input name="currentBalance" readonly>
-              </div>
-
-              <div>
-                <label>Transfer Amount (₦)</label>
-                <input name="transferAmount" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>Cash Amount (₦)</label>
-                <input name="cashAmount" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>POS Amount (₦)</label>
-                <input name="posAmount" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>Cash Receiver Name</label>
-                <input name="cashReceiver" placeholder="Required if cash was received">
-              </div>
-
-              <div>
-                <label>Payment Proof Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div>
-                <label>Payment Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div class="full">
-                <label>Payment Note / Remarks</label>
-                <textarea name="note"></textarea>
-              </div>
+              <div><label>Select Approved Invoice</label><select name="invoiceId" id="paymentInvoiceSelect" required></select></div>
+              <div><label>Customer</label><input name="customer" readonly></div>
+              <div><label>Invoice Amount (₦)</label><input name="invoiceTotal" readonly></div>
+              <div><label>Current Balance (₦)</label><input name="currentBalance" readonly></div>
+              <div><label>Transfer Amount (₦)</label><input name="transferAmount" type="number" step="0.01" value="0"></div>
+              <div><label>Cash Amount (₦)</label><input name="cashAmount" type="number" step="0.01" value="0"></div>
+              <div><label>POS Amount (₦)</label><input name="posAmount" type="number" step="0.01" value="0"></div>
+              <div><label>Cash Receiver Name</label><input name="cashReceiver" placeholder="Required if cash was received"></div>
+              <div><label>Payment Proof Upload</label><input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf"></div>
+              <div><label>Payment Date</label><input name="date" type="date" required></div>
+              <div class="full"><label>Payment Note / Remarks</label><textarea name="note"></textarea></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Payment for Director Approval</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Submit Payment for Director Approval</button></div>
           </form>
         </div>
+        <div class="panel"><h2>Payment Approval Records</h2><div id="paymentTable"></div></div>
+        <div class="panel"><h2>Approved Receipts / Part-Payment Acknowledgements</h2><div id="receiptTable"></div></div>
+      </section>
 
+      <section id="procurementRequests" class="page">
         <div class="panel">
-          <h2>Payment Approval / Receipt Records</h2>
-          <div id="paymentTable"></div>
-        </div>
-
-        <div class="panel">
-          <h2>Receipts / Part-Payment Acknowledgements</h2>
-          <div id="receiptTable"></div>
+          <div class="eyebrow">Stock Gap / Sourcing Requests</div>
+          <h2>Procurement Requests from Business Support</h2>
+          <p>Out-of-stock or partly available products sent by Business Support appear here for Director approval and Procurement Officer sourcing.</p>
+          <div id="procurementRequestTable"></div>
         </div>
       </section>
 
@@ -820,2195 +176,250 @@ th{background:#eee5d8;font-weight:900}
         <div class="panel">
           <div class="eyebrow">Delivery / Logistics Handover Desk</div>
           <h2>Create Waybill / Delivery Instruction</h2>
-
+          <p>Waybills created by Business Support enter Director approval queue before dispatch can proceed.</p>
           <form id="waybillForm">
             <div class="grid">
-              <div>
-                <label>Select Invoice</label>
-                <select name="invoiceId" id="waybillInvoiceSelect" required></select>
-              </div>
-
-              <div>
-                <label>Waybill Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Customer Name</label>
-                <input name="customer" required>
-              </div>
-
-              <div>
-                <label>Phone / WhatsApp</label>
-                <input name="phone" required>
-              </div>
-
-              <div>
-                <label>Delivery / Project Location</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Site Contact Person</label>
-                <input name="siteContact">
-              </div>
-
-              <div>
-                <label>Site Contact Phone</label>
-                <input name="sitePhone">
-              </div>
-
-              <div>
-                <label>Logistics Fee / Delivery Fee (₦)</label>
-                <input name="logisticsFee" type="number" step="0.01" value="0">
-              </div>
-
-              <div>
-                <label>Delivery Date</label>
-                <input name="deliveryDate" type="date">
-              </div>
-
-              <div>
-                <label>Delivery Time</label>
-                <input name="deliveryTime" type="time">
-              </div>
-
-              <div>
-                <label>AM / PM</label>
-                <select name="deliveryPeriod">
-                  <option>AM - WAT</option>
-                  <option>PM - WAT</option>
-                  <option>To Be Confirmed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Prepared By</label>
-                <input name="preparedBy">
-              </div>
-
-              <div class="full">
-                <label>Products / Materials for Delivery</label>
-                <textarea name="products" required></textarea>
-              </div>
-
-              <div class="full">
-                <label>Delivery Instruction</label>
-                <textarea name="instruction"></textarea>
-              </div>
+              <div><label>Select Approved Invoice</label><select name="invoiceId" id="waybillInvoiceSelect" required></select></div>
+              <div><label>Waybill Date</label><input name="date" type="date" required></div>
+              <div><label>Customer Name</label><input name="customer" required></div>
+              <div><label>Phone / WhatsApp</label><input name="phone" required></div>
+              <div><label>Delivery / Project Location</label><input name="location" required></div>
+              <div><label>Site Contact Person</label><input name="siteContact"></div>
+              <div><label>Site Contact Phone</label><input name="sitePhone"></div>
+              <div><label>Logistics Fee / Delivery Fee (₦)</label><input name="logisticsFee" type="number" step="0.01" value="0"></div>
+              <div><label>Delivery Date</label><input name="deliveryDate" type="date"></div>
+              <div><label>Delivery Time</label><input name="deliveryTime" type="time"></div>
+              <div><label>AM / PM</label><select name="deliveryPeriod"><option>AM - WAT</option><option>PM - WAT</option><option>To Be Confirmed</option></select></div>
+              <div><label>Prepared By</label><input name="preparedBy"></div>
+              <div class="full"><label>Products / Materials for Delivery</label><textarea name="products" required></textarea></div>
+              <div class="full"><label>Delivery Instruction</label><textarea name="instruction"></textarea></div>
             </div>
-
-            <hr>
-
-            <h3>Delivery Signatures</h3>
-
+            <hr><h3>Delivery Signatures</h3>
             <div class="grid">
-              <div>
-                <label>Company / Officer Name</label>
-                <input name="companySigner" placeholder="Enter company/officer name">
-
-                <div class="signature-box">
-                  <label>Draw Company / Officer Signature</label>
-                  <canvas id="waybillOfficerSignatureCanvas" class="signature-canvas"></canvas>
-                  <input type="hidden" id="waybillOfficerSignatureData" name="waybillOfficerSignatureData">
-                  <div class="row">
-                    <button type="button" class="secondary small" id="clearWaybillOfficerSignature">Clear Officer Signature</button>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label>Driver Name</label>
-                <input name="driverSigner" placeholder="Enter driver name">
-
-                <div class="signature-box">
-                  <label>Draw Driver Signature</label>
-                  <canvas id="waybillDriverSignatureCanvas" class="signature-canvas"></canvas>
-                  <input type="hidden" id="waybillDriverSignatureData" name="waybillDriverSignatureData">
-                  <div class="row">
-                    <button type="button" class="secondary small" id="clearWaybillDriverSignature">Clear Driver Signature</button>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label>Customer / Site Receiver Name</label>
-                <input name="customerSigner" placeholder="Enter customer/site receiver name">
-
-                <div class="signature-box">
-                  <label>Draw Customer / Site Receiver Signature</label>
-                  <canvas id="waybillCustomerSignatureCanvas" class="signature-canvas"></canvas>
-                  <input type="hidden" id="waybillCustomerSignatureData" name="waybillCustomerSignatureData">
-                  <div class="row">
-                    <button type="button" class="secondary small" id="clearWaybillCustomerSignature">Clear Customer Signature</button>
-                  </div>
-                </div>
-              </div>
+              <div><label>Company / Officer Name</label><input name="companySigner" placeholder="Enter company/officer name"><div class="signature-box"><label>Draw Company / Officer Signature</label><canvas id="waybillOfficerSignatureCanvas" class="signature-canvas"></canvas><input type="hidden" id="waybillOfficerSignatureData" name="waybillOfficerSignatureData"><div class="row"><button type="button" class="secondary small" id="clearWaybillOfficerSignature">Clear Officer Signature</button></div></div></div>
+              <div><label>Driver Name</label><input name="driverSigner" placeholder="Enter driver name"><div class="signature-box"><label>Draw Driver Signature</label><canvas id="waybillDriverSignatureCanvas" class="signature-canvas"></canvas><input type="hidden" id="waybillDriverSignatureData" name="waybillDriverSignatureData"><div class="row"><button type="button" class="secondary small" id="clearWaybillDriverSignature">Clear Driver Signature</button></div></div></div>
+              <div><label>Customer / Site Receiver Name</label><input name="customerSigner" placeholder="Enter customer/site receiver name"><div class="signature-box"><label>Draw Customer / Site Receiver Signature</label><canvas id="waybillCustomerSignatureCanvas" class="signature-canvas"></canvas><input type="hidden" id="waybillCustomerSignatureData" name="waybillCustomerSignatureData"><div class="row"><button type="button" class="secondary small" id="clearWaybillCustomerSignature">Clear Customer Signature</button></div></div></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Create / Forward Waybill to Logistics</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Submit Waybill for Director Approval</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Waybill / Delivery Instruction Records</h2>
-          <div id="waybillTable"></div>
-        </div>
+        <div class="panel"><h2>Waybill / Delivery Instruction Records</h2><div id="waybillTable"></div></div>
       </section>
 
       <section id="inventory" class="page">
         <div class="panel">
           <div class="eyebrow">Inventory / Company Stock Desk</div>
           <h2>Stock Movement Ledger</h2>
-
           <form id="stockForm">
             <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Product / Material</label>
-                <select name="item" required id="stockProductSelect"></select>
-              </div>
-
-              <div>
-                <label>Movement Type</label>
-                <select name="type" required>
-                  <option>Opening Stock</option>
-                  <option>Received Product</option>
-                  <option>Produced Product</option>
-                  <option>Sales Out</option>
-                  <option>Production Usage</option>
-                  <option>Damage / Loss</option>
-                  <option>Shortage</option>
-                  <option>Excess</option>
-                  <option>Adjustment</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Quantity</label>
-                <input name="qty" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Unit</label>
-                <select name="unit" required>
-                  <option>Bags</option>
-                  <option>Pieces</option>
-                  <option>Trips</option>
-                  <option>Tonnes</option>
-                  <option>Square Metres</option>
-                  <option>Units</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Location / Address</label>
-                <input name="location" required>
-              </div>
-
-              <div class="full">
-                <label>Notes / Remarks</label>
-                <textarea name="notes"></textarea>
-              </div>
+              <div><label>Date</label><input name="date" type="date" required></div>
+              <div><label>Product / Material</label><select name="item" required id="stockProductSelect"></select></div>
+              <div><label>Movement Type</label><select name="type" required><option>Opening Stock</option><option>Received Product</option><option>Produced Product</option><option>Sales Out</option><option>Production Usage</option><option>Damage / Loss</option><option>Shortage</option><option>Excess</option><option>Adjustment</option></select></div>
+              <div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div>
+              <div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div>
+              <div><label>Location / Address</label><input name="location" required></div>
+              <div class="full"><label>Notes / Remarks</label><textarea name="notes"></textarea></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Record Stock Movement</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Record Stock Movement</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Current Stock Position</h2>
-          <div id="stockPosition"></div>
-        </div>
-
-        <div class="panel">
-          <h2>Stock Movement Records</h2>
-          <div id="stockTable"></div>
-        </div>
+        <div class="panel"><h2>Current Stock Position</h2><div id="stockPosition"></div></div>
+        <div class="panel"><h2>Stock Movement Records</h2><div id="stockTable"></div></div>
       </section>
 
       <section id="procurement" class="page">
         <div class="panel">
           <div class="eyebrow">Procurement Officer</div>
-          <h2>Procurement / Received / Produced Goods Register</h2>
-          <p>Cost price and transport cost are intentionally not captured in this officer section.</p>
-
+          <h2>Procurement / Sourcing / Received Goods Register</h2>
+          <p>Cost price, selling price, transport cost and margin are not shown in this officer section.</p>
           <form id="procurementForm">
             <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Procurement Layer</label>
-                <select name="layer" required>
-                  <option value="">Select layer</option>
-                  <option>Company Received Goods</option>
-                  <option>Produced Goods</option>
-                  <option>External Industry / Supplier Source</option>
-                  <option>Client Return / Resale Request</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Supplier / Company / Client Source</label>
-                <input name="source" required>
-              </div>
-
-              <div>
-                <label>Material / Product Received</label>
-                <select name="item" required id="procProductSelect"></select>
-              </div>
-
-              <div>
-                <label>Quantity</label>
-                <input name="qty" type="number" step="0.01" required>
-              </div>
-
-              <div>
-                <label>Unit</label>
-                <select name="unit" required>
-                  <option>Bags</option>
-                  <option>Pieces</option>
-                  <option>Trips</option>
-                  <option>Tonnes</option>
-                  <option>Square Metres</option>
-                  <option>Units</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Condition</label>
-                <select name="condition" required>
-                  <option>Good Condition</option>
-                  <option>Needs Inspection</option>
-                  <option>Damaged</option>
-                  <option>Shortage Noticed</option>
-                  <option>Excess Noticed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Location / Address</label>
-                <input name="location" required>
-              </div>
-
-              <div>
-                <label>Received By</label>
-                <input name="receivedBy" required>
-              </div>
-
-              <div>
-                <label>Stock-In Status</label>
-                <select name="stockStatus" required>
-                  <option>Pending Director Approval</option>
-                  <option>Ready for Stock-In</option>
-                  <option>Do Not Add to Stock Yet</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Receipt / Approval Evidence Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div class="full">
-                <label>Notes / Remarks</label>
-                <textarea name="notes"></textarea>
-              </div>
+              <div><label>Date</label><input name="date" type="date" required></div>
+              <div><label>Procurement Layer</label><select name="layer" id="procLayer" required><option value="">Select layer</option><option>Company Received Goods</option><option>Produced Goods</option><option>External Industry / Supplier Source</option><option>Client Return / Resale Request</option></select></div>
+              <div><label>Linked Procurement Request</label><select name="requestId" id="procRequestSelect"><option value="">Not linked</option></select></div>
+              <div><label>Customer Name, if linked</label><input name="customer"></div>
+              <div><label>Material / Product</label><select name="item" required id="procProductSelect"></select></div>
+              <div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div>
+              <div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div>
+              <div><label>Location / Address</label><input name="location" required></div>
+              <div><label>Supplier Industry / External Vendor</label><input name="vendor" placeholder="Supplier industry or external vendor"></div>
+              <div><label>Vendor Contact Person</label><input name="vendorContact"></div>
+              <div><label>Vendor Phone Number</label><input name="vendorPhone"></div>
+              <div><label>Vendor Location / Address</label><input name="vendorLocation"></div>
+              <div><label>Availability Status</label><select name="availability"><option>Available</option><option>Partly Available</option><option>Not Available</option><option>Awaiting Supplier Feedback</option></select></div>
+              <div><label>Stock Approval Status</label><select name="stockApprovalStatus" required><option>Pending Director Approval</option><option>Approved to Source / Procure</option><option>Rejected / Do Not Proceed</option><option>Sourced and Awaiting Confirmation</option><option>Received / Ready for Stock-In</option><option>Closed</option></select></div>
+              <div><label>Received By</label><input name="receivedBy"></div>
+              <div><label>Evidence / Supplier Confirmation Upload</label><input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf"></div>
+              <div class="full"><label>Procurement Officer Remarks</label><textarea name="notes"></textarea></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Procurement Record</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Submit Procurement Record / Sourcing Update</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Procurement Records</h2>
-          <div id="procurementTable"></div>
-        </div>
+        <div class="panel"><h2>Procurement Records</h2><div id="procurementTable"></div></div>
       </section>
 
       <section id="logistics" class="page">
         <div class="panel">
           <div class="eyebrow">Logistics / Inspection Officer</div>
           <h2>Delivery Dispatch / Inspection Update</h2>
-
           <form id="logisticsForm">
             <div class="grid">
-              <div>
-                <label>Select Waybill</label>
-                <select name="waybillId" id="logWaybillSelect" required></select>
-              </div>
-
-              <div>
-                <label>Status</label>
-                <select name="status" required>
-                  <option>Dispatched</option>
-                  <option>In Transit</option>
-                  <option>Delivered</option>
-                  <option>Signed Waybill Uploaded</option>
-                  <option>Goods Confirmed and Supplied</option>
-                  <option>Closed</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Vehicle Capacity</label>
-                <input name="vehicleCapacity" placeholder="e.g. 5 ton, 10 tyres, 1000 blocks">
-              </div>
-
-              <div>
-                <label>Number of Trips / Movements</label>
-                <input name="trips" type="number" step="1" value="1">
-              </div>
-
-              <div>
-                <label>Driver / Truck Details</label>
-                <input name="driverDetails">
-              </div>
-
-              <div>
-                <label>Loading Point</label>
-                <input name="loadingPoint">
-              </div>
-
-              <div>
-                <label>Dispatch Date</label>
-                <input name="dispatchDate" type="date" required>
-              </div>
-
-              <div>
-                <label>Dispatch Time</label>
-                <input name="dispatchTime" type="time">
-              </div>
-
-              <div>
-                <label>Signed Waybill / Delivery Proof Upload</label>
-                <input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf">
-              </div>
-
-              <div class="full">
-                <label>Logistics / Inspection Remarks</label>
-                <textarea name="remarks"></textarea>
-              </div>
+              <div><label>Select Approved Waybill</label><select name="waybillId" id="logWaybillSelect" required></select></div>
+              <div><label>Status</label><select name="status" required><option>Dispatched</option><option>In Transit</option><option>Delivered</option><option>Signed Waybill Uploaded</option><option>Goods Confirmed and Supplied</option><option>Closed</option></select></div>
+              <div><label>Vehicle Capacity</label><input name="vehicleCapacity" placeholder="e.g. 5 ton, 10 tyres, 1000 blocks"></div>
+              <div><label>Number of Trips / Movements</label><input name="trips" type="number" step="1" value="1"></div>
+              <div><label>Driver / Truck Details</label><input name="driverDetails"></div>
+              <div><label>Loading Point</label><input name="loadingPoint"></div>
+              <div><label>Dispatch Date</label><input name="dispatchDate" type="date" required></div>
+              <div><label>Dispatch Time</label><input name="dispatchTime" type="time"></div>
+              <div><label>Signed Waybill / Delivery Proof Upload</label><input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf"></div>
+              <div class="full"><label>Logistics / Inspection Remarks</label><textarea name="remarks"></textarea></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Update Delivery / Inspection Record</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Update Delivery / Inspection Record</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Delivery / Logistics Jobs</h2>
-          <div id="logisticsTable"></div>
-        </div>
+        <div class="panel"><h2>Delivery / Logistics Jobs</h2><div id="logisticsTable"></div></div>
       </section>
 
       <section id="followup" class="page">
         <div class="panel">
           <div class="eyebrow">Client Follow-Up</div>
           <h2>Customer Satisfaction / Review Follow-Up</h2>
-
           <form id="followupForm">
             <div class="grid">
-              <div>
-                <label>Date</label>
-                <input name="date" type="date" required>
-              </div>
-
-              <div>
-                <label>Related Invoice / Waybill</label>
-                <input name="related">
-              </div>
-
-              <div>
-                <label>Customer Name</label>
-                <input name="customer" required>
-              </div>
-
-              <div>
-                <label>Phone / WhatsApp</label>
-                <input name="phone">
-              </div>
-
-              <div>
-                <label>Follow-Up Outcome</label>
-                <select name="outcome" required>
-                  <option>Satisfied</option>
-                  <option>Complaint Raised</option>
-                  <option>Review/Testimonial Requested</option>
-                  <option>Awaiting Customer Response</option>
-                  <option>Needs Director Attention</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Handled By</label>
-                <input name="handledBy">
-              </div>
-
-              <div class="full">
-                <label>Follow-Up Notes</label>
-                <textarea name="notes"></textarea>
-              </div>
+              <div><label>Date</label><input name="date" type="date" required></div>
+              <div><label>Related Invoice / Waybill</label><input name="related"></div>
+              <div><label>Customer Name</label><input name="customer" required></div>
+              <div><label>Phone / WhatsApp</label><input name="phone"></div>
+              <div><label>Follow-Up Outcome</label><select name="outcome" required><option>Satisfied</option><option>Complaint Raised</option><option>Review/Testimonial Requested</option><option>Awaiting Customer Response</option><option>Needs Director Attention</option></select></div>
+              <div><label>Handled By</label><input name="handledBy"></div>
+              <div class="full"><label>Follow-Up Notes</label><textarea name="notes"></textarea></div>
             </div>
-
-            <div class="row">
-              <button class="primary" type="submit">Submit Follow-Up Report</button>
-            </div>
+            <div class="row"><button class="primary" type="submit">Submit Follow-Up Report</button></div>
           </form>
         </div>
-
-        <div class="panel">
-          <h2>Follow-Up Records</h2>
-          <div id="followupTable"></div>
-        </div>
+        <div class="panel"><h2>Follow-Up Records</h2><div id="followupTable"></div></div>
       </section>
 
       <section id="reports" class="page">
         <div class="panel">
-          <div class="eyebrow">Reports</div>
-          <h2>Daily Report / Monthly Reconciliation</h2>
-
-          <div class="grid">
-            <div>
-              <label>Select Date</label>
-              <input id="reportDate" type="date">
-            </div>
-
-            <div>
-              <label>Select Month</label>
-              <input id="reportMonth" type="month">
-            </div>
-          </div>
-
-          <div class="row">
-            <button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button>
-            <button class="secondary director-only-inline" type="button" onclick="printDailyReport()">Director Print / Save PDF</button>
-            <button class="dark director-only-inline" type="button" onclick="archiveDailyReport()">Director Archive Daily Report</button>
-            <button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button>
-            <button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button>
-            <button class="red director-only-inline" type="button" onclick="clearOperationalData()">Director Clear Dashboard Data</button>
-          </div>
-
-          <div class="notice">
-            Business Support can submit daily report to Director. Report PDF generation, archiving, monthly reconciliation and clearing are Director-only.
-          </div>
+          <div class="eyebrow">Reports</div><h2>Daily Report / Monthly Reconciliation</h2>
+          <div class="grid"><div><label>Select Date</label><input id="reportDate" type="date"></div><div><label>Select Month</label><input id="reportMonth" type="month"></div></div>
+          <div class="row"><button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button><button class="secondary director-only-inline" type="button" onclick="printDailyReport()">Director Print / Save PDF</button><button class="dark director-only-inline" type="button" onclick="archiveDailyReport()">Director Archive Daily Report</button><button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button><button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button><button class="red director-only-inline" type="button" onclick="clearOperationalData()">Director Clear Dashboard Data</button></div>
+          <div class="notice">Business Support can submit daily report to Director. Report PDF generation, archiving, monthly reconciliation and clearing are Director-only.</div>
         </div>
-
         <div id="reportBox"></div>
       </section>
 
-      <section id="archive" class="page">
-        <div class="panel">
-          <div class="eyebrow">Director Archive</div>
-          <h2>Archived Reports</h2>
-          <div id="archiveTable"></div>
-        </div>
-      </section>
-
+      <section id="archive" class="page"><div class="panel"><div class="eyebrow">Director Archive</div><h2>Archived Reports</h2><div id="archiveTable"></div></div></section>
     </main>
   </div>
 </div>
 
 <script>
-const KEY = "fth_duniq_workstation_full_v12";
-
+const KEY = "fth_duniq_workstation_full_v13_approval_bridge";
 const LOGO_PATH = "assets/fth-duniq-logo.PNG";
 
-const pins = {
-  director: "0000",
-  support: "1111",
-  procurement: "2222",
-  logistics: "3333",
-  social: "4444"
-};
-
-const roleNames = {
-  director: "Director",
-  support: "Business Support Officer",
-  procurement: "Procurement Officer",
-  logistics: "Logistics / Inspection Officer",
-  social: "Client Follow-Up Officer"
-};
-
-const allTabs = [
-  ["dashboard","Dashboard"],
-  ["quotes","Quotes / Customer Requests"],
-  ["invoices","Invoices / Sales Ledger"],
-  ["payments","Payments / Receipts"],
-  ["waybills","Waybills / Delivery Handover"],
-  ["inventory","Inventory Desk"],
-  ["procurement","Procurement Desk"],
-  ["logistics","Logistics / Inspection"],
-  ["followup","Client Follow-Up"],
-  ["reports","Reports"],
-  ["archive","Archive"]
-];
-
-const roleTabs = {
-  director: ["dashboard","quotes","invoices","payments","waybills","inventory","procurement","logistics","followup","reports","archive"],
-  support: ["dashboard","quotes","invoices","payments","waybills","inventory","reports"],
-  procurement: ["dashboard","procurement","inventory","reports"],
-  logistics: ["dashboard","logistics","waybills","reports"],
-  social: ["dashboard","followup","reports"]
-};
-
+const pins = {director:"0000", support:"1111", procurement:"2222", logistics:"3333", social:"4444"};
+const roleNames = {director:"Director", support:"Business Support Officer", procurement:"Procurement Officer", logistics:"Logistics / Inspection Officer", social:"Client Follow-Up Officer"};
+const allTabs = [["dashboard","Dashboard"],["quotes","Quotes / Customer Requests"],["invoices","Invoices / Sales Ledger"],["payments","Payments / Receipts"],["procurementRequests","Procurement Requests"],["waybills","Waybills / Delivery Handover"],["inventory","Inventory Desk"],["procurement","Procurement Desk"],["logistics","Logistics / Inspection"],["followup","Client Follow-Up"],["reports","Reports"],["archive","Archive"]];
+const roleTabs = {director:["dashboard","quotes","invoices","payments","procurementRequests","waybills","inventory","procurement","logistics","followup","reports","archive"],support:["dashboard","quotes","invoices","payments","procurementRequests","waybills","inventory","reports"],procurement:["dashboard","procurementRequests","procurement","inventory","reports"],logistics:["dashboard","logistics","waybills","reports"],social:["dashboard","followup","reports"]};
 const productOptions = [
-  { code:"CEM-001", item:"Cement", unit:"Bags", tonnage:"Not Applicable" },
-
-  { code:"BLK-004", item:"4 Inches Block", unit:"Pieces", tonnage:"Not Applicable" },
-  { code:"BLK-006", item:"6 Inches Block", unit:"Pieces", tonnage:"Not Applicable" },
-  { code:"BLK-009", item:"9 Inches Block", unit:"Pieces", tonnage:"Not Applicable" },
-
-  { code:"SND-SHP-BAG", item:"Sharp Sand - Bag Sales", unit:"Bags", tonnage:"Not Applicable" },
-  { code:"SND-SHP-5T", item:"Sharp Sand - 5 Ton / 6 Tyres Trip", unit:"Trips", tonnage:"5 Ton" },
-  { code:"SND-SHP-10T", item:"Sharp Sand - 10 Ton Trip", unit:"Trips", tonnage:"10 Ton" },
-  { code:"SND-SHP-15T", item:"Sharp Sand - 12.5 / 15 Ton Trip", unit:"Trips", tonnage:"15 Ton" },
-
-  { code:"SND-PLS-BAG", item:"Plaster Sand - Bag Sales", unit:"Bags", tonnage:"Not Applicable" },
-  { code:"SND-PLS-5T", item:"Plaster Sand - 5 Ton Trip", unit:"Trips", tonnage:"5 Ton" },
-
-  { code:"GRT-BAG", item:"Granite - Bag Sales", unit:"Bags", tonnage:"Not Applicable" },
-  { code:"GRT-5T", item:"Granite - 5 Ton Trip", unit:"Trips", tonnage:"5 Ton" },
-  { code:"GRT-10T", item:"Granite - 10 Ton Trip", unit:"Trips", tonnage:"10 Ton" },
-  { code:"GRT-15T", item:"Granite - 15 Ton Trip", unit:"Trips", tonnage:"15 Ton" },
-  { code:"GRT-20T", item:"Granite - 20 Ton Trip", unit:"Trips", tonnage:"20 Ton" },
-  { code:"GRT-30T", item:"Granite - 30 Ton Trip", unit:"Trips", tonnage:"30 Ton" },
-  { code:"GRT-35T", item:"Granite - 35 Ton Trip", unit:"Trips", tonnage:"35 Ton" },
-
-  { code:"INT-001", item:"Interlocking Stones", unit:"Square Metres", tonnage:"Not Applicable" },
-  { code:"KRB-001", item:"Kerbs", unit:"Pieces", tonnage:"Not Applicable" },
-
-  { code:"SRV-PRC", item:"Procurement Support", unit:"Service", tonnage:"Not Applicable" },
-  { code:"SRV-LOG", item:"Logistics Coordination", unit:"Service", tonnage:"Not Applicable" },
-  { code:"SRV-PROJ", item:"Project Support", unit:"Service", tonnage:"Not Applicable" },
-  { code:"SRV-REC", item:"Procurement Records & Expense Tracking", unit:"Service", tonnage:"Not Applicable" },
-  { code:"SRV-FOLLOW", item:"Site Follow-Up / Customer Follow-Up", unit:"Service", tonnage:"Not Applicable" },
-  { code:"SRV-OTH", item:"Other Service / To Be Confirmed", unit:"Service", tonnage:"Not Applicable" },
-
-  { code:"OTH-001", item:"Other / To Be Confirmed", unit:"Other", tonnage:"Not Applicable" }
+  {code:"CEM-001",item:"Cement",unit:"Bags",tonnage:"Not Applicable"},
+  {code:"BLK-004",item:"4 Inches Block",unit:"Pieces",tonnage:"Not Applicable"},{code:"BLK-006",item:"6 Inches Block",unit:"Pieces",tonnage:"Not Applicable"},{code:"BLK-009",item:"9 Inches Block",unit:"Pieces",tonnage:"Not Applicable"},
+  {code:"SND-SHP-BAG",item:"Sharp Sand - Bag Sales",unit:"Bags",tonnage:"Not Applicable"},{code:"SND-SHP-5T",item:"Sharp Sand - 5 Ton / 6 Tyres Trip",unit:"Trips",tonnage:"5 Ton"},{code:"SND-SHP-10T",item:"Sharp Sand - 10 Ton Trip",unit:"Trips",tonnage:"10 Ton"},{code:"SND-SHP-15T",item:"Sharp Sand - 12.5 / 15 Ton Trip",unit:"Trips",tonnage:"15 Ton"},
+  {code:"SND-PLS-BAG",item:"Plaster Sand - Bag Sales",unit:"Bags",tonnage:"Not Applicable"},{code:"SND-PLS-5T",item:"Plaster Sand - 5 Ton Trip",unit:"Trips",tonnage:"5 Ton"},
+  {code:"GRT-BAG",item:"Granite - Bag Sales",unit:"Bags",tonnage:"Not Applicable"},{code:"GRT-5T",item:"Granite - 5 Ton Trip",unit:"Trips",tonnage:"5 Ton"},{code:"GRT-10T",item:"Granite - 10 Ton Trip",unit:"Trips",tonnage:"10 Ton"},{code:"GRT-15T",item:"Granite - 15 Ton Trip",unit:"Trips",tonnage:"15 Ton"},{code:"GRT-20T",item:"Granite - 20 Ton Trip",unit:"Trips",tonnage:"20 Ton"},{code:"GRT-30T",item:"Granite - 30 Ton Trip",unit:"Trips",tonnage:"30 Ton"},{code:"GRT-35T",item:"Granite - 35 Ton Trip",unit:"Trips",tonnage:"35 Ton"},
+  {code:"INT-001",item:"Interlocking Stones",unit:"Square Metres",tonnage:"Not Applicable"},{code:"KRB-001",item:"Kerbs",unit:"Pieces",tonnage:"Not Applicable"},
+  {code:"SRV-PRC",item:"Procurement Support",unit:"Service",tonnage:"Not Applicable"},{code:"SRV-LOG",item:"Logistics Coordination",unit:"Service",tonnage:"Not Applicable"},{code:"SRV-PROJ",item:"Project Support",unit:"Service",tonnage:"Not Applicable"},{code:"SRV-REC",item:"Procurement Records & Expense Tracking",unit:"Service",tonnage:"Not Applicable"},{code:"SRV-FOLLOW",item:"Site Follow-Up / Customer Follow-Up",unit:"Service",tonnage:"Not Applicable"},{code:"SRV-OTH",item:"Other Service / To Be Confirmed",unit:"Service",tonnage:"Not Applicable"},{code:"OTH-001",item:"Other / To Be Confirmed",unit:"Other",tonnage:"Not Applicable"}
 ];
-
-let currentRole = "";
-let db = load();
-
-function blank(){
-  return {
-    quotes:[],
-    invoices:[],
-    payments:[],
-    receipts:[],
-    waybills:[],
-    stock:[],
-    procurement:[],
-    logistics:[],
-    followups:[],
-    archives:[],
-    dailySubmissions:[],
-    counts:{
-      quote:0,
-      invoice:0,
-      payment:0,
-      receipt:0,
-      waybill:0,
-      stock:0,
-      procurement:0,
-      logistics:0,
-      followup:0,
-      archive:0,
-      report:0
-    }
-  };
-}
-
-function load(){
-  try{
-    return JSON.parse(localStorage.getItem(KEY)) || blank();
-  }catch(e){
-    return blank();
-  }
-}
-
-function save(){
-  localStorage.setItem(KEY, JSON.stringify(db));
-  renderAll();
-}
-
-function id(type){
-  db.counts[type] = (db.counts[type] || 0) + 1;
-  return "FTH-" + type.toUpperCase() + "-" + new Date().getFullYear() + "-" + String(db.counts[type]).padStart(4,"0");
-}
-
-function today(){
-  return new Date().toISOString().slice(0,10);
-}
-
-function monthNow(){
-  return new Date().toISOString().slice(0,7);
-}
-
-function esc(value){
-  return String(value || "").replace(/[&<>"]/g, function(m){
-    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m];
-  });
-}
-
-function money(n){
-  return "₦" + Number(n || 0).toLocaleString("en-NG",{maximumFractionDigits:2});
-}
-
-function num(n){
-  return Number(n || 0).toLocaleString("en-NG",{maximumFractionDigits:2});
-}
-
-function formData(form){
-  return Object.fromEntries(new FormData(form).entries());
-}
-
-function niceDate(d){
-  if(!d) return "";
-  return new Date(d).toLocaleDateString("en-NG",{year:"numeric",month:"short",day:"2-digit"});
-}
-
-function table(rows, heads, map, empty){
-  if(!rows || !rows.length){
-    return '<div class="empty">' + (empty || "No records yet.") + '</div>';
-  }
-
-  return '<div class="table"><table><thead><tr>' +
-    heads.map(h => '<th>' + h + '</th>').join('') +
-    '</tr></thead><tbody>' +
-    rows.map((row,i) => '<tr>' + map(row,i).map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') +
-    '</tbody></table></div>';
-}
-
-function productSelectOptions(selectedCode){
-  return '<option value="">Code</option>' + productOptions.map(function(p){
-    return '<option value="' + p.code + '"' + (selectedCode === p.code ? " selected" : "") + '>' + p.code + ' — ' + p.item + '</option>';
-  }).join("");
-}
-
-function getProduct(code){
-  return productOptions.find(p => p.code === code) || { code:"", item:"", unit:"", tonnage:"" };
-}
-
-function fileRead(file){
-  return new Promise(function(resolve){
-    if(!file) return resolve({name:"",data:""});
-    const reader = new FileReader();
-    reader.onload = function(){
-      resolve({name:file.name,data:reader.result});
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-document.getElementById("loginForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const selectedRole = document.getElementById("role").value;
-  const enteredPin = document.getElementById("pin").value.trim();
-
-  if(!selectedRole || pins[selectedRole] !== enteredPin){
-    document.getElementById("loginMsg").textContent = "Invalid role or PIN.";
-    return;
-  }
-
-  currentRole = selectedRole;
-  sessionStorage.setItem("fth_role", selectedRole);
-  startApp();
-};
-
-function startApp(){
-  document.getElementById("login").style.display = "none";
-  document.getElementById("app").style.display = "block";
-  document.getElementById("roleName").textContent = roleNames[currentRole];
-  document.getElementById("dateNow").textContent = niceDate(today());
-
-  applyRoleVisibility();
-  buildNav();
-  setDefaultDates();
-  renderAll();
-
-  if(!document.querySelector("#quoteLines .product-box")){
-    addQuoteLine();
-  }
-
-  if(!document.querySelector("#invoiceLines .product-box")){
-    addInvoiceLine();
-  }
-
-  setupAllSignaturePads();
-}
-
-function logout(){
-  sessionStorage.removeItem("fth_role");
-  location.reload();
-}
-
-function buildNav(){
-  const allowed = roleTabs[currentRole] || [];
-  const visibleTabs = allTabs.filter(t => allowed.includes(t[0]));
-
-  document.getElementById("side").innerHTML = visibleTabs.map((t,i) =>
-    '<button class="nav ' + (i === 0 ? "active" : "") + '" onclick="showPage(\'' + t[0] + '\')">' + t[1] + '</button>'
-  ).join("");
-
-  document.getElementById("mobileNav").innerHTML = visibleTabs.map(t =>
-    '<option value="' + t[0] + '">' + t[1] + '</option>'
-  ).join("");
-
-  showPage(visibleTabs[0] ? visibleTabs[0][0] : "dashboard");
-}
-
-function showPage(pageId){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById(pageId);
-  if(page) page.classList.add("active");
-
-  document.querySelectorAll(".nav").forEach(n => n.classList.remove("active"));
-  const tab = allTabs.find(t => t[0] === pageId);
-  if(tab){
-    [...document.querySelectorAll(".nav")].find(n => n.textContent === tab[1])?.classList.add("active");
-  }
-
-  const mobile = document.getElementById("mobileNav");
-  if(mobile) mobile.value = pageId;
-
-  setTimeout(resizeAllSignaturePads, 80);
-
-  if(pageId === "reports"){
-    renderDailyReport();
-  }
-}
-
-function applyRoleVisibility(){
-  document.querySelectorAll(".director-only").forEach(el => {
-    el.style.display = currentRole === "director" ? "" : "none";
-  });
-
-  document.querySelectorAll(".director-only-inline").forEach(el => {
-    el.style.display = currentRole === "director" ? "inline-flex" : "none";
-  });
-
-  document.querySelectorAll(".support-only-inline").forEach(el => {
-    el.style.display = currentRole === "support" ? "inline-flex" : "none";
-  });
-}
-
-function setDefaultDates(){
-  document.querySelectorAll('input[type="date"]').forEach(input => {
-    if(!input.value) input.value = today();
-  });
-
-  const reportDate = document.getElementById("reportDate");
-  const reportMonth = document.getElementById("reportMonth");
-  if(reportDate) reportDate.value = today();
-  if(reportMonth) reportMonth.value = monthNow();
-}
-
-function renderAll(){
-  applyRoleVisibility();
-  renderDashboard();
-  renderQuotes();
-  renderInvoiceSelects();
-  renderInvoices();
-  renderPaymentSelects();
-  renderPayments();
-  renderReceipts();
-  renderWaybillSelects();
-  renderWaybills();
-  renderStockProducts();
-  renderStock();
-  renderProcurementProducts();
-  renderProcurement();
-  renderLogisticsSelects();
-  renderLogistics();
-  renderFollowups();
-  renderArchive();
-}
-
-function renderDashboard(){
-  const d = today();
-
-  const pendingPayments = db.payments.filter(p => p.status === "Awaiting Director Approval");
-  const pendingWaybills = db.waybills.filter(w => w.status === "Awaiting Director Approval");
-  const pendingProcurement = db.procurement.filter(p => p.status === "Awaiting Director Approval");
-
-  const invoicesToday = db.invoices.filter(i => i.date === d);
-  const totalSalesToday = invoicesToday.reduce((a,b) => a + Number(b.total || 0), 0);
-  const paidToday = db.payments.filter(p => p.date === d && p.status === "Approved").reduce((a,b) => a + Number(b.totalPaid || 0), 0);
-  const outstanding = db.invoices.reduce((a,b) => a + Number(b.balance || 0), 0);
-
-  document.getElementById("metrics").innerHTML = [
-    ["Quotes", db.quotes.length],
-    ["Invoices Today", invoicesToday.length],
-    ["Sales Today", money(totalSalesToday)],
-    ["Paid Today", money(paidToday)],
-    ["Outstanding", money(outstanding)],
-    ["Pending Payments", pendingPayments.length],
-    ["Pending Waybills", pendingWaybills.length],
-    ["Stock Items", stockPosition().length]
-  ].map(m => '<div class="metric"><span>' + m[0] + '</span><strong>' + m[1] + '</strong></div>').join("");
-
-  document.getElementById("approvalMini").innerHTML =
-    '<h3>Payments Awaiting Approval</h3>' +
-    table(pendingPayments, ["Date","Payment","Invoice","Customer","Amount","Action"], p => [
-      niceDate(p.date),
-      p.id,
-      p.invoiceId,
-      esc(p.customer),
-      money(p.totalPaid),
-      '<button class="small green" onclick="approvePayment(\'' + p.id + '\')">Approve</button> <button class="small red" onclick="rejectPayment(\'' + p.id + '\')">Reject</button>'
-    ], "No pending payments.") +
-    '<h3 style="margin-top:20px;">Waybills Awaiting Approval</h3>' +
-    table(pendingWaybills, ["Date","Waybill","Invoice","Customer","Status","Action"], w => [
-      niceDate(w.date),
-      w.id,
-      w.invoiceId,
-      esc(w.customer),
-      '<span class="tag warn">' + esc(w.status) + '</span>',
-      '<button class="small green" onclick="approveWaybill(\'' + w.id + '\')">Approve Dispatch</button>'
-    ], "No pending waybills.") +
-    '<h3 style="margin-top:20px;">Procurement Awaiting Approval</h3>' +
-    table(pendingProcurement, ["Date","Record","Layer","Source","Item","Qty","Action"], p => [
-      niceDate(p.date),
-      p.id,
-      esc(p.layer),
-      esc(p.source),
-      esc(p.itemName),
-      num(p.qty) + " " + esc(p.unit),
-      '<button class="small green" onclick="approveProcurement(\'' + p.id + '\')">Approve</button>'
-    ], "No pending procurement records.");
-
-  const workflowRows = [
-    ...db.quotes.map(x => ({date:x.date, ref:x.id, type:"Quote", customer:x.customer, status:x.status})),
-    ...db.invoices.map(x => ({date:x.date, ref:x.id, type:"Invoice", customer:x.customer, status:x.status})),
-    ...db.waybills.map(x => ({date:x.date, ref:x.id, type:"Waybill", customer:x.customer, status:x.status}))
-  ].sort((a,b) => String(b.ref).localeCompare(String(a.ref))).slice(0,12);
-
-  document.getElementById("workflowMini").innerHTML = table(workflowRows, ["Date","Ref","Type","Customer","Status"], r => [
-    niceDate(r.date),
-    r.ref,
-    r.type,
-    esc(r.customer),
-    '<span class="tag info">' + esc(r.status) + '</span>'
-  ], "No workflow movement yet.");
-}
-
-function addQuoteLine(line){
-  const p = line || {};
-  const box = document.createElement("div");
-  box.className = "product-box quote-line";
-
-  box.innerHTML =
-    '<div class="grid3">' +
-      '<div><label>Code</label><select class="q-code" required>' + productSelectOptions(p.code) + '</select></div>' +
-      '<div><label>Product / Material / Service</label><input class="q-item" placeholder="Product / Material" value="' + esc(p.item || "") + '" required></div>' +
-      '<div><label>Qty / Number</label><input class="q-qty" placeholder="Qty / Number" value="' + esc(p.quantity || "") + '" required></div>' +
-      '<div><label>Unit</label><select class="q-unit" required>' + unitOptions(p.unit) + '</select></div>' +
-      '<div><label>Tonnage / Trip Size</label><select class="q-tonnage">' + tonnageOptions(p.tonnage) + '</select></div>' +
-      '<div><label>Local Description</label><input class="q-local" placeholder="e.g. 1 trip of 6 tyres sharp sand" value="' + esc(p.localDescription || "") + '"></div>' +
-      '<div class="full"><label>Internal Interpretation</label><input class="q-interpretation" placeholder="Internal interpretation" value="' + esc(p.internalInterpretation || "") + '"></div>' +
-    '</div>' +
-    '<div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';
-
-  const code = box.querySelector(".q-code");
-  code.addEventListener("change", function(){
-    const selected = getProduct(code.value);
-    box.querySelector(".q-item").value = selected.item || "";
-    box.querySelector(".q-unit").value = selected.unit || "";
-    box.querySelector(".q-tonnage").value = selected.tonnage || "Not Applicable";
-  });
-
-  document.getElementById("quoteLines").appendChild(box);
-}
-
-function unitOptions(selected){
-  const units = ["Bags","Pieces","Trips","Tonnes / Tonnage","Square Metres","Service","Units","Other"];
-  return '<option value="">Unit</option>' + units.map(u => '<option' + (u === selected ? " selected" : "") + '>' + u + '</option>').join("");
-}
-
-function tonnageOptions(selected){
-  const tons = ["Not Applicable","5 Ton","10 Ton","12.5 Ton","15 Ton","20 Ton","30 Ton","35 Ton"];
-  return tons.map(t => '<option' + (t === selected ? " selected" : "") + '>' + t + '</option>').join("");
-}
-
-function removeProductBox(btn){
-  const parent = btn.closest(".product-box");
-  const container = parent.parentElement;
-  if(container.querySelectorAll(".product-box").length <= 1){
-    alert("At least one line is required.");
-    return;
-  }
-  parent.remove();
-}
-
-function collectQuoteLines(){
-  return Array.from(document.querySelectorAll("#quoteLines .quote-line")).map(function(box){
-    return {
-      code: box.querySelector(".q-code").value,
-      item: box.querySelector(".q-item").value.trim(),
-      quantity: box.querySelector(".q-qty").value.trim(),
-      unit: box.querySelector(".q-unit").value,
-      tonnage: box.querySelector(".q-tonnage").value,
-      localDescription: box.querySelector(".q-local").value.trim(),
-      internalInterpretation: box.querySelector(".q-interpretation").value.trim()
-    };
-  }).filter(l => l.code && l.item && l.quantity);
-}
-
-document.getElementById("quoteForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const lines = collectQuoteLines();
-
-  if(!lines.length){
-    alert("Please add at least one product, material or service line.");
-    return;
-  }
-
-  const record = {
-    id: id("quote"),
-    status: "Quote received",
-    createdByRole: currentRole,
-    createdByName: data.enteredBy || roleNames[currentRole],
-    lines,
-    updatedAt: new Date().toISOString(),
-    ...data
-  };
-
-  db.quotes.unshift(record);
-  this.reset();
-  document.getElementById("quoteLines").innerHTML = "";
-  addQuoteLine();
-  save();
-  alert("Quote request saved and visible on Director dashboard.");
-};
-
-function renderQuotes(){
-  document.getElementById("quoteTable").innerHTML = table(db.quotes, [
-    "Date","Quote","Customer","Phone","Location","Delivery Date","Logistics?","Other Service","Lines","Status","Action"
-  ], q => [
-    niceDate(q.date),
-    q.id,
-    esc(q.customer),
-    esc(q.phone),
-    esc(q.location),
-    niceDate(q.deliveryDate),
-    esc(q.logisticsServiceNeeded),
-    esc(q.otherServiceNeeded || "-"),
-    q.lines.map(l => esc(l.quantity + " " + l.unit + " " + l.item)).join("<br>"),
-    '<span class="tag info">' + esc(q.status) + '</span>',
-    '<button class="small secondary" onclick="sendQuoteToInvoice(\'' + q.id + '\')">Create Invoice</button>'
-  ], "No quotes yet.");
-}
-
-function sendQuoteToInvoice(qid){
-  showPage("invoices");
-  document.getElementById("invoiceQuoteSelect").value = qid;
-  fillInvoiceFromQuote(qid);
-}
-
-function renderInvoiceSelects(){
-  const select = document.getElementById("invoiceQuoteSelect");
-  select.innerHTML = '<option value="">Manual invoice</option>' + db.quotes.map(q =>
-    '<option value="' + q.id + '">' + q.id + ' — ' + esc(q.customer) + '</option>'
-  ).join("");
-}
-
-document.getElementById("invoiceQuoteSelect").onchange = function(){
-  fillInvoiceFromQuote(this.value);
-};
-
-function fillInvoiceFromQuote(qid){
-  const q = db.quotes.find(x => x.id === qid);
-  if(!q) return;
-
-  const f = document.getElementById("invoiceForm");
-
-  f.customer.value = q.customer || "";
-  f.phone.value = q.phone || "";
-  f.email.value = q.email || "";
-  f.location.value = q.location || "";
-  f.siteContact.value = q.siteContact || "";
-  f.sitePhone.value = q.sitePhone || "";
-  f.deliveryDate.value = q.deliveryDate || "";
-  f.deliveryTime.value = q.deliveryTime || "";
-  f.deliveryPeriod.value = q.deliveryPeriod || "To Be Confirmed";
-  f.note.value = q.details || "";
-
-  document.getElementById("invoiceLines").innerHTML = "";
-  q.lines.forEach(line => addInvoiceLine({
-    code: line.code,
-    desc: line.item,
-    qty: line.quantity,
-    unit: line.unit,
-    rate: 0
-  }));
-
-  updateInvoiceCalc();
-}
-
-function addInvoiceLine(line){
-  const p = line || {};
-  const box = document.createElement("div");
-  box.className = "product-box invoice-line";
-
-  box.innerHTML =
-    '<div class="grid3">' +
-      '<div><label>Product Code</label><input class="i-code" value="' + esc(p.code || "") + '"></div>' +
-      '<div><label>Description</label><input class="i-desc" value="' + esc(p.desc || "") + '" required></div>' +
-      '<div><label>Quantity</label><input class="i-qty" type="number" step="0.01" value="' + esc(p.qty || "") + '" required></div>' +
-      '<div><label>Unit</label><select class="i-unit" required>' + unitOptions(p.unit) + '</select></div>' +
-      '<div><label>Rate (₦)</label><input class="i-rate" type="number" step="0.01" value="' + esc(p.rate || 0) + '" required></div>' +
-      '<div><label>Line Amount (₦)</label><input class="i-total" readonly></div>' +
-    '</div>' +
-    '<div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';
-
-  box.querySelectorAll("input,select").forEach(el => el.addEventListener("input", updateInvoiceCalc));
-  document.getElementById("invoiceLines").appendChild(box);
-  updateInvoiceCalc();
-}
-
-function collectInvoiceLines(){
-  return Array.from(document.querySelectorAll("#invoiceLines .invoice-line")).map(function(box){
-    const qty = Number(box.querySelector(".i-qty").value || 0);
-    const rate = Number(box.querySelector(".i-rate").value || 0);
-    return {
-      code: box.querySelector(".i-code").value.trim(),
-      desc: box.querySelector(".i-desc").value.trim(),
-      qty,
-      unit: box.querySelector(".i-unit").value,
-      rate,
-      amount: qty * rate
-    };
-  }).filter(l => l.desc && l.qty > 0);
-}
-
-function updateInvoiceCalc(){
-  const form = document.getElementById("invoiceForm");
-  const logisticsFee = Number(form.logisticsFee.value || 0);
-  const discount = Number(form.discount.value || 0);
-  let subtotal = 0;
-
-  document.querySelectorAll("#invoiceLines .invoice-line").forEach(function(box){
-    const qty = Number(box.querySelector(".i-qty").value || 0);
-    const rate = Number(box.querySelector(".i-rate").value || 0);
-    const total = qty * rate;
-    box.querySelector(".i-total").value = total.toFixed(2);
-    subtotal += total;
-  });
-
-  const total = Math.max(subtotal + logisticsFee - discount, 0);
-  document.getElementById("invoiceCalc").innerHTML =
-    "<b>Subtotal:</b> " + money(subtotal) +
-    " | <b>Logistics Fee:</b> " + money(logisticsFee) +
-    " | <b>Discount:</b> " + money(discount) +
-    " | <b>Total:</b> " + money(total);
-}
-
-document.getElementById("invoiceForm").addEventListener("input", updateInvoiceCalc);
-
-document.getElementById("invoiceForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const lines = collectInvoiceLines();
-
-  if(!lines.length){
-    alert("Please add at least one invoice line.");
-    return;
-  }
-
-  const subtotal = lines.reduce((a,b) => a + Number(b.amount || 0), 0);
-  const logisticsFee = Number(data.logisticsFee || 0);
-  const discount = Number(data.discount || 0);
-  const total = Math.max(subtotal + logisticsFee - discount, 0);
-
-  const invoice = {
-    id: id("invoice"),
-    lines,
-    subtotal,
-    logisticsFee,
-    discount,
-    total,
-    paid: 0,
-    balance: total,
-    status: "Unpaid",
-    stockDeducted: false,
-    officerSignatureData: data.invoiceOfficerSignatureData || "",
-    createdByRole: currentRole,
-    createdByName: data.officerName || roleNames[currentRole],
-    updatedAt: new Date().toISOString(),
-    ...data
-  };
-
-  db.invoices.unshift(invoice);
-
-  const q = db.quotes.find(x => x.id === data.quoteId);
-  if(q){
-    q.status = "Invoice created";
-  }
-
-  this.reset();
-  document.getElementById("invoiceLines").innerHTML = "";
-  addInvoiceLine();
-  clearSignaturePad("invoiceOfficerSignatureCanvas","invoiceOfficerSignatureData");
-  save();
-  alert("Invoice created.");
-};
-
-function renderInvoices(){
-  document.getElementById("invoiceTable").innerHTML = table(db.invoices, [
-    "Date","Invoice","Customer","Items","Subtotal","Logistics","Total","Paid","Balance","Status","Actions"
-  ], i => [
-    niceDate(i.date),
-    i.id,
-    esc(i.customer) + "<br><small>" + esc(i.phone) + "</small>",
-    i.lines.map(l => esc(l.qty + " " + l.unit + " " + l.desc + " @ " + money(l.rate))).join("<br>"),
-    money(i.subtotal),
-    money(i.logisticsFee),
-    money(i.total),
-    money(i.paid),
-    money(i.balance),
-    '<span class="tag ' + (i.balance <= 0 ? "ok" : i.paid > 0 ? "warn" : "bad") + '">' + esc(i.status) + '</span>',
-    '<button class="small secondary" onclick="printInvoice(\'' + i.id + '\')">Print / Save</button> ' +
-    '<button class="small green" onclick="openWhatsAppInvoice(\'' + i.id + '\')">WhatsApp</button>'
-  ], "No invoices yet.");
-}
-
-function renderPaymentSelects(){
-  const select = document.getElementById("paymentInvoiceSelect");
-  const invoices = db.invoices.filter(i => i.balance > 0);
-  select.innerHTML = '<option value="">Select invoice</option>' + invoices.map(i =>
-    '<option value="' + i.id + '">' + i.id + ' — ' + esc(i.customer) + ' — Balance ' + money(i.balance) + '</option>'
-  ).join("");
-}
-
-document.getElementById("paymentInvoiceSelect").onchange = function(){
-  const inv = db.invoices.find(i => i.id === this.value);
-  if(!inv) return;
-
-  const f = document.getElementById("paymentForm");
-  f.customer.value = inv.customer || "";
-  f.invoiceTotal.value = inv.total || 0;
-  f.currentBalance.value = inv.balance || 0;
-};
-
-document.getElementById("paymentForm").onsubmit = async function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const inv = db.invoices.find(i => i.id === data.invoiceId);
-
-  if(!inv){
-    alert("Select a valid invoice.");
-    return;
-  }
-
-  const transferAmount = Number(data.transferAmount || 0);
-  const cashAmount = Number(data.cashAmount || 0);
-  const posAmount = Number(data.posAmount || 0);
-  const totalPaid = transferAmount + cashAmount + posAmount;
-
-  if(totalPaid <= 0){
-    alert("Please enter at least one payment amount.");
-    return;
-  }
-
-  if(cashAmount > 0 && !data.cashReceiver.trim()){
-    alert("Please enter the name of the person who received the cash.");
-    return;
-  }
-
-  const proof = await fileRead(this.proof.files[0]);
-
-  const payment = {
-    id: id("payment"),
-    status: "Awaiting Director Approval",
-    invoiceId: inv.id,
-    customer: inv.customer,
-    totalPaid,
-    transferAmount,
-    cashAmount,
-    posAmount,
-    proofName: proof.name,
-    proofData: proof.data,
-    createdByRole: currentRole,
-    updatedAt: new Date().toISOString(),
-    ...data
-  };
-
-  db.payments.unshift(payment);
-  this.reset();
-  save();
-  alert("Payment submitted for Director approval.");
-};
-
-function renderPayments(){
-  document.getElementById("paymentTable").innerHTML = table(db.payments, [
-    "Date","Payment","Invoice","Customer","Transfer","Cash","POS","Total","Proof","Status","Action"
-  ], p => [
-    niceDate(p.date),
-    p.id,
-    p.invoiceId,
-    esc(p.customer),
-    money(p.transferAmount),
-    money(p.cashAmount),
-    money(p.posAmount),
-    money(p.totalPaid),
-    p.proofName ? '<a href="' + p.proofData + '" target="_blank">' + esc(p.proofName) + '</a>' : "-",
-    '<span class="tag ' + (p.status === "Approved" ? "ok" : p.status === "Rejected" ? "bad" : "warn") + '">' + esc(p.status) + '</span>',
-    currentRole === "director" && p.status === "Awaiting Director Approval"
-      ? '<button class="small green" onclick="approvePayment(\'' + p.id + '\')">Approve</button> <button class="small red" onclick="rejectPayment(\'' + p.id + '\')">Reject</button>'
-      : ""
-  ], "No payment records yet.");
-}
-
-function approvePayment(pid){
-  if(currentRole !== "director"){
-    alert("Only Director can approve payments.");
-    return;
-  }
-
-  const p = db.payments.find(x => x.id === pid);
-  if(!p) return;
-
-  const inv = db.invoices.find(x => x.id === p.invoiceId);
-  if(!inv) return;
-
-  if(p.status === "Approved") return;
-
-  p.status = "Approved";
-  p.approvedAt = new Date().toISOString();
-  p.approvedBy = "Director";
-
-  inv.paid = Number(inv.paid || 0) + Number(p.totalPaid || 0);
-  inv.balance = Math.max(Number(inv.total || 0) - Number(inv.paid || 0), 0);
-  inv.status = inv.balance <= 0 ? "Paid" : "Part Paid";
-
-  const receiptType = inv.balance <= 0 ? "Payment Receipt" : "Part-Payment Acknowledgement";
-
-  db.receipts.unshift({
-    id: id("receipt"),
-    date: today(),
-    invoiceId: inv.id,
-    paymentId: p.id,
-    customer: inv.customer,
-    phone: inv.phone,
-    receiptType,
-    amount: p.totalPaid,
-    balance: inv.balance,
-    transferAmount: p.transferAmount,
-    cashAmount: p.cashAmount,
-    posAmount: p.posAmount,
-    approvedBy: "Director"
-  });
-
-  save();
-}
-
-function rejectPayment(pid){
-  if(currentRole !== "director"){
-    alert("Only Director can reject payments.");
-    return;
-  }
-
-  const p = db.payments.find(x => x.id === pid);
-  if(!p) return;
-  p.status = "Rejected";
-  save();
-}
-
-function renderReceipts(){
-  document.getElementById("receiptTable").innerHTML = table(db.receipts, [
-    "Date","Receipt","Type","Invoice","Customer","Amount","Balance","Actions"
-  ], r => [
-    niceDate(r.date),
-    r.id,
-    esc(r.receiptType),
-    r.invoiceId,
-    esc(r.customer),
-    money(r.amount),
-    money(r.balance),
-    '<button class="small secondary" onclick="printReceipt(\'' + r.id + '\')">Print / Save</button> <button class="small green" onclick="openWhatsAppReceipt(\'' + r.id + '\')">WhatsApp</button>'
-  ], "No receipts yet.");
-}
-
-function renderWaybillSelects(){
-  const select = document.getElementById("waybillInvoiceSelect");
-  select.innerHTML = '<option value="">Select invoice</option>' + db.invoices.map(i =>
-    '<option value="' + i.id + '">' + i.id + ' — ' + esc(i.customer) + '</option>'
-  ).join("");
-}
-
-document.getElementById("waybillInvoiceSelect").onchange = function(){
-  const inv = db.invoices.find(i => i.id === this.value);
-  if(!inv) return;
-
-  const f = document.getElementById("waybillForm");
-  f.customer.value = inv.customer || "";
-  f.phone.value = inv.phone || "";
-  f.location.value = inv.location || "";
-  f.siteContact.value = inv.siteContact || "";
-  f.sitePhone.value = inv.sitePhone || "";
-  f.logisticsFee.value = inv.logisticsFee || 0;
-  f.deliveryDate.value = inv.deliveryDate || "";
-  f.deliveryTime.value = inv.deliveryTime || "";
-  f.deliveryPeriod.value = inv.deliveryPeriod || "To Be Confirmed";
-  f.products.value = inv.lines.map(l => l.qty + " " + l.unit + " " + l.desc).join("\n");
-  f.instruction.value = inv.note || "";
-};
-
-document.getElementById("waybillForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const inv = db.invoices.find(i => i.id === data.invoiceId);
-
-  const status = currentRole === "director" ? "Approved for Dispatch" : "Awaiting Director Approval";
-
-  const waybill = {
-    id: id("waybill"),
-    status,
-    createdByRole: currentRole,
-    invoiceBalanceAtCreation: inv ? inv.balance : 0,
-    officerSignatureData: data.waybillOfficerSignatureData || "",
-    driverSignatureData: data.waybillDriverSignatureData || "",
-    customerSignatureData: data.waybillCustomerSignatureData || "",
-    updatedAt: new Date().toISOString(),
-    ...data
-  };
-
-  db.waybills.unshift(waybill);
-
-  if(inv){
-    inv.deliveryStatus = status;
-  }
-
-  this.reset();
-  clearSignaturePad("waybillOfficerSignatureCanvas","waybillOfficerSignatureData");
-  clearSignaturePad("waybillDriverSignatureCanvas","waybillDriverSignatureData");
-  clearSignaturePad("waybillCustomerSignatureCanvas","waybillCustomerSignatureData");
-  save();
-  alert("Waybill created and forwarded to Director / Logistics workflow.");
-};
-
-function renderWaybills(){
-  document.getElementById("waybillTable").innerHTML = table(db.waybills, [
-    "Date","Waybill","Invoice","Customer","Location","Products","Logistics Fee","Status","Actions"
-  ], w => [
-    niceDate(w.date),
-    w.id,
-    w.invoiceId,
-    esc(w.customer),
-    esc(w.location),
-    esc(w.products).replace(/\n/g,"<br>"),
-    money(w.logisticsFee),
-    '<span class="tag ' + (w.status === "Closed" ? "ok" : w.status.includes("Awaiting") ? "warn" : "info") + '">' + esc(w.status) + '</span>',
-    waybillActions(w)
-  ], "No waybills yet.");
-}
-
-function waybillActions(w){
-  let actions = "";
-
-  if(currentRole === "director" && w.status === "Awaiting Director Approval"){
-    actions += '<button class="small green" onclick="approveWaybill(\'' + w.id + '\')">Approve Dispatch</button> ';
-  }
-
-  if(currentRole === "director" || currentRole === "logistics"){
-    actions += '<button class="small secondary" onclick="printWaybill(\'' + w.id + '\')">Print / Save</button> ';
-  }
-
-  if(currentRole === "logistics" || currentRole === "director"){
-    actions += '<button class="small blue" onclick="quickDispatch(\'' + w.id + '\')">Dispatch</button>';
-  }
-
-  return actions;
-}
-
-function approveWaybill(wid){
-  if(currentRole !== "director"){
-    alert("Only Director can approve dispatch.");
-    return;
-  }
-
-  const w = db.waybills.find(x => x.id === wid);
-  if(!w) return;
-
-  w.status = "Approved for Dispatch";
-  w.approvedBy = "Director";
-  w.approvedAt = new Date().toISOString();
-  save();
-}
-
-function quickDispatch(wid){
-  const w = db.waybills.find(x => x.id === wid);
-  if(!w) return;
-
-  if(w.status === "Awaiting Director Approval" && currentRole !== "director"){
-    alert("Director approval is required before dispatch.");
-    return;
-  }
-
-  w.status = "Dispatched";
-  w.dispatchAt = new Date().toISOString();
-  save();
-}
-
-function renderLogisticsSelects(){
-  const select = document.getElementById("logWaybillSelect");
-  const list = db.waybills.filter(w => w.status !== "Closed");
-  select.innerHTML = '<option value="">Select waybill</option>' + list.map(w =>
-    '<option value="' + w.id + '">' + w.id + ' — ' + esc(w.customer) + ' — ' + esc(w.status) + '</option>'
-  ).join("");
-}
-
-document.getElementById("logisticsForm").onsubmit = async function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const w = db.waybills.find(x => x.id === data.waybillId);
-
-  if(!w){
-    alert("Select a valid waybill.");
-    return;
-  }
-
-  if(w.status === "Awaiting Director Approval" && currentRole !== "director"){
-    alert("Director approval is required before logistics can proceed.");
-    return;
-  }
-
-  const proof = await fileRead(this.proof.files[0]);
-
-  const record = {
-    id: id("logistics"),
-    waybillId: w.id,
-    invoiceId: w.invoiceId,
-    customer: w.customer,
-    location: w.location,
-    proofName: proof.name,
-    proofData: proof.data,
-    updatedByRole: currentRole,
-    ...data
-  };
-
-  db.logistics.unshift(record);
-  w.status = data.status;
-  w.vehicleCapacity = data.vehicleCapacity;
-  w.trips = data.trips;
-  w.driverDetails = data.driverDetails;
-  w.loadingPoint = data.loadingPoint;
-  w.dispatchDate = data.dispatchDate;
-  w.dispatchTime = data.dispatchTime;
-
-  if(data.status === "Goods Confirmed and Supplied" || data.status === "Closed"){
-    closeSupplyAndDeductStock(w);
-  }
-
-  this.reset();
-  save();
-  alert("Logistics / inspection update saved.");
-};
-
-function closeSupplyAndDeductStock(waybill){
-  const inv = db.invoices.find(i => i.id === waybill.invoiceId);
-
-  if(!inv || inv.stockDeducted) return;
-
-  inv.lines.forEach(function(line){
-    if(String(line.unit).toLowerCase() === "service") return;
-
-    db.stock.unshift({
-      id: id("stock"),
-      date: today(),
-      item: line.desc,
-      productCode: line.code,
-      type: "Sales Out",
-      qty: Number(line.qty || 0),
-      unit: line.unit,
-      location: inv.location,
-      notes: "Auto stock-out from delivered invoice " + inv.id,
-      ref: inv.id,
-      enteredBy: "System"
-    });
-  });
-
-  inv.stockDeducted = true;
-}
-
-function renderLogistics(){
-  document.getElementById("logisticsTable").innerHTML = table(db.waybills, [
-    "Waybill","Invoice","Customer","Location","Status","Vehicle Capacity","Trips","Driver","Proof Updates"
-  ], w => {
-    const proofs = db.logistics.filter(l => l.waybillId === w.id && l.proofName).map(l => '<a href="' + l.proofData + '" target="_blank">' + esc(l.proofName) + '</a>').join("<br>");
-    return [
-      w.id,
-      w.invoiceId,
-      esc(w.customer),
-      esc(w.location),
-      '<span class="tag info">' + esc(w.status) + '</span>',
-      esc(w.vehicleCapacity || "-"),
-      esc(w.trips || "-"),
-      esc(w.driverDetails || "-"),
-      proofs || "-"
-    ];
-  }, "No logistics jobs yet.");
-}
-
-function renderStockProducts(){
-  const select = document.getElementById("stockProductSelect");
-  select.innerHTML = productOptions.map(p => '<option value="' + esc(p.item) + '">' + p.code + ' — ' + esc(p.item) + '</option>').join("");
-}
-
-document.getElementById("stockForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-
-  db.stock.unshift({
-    id: id("stock"),
-    enteredBy: roleNames[currentRole],
-    ref: "",
-    ...data,
-    qty: Number(data.qty || 0)
-  });
-
-  this.reset();
-  setDefaultDates();
-  save();
-};
-
-function sign(type){
-  return ["Sales Out","Production Usage","Damage / Loss","Shortage"].includes(type) ? -1 : 1;
-}
-
-function stockPosition(){
-  const map = {};
-
-  db.stock.forEach(function(m){
-    const key = String(m.item || "").toLowerCase();
-    if(!map[key]) map[key] = { item:m.item, qty:0, unit:m.unit };
-    map[key].qty += Number(m.qty || 0) * sign(m.type);
-    map[key].unit = m.unit;
-  });
-
-  return Object.values(map);
-}
-
-function renderStock(){
-  document.getElementById("stockPosition").innerHTML = table(stockPosition(), [
-    "Product / Material","Closing Stock","Unit"
-  ], s => [
-    esc(s.item),
-    num(s.qty),
-    esc(s.unit)
-  ], "No stock position yet.");
-
-  document.getElementById("stockTable").innerHTML = table(db.stock, [
-    "Date","Stock ID","Item","Type","Qty","Unit","Location","Ref","Notes"
-  ], s => [
-    niceDate(s.date),
-    s.id,
-    esc(s.item),
-    '<span class="tag ' + (["Damage / Loss","Shortage"].includes(s.type) ? "bad" : s.type === "Excess" ? "ok" : "info") + '">' + esc(s.type) + '</span>',
-    num(s.qty),
-    esc(s.unit),
-    esc(s.location),
-    esc(s.ref || "-"),
-    esc(s.notes || "-")
-  ], "No stock movement yet.");
-}
-
-function renderProcurementProducts(){
-  const select = document.getElementById("procProductSelect");
-  select.innerHTML = productOptions.map(p => '<option value="' + esc(p.item) + '">' + p.code + ' — ' + esc(p.item) + '</option>').join("");
-}
-
-document.getElementById("procurementForm").onsubmit = async function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-  const proof = await fileRead(this.proof.files[0]);
-
-  db.procurement.unshift({
-    id: id("procurement"),
-    status: "Awaiting Director Approval",
-    itemName: data.item,
-    proofName: proof.name,
-    proofData: proof.data,
-    createdByRole: currentRole,
-    updatedAt: new Date().toISOString(),
-    ...data,
-    qty: Number(data.qty || 0)
-  });
-
-  this.reset();
-  setDefaultDates();
-  save();
-  alert("Procurement record submitted for Director review.");
-};
-
-function approveProcurement(pid){
-  if(currentRole !== "director"){
-    alert("Only Director can approve procurement records.");
-    return;
-  }
-
-  const p = db.procurement.find(x => x.id === pid);
-  if(!p) return;
-
-  p.status = "Approved by Director";
-
-  if(p.stockStatus === "Ready for Stock-In"){
-    db.stock.unshift({
-      id: id("stock"),
-      date: today(),
-      item: p.itemName,
-      type: p.layer === "Produced Goods" ? "Produced Product" : "Received Product",
-      qty: Number(p.qty || 0),
-      unit: p.unit,
-      location: p.location,
-      notes: "Auto stock-in from procurement record " + p.id,
-      ref: p.id,
-      enteredBy: "Director Approval"
-    });
-  }
-
-  save();
-}
-
-function renderProcurement(){
-  document.getElementById("procurementTable").innerHTML = table(db.procurement, [
-    "Date","Record","Layer","Source","Item","Qty","Condition","Location","Proof","Status","Action"
-  ], p => [
-    niceDate(p.date),
-    p.id,
-    esc(p.layer),
-    esc(p.source),
-    esc(p.itemName),
-    num(p.qty) + " " + esc(p.unit),
-    esc(p.condition),
-    esc(p.location),
-    p.proofName ? '<a href="' + p.proofData + '" target="_blank">' + esc(p.proofName) + '</a>' : "-",
-    '<span class="tag ' + (p.status.includes("Approved") ? "ok" : "warn") + '">' + esc(p.status) + '</span>',
-    currentRole === "director" && p.status === "Awaiting Director Approval"
-      ? '<button class="small green" onclick="approveProcurement(\'' + p.id + '\')">Approve</button>'
-      : ""
-  ], "No procurement records yet.");
-}
-
-document.getElementById("followupForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = formData(this);
-
-  db.followups.unshift({
-    id: id("followup"),
-    createdByRole: currentRole,
-    ...data
-  });
-
-  this.reset();
-  setDefaultDates();
-  save();
-};
-
-function renderFollowups(){
-  document.getElementById("followupTable").innerHTML = table(db.followups, [
-    "Date","ID","Related","Customer","Phone","Outcome","Handled By","Notes"
-  ], f => [
-    niceDate(f.date),
-    f.id,
-    esc(f.related),
-    esc(f.customer),
-    esc(f.phone),
-    '<span class="tag info">' + esc(f.outcome) + '</span>',
-    esc(f.handledBy),
-    esc(f.notes)
-  ], "No follow-up records yet.");
-}
-
-function dayData(date){
-  return {
-    quotes: db.quotes.filter(x => x.date === date),
-    invoices: db.invoices.filter(x => x.date === date),
-    payments: db.payments.filter(x => x.date === date && x.status === "Approved"),
-    receipts: db.receipts.filter(x => x.date === date),
-    waybills: db.waybills.filter(x => x.date === date),
-    stock: db.stock.filter(x => x.date === date),
-    procurement: db.procurement.filter(x => x.date === date),
-    logistics: db.logistics.filter(x => x.dispatchDate === date),
-    followups: db.followups.filter(x => x.date === date)
-  };
-}
-
-function dailyReportHtml(date){
-  const d = dayData(date);
-  const totalSales = d.invoices.reduce((a,b) => a + Number(b.total || 0), 0);
-  const totalPaid = d.payments.reduce((a,b) => a + Number(b.totalPaid || 0), 0);
-  const outstanding = d.invoices.reduce((a,b) => a + Number(b.balance || 0), 0);
-
-  const productSummary = {};
-  d.invoices.forEach(inv => {
-    inv.lines.forEach(line => {
-      const key = line.desc + " (" + line.unit + ")";
-      productSummary[key] = (productSummary[key] || 0) + Number(line.qty || 0);
-    });
-  });
-
-  return '<div class="panel" id="dailyPrintArea">' +
-    '<div class="document-logo-wrap"><img src="' + LOGO_PATH + '" class="document-logo"></div>' +
-    '<h2>FTH D-UNIQ Daily Operations Report</h2>' +
-    '<p><b>Date:</b> ' + niceDate(date) + '</p>' +
-
-    '<div class="table"><table>' +
-      '<tr><th>Quotes</th><td>' + d.quotes.length + '</td></tr>' +
-      '<tr><th>Invoices</th><td>' + d.invoices.length + '</td></tr>' +
-      '<tr><th>Total Invoice Value</th><td>' + money(totalSales) + '</td></tr>' +
-      '<tr><th>Total Approved Paid</th><td>' + money(totalPaid) + '</td></tr>' +
-      '<tr><th>Total Outstanding From Today</th><td>' + money(outstanding) + '</td></tr>' +
-      '<tr><th>Waybills</th><td>' + d.waybills.length + '</td></tr>' +
-      '<tr><th>Procurement Records</th><td>' + d.procurement.length + '</td></tr>' +
-      '<tr><th>Logistics Updates</th><td>' + d.logistics.length + '</td></tr>' +
-    '</table></div>' +
-
-    '<h3>Product / Material Sales Summary</h3>' +
-    table(Object.entries(productSummary), ["Product / Material","Total Quantity Sold"], r => [esc(r[0]), num(r[1])], "No product sales for this date.") +
-
-    '<h3>Invoices</h3>' +
-    table(d.invoices, ["Invoice","Customer","Items","Total","Paid","Balance"], i => [
-      i.id,
-      esc(i.customer),
-      i.lines.map(l => esc(l.qty + " " + l.unit + " " + l.desc)).join("<br>"),
-      money(i.total),
-      money(i.paid),
-      money(i.balance)
-    ], "No invoices.") +
-
-    '<h3>Stock Movements</h3>' +
-    table(d.stock, ["Stock ID","Item","Type","Qty","Location","Notes"], s => [
-      s.id,
-      esc(s.item),
-      esc(s.type),
-      num(s.qty) + " " + esc(s.unit),
-      esc(s.location),
-      esc(s.notes)
-    ], "No stock movement.") +
-
-    '<p style="margin-top:30px;">Prepared / Reviewed By: ____________________ Signature: ____________________ Date: ____________________</p>' +
-  '</div>';
-}
-
-function renderDailyReport(){
-  const date = document.getElementById("reportDate").value || today();
-  document.getElementById("reportBox").innerHTML = dailyReportHtml(date);
-}
-
-function printDailyReport(){
-  if(currentRole !== "director"){
-    alert("Only Director can print/save reports.");
-    return;
-  }
-
-  const date = document.getElementById("reportDate").value || today();
-  printWin(dailyReportHtml(date), "FTH D-UNIQ Daily Report " + date);
-}
-
-function archiveDailyReport(){
-  if(currentRole !== "director"){
-    alert("Only Director can archive reports.");
-    return;
-  }
-
-  const date = document.getElementById("reportDate").value || today();
-
-  db.archives.unshift({
-    id: id("archive"),
-    date,
-    type: "Daily Report",
-    title: "Daily Report - " + niceDate(date),
-    html: dailyReportHtml(date),
-    archivedAt: new Date().toISOString()
-  });
-
-  save();
-  alert("Daily report archived.");
-}
-
-function submitDailyReportToDirector(){
-  if(currentRole !== "support"){
-    alert("Only Business Support can submit the daily report from this button.");
-    return;
-  }
-
-  const date = document.getElementById("reportDate").value || today();
-
-  db.dailySubmissions.unshift({
-    id: id("report"),
-    date,
-    submittedBy: "Business Support Officer",
-    submittedAt: new Date().toISOString(),
-    status: "Submitted to Director Dashboard"
-  });
-
-  save();
-  alert("Daily report submitted to Director dashboard.");
-}
-
-function renderMonthlyReport(){
-  if(currentRole !== "director"){
-    alert("Only Director can generate monthly reconciliation.");
-    return;
-  }
-
-  const month = document.getElementById("reportMonth").value || monthNow();
-
-  const invoices = db.invoices.filter(i => String(i.date || "").startsWith(month));
-  const payments = db.payments.filter(p => String(p.date || "").startsWith(month) && p.status === "Approved");
-  const totalSales = invoices.reduce((a,b) => a + Number(b.total || 0), 0);
-  const totalPaid = payments.reduce((a,b) => a + Number(b.totalPaid || 0), 0);
-  const totalOutstanding = invoices.reduce((a,b) => a + Number(b.balance || 0), 0);
-
-  const html = '<div class="panel">' +
-    '<div class="document-logo-wrap"><img src="' + LOGO_PATH + '" class="document-logo"></div>' +
-    '<h2>FTH D-UNIQ Monthly Reconciliation</h2>' +
-    '<p><b>Month:</b> ' + esc(month) + '</p>' +
-    '<div class="table"><table>' +
-      '<tr><th>Total Invoices</th><td>' + invoices.length + '</td></tr>' +
-      '<tr><th>Total Sales Value</th><td>' + money(totalSales) + '</td></tr>' +
-      '<tr><th>Total Approved Payments</th><td>' + money(totalPaid) + '</td></tr>' +
-      '<tr><th>Total Outstanding Balance</th><td>' + money(totalOutstanding) + '</td></tr>' +
-    '</table></div>' +
-    '<h3>Invoice Listing</h3>' +
-    table(invoices, ["Date","Invoice","Customer","Total","Paid","Balance"], i => [
-      niceDate(i.date),
-      i.id,
-      esc(i.customer),
-      money(i.total),
-      money(i.paid),
-      money(i.balance)
-    ], "No invoices in this month.") +
-  '</div>';
-
-  document.getElementById("reportBox").innerHTML = html;
-}
-
-function clearOperationalData(){
-  if(currentRole !== "director"){
-    alert("Only Director can clear dashboard data.");
-    return;
-  }
-
-  if(!confirm("This will clear operational records from this browser storage after you have printed/archived needed reports. Continue?")){
-    return;
-  }
-
-  db = blank();
-  save();
-  alert("Operational dashboard data cleared.");
-}
-
-function renderArchive(){
-  document.getElementById("archiveTable").innerHTML = table(db.archives, [
-    "Date","Archive ID","Type","Title","Action"
-  ], a => [
-    niceDate(a.date),
-    a.id,
-    esc(a.type),
-    esc(a.title),
-    '<button class="small secondary" onclick="printArchive(\'' + a.id + '\')">Print</button>'
-  ], "No archived report yet.");
-}
-
-function printArchive(aid){
-  const a = db.archives.find(x => x.id === aid);
-  if(a) printWin(a.html, a.title);
-}
-
-function docHeader(title, ref){
-  return '<div style="display:flex;align-items:center;gap:16px;border-bottom:4px solid #d4a62a;padding-bottom:14px;margin-bottom:20px;">' +
-    '<img src="' + LOGO_PATH + '" style="width:82px;height:82px;object-fit:contain;">' +
-    '<div><h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:38px;">FTH D-UNIQ</h1><b>' + title + '</b><br><span>' + ref + '</span></div>' +
-  '</div>';
-}
-
-function invoiceHtml(idv){
-  const i = db.invoices.find(x => x.id === idv);
-  if(!i) return "";
-
-  return '<div class="panel">' +
-    docHeader("CUSTOMER INVOICE", i.id) +
-    '<p><b>Customer:</b> ' + esc(i.customer) + '<br><b>Phone:</b> ' + esc(i.phone) + '<br><b>Location:</b> ' + esc(i.location) + '</p>' +
-    table(i.lines, ["Description","Qty","Unit","Rate","Amount"], l => [
-      esc(l.desc),
-      num(l.qty),
-      esc(l.unit),
-      money(l.rate),
-      money(l.amount)
-    ]) +
-    '<div class="table"><table>' +
-      '<tr><td>Subtotal</td><td>' + money(i.subtotal) + '</td></tr>' +
-      '<tr><td>Logistics / Delivery Fee</td><td>' + money(i.logisticsFee) + '</td></tr>' +
-      '<tr><td>Discount</td><td>' + money(i.discount) + '</td></tr>' +
-      '<tr><th>Grand Total</th><th>' + money(i.total) + '</th></tr>' +
-      '<tr><td>Paid</td><td>' + money(i.paid) + '</td></tr>' +
-      '<tr><th>Balance</th><th>' + money(i.balance) + '</th></tr>' +
-    '</table></div>' +
-    '<p><b>Note:</b> ' + esc(i.note || "-").replace(/\n/g,"<br>") + '</p>' +
-    signatureImgBlock("Officer Signature", i.officerSignatureData) +
-    '<p style="margin-top:28px;">Prepared By: ' + esc(i.createdByName || "") + '</p>' +
-  '</div>';
-}
-
-function receiptHtml(idv){
-  const r = db.receipts.find(x => x.id === idv);
-  if(!r) return "";
-
-  return '<div class="panel">' +
-    docHeader(r.receiptType.toUpperCase(), r.id) +
-    '<p><b>Customer:</b> ' + esc(r.customer) + '<br><b>Invoice:</b> ' + esc(r.invoiceId) + '<br><b>Payment:</b> ' + esc(r.paymentId) + '</p>' +
-    '<div class="table"><table>' +
-      '<tr><td>Transfer Amount</td><td>' + money(r.transferAmount) + '</td></tr>' +
-      '<tr><td>Cash Amount</td><td>' + money(r.cashAmount) + '</td></tr>' +
-      '<tr><td>POS Amount</td><td>' + money(r.posAmount) + '</td></tr>' +
-      '<tr><th>Total Paid</th><th>' + money(r.amount) + '</th></tr>' +
-      '<tr><th>Balance</th><th>' + money(r.balance) + '</th></tr>' +
-      '<tr><td>Approved By</td><td>' + esc(r.approvedBy) + '</td></tr>' +
-    '</table></div>' +
-    '<p style="margin-top:35px;">Authorized Signature: __________________________</p>' +
-  '</div>';
-}
-
-function waybillHtml(idv){
-  const w = db.waybills.find(x => x.id === idv);
-  if(!w) return "";
-
-  return '<div class="panel">' +
-    docHeader("DELIVERY WAYBILL", w.id) +
-    '<div class="table"><table>' +
-      '<tr><th>Invoice</th><td>' + esc(w.invoiceId) + '</td></tr>' +
-      '<tr><th>Customer</th><td>' + esc(w.customer) + '</td></tr>' +
-      '<tr><th>Phone</th><td>' + esc(w.phone) + '</td></tr>' +
-      '<tr><th>Delivery Location</th><td>' + esc(w.location) + '</td></tr>' +
-      '<tr><th>Site Contact</th><td>' + esc(w.siteContact) + ' — ' + esc(w.sitePhone) + '</td></tr>' +
-      '<tr><th>Delivery Date / Time</th><td>' + niceDate(w.deliveryDate) + ' ' + esc(w.deliveryTime || "") + ' ' + esc(w.deliveryPeriod || "") + '</td></tr>' +
-      '<tr><th>Products / Materials</th><td>' + esc(w.products).replace(/\n/g,"<br>") + '</td></tr>' +
-      '<tr><th>Delivery Instruction</th><td>' + esc(w.instruction || "-").replace(/\n/g,"<br>") + '</td></tr>' +
-      '<tr><th>Status</th><td>' + esc(w.status) + '</td></tr>' +
-    '</table></div>' +
-    '<h3>Signatures</h3>' +
-    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">' +
-      signatureImgBlock("Company / Officer", w.officerSignatureData, w.companySigner) +
-      signatureImgBlock("Driver", w.driverSignatureData, w.driverSigner) +
-      signatureImgBlock("Customer / Site Receiver", w.customerSignatureData, w.customerSigner) +
-    '</div>' +
-  '</div>';
-}
-
-function signatureImgBlock(label, data, name){
-  return '<div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-top:12px;">' +
-    '<b>' + esc(label) + '</b><br>' +
-    (name ? '<span>' + esc(name) + '</span><br>' : '') +
-    (data ? '<img src="' + data + '" style="max-width:100%;height:85px;object-fit:contain;border-bottom:1px solid #333;margin-top:8px;">' : '<div style="height:85px;border-bottom:1px solid #333;"></div>') +
-  '</div>';
-}
-
-function printInvoice(idv){ printWin(invoiceHtml(idv), "Invoice " + idv); }
-function printReceipt(idv){ printWin(receiptHtml(idv), "Receipt " + idv); }
-function printWaybill(idv){ printWin(waybillHtml(idv), "Waybill " + idv); }
-
-function printWin(content, title){
-  const w = window.open("", "_blank");
-  w.document.write(
-    '<html><head><title>' + esc(title) + '</title>' +
-    '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">' +
-    '<style>body{font-family:Inter,sans-serif;margin:0;padding:24px}.panel{max-width:950px;margin:auto}.table{overflow:auto}table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:10px;text-align:left;vertical-align:top}th{background:#eee}@media print{body{padding:0}.panel{max-width:none}}</style>' +
-    '</head><body>' + content + '<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>'
-  );
-  w.document.close();
-}
-
-function wnum(phone){
-  let d = String(phone || "").replace(/\D/g,"");
-  if(d.startsWith("0")) return "234" + d.slice(1);
-  return d;
-}
-
-function openWhatsAppInvoice(idv){
-  const i = db.invoices.find(x => x.id === idv);
-  if(!i) return;
-  const msg = "FTH D-UNIQ Invoice%0AInvoice: " + i.id + "%0ATotal: " + money(i.total) + "%0APaid: " + money(i.paid) + "%0ABalance: " + money(i.balance);
-  window.open("https://wa.me/" + wnum(i.phone) + "?text=" + msg, "_blank");
-}
-
-function openWhatsAppReceipt(idv){
-  const r = db.receipts.find(x => x.id === idv);
-  if(!r) return;
-  const msg = "FTH D-UNIQ " + r.receiptType + "%0AReceipt: " + r.id + "%0AAmount: " + money(r.amount) + "%0ABalance: " + money(r.balance);
-  window.open("https://wa.me/" + wnum(r.phone) + "?text=" + msg, "_blank");
-}
-
-const signaturePads = [];
-
-function setupSignaturePad(canvasId, clearButtonId, hiddenInputId){
-  const canvas = document.getElementById(canvasId);
-  const clearButton = document.getElementById(clearButtonId);
-  const hiddenInput = document.getElementById(hiddenInputId);
-
-  if(!canvas || !clearButton || !hiddenInput) return;
-
-  const ctx = canvas.getContext("2d");
-  const pad = { canvas, ctx, hiddenInput };
-  signaturePads.push(pad);
-
-  let isDrawing = false;
-  let lastX = 0;
-  let lastY = 0;
-
-  function resizeCanvas(){
-    const saved = hiddenInput.value;
-    const rect = canvas.getBoundingClientRect();
-    const ratio = window.devicePixelRatio || 1;
-
-    if(rect.width === 0 || rect.height === 0) return;
-
-    canvas.width = rect.width * ratio;
-    canvas.height = rect.height * ratio;
-
-    ctx.setTransform(ratio,0,0,ratio,0,0);
-    ctx.lineWidth = 2.5;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.strokeStyle = "#1d1714";
-
-    if(saved){
-      const img = new Image();
-      img.onload = function(){
-        ctx.drawImage(img,0,0,rect.width,rect.height);
-      };
-      img.src = saved;
-    }
-  }
-
-  pad.resize = resizeCanvas;
-
-  function point(event){
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x:event.clientX - rect.left,
-      y:event.clientY - rect.top
-    };
-  }
-
-  function start(event){
-    resizeCanvas();
-    event.preventDefault();
-    isDrawing = true;
-    const p = point(event);
-    lastX = p.x;
-    lastY = p.y;
-  }
-
-  function draw(event){
-    if(!isDrawing) return;
-    event.preventDefault();
-
-    const p = point(event);
-    ctx.beginPath();
-    ctx.moveTo(lastX,lastY);
-    ctx.lineTo(p.x,p.y);
-    ctx.stroke();
-
-    lastX = p.x;
-    lastY = p.y;
-    hiddenInput.value = canvas.toDataURL("image/png");
-  }
-
-  function stop(){
-    if(!isDrawing) return;
-    isDrawing = false;
-    hiddenInput.value = canvas.toDataURL("image/png");
-  }
-
-  clearButton.addEventListener("click", function(){
-    clearSignaturePad(canvasId, hiddenInputId);
-  });
-
-  canvas.addEventListener("pointerdown", start);
-  canvas.addEventListener("pointermove", draw);
-  canvas.addEventListener("pointerup", stop);
-  canvas.addEventListener("pointerleave", stop);
-  canvas.addEventListener("pointercancel", stop);
-
-  resizeCanvas();
-}
-
-function clearSignaturePad(canvasId, hiddenInputId){
-  const canvas = document.getElementById(canvasId);
-  const hiddenInput = document.getElementById(hiddenInputId);
-  if(!canvas || !hiddenInput) return;
-
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  hiddenInput.value = "";
-}
-
-function resizeAllSignaturePads(){
-  signaturePads.forEach(p => {
-    if(p.resize) p.resize();
-  });
-}
-
-function setupAllSignaturePads(){
-  setupSignaturePad("invoiceOfficerSignatureCanvas","clearInvoiceOfficerSignature","invoiceOfficerSignatureData");
-  setupSignaturePad("waybillOfficerSignatureCanvas","clearWaybillOfficerSignature","waybillOfficerSignatureData");
-  setupSignaturePad("waybillDriverSignatureCanvas","clearWaybillDriverSignature","waybillDriverSignatureData");
-  setupSignaturePad("waybillCustomerSignatureCanvas","clearWaybillCustomerSignature","waybillCustomerSignatureData");
-
-  window.addEventListener("resize", resizeAllSignaturePads);
-}
-
-document.addEventListener("contextmenu", function(e){
-  if(!e.target.closest("input, textarea, select, button, a, summary, canvas")){
-    e.preventDefault();
-  }
-});
-
-document.addEventListener("copy", function(e){
-  if(!e.target.closest("input, textarea")){
-    e.preventDefault();
-  }
-});
-
-document.addEventListener("dragstart", function(e){
-  if(e.target.tagName === "IMG"){
-    e.preventDefault();
-  }
-});
-
-const oldRole = sessionStorage.getItem("fth_role");
-if(oldRole && pins[oldRole]){
-  currentRole = oldRole;
-  startApp();
-}
+let currentRole="";let db=load();
+function blank(){return {quotes:[],invoices:[],payments:[],receipts:[],waybills:[],stock:[],procurementRequests:[],procurement:[],logistics:[],followups:[],archives:[],dailySubmissions:[],counts:{quote:0,invoice:0,payment:0,receipt:0,waybill:0,stock:0,procurementRequest:0,procurement:0,logistics:0,followup:0,archive:0,report:0}}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||blank()}catch(e){return blank()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function id(type){db.counts[type]=(db.counts[type]||0)+1;return "FTH-"+type.toUpperCase().replace("PROCUREMENTREQUEST","PROC-REQ")+"-"+new Date().getFullYear()+"-"+String(db.counts[type]).padStart(4,"0")}
+function today(){return new Date().toISOString().slice(0,10)}function monthNow(){return new Date().toISOString().slice(0,7)}
+function esc(v){return String(v||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]))}function money(n){return "₦"+Number(n||0).toLocaleString("en-NG",{maximumFractionDigits:2})}function num(n){return Number(n||0).toLocaleString("en-NG",{maximumFractionDigits:2})}function formData(form){return Object.fromEntries(new FormData(form).entries())}function niceDate(d){if(!d)return"";return new Date(d).toLocaleDateString("en-NG",{year:"numeric",month:"short",day:"2-digit"})}
+function table(rows,heads,map,empty){if(!rows||!rows.length)return'<div class="empty">'+(empty||"No records yet.")+'</div>';return'<div class="table"><table><thead><tr>'+heads.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.map((r,i)=>'<tr>'+map(r,i).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
+function productSelectOptions(selected){return'<option value="">Code</option>'+productOptions.map(p=>'<option value="'+p.code+'"'+(selected===p.code?' selected':'')+'>'+p.code+' — '+p.item+'</option>').join('')}function getProduct(code){return productOptions.find(p=>p.code===code)||{code:"",item:"",unit:"",tonnage:""}}
+function fileRead(file){return new Promise(resolve=>{if(!file)return resolve({name:"",data:""});const reader=new FileReader();reader.onload=()=>resolve({name:file.name,data:reader.result});reader.readAsDataURL(file)})}
+
+document.getElementById("loginForm").onsubmit=e=>{e.preventDefault();const r=document.getElementById("role").value;const p=document.getElementById("pin").value.trim();if(!r||pins[r]!==p){document.getElementById("loginMsg").textContent="Invalid role or PIN.";return}currentRole=r;sessionStorage.setItem("fth_role",r);startApp()};
+function startApp(){document.getElementById("login").style.display="none";document.getElementById("app").style.display="block";document.getElementById("roleName").textContent=roleNames[currentRole];document.getElementById("dateNow").textContent=niceDate(today());applyRoleVisibility();buildNav();setDefaultDates();renderAll();if(!document.querySelector("#quoteLines .product-box"))addQuoteLine();if(!document.querySelector("#invoiceLines .product-box"))addInvoiceLine();setupAllSignaturePads()}function logout(){sessionStorage.removeItem("fth_role");location.reload()}
+function buildNav(){const allowed=roleTabs[currentRole]||[];const tabs=allTabs.filter(t=>allowed.includes(t[0]));document.getElementById("side").innerHTML=tabs.map((t,i)=>'<button class="nav '+(i===0?'active':'')+'" onclick="showPage(\''+t[0]+'\')">'+t[1]+'</button>').join('');document.getElementById("mobileNav").innerHTML=tabs.map(t=>'<option value="'+t[0]+'">'+t[1]+'</option>').join('');showPage(tabs[0]?tabs[0][0]:"dashboard")}
+function showPage(pageId){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(pageId)?.classList.add("active");document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));const tab=allTabs.find(t=>t[0]===pageId);if(tab)[...document.querySelectorAll(".nav")].find(n=>n.textContent===tab[1])?.classList.add("active");const m=document.getElementById("mobileNav");if(m)m.value=pageId;setTimeout(resizeAllSignaturePads,80);if(pageId==="reports")renderDailyReport()}
+function applyRoleVisibility(){document.querySelectorAll(".director-only").forEach(el=>el.style.display=currentRole==="director"?"":"none");document.querySelectorAll(".director-only-inline").forEach(el=>el.style.display=currentRole==="director"?"inline-flex":"none");document.querySelectorAll(".support-only-inline").forEach(el=>el.style.display=currentRole==="support"?"inline-flex":"none")}
+function setDefaultDates(){document.querySelectorAll('input[type="date"]').forEach(i=>{if(!i.value)i.value=today()});if(document.getElementById("reportDate"))document.getElementById("reportDate").value=today();if(document.getElementById("reportMonth"))document.getElementById("reportMonth").value=monthNow()}
+function renderAll(){applyRoleVisibility();renderDashboard();renderQuotes();renderInvoiceSelects();renderInvoices();renderPaymentSelects();renderPayments();renderReceipts();renderProcurementRequests();renderWaybillSelects();renderWaybills();renderStockProducts();renderStock();renderProcurementProducts();renderProcurement();renderLogisticsSelects();renderLogistics();renderFollowups();renderArchive()}
+function statusTag(s){let c=s&&String(s).includes("Approved")||s==="Paid"||s==="Closed"?"ok":String(s).includes("Rejected")?"bad":String(s).includes("Awaiting")||String(s).includes("Pending")?"warn":"info";return'<span class="tag '+c+'">'+esc(s)+'</span>'}
+
+function renderDashboard(){const d=today();const pendingInvoices=db.invoices.filter(i=>i.status==="Awaiting Director Approval");const pendingPayments=db.payments.filter(p=>p.status==="Awaiting Director Approval");const pendingWaybills=db.waybills.filter(w=>w.status==="Awaiting Director Approval");const pendingProcReq=db.procurementRequests.filter(r=>r.directorApprovalStatus==="Pending Director Approval");const pendingProc=db.procurement.filter(p=>p.directorApprovalStatus==="Pending Director Approval");const invToday=db.invoices.filter(i=>i.date===d);const approvedInv=db.invoices.filter(i=>i.status!=="Awaiting Director Approval"&&i.status!=="Rejected");const totalSalesToday=approvedInv.filter(i=>i.date===d).reduce((a,b)=>a+Number(b.total||0),0);const paidToday=db.payments.filter(p=>p.date===d&&p.status==="Approved").reduce((a,b)=>a+Number(b.totalPaid||0),0);const outstanding=approvedInv.reduce((a,b)=>a+Number(b.balance||0),0);document.getElementById("metrics").innerHTML=[["Quotes",db.quotes.length],["Invoices Today",invToday.length],["Sales Today",money(totalSalesToday)],["Paid Today",money(paidToday)],["Outstanding",money(outstanding)],["Pending Invoices",pendingInvoices.length],["Pending Payments",pendingPayments.length],["Pending Procurement",pendingProcReq.length+pendingProc.length]].map(m=>'<div class="metric"><span>'+m[0]+'</span><strong>'+m[1]+'</strong></div>').join("");
+  document.getElementById("approvalMini").innerHTML='<h3>Invoices Awaiting Approval</h3>'+table(pendingInvoices,["Date","Invoice","Customer","Total","Created By","Action"],i=>[niceDate(i.date),i.id,esc(i.customer),money(i.total),esc(i.createdByName),'<button class="small green" onclick="approveInvoice(\''+i.id+'\')">Approve</button> <button class="small red" onclick="rejectInvoice(\''+i.id+'\')">Reject</button>'],"No pending invoices.")+'<h3 style="margin-top:20px;">Payments Awaiting Approval</h3>'+table(pendingPayments,["Date","Payment","Invoice","Customer","Amount","Action"],p=>[niceDate(p.date),p.id,p.invoiceId,esc(p.customer),money(p.totalPaid),'<button class="small green" onclick="approvePayment(\''+p.id+'\')">Approve</button> <button class="small red" onclick="rejectPayment(\''+p.id+'\')">Reject</button>'],"No pending payments.")+'<h3 style="margin-top:20px;">Procurement Requests Awaiting Approval</h3>'+table(pendingProcReq,["Date","Request","Quote","Customer","Item","Action"],r=>[niceDate(r.date),r.id,r.quoteId,esc(r.customer),esc(r.itemName),'<button class="small green" onclick="approveProcurementRequest(\''+r.id+'\')">Approve Sourcing</button> <button class="small red" onclick="rejectProcurementRequest(\''+r.id+'\')">Reject</button>'],"No pending procurement requests.")+'<h3 style="margin-top:20px;">Waybills Awaiting Approval</h3>'+table(pendingWaybills,["Date","Waybill","Invoice","Customer","Status","Action"],w=>[niceDate(w.date),w.id,w.invoiceId,esc(w.customer),statusTag(w.status),'<button class="small green" onclick="approveWaybill(\''+w.id+'\')">Approve Dispatch</button>'],"No pending waybills.")+'<h3 style="margin-top:20px;">Procurement Stock Approval</h3>'+table(pendingProc,["Date","Record","Layer","Vendor","Item","Action"],p=>[niceDate(p.date),p.id,esc(p.layer),esc(p.vendor),esc(p.itemName),'<button class="small green" onclick="approveProcurement(\''+p.id+'\')">Approve</button> <button class="small red" onclick="rejectProcurement(\''+p.id+'\')">Reject</button>'],"No pending procurement stock approvals.");
+  const workflow=[...db.quotes.map(x=>({date:x.date,ref:x.id,type:"Quote",customer:x.customer,status:x.status})),...db.invoices.map(x=>({date:x.date,ref:x.id,type:"Invoice",customer:x.customer,status:x.status})),...db.payments.map(x=>({date:x.date,ref:x.id,type:"Payment",customer:x.customer,status:x.status})),...db.procurementRequests.map(x=>({date:x.date,ref:x.id,type:"Procurement Request",customer:x.customer,status:x.directorApprovalStatus})),...db.waybills.map(x=>({date:x.date,ref:x.id,type:"Waybill",customer:x.customer,status:x.status}))].sort((a,b)=>String(b.ref).localeCompare(String(a.ref))).slice(0,15);document.getElementById("workflowMini").innerHTML=table(workflow,["Date","Ref","Type","Customer","Status"],r=>[niceDate(r.date),r.ref,r.type,esc(r.customer),statusTag(r.status)],"No workflow movement yet.")}
+
+function unitOptions(selected){const units=["Bags","Pieces","Trips","Tonnes / Tonnage","Square Metres","Service","Units","Other"];return'<option value="">Unit</option>'+units.map(u=>'<option'+(u===selected?' selected':'')+'>'+u+'</option>').join('')}function tonnageOptions(selected){const tons=["Not Applicable","5 Ton","10 Ton","12.5 Ton","15 Ton","20 Ton","30 Ton","35 Ton"];return tons.map(t=>'<option'+(t===selected?' selected':'')+'>'+t+'</option>').join('')}function stockOptions(selected){const opts=["Available in Stock","Partly Available","Not Available / Send to Procurement","Needs Production","Service / Not Stock Item"];return opts.map(o=>'<option'+(o===selected?' selected':'')+'>'+o+'</option>').join('')}
+function addQuoteLine(line){const p=line||{};const box=document.createElement("div");box.className="product-box quote-line";box.innerHTML='<div class="grid3"><div><label>Code</label><select class="q-code" required>'+productSelectOptions(p.code)+'</select></div><div><label>Product / Material / Service</label><input class="q-item" value="'+esc(p.item||"")+'" required></div><div><label>Qty / Number</label><input class="q-qty" value="'+esc(p.quantity||"")+'" required></div><div><label>Unit</label><select class="q-unit" required>'+unitOptions(p.unit)+'</select></div><div><label>Tonnage / Trip Size</label><select class="q-tonnage">'+tonnageOptions(p.tonnage)+'</select></div><div><label>Stock Availability</label><select class="q-stock">'+stockOptions(p.stockAvailability)+'</select></div><div><label>Local Description</label><input class="q-local" placeholder="e.g. 1 trip of 6 tyres sharp sand" value="'+esc(p.localDescription||"")+'"></div><div class="full"><label>Internal Interpretation / Sourcing Note</label><input class="q-interpretation" value="'+esc(p.internalInterpretation||"")+'"></div></div><div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';const code=box.querySelector(".q-code");code.addEventListener("change",()=>{const s=getProduct(code.value);box.querySelector(".q-item").value=s.item||"";box.querySelector(".q-unit").value=s.unit||"";box.querySelector(".q-tonnage").value=s.tonnage||"Not Applicable"});document.getElementById("quoteLines").appendChild(box)}
+function removeProductBox(btn){const p=btn.closest(".product-box");const c=p.parentElement;if(c.querySelectorAll(".product-box").length<=1){alert("At least one line is required.");return}p.remove()}
+function collectQuoteLines(){return Array.from(document.querySelectorAll("#quoteLines .quote-line")).map(box=>({code:box.querySelector(".q-code").value,item:box.querySelector(".q-item").value.trim(),quantity:box.querySelector(".q-qty").value.trim(),unit:box.querySelector(".q-unit").value,tonnage:box.querySelector(".q-tonnage").value,stockAvailability:box.querySelector(".q-stock").value,localDescription:box.querySelector(".q-local").value.trim(),internalInterpretation:box.querySelector(".q-interpretation").value.trim()})).filter(l=>l.code&&l.item&&l.quantity)}
+document.getElementById("quoteForm").onsubmit=function(e){e.preventDefault();const data=formData(this);const lines=collectQuoteLines();if(!lines.length){alert("Please add at least one product, material or service line.");return}const record={id:id("quote"),status:"Quote received",createdByRole:currentRole,createdByName:data.enteredBy||roleNames[currentRole],lines,updatedAt:new Date().toISOString(),...data};db.quotes.unshift(record);lines.filter(l=>l.stockAvailability==="Not Available / Send to Procurement"||l.stockAvailability==="Partly Available"||l.stockAvailability==="Needs Production").forEach(l=>createProcurementRequestFromLine(record,l));this.reset();document.getElementById("quoteLines").innerHTML="";addQuoteLine();save();alert("Quote saved. Any out-of-stock/partly available items have been sent to Director and Procurement workflow.")};
+function createProcurementRequestFromLine(q,l){db.procurementRequests.unshift({id:id("procurementRequest"),date:today(),quoteId:q.id,customer:q.customer,phone:q.phone,location:q.location,siteContact:q.siteContact,sitePhone:q.sitePhone,itemCode:l.code,itemName:l.item,qty:l.quantity,unit:l.unit,tonnage:l.tonnage,stockAvailability:l.stockAvailability,requestNote:l.internalInterpretation||q.details||"",createdByRole:currentRole,createdByName:q.createdByName,directorApprovalStatus:"Pending Director Approval",procurementStatus:"Awaiting Director Approval",procurementFeedback:""})}
+function renderQuotes(){document.getElementById("quoteTable").innerHTML=table(db.quotes,["Date","Quote","Customer","Location","Delivery Date","Lines / Stock Status","Status","Action"],q=>[niceDate(q.date),q.id,esc(q.customer)+"<br><small>"+esc(q.phone)+"</small>",esc(q.location),niceDate(q.deliveryDate),q.lines.map(l=>esc(l.quantity+" "+l.unit+" "+l.item)+"<br>"+statusTag(l.stockAvailability)).join("<hr>"),statusTag(q.status),'<button class="small secondary" onclick="sendQuoteToInvoice(\''+q.id+'\')">Create Invoice</button>'],"No quotes yet.")}
+function sendQuoteToInvoice(qid){showPage("invoices");document.getElementById("invoiceQuoteSelect").value=qid;fillInvoiceFromQuote(qid)}
+
+function renderInvoiceSelects(){const s=document.getElementById("invoiceQuoteSelect");s.innerHTML='<option value="">Manual invoice</option>'+db.quotes.map(q=>'<option value="'+q.id+'">'+q.id+' — '+esc(q.customer)+'</option>').join('')}document.getElementById("invoiceQuoteSelect").onchange=function(){fillInvoiceFromQuote(this.value)};
+function fillInvoiceFromQuote(qid){const q=db.quotes.find(x=>x.id===qid);if(!q)return;const f=document.getElementById("invoiceForm");["customer","phone","email","location","siteContact","sitePhone","deliveryDate","deliveryTime","deliveryPeriod"].forEach(k=>{if(f[k])f[k].value=q[k]||""});f.note.value=q.details||"";document.getElementById("invoiceLines").innerHTML="";q.lines.forEach(line=>addInvoiceLine({code:line.code,desc:line.item,qty:line.quantity,unit:line.unit,rate:0}));updateInvoiceCalc()}
+function addInvoiceLine(line){const p=line||{};const box=document.createElement("div");box.className="product-box invoice-line";box.innerHTML='<div class="grid3"><div><label>Product Code</label><input class="i-code" value="'+esc(p.code||"")+'"></div><div><label>Description</label><input class="i-desc" value="'+esc(p.desc||"")+'" required></div><div><label>Quantity</label><input class="i-qty" type="number" step="0.01" value="'+esc(p.qty||"")+'" required></div><div><label>Unit</label><select class="i-unit" required>'+unitOptions(p.unit)+'</select></div><div><label>Rate (₦)</label><input class="i-rate" type="number" step="0.01" value="'+esc(p.rate||0)+'" required></div><div><label>Line Amount (₦)</label><input class="i-total" readonly></div></div><div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';box.querySelectorAll("input,select").forEach(el=>el.addEventListener("input",updateInvoiceCalc));document.getElementById("invoiceLines").appendChild(box);updateInvoiceCalc()}
+function collectInvoiceLines(){return Array.from(document.querySelectorAll("#invoiceLines .invoice-line")).map(box=>{const qty=Number(box.querySelector(".i-qty").value||0);const rate=Number(box.querySelector(".i-rate").value||0);return{code:box.querySelector(".i-code").value.trim(),desc:box.querySelector(".i-desc").value.trim(),qty,unit:box.querySelector(".i-unit").value,rate,amount:qty*rate}}).filter(l=>l.desc&&l.qty>0)}
+function updateInvoiceCalc(){const f=document.getElementById("invoiceForm");const logisticsFee=Number(f.logisticsFee.value||0);const discount=Number(f.discount.value||0);let subtotal=0;document.querySelectorAll("#invoiceLines .invoice-line").forEach(box=>{const total=Number(box.querySelector(".i-qty").value||0)*Number(box.querySelector(".i-rate").value||0);box.querySelector(".i-total").value=total.toFixed(2);subtotal+=total});const total=Math.max(subtotal+logisticsFee-discount,0);document.getElementById("invoiceCalc").innerHTML="<b>Subtotal:</b> "+money(subtotal)+" | <b>Logistics Fee:</b> "+money(logisticsFee)+" | <b>Discount:</b> "+money(discount)+" | <b>Total:</b> "+money(total)}
+document.getElementById("invoiceForm").addEventListener("input",updateInvoiceCalc);document.getElementById("invoiceForm").onsubmit=function(e){e.preventDefault();const data=formData(this);const lines=collectInvoiceLines();if(!lines.length){alert("Please add at least one invoice line.");return}const subtotal=lines.reduce((a,b)=>a+Number(b.amount||0),0);const logisticsFee=Number(data.logisticsFee||0);const discount=Number(data.discount||0);const total=Math.max(subtotal+logisticsFee-discount,0);const status=currentRole==="director"?"Approved":"Awaiting Director Approval";const invoice={id:id("invoice"),lines,subtotal,logisticsFee,discount,total,paid:0,balance:total,status,stockDeducted:false,officerSignatureData:data.invoiceOfficerSignatureData||"",createdByRole:currentRole,createdByName:data.officerName||roleNames[currentRole],updatedAt:new Date().toISOString(),...data};db.invoices.unshift(invoice);const q=db.quotes.find(x=>x.id===data.quoteId);if(q)q.status="Invoice created - "+status;this.reset();document.getElementById("invoiceLines").innerHTML="";addInvoiceLine();clearSignaturePad("invoiceOfficerSignatureCanvas","invoiceOfficerSignatureData");save();alert(status==="Approved"?"Invoice created and approved.":"Invoice submitted to Director for approval.")};
+function approveInvoice(iid){if(currentRole!=="director"){alert("Only Director can approve invoices.");return}const i=db.invoices.find(x=>x.id===iid);if(!i)return;i.status="Approved";i.approvedBy="Director";i.approvedAt=new Date().toISOString();save()}function rejectInvoice(iid){if(currentRole!=="director"){alert("Only Director can reject invoices.");return}const i=db.invoices.find(x=>x.id===iid);if(!i)return;i.status="Rejected";save()}
+function renderInvoices(){document.getElementById("invoiceTable").innerHTML=table(db.invoices,["Date","Invoice","Customer","Items","Total","Paid","Balance","Status","Actions"],i=>[niceDate(i.date),i.id,esc(i.customer)+"<br><small>"+esc(i.phone)+"</small>",i.lines.map(l=>esc(l.qty+" "+l.unit+" "+l.desc+" @ "+money(l.rate))).join("<br>"),money(i.total),money(i.paid),money(i.balance),statusTag(i.status),invoiceActions(i)],"No invoices yet.")}
+function invoiceActions(i){let a="";if(currentRole==="director"&&i.status==="Awaiting Director Approval")a+='<button class="small green" onclick="approveInvoice(\''+i.id+'\')">Approve</button> <button class="small red" onclick="rejectInvoice(\''+i.id+'\')">Reject</button> ';if(i.status==="Approved"||i.status==="Paid"||i.status==="Part Paid")a+='<button class="small secondary" onclick="printInvoice(\''+i.id+'\')">Print / Save</button> <button class="small green" onclick="openWhatsAppInvoice(\''+i.id+'\')">WhatsApp</button>';else a+='<span class="small-copy">Awaiting approval before print</span>';return a}
+
+function renderPaymentSelects(){const s=document.getElementById("paymentInvoiceSelect");const inv=db.invoices.filter(i=>(i.status==="Approved"||i.status==="Part Paid")&&i.balance>0);s.innerHTML='<option value="">Select approved invoice</option>'+inv.map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.customer)+' — Balance '+money(i.balance)+'</option>').join('')}document.getElementById("paymentInvoiceSelect").onchange=function(){const inv=db.invoices.find(i=>i.id===this.value);if(!inv)return;const f=document.getElementById("paymentForm");f.customer.value=inv.customer||"";f.invoiceTotal.value=inv.total||0;f.currentBalance.value=inv.balance||0};
+document.getElementById("paymentForm").onsubmit=async function(e){e.preventDefault();const data=formData(this);const inv=db.invoices.find(i=>i.id===data.invoiceId);if(!inv){alert("Select a valid approved invoice.");return}const transferAmount=Number(data.transferAmount||0),cashAmount=Number(data.cashAmount||0),posAmount=Number(data.posAmount||0),totalPaid=transferAmount+cashAmount+posAmount;if(totalPaid<=0){alert("Please enter at least one payment amount.");return}if(cashAmount>0&&!data.cashReceiver.trim()){alert("Please enter the cash receiver name.");return}const proof=await fileRead(this.proof.files[0]);db.payments.unshift({id:id("payment"),status:"Awaiting Director Approval",invoiceId:inv.id,customer:inv.customer,totalPaid,transferAmount,cashAmount,posAmount,proofName:proof.name,proofData:proof.data,createdByRole:currentRole,updatedAt:new Date().toISOString(),...data});this.reset();save();alert("Payment submitted for Director approval. Receipt cannot print until approval.")};
+function renderPayments(){document.getElementById("paymentTable").innerHTML=table(db.payments,["Date","Payment","Invoice","Customer","Transfer","Cash","POS","Total","Proof","Status","Action"],p=>[niceDate(p.date),p.id,p.invoiceId,esc(p.customer),money(p.transferAmount),money(p.cashAmount),money(p.posAmount),money(p.totalPaid),p.proofName?'<a href="'+p.proofData+'" target="_blank">'+esc(p.proofName)+'</a>':"-",statusTag(p.status),currentRole==="director"&&p.status==="Awaiting Director Approval"?'<button class="small green" onclick="approvePayment(\''+p.id+'\')">Approve</button> <button class="small red" onclick="rejectPayment(\''+p.id+'\')">Reject</button>':(p.status==="Approved"?"Approved - receipt generated":"Awaiting approval")],"No payment records yet.")}
+function approvePayment(pid){if(currentRole!=="director"){alert("Only Director can approve payments.");return}const p=db.payments.find(x=>x.id===pid);if(!p)return;const inv=db.invoices.find(x=>x.id===p.invoiceId);if(!inv)return;if(p.status==="Approved")return;p.status="Approved";p.approvedAt=new Date().toISOString();p.approvedBy="Director";inv.paid=Number(inv.paid||0)+Number(p.totalPaid||0);inv.balance=Math.max(Number(inv.total||0)-Number(inv.paid||0),0);inv.status=inv.balance<=0?"Paid":"Part Paid";const receiptType=inv.balance<=0?"Payment Receipt":"Part-Payment Acknowledgement";db.receipts.unshift({id:id("receipt"),date:today(),invoiceId:inv.id,paymentId:p.id,customer:inv.customer,phone:inv.phone,receiptType,amount:p.totalPaid,balance:inv.balance,transferAmount:p.transferAmount,cashAmount:p.cashAmount,posAmount:p.posAmount,approvedBy:"Director"});save()}function rejectPayment(pid){if(currentRole!=="director"){alert("Only Director can reject payments.");return}const p=db.payments.find(x=>x.id===pid);if(!p)return;p.status="Rejected";save()}
+function renderReceipts(){document.getElementById("receiptTable").innerHTML=table(db.receipts,["Date","Receipt","Type","Invoice","Customer","Amount","Balance","Actions"],r=>[niceDate(r.date),r.id,esc(r.receiptType),r.invoiceId,esc(r.customer),money(r.amount),money(r.balance),'<button class="small secondary" onclick="printReceipt(\''+r.id+'\')">Print / Save</button> <button class="small green" onclick="openWhatsAppReceipt(\''+r.id+'\')">WhatsApp</button>'],"No approved receipts yet.")}
+
+function renderProcurementRequests(){document.getElementById("procurementRequestTable").innerHTML=table(db.procurementRequests,["Date","Request","Quote","Customer","Item","Qty","Location","Approval","Procurement Status","Actions"],r=>[niceDate(r.date),r.id,r.quoteId,esc(r.customer),esc(r.itemName),esc(r.qty)+" "+esc(r.unit),esc(r.location),statusTag(r.directorApprovalStatus),statusTag(r.procurementStatus),procRequestActions(r)],"No procurement requests yet.")}
+function procRequestActions(r){let a="";if(currentRole==="director"&&r.directorApprovalStatus==="Pending Director Approval")a+='<button class="small green" onclick="approveProcurementRequest(\''+r.id+'\')">Approve Sourcing</button> <button class="small red" onclick="rejectProcurementRequest(\''+r.id+'\')">Reject</button> ';if((currentRole==="procurement"||currentRole==="director")&&r.directorApprovalStatus==="Approved to Source / Procure")a+='<button class="small secondary" onclick="openProcurementFromRequest(\''+r.id+'\')">Record Sourcing</button>';return a||"-"}
+function approveProcurementRequest(rid){if(currentRole!=="director"){alert("Only Director can approve sourcing.");return}const r=db.procurementRequests.find(x=>x.id===rid);if(!r)return;r.directorApprovalStatus="Approved to Source / Procure";r.procurementStatus="Approved - Procurement to source";r.approvedBy="Director";r.approvedAt=new Date().toISOString();save()}function rejectProcurementRequest(rid){if(currentRole!=="director"){alert("Only Director can reject sourcing.");return}const r=db.procurementRequests.find(x=>x.id===rid);if(!r)return;r.directorApprovalStatus="Rejected / Do Not Proceed";r.procurementStatus="Rejected";save()}
+function openProcurementFromRequest(rid){showPage("procurement");document.getElementById("procRequestSelect").value=rid;fillProcurementFromRequest(rid)}
+
+function renderWaybillSelects(){const s=document.getElementById("waybillInvoiceSelect");const invoices=db.invoices.filter(i=>i.status==="Paid"||i.status==="Part Paid"||i.status==="Approved");s.innerHTML='<option value="">Select approved invoice</option>'+invoices.map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.customer)+' — '+esc(i.status)+'</option>').join('')}document.getElementById("waybillInvoiceSelect").onchange=function(){const inv=db.invoices.find(i=>i.id===this.value);if(!inv)return;const f=document.getElementById("waybillForm");["customer","phone","location","siteContact","sitePhone","deliveryDate","deliveryTime","deliveryPeriod"].forEach(k=>{if(f[k])f[k].value=inv[k]||""});f.logisticsFee.value=inv.logisticsFee||0;f.products.value=inv.lines.map(l=>l.qty+" "+l.unit+" "+l.desc).join("\n");f.instruction.value=inv.note||""};
+document.getElementById("waybillForm").onsubmit=function(e){e.preventDefault();const data=formData(this);const inv=db.invoices.find(i=>i.id===data.invoiceId);const status=currentRole==="director"?"Approved for Dispatch":"Awaiting Director Approval";db.waybills.unshift({id:id("waybill"),status,createdByRole:currentRole,invoiceBalanceAtCreation:inv?inv.balance:0,officerSignatureData:data.waybillOfficerSignatureData||"",driverSignatureData:data.waybillDriverSignatureData||"",customerSignatureData:data.waybillCustomerSignatureData||"",updatedAt:new Date().toISOString(),...data});if(inv)inv.deliveryStatus=status;this.reset();clearSignaturePad("waybillOfficerSignatureCanvas","waybillOfficerSignatureData");clearSignaturePad("waybillDriverSignatureCanvas","waybillDriverSignatureData");clearSignaturePad("waybillCustomerSignatureCanvas","waybillCustomerSignatureData");save();alert(status==="Approved for Dispatch"?"Waybill created and approved.":"Waybill submitted for Director approval.")};
+function renderWaybills(){document.getElementById("waybillTable").innerHTML=table(db.waybills,["Date","Waybill","Invoice","Customer","Location","Products","Logistics Fee","Status","Actions"],w=>[niceDate(w.date),w.id,w.invoiceId,esc(w.customer),esc(w.location),esc(w.products).replace(/\n/g,"<br>"),money(w.logisticsFee),statusTag(w.status),waybillActions(w)],"No waybills yet.")}
+function waybillActions(w){let a="";if(currentRole==="director"&&w.status==="Awaiting Director Approval")a+='<button class="small green" onclick="approveWaybill(\''+w.id+'\')">Approve Dispatch</button> ';if((currentRole==="director"||currentRole==="logistics")&&w.status!=="Awaiting Director Approval")a+='<button class="small secondary" onclick="printWaybill(\''+w.id+'\')">Print / Save</button> ';if((currentRole==="logistics"||currentRole==="director")&&w.status==="Approved for Dispatch")a+='<button class="small blue" onclick="quickDispatch(\''+w.id+'\')">Dispatch</button>';if(w.status==="Awaiting Director Approval")a+='<span class="small-copy">Awaiting Director approval before dispatch/print</span>';return a}
+function approveWaybill(wid){if(currentRole!=="director"){alert("Only Director can approve dispatch.");return}const w=db.waybills.find(x=>x.id===wid);if(!w)return;w.status="Approved for Dispatch";w.approvedBy="Director";w.approvedAt=new Date().toISOString();save()}function quickDispatch(wid){const w=db.waybills.find(x=>x.id===wid);if(!w)return;if(w.status==="Awaiting Director Approval"&&currentRole!=="director"){alert("Director approval is required before dispatch.");return}w.status="Dispatched";w.dispatchAt=new Date().toISOString();save()}
+
+function renderLogisticsSelects(){const s=document.getElementById("logWaybillSelect");const list=db.waybills.filter(w=>w.status!=="Closed"&&w.status!=="Awaiting Director Approval");s.innerHTML='<option value="">Select approved waybill</option>'+list.map(w=>'<option value="'+w.id+'">'+w.id+' — '+esc(w.customer)+' — '+esc(w.status)+'</option>').join('')}document.getElementById("logisticsForm").onsubmit=async function(e){e.preventDefault();const data=formData(this);const w=db.waybills.find(x=>x.id===data.waybillId);if(!w){alert("Select a valid approved waybill.");return}if(w.status==="Awaiting Director Approval"){alert("Director approval is required before logistics can proceed.");return}const proof=await fileRead(this.proof.files[0]);db.logistics.unshift({id:id("logistics"),waybillId:w.id,invoiceId:w.invoiceId,customer:w.customer,location:w.location,proofName:proof.name,proofData:proof.data,updatedByRole:currentRole,...data});w.status=data.status;w.vehicleCapacity=data.vehicleCapacity;w.trips=data.trips;w.driverDetails=data.driverDetails;w.loadingPoint=data.loadingPoint;w.dispatchDate=data.dispatchDate;w.dispatchTime=data.dispatchTime;if(data.status==="Goods Confirmed and Supplied"||data.status==="Closed")closeSupplyAndDeductStock(w);this.reset();save();alert("Logistics / inspection update saved.")};
+function closeSupplyAndDeductStock(w){const inv=db.invoices.find(i=>i.id===w.invoiceId);if(!inv||inv.stockDeducted)return;inv.lines.forEach(line=>{if(String(line.unit).toLowerCase()==="service")return;db.stock.unshift({id:id("stock"),date:today(),item:line.desc,productCode:line.code,type:"Sales Out",qty:Number(line.qty||0),unit:line.unit,location:inv.location,notes:"Auto stock-out from delivered invoice "+inv.id,ref:inv.id,enteredBy:"System"})});inv.stockDeducted=true}
+function renderLogistics(){document.getElementById("logisticsTable").innerHTML=table(db.waybills,["Waybill","Invoice","Customer","Location","Status","Vehicle Capacity","Trips","Driver","Proof Updates"],w=>{const proofs=db.logistics.filter(l=>l.waybillId===w.id&&l.proofName).map(l=>'<a href="'+l.proofData+'" target="_blank">'+esc(l.proofName)+'</a>').join("<br>");return[w.id,w.invoiceId,esc(w.customer),esc(w.location),statusTag(w.status),esc(w.vehicleCapacity||"-"),esc(w.trips||"-"),esc(w.driverDetails||"-"),proofs||"-"]},"No logistics jobs yet.")}
+
+function renderStockProducts(){document.getElementById("stockProductSelect").innerHTML=productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')}document.getElementById("stockForm").onsubmit=function(e){e.preventDefault();const data=formData(this);db.stock.unshift({id:id("stock"),enteredBy:roleNames[currentRole],ref:"",...data,qty:Number(data.qty||0)});this.reset();setDefaultDates();save()};function sign(type){return["Sales Out","Production Usage","Damage / Loss","Shortage"].includes(type)?-1:1}function stockPosition(){const map={};db.stock.forEach(m=>{const k=String(m.item||"").toLowerCase();if(!map[k])map[k]={item:m.item,qty:0,unit:m.unit};map[k].qty+=Number(m.qty||0)*sign(m.type);map[k].unit=m.unit});return Object.values(map)}function renderStock(){document.getElementById("stockPosition").innerHTML=table(stockPosition(),["Product / Material","Closing Stock","Unit"],s=>[esc(s.item),num(s.qty),esc(s.unit)],"No stock position yet.");document.getElementById("stockTable").innerHTML=table(db.stock,["Date","Stock ID","Item","Type","Qty","Unit","Location","Ref","Notes"],s=>[niceDate(s.date),s.id,esc(s.item),statusTag(s.type),num(s.qty),esc(s.unit),esc(s.location),esc(s.ref||"-"),esc(s.notes||"-")],"No stock movement yet.")}
+
+function renderProcurementProducts(){document.getElementById("procProductSelect").innerHTML=productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('');const req=document.getElementById("procRequestSelect");req.innerHTML='<option value="">Not linked</option>'+db.procurementRequests.filter(r=>r.directorApprovalStatus==="Approved to Source / Procure").map(r=>'<option value="'+r.id+'">'+r.id+' — '+esc(r.customer)+' — '+esc(r.itemName)+'</option>').join('')}document.getElementById("procRequestSelect").onchange=function(){fillProcurementFromRequest(this.value)};function fillProcurementFromRequest(rid){const r=db.procurementRequests.find(x=>x.id===rid);if(!r)return;const f=document.getElementById("procurementForm");f.layer.value="External Industry / Supplier Source";f.customer.value=r.customer||"";f.item.value=r.itemName||"";f.qty.value=r.qty||"";f.unit.value=r.unit||"";f.location.value=r.location||"";f.stockApprovalStatus.value="Approved to Source / Procure";f.notes.value=r.requestNote||""}
+document.getElementById("procurementForm").onsubmit=async function(e){e.preventDefault();const data=formData(this);const proof=await fileRead(this.proof.files[0]);const directorApprovalStatus=(data.stockApprovalStatus==="Approved to Source / Procure"&&currentRole==="director")?"Approved by Director":"Pending Director Approval";db.procurement.unshift({id:id("procurement"),directorApprovalStatus,itemName:data.item,proofName:proof.name,proofData:proof.data,createdByRole:currentRole,updatedAt:new Date().toISOString(),...data,qty:Number(data.qty||0)});const r=db.procurementRequests.find(x=>x.id===data.requestId);if(r){r.procurementStatus="Sourcing update submitted";r.procurementFeedback=data.notes||data.availability||""}this.reset();setDefaultDates();save();alert("Procurement record submitted. Director approval is required before stock-in or closure.")};
+function approveProcurement(pid){if(currentRole!=="director"){alert("Only Director can approve procurement records.");return}const p=db.procurement.find(x=>x.id===pid);if(!p)return;p.directorApprovalStatus="Approved by Director";if(p.stockApprovalStatus==="Received / Ready for Stock-In"||p.layer==="Company Received Goods"||p.layer==="Produced Goods"){db.stock.unshift({id:id("stock"),date:today(),item:p.itemName,type:p.layer==="Produced Goods"?"Produced Product":"Received Product",qty:Number(p.qty||0),unit:p.unit,location:p.location,notes:"Auto stock-in from approved procurement record "+p.id,ref:p.id,enteredBy:"Director Approval"})}const r=db.procurementRequests.find(x=>x.id===p.requestId);if(r){r.procurementStatus="Sourced / procurement record approved"}save()}function rejectProcurement(pid){if(currentRole!=="director"){alert("Only Director can reject procurement records.");return}const p=db.procurement.find(x=>x.id===pid);if(!p)return;p.directorApprovalStatus="Rejected by Director";save()}
+function renderProcurement(){document.getElementById("procurementTable").innerHTML=table(db.procurement,["Date","Record","Layer","Request","Customer","Vendor","Item","Qty","Availability","Stock Approval Status","Director Approval","Proof","Action"],p=>[niceDate(p.date),p.id,esc(p.layer),esc(p.requestId||"-"),esc(p.customer||"-"),esc(p.vendor||"-"),esc(p.itemName),num(p.qty)+" "+esc(p.unit),esc(p.availability),statusTag(p.stockApprovalStatus),statusTag(p.directorApprovalStatus),p.proofName?'<a href="'+p.proofData+'" target="_blank">'+esc(p.proofName)+'</a>':"-",currentRole==="director"&&p.directorApprovalStatus==="Pending Director Approval"?'<button class="small green" onclick="approveProcurement(\''+p.id+'\')">Approve</button> <button class="small red" onclick="rejectProcurement(\''+p.id+'\')">Reject</button>':"-"],"No procurement records yet.")}
+
+document.getElementById("followupForm").onsubmit=function(e){e.preventDefault();const data=formData(this);db.followups.unshift({id:id("followup"),createdByRole:currentRole,...data});this.reset();setDefaultDates();save()};function renderFollowups(){document.getElementById("followupTable").innerHTML=table(db.followups,["Date","ID","Related","Customer","Phone","Outcome","Handled By","Notes"],f=>[niceDate(f.date),f.id,esc(f.related),esc(f.customer),esc(f.phone),statusTag(f.outcome),esc(f.handledBy),esc(f.notes)],"No follow-up records yet.")}
+
+function dayData(date){return{quotes:db.quotes.filter(x=>x.date===date),invoices:db.invoices.filter(x=>x.date===date),payments:db.payments.filter(x=>x.date===date&&x.status==="Approved"),receipts:db.receipts.filter(x=>x.date===date),waybills:db.waybills.filter(x=>x.date===date),stock:db.stock.filter(x=>x.date===date),procurementRequests:db.procurementRequests.filter(x=>x.date===date),procurement:db.procurement.filter(x=>x.date===date),logistics:db.logistics.filter(x=>x.dispatchDate===date),followups:db.followups.filter(x=>x.date===date)}}
+function dailyReportHtml(date){const d=dayData(date);const approvedInv=d.invoices.filter(i=>i.status!=="Awaiting Director Approval"&&i.status!=="Rejected");const totalSales=approvedInv.reduce((a,b)=>a+Number(b.total||0),0);const totalPaid=d.payments.reduce((a,b)=>a+Number(b.totalPaid||0),0);const outstanding=approvedInv.reduce((a,b)=>a+Number(b.balance||0),0);const productSummary={};approvedInv.forEach(inv=>inv.lines.forEach(line=>{const key=line.desc+" ("+line.unit+")";productSummary[key]=(productSummary[key]||0)+Number(line.qty||0)}));return'<div class="panel" id="dailyPrintArea"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Daily Operations Report</h2><p><b>Date:</b> '+niceDate(date)+'</p><div class="table"><table><tr><th>Quotes</th><td>'+d.quotes.length+'</td></tr><tr><th>Approved Invoices</th><td>'+approvedInv.length+'</td></tr><tr><th>Total Approved Invoice Value</th><td>'+money(totalSales)+'</td></tr><tr><th>Total Approved Paid</th><td>'+money(totalPaid)+'</td></tr><tr><th>Total Outstanding From Today</th><td>'+money(outstanding)+'</td></tr><tr><th>Procurement Requests</th><td>'+d.procurementRequests.length+'</td></tr><tr><th>Waybills</th><td>'+d.waybills.length+'</td></tr><tr><th>Logistics Updates</th><td>'+d.logistics.length+'</td></tr></table></div><h3>Product / Material Sales Summary</h3>'+table(Object.entries(productSummary),["Product / Material","Total Quantity Sold"],r=>[esc(r[0]),num(r[1])],"No approved product sales for this date.")+'<h3>Invoices</h3>'+table(approvedInv,["Invoice","Customer","Items","Total","Paid","Balance"],i=>[i.id,esc(i.customer),i.lines.map(l=>esc(l.qty+" "+l.unit+" "+l.desc)).join("<br>"),money(i.total),money(i.paid),money(i.balance)],"No approved invoices.")+'<h3>Stock Movements</h3>'+table(d.stock,["Stock ID","Item","Type","Qty","Location","Notes"],s=>[s.id,esc(s.item),esc(s.type),num(s.qty)+" "+esc(s.unit),esc(s.location),esc(s.notes)],"No stock movement.")+'<p style="margin-top:30px;">Prepared / Reviewed By: ____________________ Signature: ____________________ Date: ____________________</p></div>'}
+function renderDailyReport(){const date=document.getElementById("reportDate").value||today();document.getElementById("reportBox").innerHTML=dailyReportHtml(date)}function printDailyReport(){if(currentRole!=="director"){alert("Only Director can print/save reports.");return}const date=document.getElementById("reportDate").value||today();printWin(dailyReportHtml(date),"FTH D-UNIQ Daily Report "+date)}function archiveDailyReport(){if(currentRole!=="director"){alert("Only Director can archive reports.");return}const date=document.getElementById("reportDate").value||today();db.archives.unshift({id:id("archive"),date,type:"Daily Report",title:"Daily Report - "+niceDate(date),html:dailyReportHtml(date),archivedAt:new Date().toISOString()});save();alert("Daily report archived.")}function submitDailyReportToDirector(){if(currentRole!=="support"){alert("Only Business Support can submit the daily report from this button.");return}const date=document.getElementById("reportDate").value||today();db.dailySubmissions.unshift({id:id("report"),date,submittedBy:"Business Support Officer",submittedAt:new Date().toISOString(),status:"Submitted to Director Dashboard"});save();alert("Daily report submitted to Director dashboard.")}function renderMonthlyReport(){if(currentRole!=="director"){alert("Only Director can generate monthly reconciliation.");return}const month=document.getElementById("reportMonth").value||monthNow();const invoices=db.invoices.filter(i=>String(i.date||"").startsWith(month)&&i.status!=="Awaiting Director Approval"&&i.status!=="Rejected");const payments=db.payments.filter(p=>String(p.date||"").startsWith(month)&&p.status==="Approved");const totalSales=invoices.reduce((a,b)=>a+Number(b.total||0),0);const totalPaid=payments.reduce((a,b)=>a+Number(b.totalPaid||0),0);const totalOutstanding=invoices.reduce((a,b)=>a+Number(b.balance||0),0);document.getElementById("reportBox").innerHTML='<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Monthly Reconciliation</h2><p><b>Month:</b> '+esc(month)+'</p><div class="table"><table><tr><th>Total Approved Invoices</th><td>'+invoices.length+'</td></tr><tr><th>Total Sales Value</th><td>'+money(totalSales)+'</td></tr><tr><th>Total Approved Payments</th><td>'+money(totalPaid)+'</td></tr><tr><th>Total Outstanding Balance</th><td>'+money(totalOutstanding)+'</td></tr></table></div><h3>Invoice Listing</h3>'+table(invoices,["Date","Invoice","Customer","Total","Paid","Balance"],i=>[niceDate(i.date),i.id,esc(i.customer),money(i.total),money(i.paid),money(i.balance)],"No approved invoices in this month.")+'</div>'}
+function clearOperationalData(){if(currentRole!=="director"){alert("Only Director can clear dashboard data.");return}if(!confirm("This will clear operational records from this browser storage after you have printed/archived needed reports. Continue?"))return;db=blank();save();alert("Operational dashboard data cleared.")}function renderArchive(){document.getElementById("archiveTable").innerHTML=table(db.archives,["Date","Archive ID","Type","Title","Action"],a=>[niceDate(a.date),a.id,esc(a.type),esc(a.title),'<button class="small secondary" onclick="printArchive(\''+a.id+'\')">Print</button>'],"No archived report yet.")}function printArchive(aid){const a=db.archives.find(x=>x.id===aid);if(a)printWin(a.html,a.title)}
+
+function docHeader(title,ref){return'<div style="display:flex;align-items:center;gap:16px;border-bottom:4px solid #d4a62a;padding-bottom:14px;margin-bottom:20px;"><img src="'+LOGO_PATH+'" style="width:82px;height:82px;object-fit:contain;"><div><h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:38px;">FTH D-UNIQ</h1><b>'+title+'</b><br><span>'+ref+'</span></div></div>'}
+function invoiceHtml(idv){const i=db.invoices.find(x=>x.id===idv);if(!i)return"";return'<div class="panel">'+docHeader("CUSTOMER INVOICE",i.id)+'<p><b>Customer:</b> '+esc(i.customer)+'<br><b>Phone:</b> '+esc(i.phone)+'<br><b>Location:</b> '+esc(i.location)+'</p>'+table(i.lines,["Description","Qty","Unit","Rate","Amount"],l=>[esc(l.desc),num(l.qty),esc(l.unit),money(l.rate),money(l.amount)])+'<div class="table"><table><tr><td>Subtotal</td><td>'+money(i.subtotal)+'</td></tr><tr><td>Logistics / Delivery Fee</td><td>'+money(i.logisticsFee)+'</td></tr><tr><td>Discount</td><td>'+money(i.discount)+'</td></tr><tr><th>Grand Total</th><th>'+money(i.total)+'</th></tr><tr><td>Paid</td><td>'+money(i.paid)+'</td></tr><tr><th>Balance</th><th>'+money(i.balance)+'</th></tr></table></div><p><b>Note:</b> '+esc(i.note||"-").replace(/\n/g,"<br>")+'</p>'+signatureImgBlock("Officer Signature",i.officerSignatureData)+'<p style="margin-top:28px;">Prepared By: '+esc(i.createdByName||"")+'</p></div>'}
+function receiptHtml(idv){const r=db.receipts.find(x=>x.id===idv);if(!r)return"";return'<div class="panel">'+docHeader(r.receiptType.toUpperCase(),r.id)+'<p><b>Customer:</b> '+esc(r.customer)+'<br><b>Invoice:</b> '+esc(r.invoiceId)+'<br><b>Payment:</b> '+esc(r.paymentId)+'</p><div class="table"><table><tr><td>Transfer Amount</td><td>'+money(r.transferAmount)+'</td></tr><tr><td>Cash Amount</td><td>'+money(r.cashAmount)+'</td></tr><tr><td>POS Amount</td><td>'+money(r.posAmount)+'</td></tr><tr><th>Total Paid</th><th>'+money(r.amount)+'</th></tr><tr><th>Balance</th><th>'+money(r.balance)+'</th></tr><tr><td>Approved By</td><td>'+esc(r.approvedBy)+'</td></tr></table></div><p style="margin-top:35px;">Authorized Signature: __________________________</p></div>'}
+function waybillHtml(idv){const w=db.waybills.find(x=>x.id===idv);if(!w)return"";return'<div class="panel">'+docHeader("DELIVERY WAYBILL",w.id)+'<div class="table"><table><tr><th>Invoice</th><td>'+esc(w.invoiceId)+'</td></tr><tr><th>Customer</th><td>'+esc(w.customer)+'</td></tr><tr><th>Phone</th><td>'+esc(w.phone)+'</td></tr><tr><th>Delivery Location</th><td>'+esc(w.location)+'</td></tr><tr><th>Site Contact</th><td>'+esc(w.siteContact)+' — '+esc(w.sitePhone)+'</td></tr><tr><th>Delivery Date / Time</th><td>'+niceDate(w.deliveryDate)+' '+esc(w.deliveryTime||"")+' '+esc(w.deliveryPeriod||"")+'</td></tr><tr><th>Products / Materials</th><td>'+esc(w.products).replace(/\n/g,"<br>")+'</td></tr><tr><th>Delivery Instruction</th><td>'+esc(w.instruction||"-").replace(/\n/g,"<br>")+'</td></tr><tr><th>Status</th><td>'+esc(w.status)+'</td></tr></table></div><h3>Signatures</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">'+signatureImgBlock("Company / Officer",w.officerSignatureData,w.companySigner)+signatureImgBlock("Driver",w.driverSignatureData,w.driverSigner)+signatureImgBlock("Customer / Site Receiver",w.customerSignatureData,w.customerSigner)+'</div></div>'}
+function signatureImgBlock(label,data,name){return'<div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-top:12px;"><b>'+esc(label)+'</b><br>'+(name?'<span>'+esc(name)+'</span><br>':'')+(data?'<img src="'+data+'" style="max-width:100%;height:85px;object-fit:contain;border-bottom:1px solid #333;margin-top:8px;">':'<div style="height:85px;border-bottom:1px solid #333;"></div>')+'</div>'}function printInvoice(idv){const i=db.invoices.find(x=>x.id===idv);if(!i||i.status==="Awaiting Director Approval"||i.status==="Rejected"){alert("Invoice must be approved before printing.");return}printWin(invoiceHtml(idv),"Invoice "+idv)}function printReceipt(idv){printWin(receiptHtml(idv),"Receipt "+idv)}function printWaybill(idv){const w=db.waybills.find(x=>x.id===idv);if(!w||w.status==="Awaiting Director Approval"){alert("Waybill must be approved before printing.");return}printWin(waybillHtml(idv),"Waybill "+idv)}function printWin(content,title){const w=window.open("","_blank");w.document.write('<html><head><title>'+esc(title)+'</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet"><style>body{font-family:Inter,sans-serif;margin:0;padding:24px}.panel{max-width:950px;margin:auto}.table{overflow:auto}table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:10px;text-align:left;vertical-align:top}th{background:#eee}@media print{body{padding:0}.panel{max-width:none}}</style></head><body>'+content+'<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>');w.document.close()}function wnum(phone){let d=String(phone||"").replace(/\D/g,"");if(d.startsWith("0"))return"234"+d.slice(1);return d}function openWhatsAppInvoice(idv){const i=db.invoices.find(x=>x.id===idv);if(!i)return;const msg="FTH D-UNIQ Invoice%0AInvoice: "+i.id+"%0ATotal: "+money(i.total)+"%0APaid: "+money(i.paid)+"%0ABalance: "+money(i.balance);window.open("https://wa.me/"+wnum(i.phone)+"?text="+msg,"_blank")}function openWhatsAppReceipt(idv){const r=db.receipts.find(x=>x.id===idv);if(!r)return;const msg="FTH D-UNIQ "+r.receiptType+"%0AReceipt: "+r.id+"%0AAmount: "+money(r.amount)+"%0ABalance: "+money(r.balance);window.open("https://wa.me/"+wnum(r.phone)+"?text="+msg,"_blank")}
+
+const signaturePads=[];function setupSignaturePad(canvasId,clearButtonId,hiddenInputId){const canvas=document.getElementById(canvasId),clearButton=document.getElementById(clearButtonId),hiddenInput=document.getElementById(hiddenInputId);if(!canvas||!clearButton||!hiddenInput)return;const ctx=canvas.getContext("2d");const pad={canvas,ctx,hiddenInput};signaturePads.push(pad);let isDrawing=false,lastX=0,lastY=0;function resizeCanvas(){const saved=hiddenInput.value;const rect=canvas.getBoundingClientRect();const ratio=window.devicePixelRatio||1;if(rect.width===0||rect.height===0)return;canvas.width=rect.width*ratio;canvas.height=rect.height*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.lineWidth=2.5;ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle="#1d1714";if(saved){const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,rect.width,rect.height);img.src=saved}}pad.resize=resizeCanvas;function point(event){const rect=canvas.getBoundingClientRect();return{x:event.clientX-rect.left,y:event.clientY-rect.top}}function start(event){resizeCanvas();event.preventDefault();isDrawing=true;const p=point(event);lastX=p.x;lastY=p.y}function draw(event){if(!isDrawing)return;event.preventDefault();const p=point(event);ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();lastX=p.x;lastY=p.y;hiddenInput.value=canvas.toDataURL("image/png")}function stop(){if(!isDrawing)return;isDrawing=false;hiddenInput.value=canvas.toDataURL("image/png")}clearButton.addEventListener("click",()=>clearSignaturePad(canvasId,hiddenInputId));canvas.addEventListener("pointerdown",start);canvas.addEventListener("pointermove",draw);canvas.addEventListener("pointerup",stop);canvas.addEventListener("pointerleave",stop);canvas.addEventListener("pointercancel",stop);resizeCanvas()}function clearSignaturePad(canvasId,hiddenInputId){const c=document.getElementById(canvasId),h=document.getElementById(hiddenInputId);if(!c||!h)return;c.getContext("2d").clearRect(0,0,c.width,c.height);h.value=""}function resizeAllSignaturePads(){signaturePads.forEach(p=>p.resize&&p.resize())}function setupAllSignaturePads(){setupSignaturePad("invoiceOfficerSignatureCanvas","clearInvoiceOfficerSignature","invoiceOfficerSignatureData");setupSignaturePad("waybillOfficerSignatureCanvas","clearWaybillOfficerSignature","waybillOfficerSignatureData");setupSignaturePad("waybillDriverSignatureCanvas","clearWaybillDriverSignature","waybillDriverSignatureData");setupSignaturePad("waybillCustomerSignatureCanvas","clearWaybillCustomerSignature","waybillCustomerSignatureData");window.addEventListener("resize",resizeAllSignaturePads)}
+document.addEventListener("contextmenu",e=>{if(!e.target.closest("input, textarea, select, button, a, summary, canvas"))e.preventDefault()});document.addEventListener("copy",e=>{if(!e.target.closest("input, textarea"))e.preventDefault()});document.addEventListener("dragstart",e=>{if(e.target.tagName==="IMG")e.preventDefault()});
+const oldRole=sessionStorage.getItem("fth_role");if(oldRole&&pins[oldRole]){currentRole=oldRole;startApp()}
 </script>
 </body>
 </html>
