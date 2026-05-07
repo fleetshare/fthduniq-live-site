@@ -195,9 +195,9 @@
     </div>
 
     <div class="quote-form-card">
-      <form id="quoteRequestFormV2" action="/api/quote-email" method="POST">
+      <form id="quoteRequestForm" action="/api/quote-email" method="POST">
         <input type="hidden" name="form_source" value="Homepage Quote Request">
-        <input type="hidden" name="quote_lines" id="quote_lines_v2">
+        <input type="hidden" name="quote_lines" id="quote_lines">
         <input type="hidden" name="request_details" id="request_details_v2">
 
         <div class="quote-form-grid">
@@ -287,19 +287,20 @@
         </div>
 
         <div class="form-field full" style="margin-top:28px;">
-          <label>Different Product Needed or Service</label>
-          <p class="quote-form-note">
-            You can add up to 10 different products or services in one request.
-          </p>
+  <label>Different Product Needed or Service</label>
 
-          <div id="quoteProductLinesV2"></div>
+  <p class="quote-form-note">
+    You can add up to 10 different products or services in one request.
+  </p>
 
-          <div class="form-submit-row">
-            <button type="button" class="btn btn-secondary" id="addProductLineBtnV2">
-              Add Another Product / Service
-            </button>
-          </div>
-        </div>
+  <div id="quoteProductLines"></div>
+
+  <div class="form-submit-row">
+    <button type="button" class="btn btn-secondary" id="addProductLineBtn">
+      Add Another Product / Service
+    </button>
+  </div>
+</div>
 
         <div class="form-field full" style="margin-top:24px;">
           <label for="request_details_text_v2">Additional Request Details / Customer Instruction</label>
