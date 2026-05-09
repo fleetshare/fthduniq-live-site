@@ -128,6 +128,65 @@ function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistic
 let syncTimer=null;
 function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
 async function loadFromApi(){
+  let savedBefore = {};
+  try{
+    savedBefore = JSON.parse(localStorage.getItem(KEY) || '{}');
+  }catch(e){
+    savedBefore = {};
+  }
+
+  try{
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache: 'no-store' });
+
+    if(!res.ok){
+      return;
+    }
+
+    const payload = await res.json();
+    const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    const fresh = blank();
+
+    arr.forEach(row => {
+      let data = row.data || row.record || row;
+
+      try{
+        if(typeof data === 'string'){
+          data = JSON.parse(data);
+        }
+      }catch(e){}
+
+      try{
+        if(row.data_json){
+          data = JSON.parse(row.data_json);
+        }
+      }catch(e){}
+
+      const type = row.type || data._cloudType || data.type;
+
+      if(!type || !TYPE_COLLECTION[type]){
+        return;
+      }
+
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    // Important: do not wipe officer tokens if the cloud response does not return them
+    if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
+      fresh.officers = savedBefore.officers;
+    }
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+  }catch(e){
+    console.warn('Unable to load shared records:', e);
+  }
+}
   try{
     const res=await fetch(API_RECORDS+'?t='+Date.now(),{cache:'no-store'});
     if(!res.ok)return;
