@@ -272,7 +272,44 @@ function renderMonthlyReport(){if(currentRole!=='director')return alert('Only Di
 function printCurrentReport(){if(currentRole!=='director')return alert('Only Director can print reports.');if(!currentReportHtml)renderDailyReport();printWin(currentReportHtml,currentReportTitle)}
 function archiveCurrentReport(){if(currentRole!=='director')return alert('Only Director can archive reports.');if(!currentReportHtml)renderDailyReport();db.archives.unshift({id:nextId('archive'),date:today(),type:currentReportTitle,title:currentReportTitle,html:currentReportHtml});save();alert('Report archived.')}
 function submitDailyReportToDirector(){if(currentRole!=='support')return alert('Only Business Support can submit daily report.');db.dailySubmissions.unshift({id:nextId('report'),date:document.getElementById('reportDate')?.value||today(),submittedBy:currentOfficerName,status:'Submitted to Director Dashboard'});save();alert('Daily report submitted.')}
-function clearOperationalData(){if(currentRole!=='director')return alert('Only Director can clear data.');if(confirm('Clear all workstation data from this browser only?')){db=blank();save()}}
+async function clearOperationalData(){
+  if(currentRole !== 'director'){
+    return alert('Only Director can clear workstation data.');
+  }
+
+  const confirmText = prompt(
+    'This will clear all shared workstation records from the central database and this browser. Type CLEAR to continue.'
+  );
+
+  if(confirmText !== 'CLEAR'){
+    alert('Clear action cancelled.');
+    return;
+  }
+
+  try{
+    const res = await fetch(API_RECORDS, { cache: 'no-store' });
+    const payload = await res.json();
+    const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    for(const record of records){
+      if(record.id !== undefined && record.id !== null){
+        await fetch(API_RECORDS + '/' + encodeURIComponent(record.id), {
+          method: 'DELETE'
+        });
+      }
+    }
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    alert('Workstation records have been cleared.');
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to clear shared database records. Please check the API connection and try again.');
+    console.error(error);
+  }
+}
 function renderArchivePage(){installPage('<section><div class="panel"><div class="eyebrow">Director Archive</div><h2>Archived Reports</h2>'+table(db.archives,['Date','Archive ID','Type','Title','Action'],a=>[niceDate(a.date),a.id,esc(a.type),esc(a.title),'<button class="small secondary" onclick="printArchive(\''+a.id+'\')">Print</button>'],'No archived report yet.')+'</div></section>')}
 function printArchive(aid){const a=db.archives.find(x=>x.id===aid);if(a)printWin(a.html,a.title)}
 function docHeader(title,ref){return '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:4px solid #d4a62a;padding-bottom:14px;margin-bottom:20px"><div style="display:flex;align-items:center;gap:16px"><img src="'+LOGO_PATH+'" style="width:82px;height:82px;object-fit:contain"><div><h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:38px">FTH D-UNIQ</h1><b>'+title+'</b><br><span>'+ref+'</span><br><span>'+COMPANY_BN+'</span></div></div><div style="font-size:12px;line-height:1.65;text-align:right;max-width:280px"><b>WhatsApp:</b> '+COMPANY_WHATSAPP+'<br><b>Email:</b> '+COMPANY_EMAIL+'<br><b>Website:</b> '+COMPANY_WEBSITE+'<br><b>Address:</b> '+COMPANY_ADDRESS+'<br><b>Site:</b> '+COMPANY_SITE_LOCATION+'</div></div>'}
@@ -287,7 +324,31 @@ function viewApproval(type,idv){let modal=document.getElementById('approvalRevie
 function printInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(!i||i.status==='Awaiting Director Approval'||i.status==='Rejected')return alert('Invoice must be approved before printing.');printWin(invoiceHtml(iid),'Invoice '+iid)}
 function printReceipt(rid){printWin(receiptHtml(rid),'Receipt '+rid)}
 function printWaybill(wid){const w=db.waybills.find(x=>x.id===wid);if(!w||w.status==='Awaiting Director Approval')return alert('Waybill must be approved before printing.');printWin(waybillHtml(wid),'Waybill '+wid)}
-function printWin(content,title){const w=window.open('','_blank');const js='<scr'+'ipt>window.onload=function(){setTimeout(function(){window.print()},300)}</scr'+'ipt>';w.document.write('<html><head><title>'+esc(title)+'</title><style>body{font-family:Arial,sans-serif;margin:0;padding:24px}.panel{max-width:950px;margin:auto}table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:10px;text-align:left;vertical-align:top}th{background:#eee}.notice{border:1px solid #d4a62a;padding:12px;border-radius:10px;margin-top:12px}</style></head><body>'+content+js+'</body></html>');w.document.close()}
+function printWin(content,title){
+  const w = window.open('', '_blank');
+
+  const js = '<scr'+'ipt>window.onload=function(){setTimeout(function(){window.print()},400)}</scr'+'ipt>';
+
+  w.document.write(
+    '<html><head><title>'+esc(title)+'</title>'+
+    '<style>'+
+      '@page{size:A4;margin:14mm;}'+
+      'body{font-family:Arial,sans-serif;margin:0;padding:0;color:#1b1714;}'+
+      '.panel{max-width:900px;margin:auto;}'+
+      'h1,h2,h3{margin-top:0;}'+
+      'p{font-size:12px;line-height:1.55;}'+
+      'table{width:100%;border-collapse:collapse;font-size:11px;}'+
+      'th,td{border:1px solid #999;padding:7px;text-align:left;vertical-align:top;}'+
+      'th{background:#eee;}'+
+      '.notice{border:1px solid #d4a62a;padding:10px;border-radius:8px;margin-top:10px;font-size:11px;line-height:1.5;}'+
+      'img{max-width:120px;height:auto;}'+
+      '.document-logo{width:55px!important;max-width:55px!important;height:auto!important;}'+
+      '@media print{button{display:none!important;} img{max-width:120px!important;height:auto!important;}}'+
+    '</style></head><body>'+content+js+'</body></html>'
+  );
+
+  w.document.close();
+}
 function openWhatsAppInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(!i)return;const msg='Good day '+(i.customer||'Customer')+', kindly find attached your invoice from FTH D-UNIQ.\n\nInvoice No: '+i.id+'\nTotal Amount: '+money(i.total)+'\nAmount Paid: '+money(i.paid)+'\nBalance: '+money(i.balance)+'\nDelivery Date: '+(i.deliveryDate?niceDate(i.deliveryDate):'To be confirmed')+'\nDelivery Time / Window: '+(i.deliveryTime||'To be confirmed')+' / '+(i.deliveryWindow||'To be confirmed')+'\n\nPlease review the invoice details and make payment to the account details stated on the invoice. After payment, kindly send proof of payment for confirmation.\n\nNote to officer: attach the downloaded/printed invoice PDF before sending to the client.\n\nThank you for choosing FTH D-UNIQ.';window.open('https://wa.me/'+wnum(i.phone)+'?text='+encodeURIComponent(msg),'_blank')}
 function openWhatsAppReceipt(rid){const r=db.receipts.find(x=>x.id===rid);if(!r)return;const msg='Good day '+(r.customer||'Customer')+', kindly find attached your payment receipt / part-payment acknowledgement from FTH D-UNIQ.\n\nReceipt No: '+r.id+'\nInvoice No: '+r.invoiceId+'\nAmount Paid: '+money(r.amount)+'\nBalance: '+money(r.balance)+'\n\nPlease keep this receipt for your records.\n\nNote to officer: attach the downloaded/printed receipt PDF before sending to the client.\n\nThank you for choosing FTH D-UNIQ.';window.open('https://wa.me/'+wnum(r.phone)+'?text='+encodeURIComponent(msg),'_blank')}
 function deleteRecord(collection,idv){if(!db[collection])return;if(currentRole!=='director'&&!['quotes','stock','followups'].includes(collection))return alert('Only Director can delete approved or sensitive records.');if(!confirm('Delete/correct this record?'))return;db[collection]=db[collection].filter(x=>x.id!==idv);save()}
