@@ -328,6 +328,35 @@ async function startApp(){
   }catch(error){}
 }
 function logout(){sessionStorage.removeItem('fth_login');location.reload()}
+  
+  async function refreshThisDeviceFromCloud(){
+  if(!confirm('This will clear only this device cache and reload the latest shared workstation records. Continue?')){
+    return;
+  }
+
+  try{
+    sessionStorage.removeItem('fth_active_page');
+
+    Object.keys(localStorage).forEach(function(k){
+      const key = k.toLowerCase();
+      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
+        localStorage.removeItem(k);
+      }
+    });
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    await loadFromApi();
+
+    alert('This device has been refreshed from the shared workstation records.');
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to refresh this device. Please check the connection and try again.');
+    console.error(error);
+  }
+}
 document.getElementById('loginForm').onsubmit = async function(e){
   e.preventDefault();
 
