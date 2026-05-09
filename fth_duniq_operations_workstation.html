@@ -130,7 +130,50 @@ function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,6
 async function loadFromApi(){try{const res=await fetch(API_RECORDS,{cache:'no-store'});if(!res.ok)return;const payload=await res.json();const arr=Array.isArray(payload)?payload:(payload.records||payload.data||[]);if(!arr.length)return;const fresh=blank();fresh.counts=db.counts||fresh.counts;arr.forEach(row=>{let data=row.data||row.record||row;try{if(row.data_json)data=JSON.parse(row.data_json)}catch(e){}const type=row.type||data._cloudType||data.type;if(!type||!TYPE_COLLECTION[type])return;data._cloudId=row.id||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;fresh[TYPE_COLLECTION[type]].push(data)});db=fresh;localSave()}catch(e){}}
 async function apiSave(type,data){try{const payload={type:type,status:data.status||data.directorApprovalStatus||'Saved',customer_name:data.customer||data.name||'',customer_phone:data.phone||'',created_by_role:data.createdByRole||currentRole,created_by_name:data.createdByName||currentOfficerName,data:data};const isUpdate=!!data._cloudId;const res=await fetch(isUpdate?API_RECORDS+'/'+encodeURIComponent(data._cloudId):API_RECORDS,{method:isUpdate?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const out=await res.json().catch(()=>({}));if(res.ok){data._cloudId=out.id||out.business_ref||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;localSave()}}catch(e){}}
 async function syncAllToApi(){for(const [collection,type] of Object.entries(COLLECTION_TYPE)){for(const item of db[collection]||[]){await apiSave(type,item)}}}
-function installPage(html,after){document.getElementById('main').innerHTML=html;initLocationSelects(document.getElementById('main'));setDefaultDates();if(after)after();applyRoleVisibility()}
+function installPage(html,after){
+  const main=document.getElementById('main');
+
+  function dashboardRulesHtml(){
+    const roleDescriptions={
+      director:'<b>Director:</b> Review company activity, approve invoices, payments, waybills, procurement requests, reports, and sensitive operational decisions before execution.',
+      support:'<b>Business Support Officer:</b> Receive customer requests, create quotes, prepare invoices, enter payment information, prepare delivery handover/waybill drafts, update customer records, and submit daily reports to the Director.',
+      procurement:'<b>Procurement Officer:</b> Source products not available in company stock, record supplier/vendor details, confirm price and availability, update procurement feedback, and await Director approval before proceeding with sensitive procurement actions.',
+      logistics:'<b>Logistics / Inspection Officer:</b> Handle dispatch updates, truck/driver details, delivery proof, signed waybill uploads, inspection records, and delivery confirmation after the required approval has been granted.',
+      social:'<b>Client Follow-Up Officer:</b> Follow up with customers after quote, payment, delivery, or complaint resolution; record satisfaction checks, testimonials, complaints, and next actions inside the workstation.'
+    };
+
+    return '<div class="panel">'+
+      '<div class="eyebrow">Duty Reminder</div>'+
+      '<h2>Officer Duties & Work Responsibility</h2>'+
+      '<p>'+(roleDescriptions[currentRole]||'Authorized officer: Please carry out your assigned role and record all official work inside the workstation.')+'</p>'+
+      '<p>Where staffing is limited, an officer may support an additional approved duty area. All actions must still be recorded under the correct workstation section and must follow the required approval process.</p>'+
+    '</div>'+
+
+    '<div class="panel">'+
+      '<div class="eyebrow">Company Rules</div>'+
+      '<h2>Company Rules, Data Protection & Confidentiality Reminder</h2>'+
+      '<div class="notice"><b>Resumption:</b> Official resumption time is 8:00am. Any resumption after 8:00am without prior approval or acceptable emergency reason may attract a formal query.</div>'+
+      '<p>All customer, supplier, vendor, procurement, payment, inventory, logistics, and company records must be entered and maintained inside the FTH D-UNIQ Operations Workstation.</p>'+
+      '<p>Officers are not permitted to save customer contacts, supplier contacts, vendor contacts, delivery details, payment information, inventory records, or company transaction details on personal phones, personal notebooks, private WhatsApp chats, or any personal storage space.</p>'+
+      '<p>Where personal devices are used during work, officers must ensure that no customer, supplier, vendor, or company information is stored privately outside the approved workstation. The company may carry out reasonable compliance checks after work to confirm that customer and company information has not been removed, copied, or stored outside the approved system.</p>'+
+      '<p>Inventory records must be entered properly, starting from opening stock, received stock, produced stock, sales-out, damages, shortages, excesses, adjustments, and closing stock. Any conflicting, incomplete, manipulated, or unexplained record may attract a formal query.</p>'+
+      '<p>Company information, customer information, supplier information, vendor details, pricing, logistics arrangements, payment records, stock records, and internal business processes are confidential. They must only be used for official FTH D-UNIQ business within the approved company system and work environment.</p>'+
+      '<p>Unauthorized sharing, saving, copying, deleting, altering, or hiding of company information is strictly prohibited and may lead to disciplinary action.</p>'+
+      '<div class="notice"><b>Permission / Absence:</b> Approved absence or permission is limited to once per month, except in cases of serious illness, medical emergency, family emergency, or other unavoidable circumstances supported with proper evidence and approved by the Director.</div>'+
+      '<p>Every officer must save completed work, update the correct status, and give proper handover notes where another officer will continue the task.</p>'+
+    '</div>';
+  }
+
+  if(html.includes('Business Position') && !html.includes('Company Rules, Data Protection')){
+    html=html.replace('<div class="panel"><div class="eyebrow">Dashboard</div>',dashboardRulesHtml()+'<div class="panel"><div class="eyebrow">Dashboard</div>');
+  }
+
+  main.innerHTML=html;
+  initLocationSelects(main);
+  setDefaultDates();
+  if(after)after();
+  applyRoleVisibility();
+}
 function renderNav(){const tabs=allTabs.filter(t=>(roleTabs[currentRole]||[]).includes(t[0]));document.getElementById('side').innerHTML=tabs.map((t,i)=>'<button class="nav '+(i===0?'active':'')+'" onclick="showPage(\''+t[0]+'\')">'+t[1]+'</button>').join('');document.getElementById('mobileNav').innerHTML=tabs.map(t=>'<option value="'+t[0]+'">'+t[1]+'</option>').join('')}
 function markNav(page){document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));const t=allTabs.find(x=>x[0]===page);if(t){[...document.querySelectorAll('.nav')].find(n=>n.textContent===t[1])?.classList.add('active')}const m=document.getElementById('mobileNav');if(m)m.value=page;sessionStorage.setItem('fth_active_page',page)}
 function renderCurrentPage(){const p=sessionStorage.getItem('fth_active_page')||'dashboard';showPage(p,false)}
