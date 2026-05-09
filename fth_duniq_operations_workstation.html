@@ -255,7 +255,31 @@ function renderCurrentPage(){const p=sessionStorage.getItem('fth_active_page')||
 function showPage(page,mark=true){if(mark)markNav(page);if(page==='dashboard')renderDashboardPage();if(page==='quotes')renderQuotesPage();if(page==='invoices')renderInvoicesPage();if(page==='payments')renderPaymentsPage();if(page==='procurementRequests')renderProcurementRequestsPage();if(page==='waybills')renderWaybillsPage();if(page==='inventory')renderInventoryPage();if(page==='procurement')renderProcurementPage();if(page==='logistics')renderLogisticsPage();if(page==='followup')renderFollowupPage();if(page==='customers')renderCustomersPage();if(page==='staffAccess')renderStaffPage();if(page==='reports')renderReportsPage();if(page==='archive')renderArchivePage()}
 function applyRoleVisibility(){document.querySelectorAll('.director-only').forEach(el=>el.style.display=currentRole==='director'?'':'none');document.querySelectorAll('.director-only-inline').forEach(el=>el.style.display=currentRole==='director'?'inline-flex':'none');document.querySelectorAll('.support-only-inline').forEach(el=>el.style.display=currentRole==='support'?'inline-flex':'none')}
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
-async function startApp(){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleName').textContent=roleNames[currentRole];document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;document.getElementById('dateNow').textContent='Login: '+currentLoginTime;renderNav();await loadFromApi();showPage('dashboard');queueSync()}
+async function startApp(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+
+  document.getElementById('roleName').textContent=roleNames[currentRole] || currentRole;
+  document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;
+  document.getElementById('dateNow').textContent='Login: '+currentLoginTime;
+
+  renderNav();
+
+  // Open the workstation first so login does not hang
+  showPage('dashboard');
+
+  // Then load shared records quietly in the background
+  try{
+    await loadFromApi();
+    showPage('dashboard');
+  }catch(error){
+    console.warn('Shared records could not load immediately:', error);
+  }
+
+  try{
+    queueSync();
+  }catch(error){}
+}
 function logout(){sessionStorage.removeItem('fth_login');location.reload()}
 document.getElementById('loginForm').onsubmit=e=>{e.preventDefault();const role=document.getElementById('role').value,token=document.getElementById('pin').value.trim(),duty=document.getElementById('officerDutyName').value.trim();const officer=verifyLogin(role,token);if(!officer){document.getElementById('loginMsg').textContent='Invalid role or access token.';return}currentRole=role;currentOfficerName=duty||officer.name||roleNames[role];currentOfficerId=officer.id;currentLoginTime=new Date().toLocaleString('en-NG');sessionStorage.setItem('fth_login',JSON.stringify({role:currentRole,officerName:currentOfficerName,officerId:currentOfficerId,loginTime:currentLoginTime}));startApp()};
 function customerByPhone(p){return db.customers.find(c=>c.cleanPhone===cleanPhone(p))}
