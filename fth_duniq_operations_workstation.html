@@ -281,7 +281,47 @@ async function startApp(){
   }catch(error){}
 }
 function logout(){sessionStorage.removeItem('fth_login');location.reload()}
-document.getElementById('loginForm').onsubmit=e=>{e.preventDefault();const role=document.getElementById('role').value,token=document.getElementById('pin').value.trim(),duty=document.getElementById('officerDutyName').value.trim();const officer=verifyLogin(role,token);if(!officer){document.getElementById('loginMsg').textContent='Invalid role or access token.';return}currentRole=role;currentOfficerName=duty||officer.name||roleNames[role];currentOfficerId=officer.id;currentLoginTime=new Date().toLocaleString('en-NG');sessionStorage.setItem('fth_login',JSON.stringify({role:currentRole,officerName:currentOfficerName,officerId:currentOfficerId,loginTime:currentLoginTime}));startApp()};
+document.getElementById('loginForm').onsubmit = async function(e){
+  e.preventDefault();
+
+  const role = document.getElementById('role').value;
+  const token = document.getElementById('pin').value.trim();
+  const duty = document.getElementById('officerDutyName').value.trim();
+  const msg = document.getElementById('loginMsg');
+
+  msg.textContent = 'Checking access...';
+
+  // Try to load officer tokens first, but do not allow it to freeze login
+  try{
+    await Promise.race([
+      loadFromApi(),
+      new Promise(resolve => setTimeout(resolve, 2000))
+    ]);
+  }catch(error){}
+
+  const officer = verifyLogin(role, token);
+
+  if(!officer){
+    msg.textContent = 'Invalid role or access token. Please confirm the role and token assigned to this officer.';
+    return;
+  }
+
+  currentRole = role;
+  currentOfficerName = duty || officer.name || roleNames[role];
+  currentOfficerId = officer.id || '';
+  currentLoginTime = new Date().toLocaleString('en-NG');
+
+  sessionStorage.setItem('fth_login', JSON.stringify({
+    role: currentRole,
+    officerName: currentOfficerName,
+    officerId: currentOfficerId,
+    loginTime: currentLoginTime
+  }));
+
+  msg.textContent = 'Opening workstation...';
+
+  startApp();
+};
 function customerByPhone(p){return db.customers.find(c=>c.cleanPhone===cleanPhone(p))}
 function refreshCustomer(c){c.invoiceIds=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone).map(i=>i.id);c.paymentIds=db.payments.filter(p=>db.invoices.find(i=>i.id===p.invoiceId&&cleanPhone(i.phone)===c.cleanPhone)).map(p=>p.id);c.outstandingBalance=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone&&i.status!=='Rejected').reduce((a,b)=>a+Number(b.balance||0),0)}
 function upsertCustomer(q){const cp=cleanPhone(q.phone);if(!cp)return;let c=customerByPhone(q.phone);if(!c){c={id:nextId('customer'),name:q.customer||'',phone:q.phone||'',cleanPhone:cp,email:q.email||'',locations:[],siteContacts:[],quoteIds:[],invoiceIds:[],paymentIds:[],outstandingBalance:0,lastOrderDate:q.date||today()};db.customers.unshift(c)}c.name=q.customer||c.name;c.email=q.email||c.email;c.phone=q.phone||c.phone;if(q.location&&!c.locations.includes(q.location))c.locations.unshift(q.location);const sc=[q.siteContact||'',q.sitePhone||''].join(' | ').trim();if(sc&&!c.siteContacts.includes(sc))c.siteContacts.unshift(sc);if(q.id&&!c.quoteIds.includes(q.id))c.quoteIds.unshift(q.id);c.lastOrderDate=q.date||today();refreshCustomer(c)}
