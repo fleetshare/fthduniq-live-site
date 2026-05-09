@@ -175,6 +175,25 @@ async function loadFromApi(){
       fresh[TYPE_COLLECTION[type]].push(data);
     });
 
+    if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
+      fresh.officers = savedBefore.officers;
+    }
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+  }catch(e){
+    console.warn('Unable to load shared records:', e);
+  }
+}
+
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
     // Important: do not wipe officer tokens if the cloud response does not return them
     if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
       fresh.officers = savedBefore.officers;
