@@ -127,46 +127,80 @@ function initLocationSelects(scope=document){scope.querySelectorAll('.loc-state'
 function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistics Window</label><select name="deliveryWindow"><option>To Be Confirmed</option><option>Within 2 hours after payment confirmation</option><option>Within 4 hours after payment confirmation</option><option>Same day, subject to weather/loading queue/truck availability</option><option>Next day delivery</option><option>Scheduled delivery window agreed with client</option></select></div>'}
 let syncTimer=null;
 function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
-async function loadFromApi(){
+async function clearOperationalData(){
+  if(currentRole !== 'director'){
+    return alert('Only Director can clear workstation data.');
+  }
+
+  const confirmText = prompt(
+    'This will clear all shared workstation records and reset local workstation cache. Type CLEAR to continue.'
+  );
+
+  if(confirmText !== 'CLEAR'){
+    alert('Clear action cancelled.');
+    return;
+  }
+
   try{
-    const res = await fetch(API_RECORDS, { cache: 'no-store' });
+    // Delete records from the shared database
+    for(let round = 0; round < 3; round++){
+      const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache: 'no-store' });
+      const payload = await res.json();
+      const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
 
-    if(!res.ok){
-      return;
-    }
-
-    const payload = await res.json();
-    const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
-
-    const fresh = blank();
-
-    arr.forEach(row => {
-      let data = row.data || row.record || row;
-
-      try{
-        if(row.data_json){
-          data = JSON.parse(row.data_json);
-        }
-      }catch(e){}
-
-      const type = row.type || data._cloudType || data.type;
-
-      if(!type || !TYPE_COLLECTION[type]){
-        return;
+      if(!records.length){
+        break;
       }
 
-      data._cloudId = row.id || data._cloudId || data.id;
-      data._cloudType = type;
-      data._cloudSynced = true;
+      for(const record of records){
+        if(record.id !== undefined && record.id !== null){
+          await fetch(API_RECORDS + '/' + encodeURIComponent(record.id), {
+            method: 'DELETE'
+          });
+        }
+      }
+    }
 
-      fresh[TYPE_COLLECTION[type]].push(data);
+    // Clear current device cache
+    db = blank();
+
+    Object.keys(localStorage).forEach(function(k){
+      const key = k.toLowerCase();
+      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
+        localStorage.removeItem(k);
+      }
     });
 
-    db = fresh;
     localStorage.setItem(KEY, JSON.stringify(db));
 
-  }catch(e){
-    console.warn('Unable to load shared records:', e);
+    alert('Workstation records have been cleared. Other officers must refresh, log out, and log in again.');
+
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to clear shared records. Please check the connection and try again.');
+    console.error(error);
+  }
+}
+    // Clear current device cache
+    db = blank();
+
+    Object.keys(localStorage).forEach(function(k){
+      const key = k.toLowerCase();
+      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
+        localStorage.removeItem(k);
+      }
+    });
+
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    alert('Workstation records have been cleared. Other officers must refresh, log out, and log in again.');
+
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to clear shared records. Please check the connection and try again.');
+    console.error(error);
   }
 }
 async function apiSave(type,data){try{const payload={type:type,status:data.status||data.directorApprovalStatus||'Saved',customer_name:data.customer||data.name||'',customer_phone:data.phone||'',created_by_role:data.createdByRole||currentRole,created_by_name:data.createdByName||currentOfficerName,data:data};const isUpdate=!!data._cloudId;const res=await fetch(isUpdate?API_RECORDS+'/'+encodeURIComponent(data._cloudId):API_RECORDS,{method:isUpdate?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const out=await res.json().catch(()=>({}));if(res.ok){data._cloudId=out.id||out.business_ref||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;localSave()}}catch(e){}}
