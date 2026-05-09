@@ -128,45 +128,111 @@ function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistic
 let syncTimer=null;
 function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
 async function loadFromApi(){
-  let savedBefore = {};
   try{
-    savedBefore = JSON.parse(localStorage.getItem(KEY) || '{}');
-  }catch(e){
-    savedBefore = {};
-  }
-
-  try{
-    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache: 'no-store' });
-
-    if(!res.ok){
-      return;
-    }
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache:'no-store' });
+    if(!res.ok) return;
 
     const payload = await res.json();
     const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
-
     const fresh = blank();
 
-    arr.forEach(row => {
+    arr.forEach(row=>{
       let data = row.data || row.record || row;
 
       try{
-        if(typeof data === 'string'){
-          data = JSON.parse(data);
-        }
+        if(typeof data === 'string') data = JSON.parse(data);
       }catch(e){}
 
       try{
-        if(row.data_json){
-          data = JSON.parse(row.data_json);
-        }
+        if(row.data_json) data = JSON.parse(row.data_json);
       }catch(e){}
 
       const type = row.type || data._cloudType || data.type;
+      if(!type || !TYPE_COLLECTION[type]) return;
 
-      if(!type || !TYPE_COLLECTION[type]){
-        return;
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+  }catch(e){
+    console.warn('Unable to load shared records:', e);
+  }
+}
+
+async function syncAllToApi(){
+  for(const [collection,type] of Object.entries(COLLECTION_TYPE)){
+    for(const item of db[collection] || []){
+      await apiSave(type,item);
+    }
+  }
+}
+
+function queueSync(){
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncAllToApi,600);
+}
+
+async function clearOperationalData(){
+  if(currentRole !== 'director'){
+    return alert('Only Director can clear workstation data.');
+  }
+
+  const confirmText = prompt('This will clear ALL shared workstation records for every officer. Type CLEAR to continue.');
+
+  if(confirmText !== 'CLEAR'){
+    alert('Clear action cancelled.');
+    return;
+  }
+
+  try{
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache:'no-store' });
+    const payload = await res.json();
+    const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    for(const record of records){
+      if(record.id !== undefined && record.id !== null){
+        await fetch(API_RECORDS + '/' + encodeURIComponent(record.id), {
+          method:'DELETE'
+        });
       }
+    }
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    alert('All shared workstation records have been cleared. Other officers should click Refresh Records or log out and log in again.');
+
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to clear shared records. Please check the connection and try again.');
+    console.error(error);
+  }
+}
+
+async function refreshThisDeviceFromCloud(){
+  try{
+    sessionStorage.removeItem('fth_active_page');
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    await loadFromApi();
+
+    alert('This device has been refreshed from the shared workstation records.');
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to refresh this device. Please check the connection and try again.');
+    console.error(error);
+  }
+}
 
       data._cloudId = row.id || data._cloudId || data.id;
       data._cloudType = type;
@@ -278,6 +344,10 @@ async function startApp(){
   }
   try{queueSync()}catch(error){}
 }
+  setInterval(async function(){
+  await loadFromApi();
+  renderCurrentPage();
+}, 15000);
 function logout(){
   sessionStorage.removeItem('fth_login');
   location.reload();
