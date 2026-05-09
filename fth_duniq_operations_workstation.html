@@ -126,14 +126,62 @@ function locationFields(prefix=''){return '<div><label>State</label><select name
 function initLocationSelects(scope=document){scope.querySelectorAll('.loc-state').forEach(state=>{const box=state.closest('.grid,.grid3,.grid4,form');const lga=box?box.querySelector('.loc-lga'):null;if(!lga)return;function fill(){const list=lgaMap[state.value]||['Select LGA / Area manually','Other'];const old=lga.value;lga.innerHTML='<option value="">Select LGA / Area</option>'+list.map(x=>'<option>'+x+'</option>').join('');lga.value=old}state.onchange=fill;if(!lga.innerHTML)fill()})}
 function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistics Window</label><select name="deliveryWindow"><option>To Be Confirmed</option><option>Within 2 hours after payment confirmation</option><option>Within 4 hours after payment confirmation</option><option>Same day, subject to weather/loading queue/truck availability</option><option>Next day delivery</option><option>Scheduled delivery window agreed with client</option></select></div>'}
 let syncTimer=null;
-function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
+
+function queueSync(){
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(syncAllToApi,600);
+}
+
+async function loadFromApi(){
+  try{
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache: 'no-store' });
+
+    if(!res.ok){
+      return;
+    }
+
+    const payload = await res.json();
+    const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    const fresh = blank();
+
+    arr.forEach(row => {
+      let data = row.data || row.record || row;
+
+      try{
+        if(row.data_json){
+          data = JSON.parse(row.data_json);
+        }
+      }catch(e){}
+
+      const type = row.type || data._cloudType || data.type;
+
+      if(!type || !TYPE_COLLECTION[type]){
+        return;
+      }
+
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+  }catch(e){
+    console.warn('Unable to load shared records:', e);
+  }
+}
+
 async function clearOperationalData(){
   if(currentRole !== 'director'){
     return alert('Only Director can clear workstation data.');
   }
 
   const confirmText = prompt(
-    'This will clear all shared workstation records and reset local workstation cache. Type CLEAR to continue.'
+    'This will clear operational records but keep officer access tokens. Type CLEAR to continue.'
   );
 
   if(confirmText !== 'CLEAR'){
@@ -141,8 +189,14 @@ async function clearOperationalData(){
     return;
   }
 
+  let savedBefore = {};
   try{
-    // Delete records from the shared database
+    savedBefore = JSON.parse(localStorage.getItem(KEY) || '{}');
+  }catch(e){
+    savedBefore = {};
+  }
+
+  try{
     for(let round = 0; round < 3; round++){
       const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache: 'no-store' });
       const payload = await res.json();
@@ -153,6 +207,24 @@ async function clearOperationalData(){
       }
 
       for(const record of records){
+        let recordType = record.type || '';
+
+        try{
+          if(!recordType && record.data_json){
+            const parsed = JSON.parse(record.data_json);
+            recordType = parsed._cloudType || parsed.type || '';
+          }
+        }catch(e){}
+
+        if(!recordType && record.data){
+          recordType = record.data._cloudType || record.data.type || '';
+        }
+
+        // Keep officer login/access records
+        if(recordType === 'officer'){
+          continue;
+        }
+
         if(record.id !== undefined && record.id !== null){
           await fetch(API_RECORDS + '/' + encodeURIComponent(record.id), {
             method: 'DELETE'
@@ -161,40 +233,15 @@ async function clearOperationalData(){
       }
     }
 
-    // Clear current device cache
     db = blank();
 
-    Object.keys(localStorage).forEach(function(k){
-      const key = k.toLowerCase();
-      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
-        localStorage.removeItem(k);
-      }
-    });
+    if(savedBefore.officers && Array.isArray(savedBefore.officers)){
+      db.officers = savedBefore.officers;
+    }
 
     localStorage.setItem(KEY, JSON.stringify(db));
 
-    alert('Workstation records have been cleared. Other officers must refresh, log out, and log in again.');
-
-    showPage('dashboard');
-
-  }catch(error){
-    alert('Unable to clear shared records. Please check the connection and try again.');
-    console.error(error);
-  }
-}
-    // Clear current device cache
-    db = blank();
-
-    Object.keys(localStorage).forEach(function(k){
-      const key = k.toLowerCase();
-      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
-        localStorage.removeItem(k);
-      }
-    });
-
-    localStorage.setItem(KEY, JSON.stringify(db));
-
-    alert('Workstation records have been cleared. Other officers must refresh, log out, and log in again.');
+    alert('Operational records have been cleared. Officer access tokens were kept. Other officers should refresh, log out, and log in again.');
 
     showPage('dashboard');
 
