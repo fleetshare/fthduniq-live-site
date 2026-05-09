@@ -312,10 +312,8 @@ async function startApp(){
 
   renderNav();
 
-  // Open the workstation first so login does not hang
   showPage('dashboard');
 
-  // Then load shared records quietly in the background
   try{
     await loadFromApi();
     showPage('dashboard');
@@ -327,9 +325,13 @@ async function startApp(){
     queueSync();
   }catch(error){}
 }
-function logout(){sessionStorage.removeItem('fth_login');location.reload()}
-  
-  async function refreshThisDeviceFromCloud(){
+
+function logout(){
+  sessionStorage.removeItem('fth_login');
+  location.reload();
+}
+
+async function refreshThisDeviceFromCloud(){
   if(!confirm('This will clear only this device cache and reload the latest shared workstation records. Continue?')){
     return;
   }
@@ -357,6 +359,7 @@ function logout(){sessionStorage.removeItem('fth_login');location.reload()}
     console.error(error);
   }
 }
+
 document.getElementById('loginForm').onsubmit = async function(e){
   e.preventDefault();
 
@@ -367,7 +370,6 @@ document.getElementById('loginForm').onsubmit = async function(e){
 
   msg.textContent = 'Checking access...';
 
-  // Try to load officer tokens first, but do not allow it to freeze login
   try{
     await Promise.race([
       loadFromApi(),
