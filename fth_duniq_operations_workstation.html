@@ -127,7 +127,48 @@ function initLocationSelects(scope=document){scope.querySelectorAll('.loc-state'
 function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistics Window</label><select name="deliveryWindow"><option>To Be Confirmed</option><option>Within 2 hours after payment confirmation</option><option>Within 4 hours after payment confirmation</option><option>Same day, subject to weather/loading queue/truck availability</option><option>Next day delivery</option><option>Scheduled delivery window agreed with client</option></select></div>'}
 let syncTimer=null;
 function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
-async function loadFromApi(){try{const res=await fetch(API_RECORDS,{cache:'no-store'});if(!res.ok)return;const payload=await res.json();const arr=Array.isArray(payload)?payload:(payload.records||payload.data||[]);if(!arr.length)return;const fresh=blank();fresh.counts=db.counts||fresh.counts;arr.forEach(row=>{let data=row.data||row.record||row;try{if(row.data_json)data=JSON.parse(row.data_json)}catch(e){}const type=row.type||data._cloudType||data.type;if(!type||!TYPE_COLLECTION[type])return;data._cloudId=row.id||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;fresh[TYPE_COLLECTION[type]].push(data)});db=fresh;localSave()}catch(e){}}
+async function loadFromApi(){
+  try{
+    const res = await fetch(API_RECORDS, { cache: 'no-store' });
+
+    if(!res.ok){
+      return;
+    }
+
+    const payload = await res.json();
+    const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    const fresh = blank();
+
+    arr.forEach(row => {
+      let data = row.data || row.record || row;
+
+      try{
+        if(row.data_json){
+          data = JSON.parse(row.data_json);
+        }
+      }catch(e){}
+
+      const type = row.type || data._cloudType || data.type;
+
+      if(!type || !TYPE_COLLECTION[type]){
+        return;
+      }
+
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+  }catch(e){
+    console.warn('Unable to load shared records:', e);
+  }
+}
 async function apiSave(type,data){try{const payload={type:type,status:data.status||data.directorApprovalStatus||'Saved',customer_name:data.customer||data.name||'',customer_phone:data.phone||'',created_by_role:data.createdByRole||currentRole,created_by_name:data.createdByName||currentOfficerName,data:data};const isUpdate=!!data._cloudId;const res=await fetch(isUpdate?API_RECORDS+'/'+encodeURIComponent(data._cloudId):API_RECORDS,{method:isUpdate?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const out=await res.json().catch(()=>({}));if(res.ok){data._cloudId=out.id||out.business_ref||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;localSave()}}catch(e){}}
 async function syncAllToApi(){for(const [collection,type] of Object.entries(COLLECTION_TYPE)){for(const item of db[collection]||[]){await apiSave(type,item)}}}
 function installPage(html,after){
@@ -278,7 +319,7 @@ async function clearOperationalData(){
   }
 
   const confirmText = prompt(
-    'This will clear all shared workstation records from the central database and this browser. Type CLEAR to continue.'
+    'This will clear all shared workstation records for all officers. Type CLEAR to continue.'
   );
 
   if(confirmText !== 'CLEAR'){
@@ -302,11 +343,11 @@ async function clearOperationalData(){
     db = blank();
     localStorage.setItem(KEY, JSON.stringify(db));
 
-    alert('Workstation records have been cleared.');
+    alert('Workstation records have been cleared. Other officers should refresh or log out and log in again.');
     showPage('dashboard');
 
   }catch(error){
-    alert('Unable to clear shared database records. Please check the API connection and try again.');
+    alert('Unable to clear shared records. Please check the connection and try again.');
     console.error(error);
   }
 }
