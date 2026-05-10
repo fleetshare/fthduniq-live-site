@@ -221,11 +221,39 @@ function startApp(){
 
   renderNav();
   showPage('dashboard');
-  startAutoPull();
 }
 function startAutoPull(){clearInterval(pullTimer);pullTimer=setInterval(async()=>{const active=document.activeElement;if(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName))return;const before=JSON.stringify(db);const ok=await loadFromApi();if(ok&&JSON.stringify(db)!==before)renderCurrentPage()},15000)}
 function logout(){sessionStorage.removeItem('fth_login');clearInterval(pullTimer);location.reload()}
-document.getElementById('loginForm').onsubmit = async function(e){
+document.getElementById('loginForm').onsubmit = function(e){
+  e.preventDefault();
+
+  const role = document.getElementById('role').value;
+  const token = document.getElementById('pin').value.trim();
+  const duty = document.getElementById('officerDutyName').value.trim();
+  const msg = document.getElementById('loginMsg');
+
+  const officer = verifyLogin(role, token);
+
+  if(!officer){
+    msg.textContent = 'Invalid role or access token.';
+    return;
+  }
+
+  currentRole = role;
+  currentOfficerName = duty || officer.name || roleNames[role];
+  currentOfficerId = officer.id || '';
+  currentLoginTime = new Date().toLocaleString('en-NG');
+
+  sessionStorage.setItem('fth_login', JSON.stringify({
+    role: currentRole,
+    officerName: currentOfficerName,
+    officerId: currentOfficerId,
+    loginTime: currentLoginTime
+  }));
+
+  msg.textContent = 'Opening workstation...';
+  startApp();
+};
   e.preventDefault();
   const role = document.getElementById('role').value;
   const token = document.getElementById('pin').value.trim();
