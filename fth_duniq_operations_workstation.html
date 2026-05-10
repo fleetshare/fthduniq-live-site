@@ -57,7 +57,7 @@ const COMPANY_ALT_BANK_NAME='Pocket App';
 const COMPANY_ALT_ACCOUNT_NAME='Faith Onyenwenu';
 const COMPANY_ALT_ACCOUNT_NUMBER='7281939142';
 const REFUND_NOTICE='Goods supplied and received in good condition are not refundable. Refund or cancellation requests, where applicable, must be reported to FTH D-UNIQ within 24 hours of payment or delivery and will be reviewed subject to company terms, product condition, supplier/logistics status and management approval.';
-const defaultPins={director:'0000',support:'1111',procurement:'2222',logistics:'3333',social:'4444'};
+const defaultPins = {};
 const roleNames={director:'Director',support:'Business Support Officer',procurement:'Procurement Officer',logistics:'Logistics / Inspection Officer',social:'Client Follow-Up Officer'};
 const allTabs=[['dashboard','Dashboard'],['quotes','Quotes / Requests'],['invoices','Invoices / Sales'],['payments','Payments / Receipts'],['procurementRequests','Procurement Requests'],['waybills','Waybills'],['inventory','Inventory'],['procurement','Procurement Desk'],['logistics','Logistics / Inspection'],['followup','Client Follow-Up'],['customers','Customer Profiles'],['staffAccess','Officer Access Control'],['reports','Reports'],['archive','Archive']];
 const roleTabs={director:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','procurement','logistics','followup','customers','staffAccess','reports','archive'],support:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','customers','reports'],procurement:['dashboard','procurementRequests','procurement','inventory','customers','reports'],logistics:['dashboard','logistics','waybills','customers','reports'],social:['dashboard','followup','customers','reports']};
@@ -120,7 +120,19 @@ function productSelectOptions(selected=''){return '<option value="">Code</option
 function getProduct(code){return productOptions.find(p=>p.code===code)||{code:'',item:'',unit:'',tonnage:'Not Applicable'}}
 function fileRead(file){return new Promise(resolve=>{if(!file)return resolve({name:'',data:''});const r=new FileReader();r.onload=()=>resolve({name:file.name,data:r.result});r.readAsDataURL(file)})}
 function wnum(p){let d=digits(p);return d.startsWith('0')?'234'+d.slice(1):d}
-function verifyLogin(role,token){const exact=db.officers.find(o=>o.role===role&&o.token===token&&o.status==='Active');if(exact)return exact;if(defaultPins[role]===token)return{id:'default-'+role,role:role,name:roleNames[role],token:token,status:'Active'};return null}
+function verifyLogin(role, token){
+  const t = String(token || '').trim();
+
+  const exact = db.officers.find(o =>
+    o.role === role &&
+    String(o.token || '').trim() === t &&
+    o.status === 'Active'
+  );
+
+  if(exact) return exact;
+
+  return null;
+}
 function locString(o,p=''){return [o[p+'locationAddress'],o[p+'locationArea'],o[p+'locationLGA'],o[p+'locationState']].filter(Boolean).join(', ')}
 function locationFields(prefix=''){return '<div><label>State</label><select name="'+prefix+'locationState" class="loc-state"><option value="">Select State</option>'+nigeriaStates.map(s=>'<option'+(s==='Lagos'?' selected':'')+'>'+s+'</option>').join('')+'</select></div><div><label>LGA / Area</label><select name="'+prefix+'locationLGA" class="loc-lga"></select></div><div><label>Area / Town / Estate</label><input name="'+prefix+'locationArea" placeholder="e.g. Festac 1st Avenue"></div><div class="full"><label>House Number / Street / Close / Landmark</label><input name="'+prefix+'locationAddress" placeholder="Type exact address, close, house number, site direction"></div>'}
 function initLocationSelects(scope=document){scope.querySelectorAll('.loc-state').forEach(state=>{const box=state.closest('.grid,.grid3,.grid4,form');const lga=box?box.querySelector('.loc-lga'):null;if(!lga)return;function fill(){const list=lgaMap[state.value]||['Select LGA / Area manually','Other'];const old=lga.value;lga.innerHTML='<option value="">Select LGA / Area</option>'+list.map(x=>'<option>'+x+'</option>').join('');lga.value=old}state.onchange=fill;if(!lga.innerHTML)fill()})}
