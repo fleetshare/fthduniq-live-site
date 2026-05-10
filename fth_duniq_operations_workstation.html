@@ -17,6 +17,7 @@
 <script>
 const KEY='fth_duniq_workstation_safe_v1';
 const API_RECORDS='/api/workstation/records';
+const API_CLEAR_ENDPOINTS=['/api/workstation/records/clear','/api/workstation/clear-operational-records'];
 const LOGO_PATH='assets/fth-duniq-logo.PNG';
 const COMPANY_WHATSAPP='08061396612';
 const COMPANY_EMAIL='info@fthduniq.com';
@@ -71,33 +72,104 @@ function inferRowType(row,data){return row.type||(data&&(data._cloudType||data.t
 async function apiSave(type,data){try{const payload={type,status:data.status||data.directorApprovalStatus||'Saved',customer_name:data.customer||data.name||'',customer_phone:data.phone||'',created_by_role:data.createdByRole||currentRole,created_by_name:data.createdByName||currentOfficerName,data};const isUpdate=!!data._cloudId;const res=await fetch(isUpdate?API_RECORDS+'/'+encodeURIComponent(data._cloudId):API_RECORDS,{method:isUpdate?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const out=await res.json().catch(()=>({}));if(res.ok){data._cloudId=out.id||out.business_ref||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;localSave()}}catch(e){}}
 async function syncAllToApi(){for(const [collection,type] of Object.entries(COLLECTION_TYPE)){for(const item of db[collection]||[]){await apiSave(type,item)}}}
 async function deleteAllCloudOperationalRecords(){
-  try{
-    const clearRes = await fetch('/api/workstation/records/clear', { method:'DELETE' });
-    if(clearRes.ok) return true;
-  }catch(e){
-    console.warn('Bulk cloud clear endpoint not available, using fallback delete:', e);
-  }
+  let clearedByEndpoint = false;
 
-  for(let round=0;round<3;round++){
-    const res=await fetch(API_RECORDS+'?t='+Date.now(),{cache:'no-store'});
-    if(!res.ok)break;
-    const payload=await res.json();
-    const records=Array.isArray(payload)?payload:(payload.records||payload.data||[]);
-    if(!records.length)break;
-    for(const record of records){
-      let data=record.data||record.record||record;
-      try{if(typeof data==='string')data=JSON.parse(data)}catch(e){}
-      try{if(record.data_json)data=JSON.parse(record.data_json)}catch(e){}
-      const type=inferRowType(record,data);
-      if(type==='officer')continue;
-      if(record.id!==undefined&&record.id!==null){
-        await fetch(API_RECORDS+'/'+encodeURIComponent(record.id),{method:'DELETE'});
+  // First, use the proper backend clear endpoint. This is the permanent shared clear.
+  for(const endpoint of API_CLEAR_ENDPOINTS){
+    try{
+      const res = await fetch(endpoint, {
+        method:'DELETE',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ passcode: defaultPins.director })
+      });
+      if(res.ok){
+        clearedByEndpoint = true;
       }
+    }catch(e){
+      console.warn('Clear endpoint failed:', endpoint, e);
     }
   }
-  return true;
+
+  // Fallback: delete records one by one if the Worker has individual DELETE support.
+  try{
+    for(let round=0; round<3; round++){
+      const res = await fetch(API_RECORDS+'?t='+Date.now(), {cache:'no-store'});
+      if(!res.ok) break;
+      const payload = await res.json();
+      const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+      if(!records.length) break;
+      for(const record of records){
+        let data = record.data || record.record || record;
+        try{ if(typeof data==='string') data=JSON.parse(data); }catch(e){}
+        try{ if(record.data_json) data=JSON.parse(record.data_json); }catch(e){}
+        const type = inferRowType(record,data);
+        if(type==='officer') continue;
+        if(record.id!==undefined && record.id!==null){
+          await fetch(API_RECORDS+'/'+encodeURIComponent(record.id), {method:'DELETE'});
+        }
+      }
+    }
+  }catch(e){
+    console.warn('Individual cloud delete fallback failed:', e);
+  }
+
+  // Confirm cloud is now empty of operational records.
+  try{
+    const check = await fetch(API_RECORDS+'?t='+Date.now(), {cache:'no-store'});
+    if(check.ok){
+      const payload = await check.json();
+      const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+      const operationalRecords = records.filter(record=>{
+        let data = record.data || record.record || record;
+        try{ if(typeof data==='string') data=JSON.parse(data); }catch(e){}
+        try{ if(record.data_json) data=JSON.parse(record.data_json); }catch(e){}
+        const type = inferRowType(record,data);
+        return type && type !== 'officer';
+      });
+      return operationalRecords.length === 0;
+    }
+  }catch(e){
+    console.warn('Cloud clear verification failed:', e);
+  }
+
+  return clearedByEndpoint;
 }
-async function authorizedClearWorkstationData(){const pass=prompt('Enter Director clear passcode to clear this workstation data.');if(!directorPassIsValid(pass)){alert('Wrong Director clear passcode. Data was not cleared.');return}const confirmText=prompt('Type CLEAR to confirm. This clears this portal/device and shared records if your API is connected.');if(confirmText!=='CLEAR'){alert('Clear action cancelled.');return}let savedOfficers=db.officers||[];try{const before=JSON.parse(localStorage.getItem(KEY)||'{}');if(before.officers&&Array.isArray(before.officers))savedOfficers=before.officers}catch(e){}try{await deleteAllCloudOperationalRecords()}catch(e){console.warn('Shared delete not available:',e)}db=blank();db.officers=savedOfficers;localStorage.setItem(KEY,JSON.stringify(db));alert('Workstation data has been cleared on this portal. If shared API is connected, other logged-in pages will clear after reload/auto-sync.');showPage('dashboard')}
+
+async function authorizedClearWorkstationData(){
+  const pass = prompt('Enter Director clear passcode to clear this workstation data.');
+  if(!directorPassIsValid(pass)){
+    alert('Wrong Director clear passcode. Data was not cleared.');
+    return;
+  }
+
+  const confirmText = prompt('Type CLEAR to confirm. This clears shared cloud records and this device.');
+  if(confirmText !== 'CLEAR'){
+    alert('Clear action cancelled.');
+    return;
+  }
+
+  clearInterval(pullTimer);
+
+  let savedOfficers = db.officers || [];
+  try{
+    const before = JSON.parse(localStorage.getItem(KEY)||'{}');
+    if(before.officers && Array.isArray(before.officers)) savedOfficers = before.officers;
+  }catch(e){}
+
+  const cloudCleared = await deleteAllCloudOperationalRecords();
+
+  db = blank();
+  db.officers = savedOfficers;
+  localStorage.setItem(KEY, JSON.stringify(db));
+  renderCurrentPage();
+
+  if(cloudCleared){
+    alert('Shared workstation records have been cleared successfully. Other officers will see empty records after refresh or auto-sync.');
+    startAutoPull();
+  }else{
+    alert('This device has been cleared, but the cloud database may still contain old records. Please update the Cloudflare Worker clear route before turning auto-sync back on.');
+  }
+}
 function installPage(html,after){document.getElementById('main').innerHTML=html;initLocationSelects(document.getElementById('main'));setDefaultDates();if(after)after();applyRoleVisibility()}
 function renderNav(){const tabs=allTabs.filter(t=>(roleTabs[currentRole]||[]).includes(t[0]));document.getElementById('side').innerHTML=tabs.map((t,i)=>'<button class="nav '+(i===0?'active':'')+'" onclick="showPage(\''+t[0]+'\')">'+t[1]+'</button>').join('');document.getElementById('mobileNav').innerHTML=tabs.map(t=>'<option value="'+t[0]+'">'+t[1]+'</option>').join('')}
 function markNav(page){document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));const t=allTabs.find(x=>x[0]===page);if(t){[...document.querySelectorAll('.nav')].find(n=>n.textContent===t[1])?.classList.add('active')}const m=document.getElementById('mobileNav');if(m)m.value=page;sessionStorage.setItem('fth_active_page',page)}
@@ -107,45 +179,33 @@ function applyRoleVisibility(){document.querySelectorAll('.director-only').forEa
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
 async function loadFromApi(){
   try{
-    const res = await fetch(API_RECORDS + '?t=' + Date.now(), {
-      cache: 'no-store'
-    });
-
+    const savedBefore = (()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}})();
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache:'no-store' });
     if(!res.ok){
       console.warn('Cloud records not available');
       return false;
     }
-
     const payload = await res.json();
     const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
-
     const fresh = blank();
-
     records.forEach(row=>{
       let data = row.data || row.record || row;
-
-      try{
-        if(typeof data === 'string') data = JSON.parse(data);
-      }catch(e){}
-
-      try{
-        if(row.data_json) data = JSON.parse(row.data_json);
-      }catch(e){}
-
+      try{ if(typeof data === 'string') data = JSON.parse(data); }catch(e){}
+      try{ if(row.data_json) data = JSON.parse(row.data_json); }catch(e){}
       const type = row.type || data._cloudType || data.type;
       if(!type || !TYPE_COLLECTION[type]) return;
-
       data._cloudId = row.id || data._cloudId || data.id;
       data._cloudType = type;
       data._cloudSynced = true;
-
       fresh[TYPE_COLLECTION[type]].push(data);
     });
-
+    // Keep local officer tokens if the cloud returns no officer records.
+    if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
+      fresh.officers = savedBefore.officers;
+    }
     db = fresh;
     localStorage.setItem(KEY, JSON.stringify(db));
     return true;
-
   }catch(error){
     console.warn('Unable to load cloud records:', error);
     return false;
@@ -161,79 +221,53 @@ function startApp(){
 
   renderNav();
   showPage('dashboard');
-
-  if(typeof loadFromApi==='function'){
-    loadFromApi().then(function(ok){
-      if(ok) renderCurrentPage();
-    }).catch(function(error){
-      console.warn('Cloud records could not load after login:', error);
-    });
-  }
-  if(typeof startAutoPull==='function') startAutoPull();
+  startAutoPull();
 }
 function startAutoPull(){clearInterval(pullTimer);pullTimer=setInterval(async()=>{const active=document.activeElement;if(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName))return;const before=JSON.stringify(db);const ok=await loadFromApi();if(ok&&JSON.stringify(db)!==before)renderCurrentPage()},15000)}
 function logout(){sessionStorage.removeItem('fth_login');clearInterval(pullTimer);location.reload()}
-document.getElementById('loginForm').onsubmit=async function(e){
+document.getElementById('loginForm').onsubmit = async function(e){
   e.preventDefault();
-  const role=document.getElementById('role').value;
-  const token=document.getElementById('pin').value.trim();
-  const duty=document.getElementById('officerDutyName').value.trim();
-  const msg=document.getElementById('loginMsg');
+  const role = document.getElementById('role').value;
+  const token = document.getElementById('pin').value.trim();
+  const duty = document.getElementById('officerDutyName').value.trim();
+  const msg = document.getElementById('loginMsg');
 
-  msg.textContent='Checking access...';
+  msg.textContent = 'Checking access...';
 
+  // Cloud loading must never block login. It only helps fetch custom officer tokens.
   try{
-    if(typeof loadFromApi==='function'){
-      await Promise.race([
-        loadFromApi(),
-        new Promise(resolve=>setTimeout(resolve,1200))
-      ]);
-    }
-  }catch(error){
-    console.warn('Cloud login check skipped:', error);
+    await Promise.race([
+      loadFromApi(),
+      new Promise(resolve=>setTimeout(resolve,1200))
+    ]);
+  }catch(e){
+    console.warn('Login cloud check skipped:', e);
   }
 
-  const officer=verifyLogin(role,token);
+  const officer = verifyLogin(role, token);
   if(!officer){
-    msg.textContent='Invalid role or access token. Please confirm the role and token assigned to this officer.';
+    msg.textContent = 'Invalid role or access token. Please confirm the role and token assigned to this officer.';
     return;
   }
 
-  currentRole=role;
-  currentOfficerName=duty||officer.name||roleNames[role];
-  currentOfficerId=officer.id||'';
-  currentLoginTime=new Date().toLocaleString('en-NG');
+  currentRole = role;
+  currentOfficerName = duty || officer.name || roleNames[role];
+  currentOfficerId = officer.id || '';
+  currentLoginTime = new Date().toLocaleString('en-NG');
 
-  sessionStorage.setItem('fth_login',JSON.stringify({
-    role:currentRole,
-    officerName:currentOfficerName,
-    officerId:currentOfficerId,
-    loginTime:currentLoginTime
+  sessionStorage.setItem('fth_login', JSON.stringify({
+    role: currentRole,
+    officerName: currentOfficerName,
+    officerId: currentOfficerId,
+    loginTime: currentLoginTime
   }));
 
-  msg.textContent='Opening workstation...';
+  msg.textContent = 'Opening workstation...';
   startApp();
 };
-function dutyPanels(){
-  const d={
-    director:'<b>Director:</b> Review company activity, approve invoices, payments, waybills, procurement requests, reports, and sensitive operational decisions before execution.',
-    support:'<b>Business Support Officer:</b> Receive customer requests, create quotes, prepare invoices, enter payment information, prepare delivery handover/waybill drafts, update customer records, and submit daily reports to the Director.',
-    procurement:'<b>Procurement Officer:</b> Source products not available in company stock, record supplier/vendor details, confirm price and availability, update procurement feedback, and await Director approval before proceeding with sensitive procurement actions.',
-    logistics:'<b>Logistics / Inspection Officer:</b> Handle dispatch updates, truck/driver details, delivery proof, signed waybill uploads, inspection records, and delivery confirmation after the required approval has been granted.',
-    social:'<b>Client Follow-Up Officer:</b> Follow up with customers after quote, payment, delivery, or complaint resolution; record satisfaction checks, testimonials, complaints, and next actions inside the workstation.'
-  };
-  return '<div class="panel"><div class="eyebrow">Duty Reminder</div><h2>Officer Duties & Work Responsibility</h2><p>'+
-    (d[currentRole]||'Authorized officer: Please carry out your assigned role and record all official work inside the workstation.')+
-    '</p><p>Where staffing is limited, an officer may support an additional approved duty area. All actions must still be recorded under the correct workstation section and must follow the required approval process.</p></div>'+ 
-    '<div class="panel"><div class="eyebrow">Company Rules</div><h2>Company Rules, Data Protection & Confidentiality Reminder</h2>'+ 
-    '<div class="notice"><b>Resumption:</b> Official resumption time is 8:00am. Late resumption without prior approval or acceptable emergency reason may attract a formal query.</div>'+ 
-    '<p>All customer, supplier, vendor, procurement, payment, inventory, logistics, and company records must be entered and maintained inside the FTH D-UNIQ Operations Workstation.</p>'+ 
-    '<p>Officers are not permitted to save customer contacts, supplier contacts, vendor contacts, delivery details, payment information, inventory records, or company transaction details on personal phones, personal notebooks, private WhatsApp chats, or any personal storage space.</p>'+ 
-    '<p><b>Customer Communication Rule:</b> Officers must not give out or share their personal phone numbers with customers for official FTH D-UNIQ business. All customer calls, WhatsApp messages, complaints, follow-ups, delivery updates, payment confirmations, and business enquiries must go through the official FTH D-UNIQ company number: <b>08061396612</b>.</p>'+ 
-    '<p>If an officer has previously communicated with a customer through a personal line, the officer must politely redirect the customer to the official company number and encourage the customer to continue all future communication through the approved FTH D-UNIQ contact channel. Personal lines must not be used as the company’s official customer service or business communication channel.</p>'+ 
-    '<p>Company information, customer information, supplier information, vendor details, pricing, logistics arrangements, payment records, stock records, and internal business processes are confidential and must only be used for official FTH D-UNIQ business.</p>'+ 
-    '<div class="notice"><b>Permission / Absence:</b> Approved absence or permission is limited to once per month, except in serious illness, medical emergency, family emergency, or unavoidable circumstances supported with proper evidence and approved by the Director.</div></div>';
-}
+function dutyPanels(){const d={director:'<b>Director:</b> Review company activity, approve invoices, payments, waybills, procurement requests, reports, and sensitive operational decisions before execution.',support:'<b>Business Support Officer:</b> Receive customer requests, create quotes, prepare invoices, enter payment information, prepare delivery handover/waybill drafts, update customer records, and submit daily reports to the Director.',procurement:'<b>Procurement Officer:</b> Source products not available in company stock, record supplier/vendor details, confirm price and availability, update procurement feedback, and await Director approval before proceeding with sensitive procurement actions.',logistics:'<b>Logistics / Inspection Officer:</b> Handle dispatch updates, truck/driver details, delivery proof, signed waybill uploads, inspection records, and delivery confirmation after the required approval has been granted.',social:'<b>Client Follow-Up Officer:</b> Follow up with customers after quote, payment, delivery, or complaint resolution; record satisfaction checks, testimonials, complaints, and next actions inside the workstation.'};return '<div class="panel"><div class="eyebrow">Duty Reminder</div><h2>Officer Duties & Work Responsibility</h2><p>'+(d[currentRole]||'Authorized officer: Please carry out your assigned role and record all official work inside the workstation.')+'</p><p>Where staffing is limited, an officer may support an additional approved duty area. All actions must still be recorded under the correct workstation section and must follow the required approval process.</p></div><div class="panel"><div class="eyebrow">Company Rules</div><h2>Company Rules, Data Protection & Confidentiality Reminder</h2><div class="notice"><b>Resumption:</b> Official resumption time is 8:00am. Late resumption without prior approval or acceptable emergency reason may attract a formal query.</div><p>All customer, supplier, vendor, procurement, payment, inventory, logistics, and company records must be entered and maintained inside the FTH D-UNIQ Operations Workstation.</p><p>Officers are not permitted to save customer contacts, supplier contacts, vendor contacts, delivery details, payment information, inventory records, or company transaction details on personal phones, personal notebooks, private WhatsApp chats, or any personal storage space.<p><b>Customer Communication Rule:</b> Officers must not give out or share their personal phone numbers with customers for official FTH D-UNIQ business. All customer calls, WhatsApp messages, complaints, follow-ups, delivery updates, payment confirmations, and business enquiries must go through the official FTH D-UNIQ company number: <b>08061396612</b>.</p>
+
+<p>If an officer has previously communicated with a customer through a personal line, the officer must politely redirect the customer to the official company number and encourage the customer to continue all future communication through the approved FTH D-UNIQ contact channel. Personal lines must not be used as the company’s official customer service or business communication channel.</p></p><p>Company information, customer information, supplier information, vendor details, pricing, logistics arrangements, payment records, stock records, and internal business processes are confidential and must only be used for official FTH D-UNIQ business.</p><div class="notice"><b>Permission / Absence:</b> Approved absence or permission is limited to once per month, except in serious illness, medical emergency, family emergency, or unavoidable circumstances supported with proper evidence and approved by the Director.</div></div>'}
 function renderDashboardPage(){const activeInv=db.invoices.filter(i=>i.status!=='Awaiting Director Approval'&&i.status!=='Rejected');const sales=activeInv.reduce((a,b)=>a+Number(b.total||0),0),paid=db.payments.filter(p=>p.status==='Approved').reduce((a,b)=>a+Number(b.totalPaid||0),0),out=activeInv.reduce((a,b)=>a+Number(b.balance||0),0);const pi=db.invoices.filter(i=>i.status==='Awaiting Director Approval'),pp=db.payments.filter(p=>p.status==='Awaiting Director Approval'),pw=db.waybills.filter(w=>w.status==='Awaiting Director Approval'),pr=db.procurementRequests.filter(r=>r.directorApprovalStatus==='Pending Director Approval'),pc=db.procurement.filter(p=>p.directorApprovalStatus==='Pending Director Approval');const metrics=[['Quotes',db.quotes.length],['Approved Sales',money(sales)],['Approved Paid',money(paid)],['Outstanding',money(out)],['Pending Invoices',pi.length],['Pending Payments',pp.length],['Pending Procurement',pr.length+pc.length],['Customers',db.customers.length]].map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+'</strong></div>').join('');installPage('<section>'+dutyPanels()+'<div class="panel"><div class="eyebrow">Dashboard</div><h2>Business Position</h2><div class="metrics">'+metrics+'</div></div><div class="panel director-only"><h2>Director Approval Center</h2>'+approvalList(pi,pp,pw,pr,pc)+'</div><div class="panel"><h2>Recent Workflow Movement</h2>'+workflowTable()+'</div></section>')}
 function approvalList(pi,pp,pw,pr,pc){return '<h3>Invoices Awaiting Approval</h3>'+table(pi,['Date','Invoice','Customer','Total','Action'],i=>[niceDate(i.date),i.id,esc(i.customer),money(i.total),'<button class="small secondary" onclick="viewApproval(\'invoice\',\''+i.id+'\')">Open / View</button>'],'No pending invoices.')+'<h3>Payments Awaiting Approval</h3>'+table(pp,['Date','Payment','Invoice','Customer','Amount','Action'],p=>[niceDate(p.date),p.id,p.invoiceId,esc(p.customer),money(p.totalPaid),'<button class="small secondary" onclick="viewApproval(\'payment\',\''+p.id+'\')">Open / View</button>'],'No pending payments.')+'<h3>Procurement Requests Awaiting Approval</h3>'+table(pr,['Date','Request','Customer','Item','Action'],r=>[niceDate(r.date),r.id,esc(r.customer),esc(r.itemName),'<button class="small secondary" onclick="viewApproval(\'procRequest\',\''+r.id+'\')">Open / View</button>'],'No pending procurement requests.')+'<h3>Procurement Feedback Awaiting Review</h3>'+table(pc,['Date','Record','Vendor','Item','Price','Action'],p=>[niceDate(p.date),p.id,esc(p.vendor),esc(p.itemName||p.item),money(p.sellingPrice||0),'<button class="small secondary" onclick="viewApproval(\'procurement\',\''+p.id+'\')">Open / View</button>'],'No pending procurement feedback.')+'<h3>Waybills Awaiting Approval</h3>'+table(pw,['Date','Waybill','Customer','Status','Action'],w=>[niceDate(w.date),w.id,esc(w.customer),statusTag(w.status),'<button class="small secondary" onclick="viewApproval(\'waybill\',\''+w.id+'\')">Open / View</button>'],'No pending waybills.')}
 function workflowTable(){const wf=[...db.quotes.map(x=>({date:x.date,ref:x.id,type:'Quote',customer:x.customer,status:x.status})),...db.invoices.map(x=>({date:x.date,ref:x.id,type:'Invoice',customer:x.customer,status:x.status})),...db.payments.map(x=>({date:x.date,ref:x.id,type:'Payment',customer:x.customer,status:x.status})),...db.procurementRequests.map(x=>({date:x.date,ref:x.id,type:'Procurement Request',customer:x.customer,status:x.directorApprovalStatus})),...db.waybills.map(x=>({date:x.date,ref:x.id,type:'Waybill',customer:x.customer,status:x.status}))].slice(0,30);return table(wf,['Date','Ref','Type','Customer','Status'],r=>[niceDate(r.date),r.ref,r.type,esc(r.customer),statusTag(r.status)],'No workflow movement yet.')}
