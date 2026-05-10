@@ -79,6 +79,52 @@ function renderCurrentPage(){showPage(sessionStorage.getItem('fth_active_page')|
 function showPage(page,mark=true){if(mark)markNav(page);if(page==='dashboard')renderDashboardPage();if(page==='quotes')renderQuotesPage();if(page==='invoices')renderInvoicesPage();if(page==='payments')renderPaymentsPage();if(page==='procurementRequests')renderProcurementRequestsPage();if(page==='waybills')renderWaybillsPage();if(page==='inventory')renderInventoryPage();if(page==='procurement')renderProcurementPage();if(page==='logistics')renderLogisticsPage();if(page==='followup')renderFollowupPage();if(page==='customers')renderCustomersPage();if(page==='staffAccess')renderStaffPage();if(page==='reports')renderReportsPage();if(page==='archive')renderArchivePage()}
 function applyRoleVisibility(){document.querySelectorAll('.director-only').forEach(el=>el.style.display=currentRole==='director'?'':'none');document.querySelectorAll('.director-only-inline').forEach(el=>el.style.display=currentRole==='director'?'inline-flex':'none');document.querySelectorAll('.support-only-inline').forEach(el=>el.style.display=currentRole==='support'?'inline-flex':'none')}
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
+async function loadFromApi(){
+  try{
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), {
+      cache: 'no-store'
+    });
+
+    if(!res.ok){
+      console.warn('Cloud records not available');
+      return false;
+    }
+
+    const payload = await res.json();
+    const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
+    const fresh = blank();
+
+    records.forEach(row=>{
+      let data = row.data || row.record || row;
+
+      try{
+        if(typeof data === 'string') data = JSON.parse(data);
+      }catch(e){}
+
+      try{
+        if(row.data_json) data = JSON.parse(row.data_json);
+      }catch(e){}
+
+      const type = row.type || data._cloudType || data.type;
+      if(!type || !TYPE_COLLECTION[type]) return;
+
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+    return true;
+
+  }catch(error){
+    console.warn('Unable to load cloud records:', error);
+    return false;
+  }
+}
 function startApp(){
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
