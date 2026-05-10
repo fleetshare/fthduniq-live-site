@@ -15,9 +15,13 @@
 </head>
 <body>
 <section id="login" class="login"><div class="card"><div class="document-logo-wrap"><img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo"></div><div class="eyebrow">Private Login</div><h2>FTH D-UNIQ Operations Workstation</h2><p>Authorized officers should log in with their assigned role, officer name, and access token.</p><form id="loginForm"><div class="grid"><div><label>Role</label><select id="role" required><option value="">Select role</option><option value="director">Director</option><option value="support">Business Support Officer</option><option value="procurement">Procurement Officer</option><option value="logistics">Logistics / Inspection Officer</option><option value="social">Client Follow-Up Officer</option></select></div><div><label>Officer Name on Duty</label><input id="officerDutyName" type="text" required placeholder="Enter officer name"></div><div><label>Access Token</label><input id="pin" type="password" required></div></div><div class="row"><button class="primary" type="submit">Enter Workstation</button></div><p id="loginMsg"></p></form></div></section>
-<div id="app" class="app wrap"><header class="top"><div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div><div class="row"><span class="chip" id="roleName"></span><span class="chip" id="officerChip"></span><span class="chip" id="dateNow"></span><button class="secondary" onclick="refreshThisDeviceFromCloud()">Refresh Records</button><button class="red" onclick="clearThisDeviceOnly()">Clear This Device</button><button class="dark" onclick="logout()">Logout</button></div></header><select id="mobileNav" class="mobile" onchange="showPage(this.value)"></select><div class="layout"><aside class="side" id="side"></aside><main id="main"></main></div></div>
+<div id="app" class="app wrap"><header class="top"><div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div><div class="row"><span class="chip" id="roleName"></span><span class="chip" id="officerChip"></span><span class="chip" id="dateNow"></span><button class="secondary" onclick="refreshThisDeviceFromCloud()">Refresh Records</button>
+<button class="red" onclick="directorResetThisDevice()">Director Device Reset</button>
+<button class="dark" onclick="logout()">Logout</button>
 <script>
 const KEY='fth_duniq_workstation_safe_v1';
+const DEVICE_RESET_LOCK='fth_duniq_device_reset_lock_v1';
+const DIRECTOR_RESET_CODE='0000';
 const API_RECORDS='/api/workstation/records';
 const LOGO_PATH='assets/fth-duniq-logo.PNG';
 const STAMP_PATH='assets/fth-duniq-stamp.PNG';
