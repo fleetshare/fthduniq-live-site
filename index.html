@@ -1,1167 +1,193 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>FTH D-UNIQ | Home</title>
-  <meta name="description" content="Building materials supply, procurement support, logistics coordination, and project support for busy, remote, and diaspora clients across Lagos and selected nearby locations.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="/styles.css?v=9">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FTH D-UNIQ | Operations Workstation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b1714;--muted:#71685d;--gold:#d4a62a;--gold2:#9b731a;--bg:#f6efe3;--line:rgba(155,115,26,.24);--shadow:0 18px 45px rgba(52,35,8,.08);--green:#166534;--red:#991b1b;--blue:#1e3a8a;--amber:#92400e}*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fbf7ef,var(--bg))}.wrap{max-width:1500px;margin:auto;padding:16px}.login{min-height:100vh;display:grid;place-items:center;padding:18px}.card,.panel{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}.login .card{max-width:680px;width:100%}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;padding:18px 20px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:10}.brand{display:flex;align-items:center;gap:14px}.brand-logo{width:58px;height:58px;border-radius:999px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:5px}.brand h1{margin:0;font-family:Cormorant Garamond,serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1}.brand p{margin:4px 0 0;color:var(--muted);font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.eyebrow{display:inline-flex;gap:10px;align-items:center;color:var(--gold2);font-size:.78rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}.eyebrow:before{content:"";width:36px;height:2px;background:var(--gold);border-radius:999px}h2,h3{margin-top:0}h2{font-family:Cormorant Garamond,serif;font-size:clamp(1.8rem,3vw,3rem);line-height:1;margin-bottom:10px}h3{font-family:Cormorant Garamond,serif;font-size:1.45rem;margin-bottom:10px}p{color:var(--muted);line-height:1.65}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}label{display:block;font-size:.86rem;font-weight:900;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid rgba(155,115,26,.25);border-radius:16px;padding:13px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:105px;resize:vertical}button,.btn{border:0;border-radius:999px;padding:12px 17px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:linear-gradient(135deg,#e0b744,#b78119);color:#fff}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}.dark{background:var(--ink);color:#fff}.green{background:var(--green);color:#fff}.red{background:var(--red);color:#fff}.blue{background:var(--blue);color:#fff}.small{font-size:.78rem;padding:8px 11px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.chip{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:#fff;padding:9px 12px;font-weight:900;color:var(--gold2)}.app{display:none}.layout{display:grid;grid-template-columns:285px 1fr;gap:16px;margin-top:16px}.side{position:sticky;top:110px;align-self:start;background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:var(--shadow);max-height:calc(100vh - 130px);overflow:auto}.nav{width:100%;background:transparent;color:var(--muted);text-align:left;margin-bottom:6px;border-radius:15px}.nav.active{background:#fff5df;color:var(--ink);border:1px solid var(--line)}.mobile{display:none;margin-top:14px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}.metric span{display:block;color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.metric strong{display:block;margin-top:7px;font-size:1.45rem}.table{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:11px;border-bottom:1px solid rgba(155,115,26,.15);text-align:left;vertical-align:top;font-size:.86rem}th{background:#eee5d8;font-weight:900}.tag{display:inline-flex;border-radius:999px;padding:5px 8px;font-size:.72rem;font-weight:900;background:#fff4d8;color:var(--gold2);border:1px solid var(--line)}.tag.ok{background:rgba(22,101,52,.1);color:var(--green)}.tag.bad{background:rgba(153,27,27,.1);color:var(--red)}.tag.info{background:rgba(30,58,138,.1);color:var(--blue)}.tag.warn{background:rgba(146,64,14,.12);color:var(--amber)}.notice{border-left:4px solid var(--gold);background:rgba(212,166,42,.09);border-radius:16px;padding:13px 15px;color:var(--muted);line-height:1.65;margin:12px 0}.empty{padding:20px;text-align:center;color:var(--muted)}.product-box{border:1px dashed rgba(155,115,26,.38);background:rgba(255,255,255,.58);border-radius:20px;padding:14px;margin-top:12px}.document-logo-wrap{display:flex;justify-content:center;margin:10px 0 18px}.document-logo{width:120px;height:auto;max-width:35%;object-fit:contain}@media(max-width:1050px){.layout{grid-template-columns:1fr}.side{display:none}.mobile{display:block}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.wrap{padding:10px}.top{position:relative;top:auto;flex-direction:column;align-items:flex-start}.grid,.grid3,.grid4,.metrics{grid-template-columns:1fr}.card,.panel{padding:18px}button,.btn{width:100%}.small{width:auto}.brand-logo{width:50px;height:50px}table{min-width:760px}}
+</style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container">
-      <div class="brand-top">
-        <div class="brand-video-card" aria-label="FTH D-UNIQ brand video">
-          <video autoplay muted loop playsinline poster="assets/hero_brand_video_poster.jpg">
-            <source src="assets/hero_brand_video.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-<nav class="site-nav" aria-label="Primary navigation">
-  <a href="/index.html">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/services.html">Services</a>
-  <a href="/founder.html">Founder</a>
-  <a href="/insights.html">Insights</a>
-  <a href="/career.html">Career</a>
-  <a href="/contact.html">Contact</a>
-  <a href="/index.html#quote-form">Request a Quote</a>
-</nav>
-    </div>
-  </header>
-
-  <main class="page-shell">
-
-    <section class="hero hero-home">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="section-label">FTH D-UNIQ</div>
-
-          <h1 class="editorial-headline two-line-hero">
-            <span class="hero-line">Building Materials Supply,</span>
-            <span class="hero-line">Procurement Support</span>
-            <span class="hero-line">&amp; Logistics Coordination</span>
-          </h1>
-
-          <p class="lead">
-            We help busy, remote, and diaspora clients source building materials, coordinate delivery, and follow up on project-related requests across Lagos and selected nearby locations.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
-            <a class="btn btn-secondary" href="/services.html">View Services</a>
-          </div>
-
-          <p class="quote-support-line">
-            For cement, blocks, sand, granite, interlocking stones, procurement support, logistics coordination, and project support.
-          </p>
-        </div>
-
-        <div class="media-card card">
-          <img src="assets/office_portrait.jpeg" alt="FTH D-UNIQ representative working at a laptop">
-        </div>
-      </div>
-    </section>
-
-    <section class="clean-home-section">
-      <div class="container preview-panel compact-preview-panel">
-        <div class="preview-copy">
-          <div class="section-label">Trusted Coordination Support</div>
-
-          <h2 class="trusted-headline">
-            <span>For clients who need</span>
-            <span>clear material and delivery</span>
-            <span>coordination.</span>
-          </h2>
-
-          <p>
-            FTH D-UNIQ supports homeowners, contractors, site teams, busy professionals, and diaspora clients who need reliable follow-up with materials, suppliers, trucks, and project-related coordination.
-          </p>
-
-          <div class="preview-actions">
-            <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
-            <a class="btn btn-secondary" href="/about.html">About Us</a>
-          </div>
-        </div>
-
-        <div class="media-card card">
-          <img src="assets/support_consultation.jpeg" alt="Consultation meeting showing client support">
-        </div>
-      </div>
-    </section>
-
-    <section class="section clean-home-section">
-      <div class="container">
-        <div class="section-label">What We Coordinate</div>
-
-        <h2 class="section-title compact-title">
-          Materials, procurement, delivery, and project-support requests handled with structure.
-        </h2>
-
-        <div class="clean-service-grid">
-          <article class="clean-service-card card">
-            <h3>Building Materials</h3>
-            <p>
-              Cement, blocks, sand, granite, interlocking stones, kerbs, and related material requests.
-            </p>
-          </article>
-
-          <article class="clean-service-card card">
-            <h3>Procurement Support</h3>
-            <p>
-              Supplier follow-up, material sourcing, price review, and request coordination.
-            </p>
-          </article>
-
-          <article class="clean-service-card card">
-            <h3>Logistics Coordination</h3>
-            <p>
-              Truck arrangement, delivery timing, site access, and movement follow-up.
-            </p>
-          </article>
-
-          <article class="clean-service-card card">
-            <h3>Project Support</h3>
-            <p>
-              Project updates, vendor communication, documentation, and execution follow-through.
-            </p>
-          </article>
-        </div>
-
-        <div class="hero-actions" style="margin-top: 30px;">
-          <a class="btn btn-primary" href="#quote-form">Request a Quote</a>
-          <a class="btn btn-secondary" href="/services.html">View Full Services</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section clean-home-section">
-      <div class="container">
-        <div class="section-label">How to Request</div>
-
-        <h2 class="section-title compact-title">
-          A simple process from request to coordination.
-        </h2>
-
-        <div class="quick-process">
-          <div class="quick-process-item">
-            <span>01</span>
-            <p>Submit your request through the quote form.</p>
-          </div>
-
-          <div class="quick-process-item">
-            <span>02</span>
-            <p>We review your material, quantity, location, and delivery needs.</p>
-          </div>
-
-          <div class="quick-process-item">
-            <span>03</span>
-            <p>We confirm supplier availability, pricing, and logistics options.</p>
-          </div>
-
-          <div class="quick-process-item">
-            <span>04</span>
-            <p>You approve the quote.</p>
-          </div>
-
-          <div class="quick-process-item">
-            <span>05</span>
-            <p>We coordinate procurement, delivery, and follow-up.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-<section id="quote-form" class="home-quote-section">
-  <div class="container">
-    <div class="compact-title">
-      <div class="section-label">Request Quote</div>
-
-      <h2 class="section-title">
-        Request Building Materials, Procurement or Logistics Support
-      </h2>
-
-      <p class="section-intro">
-        Submit your request with customer details, product/service needs, quantity, timeline, site contact and delivery information.
-      </p>
-    </div>
-
-    <div class="quote-form-card">
-      <form id="quoteRequestForm" action="/api/quote-email" method="POST">
-        <input type="hidden" name="form_source" value="Homepage Quote Request">
-        <input type="hidden" name="quote_lines" id="quote_lines">
-        <input type="hidden" name="request_details" id="request_details_v2">
-
-        <div class="quote-form-grid">
-          <div class="form-field">
-            <label for="full_name">Full Name</label>
-            <input id="full_name" name="full_name" type="text" required>
-          </div>
-
-          <div class="form-field">
-            <label for="phone_number">Phone Number / WhatsApp</label>
-            <input id="phone_number" name="phone_number" type="tel" required>
-          </div>
-
-          <div class="form-field">
-            <label for="email_address">Email Address</label>
-            <input id="email_address" name="email_address" type="email">
-          </div>
-
-          <div class="form-field">
-            <label for="date_of_order">Date of Order</label>
-            <input id="date_of_order" name="date_of_order" type="date" required>
-          </div>
-
-          <div class="form-field full">
-            <label for="delivery_location">Delivery / Project Location</label>
-            <input id="delivery_location" name="delivery_location" type="text" required>
-          </div>
-
-          <div class="form-field">
-            <label for="site_contact_person">Site Contact Person</label>
-            <input id="site_contact_person" name="site_contact_person" type="text" required>
-          </div>
-
-          <div class="form-field">
-            <label for="site_contact_phone">Site Contact Number</label>
-            <input id="site_contact_phone" name="site_contact_phone" type="tel">
-          </div>
-
-          <div class="form-field">
-            <label for="logistic_service_needed">Logistics Service Needed?</label>
-            <select id="logistic_service_needed" name="logistic_service_needed" required>
-              <option value="">Select option</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-              <option value="Not Sure Yet">Not Sure Yet</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="preferred_timeline">Preferred Timeline</label>
-            <select id="preferred_timeline" name="preferred_timeline" required>
-              <option value="">Select timeline</option>
-              <option value="Urgent / Same Day">Urgent / Same Day</option>
-              <option value="Within 24 Hours">Within 24 Hours</option>
-              <option value="Within 2 - 3 Days">Within 2 - 3 Days</option>
-              <option value="Within One Week">Within One Week</option>
-              <option value="Flexible / To Be Confirmed">Flexible / To Be Confirmed</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="delivery_date">Date Goods Are Needed / To Be Supplied</label>
-            <input id="delivery_date" name="delivery_date" type="date" required>
-          </div>
-
-          <div class="form-field">
-            <label for="delivery_time">Preferred Delivery Time</label>
-            <select id="delivery_time" name="delivery_time" required>
-              <option value="">Select time</option>
-              <option value="Morning">Morning</option>
-              <option value="Afternoon">Afternoon</option>
-              <option value="Evening">Evening</option>
-              <option value="Specific Time">Specific Time</option>
-              <option value="To Be Confirmed">To Be Confirmed</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="delivery_period">Time / WAT</label>
-            <select id="delivery_period" name="delivery_period" required>
-              <option value="">Select period</option>
-              <option value="AM - WAT">AM - WAT</option>
-              <option value="PM - WAT">PM - WAT</option>
-              <option value="WAT - To Be Confirmed">WAT - To Be Confirmed</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-field full" style="margin-top:28px;">
-  <label>Different Product Needed or Service</label>
-
-  <p class="quote-form-note">
-    You can add up to 10 different products or services in one request.
-  </p>
-
-  <div id="quoteProductLines"></div>
-
-  <div class="form-submit-row">
-    <button type="button" class="btn btn-secondary" id="addProductLineBtn">
-      Add Another Product / Service
-    </button>
-  </div>
-</div>
-
-        <div class="form-field full" style="margin-top:24px;">
-          <label for="request_details_text_v2">Additional Request Details / Customer Instruction</label>
-          <textarea id="request_details_text_v2" rows="5" placeholder="Add site direction, delivery instruction, product details, or any other request."></textarea>
-        </div>
-
-        <div class="form-submit-row">
-          <button type="submit" class="btn btn-primary" id="quoteSubmitButtonV2">
-            Submit Quote Request
-          </button>
-        </div>
-
-        <p id="quoteFormStatusV2" class="form-status"></p>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    (function () {
-      const productOptions = [
-        { code: "CEM-001", item: "Cement", unit: "Bags", tonnage: "Not Applicable" },
-
-        { code: "BLK-004", item: "4 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-        { code: "BLK-006", item: "6 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-        { code: "BLK-009", item: "9 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-
-        { code: "SND-SHP-BAG", item: "Sharp Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-        { code: "SND-SHP-5T", item: "Sharp Sand - 5 Ton / 6 Tyres Trip", unit: "Trips", tonnage: "5 Ton" },
-        { code: "SND-SHP-10T", item: "Sharp Sand - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-        { code: "SND-SHP-15T", item: "Sharp Sand - 12.5 / 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-
-        { code: "SND-PLS-BAG", item: "Plaster Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-        { code: "SND-PLS-5T", item: "Plaster Sand - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
-
-        { code: "GRT-BAG", item: "Granite - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-        { code: "GRT-5T", item: "Granite - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
-        { code: "GRT-10T", item: "Granite - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-        { code: "GRT-15T", item: "Granite - 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-        { code: "GRT-20T", item: "Granite - 20 Ton Trip", unit: "Trips", tonnage: "20 Ton" },
-        { code: "GRT-30T", item: "Granite - 30 Ton Trip", unit: "Trips", tonnage: "30 Ton" },
-        { code: "GRT-35T", item: "Granite - 35 Ton Trip", unit: "Trips", tonnage: "35 Ton" },
-
-        { code: "INT-001", item: "Interlocking Stones", unit: "Square Metres", tonnage: "Not Applicable" },
-        { code: "KRB-001", item: "Kerbs", unit: "Pieces", tonnage: "Not Applicable" },
-
-        { code: "SRV-PRC", item: "Procurement Support", unit: "Service", tonnage: "Not Applicable" },
-        { code: "SRV-LOG", item: "Logistics Coordination", unit: "Service", tonnage: "Not Applicable" },
-        { code: "SRV-PROJ", item: "Project Support", unit: "Service", tonnage: "Not Applicable" },
-
-        { code: "OTH-001", item: "Other / To Be Confirmed", unit: "Other", tonnage: "Not Applicable" }
-      ];
-
-      const quoteForm = document.getElementById("quoteRequestFormV2");
-      const quoteStatus = document.getElementById("quoteFormStatusV2");
-      const quoteSubmitButton = document.getElementById("quoteSubmitButtonV2");
-      const quoteLinesInput = document.getElementById("quote_lines_v2");
-      const requestDetailsHidden = document.getElementById("request_details_v2");
-      const requestDetailsText = document.getElementById("request_details_text_v2");
-      const productLinesContainer = document.getElementById("quoteProductLinesV2");
-      const addProductLineBtn = document.getElementById("addProductLineBtnV2");
-
-      function productDropdownOptions() {
-        return '<option value="">Select product / service</option>' + productOptions.map(function (product) {
-          return '<option value="' + product.code + '">' + product.code + ' — ' + product.item + '</option>';
-        }).join("");
-      }
-
-      function addProductLine() {
-        const currentLines = productLinesContainer.querySelectorAll(".product-line-row-v2").length;
-
-        if (currentLines >= 10) {
-          alert("You can add a maximum of 10 products/services in one quote request.");
-          return;
-        }
-
-        const line = document.createElement("div");
-        line.className = "product-line-row-v2";
-        line.style.marginTop = "14px";
-        line.style.padding = "16px";
-        line.style.border = "1px solid rgba(199,155,53,.18)";
-        line.style.borderRadius = "20px";
-        line.style.background = "rgba(255,255,255,.62)";
-
-        line.innerHTML =
-          '<div class="quote-form-grid">' +
-
-            '<div class="form-field">' +
-              '<label>Product / Service Needed</label>' +
-              '<select class="product-code-v2" required>' + productDropdownOptions() + '</select>' +
-            '</div>' +
-
-            '<div class="form-field">' +
-              '<label>Quantity / Volume</label>' +
-              '<input class="product-quantity-v2" type="text" placeholder="e.g. 30, 5, 1" required>' +
-            '</div>' +
-
-            '<div class="form-field">' +
-              '<label>Unit</label>' +
-              '<select class="product-unit-v2" required>' +
-                '<option value="">Select unit</option>' +
-                '<option value="Bags">Bags</option>' +
-                '<option value="Pieces">Pieces</option>' +
-                '<option value="Trips">Trips</option>' +
-                '<option value="Tonnes / Tonnage">Tonnes / Tonnage</option>' +
-                '<option value="Square Metres">Square Metres</option>' +
-                '<option value="Service">Service</option>' +
-                '<option value="Other">Other</option>' +
-              '</select>' +
-            '</div>' +
-
-            '<div class="form-field">' +
-              '<label>Tonnage / Trip Size</label>' +
-              '<select class="product-tonnage-v2">' +
-                '<option value="Not Applicable">Not Applicable</option>' +
-                '<option value="5 Ton">5 Ton</option>' +
-                '<option value="10 Ton">10 Ton</option>' +
-                '<option value="12.5 Ton">12.5 Ton</option>' +
-                '<option value="15 Ton">15 Ton</option>' +
-                '<option value="20 Ton">20 Ton</option>' +
-                '<option value="30 Ton">30 Ton</option>' +
-                '<option value="35 Ton">35 Ton</option>' +
-              '</select>' +
-            '</div>' +
-
-            '<div class="form-field full">' +
-              '<label>Local Description</label>' +
-              '<input class="product-local-v2" type="text" placeholder="Example: 1 trip of 6 tyres sharp sand, 30 pieces of 4 inches block, 5 bags of cement">' +
-            '</div>' +
-
-          '</div>' +
-
-          '<div class="form-submit-row" style="margin-top:12px;">' +
-            '<button type="button" class="btn btn-secondary remove-product-line-v2">Remove This Product</button>' +
-          '</div>';
-
-        const productCode = line.querySelector(".product-code-v2");
-        const productUnit = line.querySelector(".product-unit-v2");
-        const productTonnage = line.querySelector(".product-tonnage-v2");
-        const removeBtn = line.querySelector(".remove-product-line-v2");
-
-        productCode.addEventListener("change", function () {
-          const selected = productOptions.find(function (product) {
-            return product.code === productCode.value;
-          });
-
-          if (selected) {
-            productUnit.value = selected.unit;
-            productTonnage.value = selected.tonnage;
-          }
-        });
-
-        removeBtn.addEventListener("click", function () {
-          if (productLinesContainer.querySelectorAll(".product-line-row-v2").length <= 1) {
-            alert("At least one product/service line is required.");
-            return;
-          }
-
-          line.remove();
-        });
-
-        productLinesContainer.appendChild(line);
-      }
-
-      function collectQuoteLines() {
-        return Array.from(productLinesContainer.querySelectorAll(".product-line-row-v2")).map(function (line) {
-          const code = line.querySelector(".product-code-v2").value;
-          const selected = productOptions.find(function (product) {
-            return product.code === code;
-          });
-
-          return {
-            code: code,
-            item: selected ? selected.item : "",
-            quantity: line.querySelector(".product-quantity-v2").value.trim(),
-            unit: line.querySelector(".product-unit-v2").value,
-            tonnage: line.querySelector(".product-tonnage-v2").value,
-            localDescription: line.querySelector(".product-local-v2").value.trim(),
-            internalInterpretation: ""
-          };
-        }).filter(function (line) {
-          return line.code && line.quantity;
-        });
-      }
-
-      function buildRequestDetails() {
-        const dateOfOrder = document.getElementById("date_of_order").value;
-        const logisticsNeeded = document.getElementById("logistic_service_needed").value;
-        const customerInstruction = requestDetailsText.value.trim();
-
-        return [
-          "Date of Order: " + (dateOfOrder || "Not provided"),
-          "Logistics Service Needed: " + (logisticsNeeded || "Not provided"),
-          "",
-          "Customer Instruction / Additional Details:",
-          customerInstruction || "No additional instruction provided."
-        ].join("\n");
-      }
-
-      function showQuoteStatus(message, type) {
-        quoteStatus.style.display = "block";
-        quoteStatus.className = "form-status " + type;
-        quoteStatus.textContent = message;
-      }
-
-      quoteForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        if (!quoteForm.reportValidity()) return;
-
-        const quoteLines = collectQuoteLines();
-
-        if (!quoteLines.length) {
-          showQuoteStatus("Please add at least one product or service.", "error");
-          return;
-        }
-
-        quoteLinesInput.value = JSON.stringify(quoteLines);
-        requestDetailsHidden.value = buildRequestDetails();
-
-        showQuoteStatus("Submitting your quote request. Please wait...", "success");
-
-        quoteSubmitButton.disabled = true;
-        quoteSubmitButton.textContent = "Submitting...";
-
-        try {
-          const response = await fetch("/api/quote-email", {
-            method: "POST",
-            body: new FormData(quoteForm)
-          });
-
-          const result = await response.json();
-
-          if (!response.ok || !result.ok) {
-            throw new Error(result.message || "Quote request could not be submitted.");
-          }
-
-          quoteForm.reset();
-          productLinesContainer.innerHTML = "";
-          addProductLine();
-
-          const orderDate = document.getElementById("date_of_order");
-          if (orderDate) {
-            orderDate.value = new Date().toISOString().slice(0, 10);
-          }
-
-          showQuoteStatus(
-            "Thank you. Your quote request has been received. FTH D-UNIQ will review your request and follow up.",
-            "success"
-          );
-        } catch (error) {
-          showQuoteStatus(
-            error.message || "Your quote request could not be submitted. Please use WhatsApp or email info@fthduniq.com directly.",
-            "error"
-          );
-        } finally {
-          quoteSubmitButton.disabled = false;
-          quoteSubmitButton.textContent = "Submit Quote Request";
-        }
-      });
-
-      addProductLineBtn.addEventListener("click", addProductLine);
-
-      const orderDate = document.getElementById("date_of_order");
-      if (orderDate && !orderDate.value) {
-        orderDate.value = new Date().toISOString().slice(0, 10);
-      }
-
-      addProductLine();
-    })();
-  <script>
-  (function () {
-    const productOptions = [
-      { code: "CEM-001", item: "Cement", unit: "Bags", tonnage: "Not Applicable" },
-
-      { code: "BLK-004", item: "4 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-      { code: "BLK-006", item: "6 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-      { code: "BLK-009", item: "9 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-
-      { code: "SND-SHP-BAG", item: "Sharp Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-      { code: "SND-SHP-5T", item: "Sharp Sand - 5 Ton / 6 Tyres Trip", unit: "Trips", tonnage: "5 Ton" },
-      { code: "SND-SHP-10T", item: "Sharp Sand - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-      { code: "SND-SHP-15T", item: "Sharp Sand - 12.5 / 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-
-      { code: "SND-PLS-BAG", item: "Plaster Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-      { code: "SND-PLS-5T", item: "Plaster Sand - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
-
-      { code: "GRT-BAG", item: "Granite - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-      { code: "GRT-5T", item: "Granite - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
-      { code: "GRT-10T", item: "Granite - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-      { code: "GRT-15T", item: "Granite - 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-      { code: "GRT-20T", item: "Granite - 20 Ton Trip", unit: "Trips", tonnage: "20 Ton" },
-      { code: "GRT-30T", item: "Granite - 30 Ton Trip", unit: "Trips", tonnage: "30 Ton" },
-      { code: "GRT-35T", item: "Granite - 35 Ton Trip", unit: "Trips", tonnage: "35 Ton" },
-
-      { code: "INT-001", item: "Interlocking Stones", unit: "Square Metres", tonnage: "Not Applicable" },
-      { code: "KRB-001", item: "Kerbs", unit: "Pieces", tonnage: "Not Applicable" },
-
-      { code: "SRV-PRC", item: "Procurement Support", unit: "Service", tonnage: "Not Applicable" },
-      { code: "SRV-LOG", item: "Logistics Coordination", unit: "Service", tonnage: "Not Applicable" },
-      { code: "SRV-PROJ", item: "Project Support", unit: "Service", tonnage: "Not Applicable" },
-
-      { code: "OTH-001", item: "Other / To Be Confirmed", unit: "Other", tonnage: "Not Applicable" }
-    ];
-
-    const quoteForm =
-      document.getElementById("quoteRequestFormV2") ||
-      document.getElementById("quoteRequestForm") ||
-      document.getElementById("quoteForm");
-
-    const quoteStatus =
-      document.getElementById("quoteFormStatusV2") ||
-      document.getElementById("quoteFormStatus") ||
-      document.getElementById("quoteFormMessage");
-
-    const quoteSubmitButton =
-      document.getElementById("quoteSubmitButtonV2") ||
-      document.getElementById("quoteSubmitButton") ||
-      (quoteForm ? quoteForm.querySelector('button[type="submit"]') : null);
-
-    const quoteLinesInput =
-      document.getElementById("quote_lines_v2") ||
-      document.getElementById("quote_lines");
-
-    const requestDetailsHidden =
-      document.getElementById("request_details_v2") ||
-      document.getElementById("request_details");
-
-    const requestDetailsText =
-      document.getElementById("request_details_text_v2") ||
-      document.getElementById("request_details_text") ||
-      document.querySelector("textarea[name='request_details']");
-
-    const productLinesContainer =
-      document.getElementById("quoteProductLinesV2") ||
-      document.getElementById("quoteProductLines");
-
-    const addProductLineBtn =
-      document.getElementById("addProductLineBtnV2") ||
-      document.getElementById("addProductLineBtn");
-
-    function productDropdownOptions() {
-      return '<option value="">Select product / service</option>' + productOptions.map(function (product) {
-        return '<option value="' + product.code + '">' + product.code + ' — ' + product.item + '</option>';
-      }).join("");
-    }
-
-    function addProductLine() {
-      if (!productLinesContainer) return;
-
-      const currentLines = productLinesContainer.querySelectorAll(".product-line-row, .product-line-row-v2").length;
-
-      if (currentLines >= 10) {
-        alert("You can add a maximum of 10 products/services in one quote request.");
-        return;
-      }
-
-      const line = document.createElement("div");
-      line.className = "product-line-row";
-      line.style.marginTop = "14px";
-      line.style.padding = "16px";
-      line.style.border = "1px solid rgba(199,155,53,.18)";
-      line.style.borderRadius = "20px";
-      line.style.background = "rgba(255,255,255,.62)";
-
-      line.innerHTML =
-        '<div class="quote-form-grid">' +
-
-          '<div class="form-field">' +
-            '<label>Product / Service Needed</label>' +
-            '<select class="product-code" required>' + productDropdownOptions() + '</select>' +
-          '</div>' +
-
-          '<div class="form-field">' +
-            '<label>Quantity / Volume</label>' +
-            '<input class="product-quantity" type="text" placeholder="e.g. 30, 5, 1" required>' +
-          '</div>' +
-
-          '<div class="form-field">' +
-            '<label>Unit</label>' +
-            '<select class="product-unit" required>' +
-              '<option value="">Select unit</option>' +
-              '<option value="Bags">Bags</option>' +
-              '<option value="Pieces">Pieces</option>' +
-              '<option value="Trips">Trips</option>' +
-              '<option value="Tonnes / Tonnage">Tonnes / Tonnage</option>' +
-              '<option value="Square Metres">Square Metres</option>' +
-              '<option value="Service">Service</option>' +
-              '<option value="Other">Other</option>' +
-            '</select>' +
-          '</div>' +
-
-          '<div class="form-field">' +
-            '<label>Tonnage / Trip Size</label>' +
-            '<select class="product-tonnage">' +
-              '<option value="Not Applicable">Not Applicable</option>' +
-              '<option value="5 Ton">5 Ton</option>' +
-              '<option value="10 Ton">10 Ton</option>' +
-              '<option value="12.5 Ton">12.5 Ton</option>' +
-              '<option value="15 Ton">15 Ton</option>' +
-              '<option value="20 Ton">20 Ton</option>' +
-              '<option value="30 Ton">30 Ton</option>' +
-              '<option value="35 Ton">35 Ton</option>' +
-            '</select>' +
-          '</div>' +
-
-          '<div class="form-field full">' +
-            '<label>Local Description</label>' +
-            '<input class="product-local" type="text" placeholder="Example: 1 trip of 6 tyres sharp sand, 30 pieces of 4 inches block, 5 bags of cement">' +
-          '</div>' +
-
-        '</div>' +
-
-        '<div class="form-submit-row" style="margin-top:12px;">' +
-          '<button type="button" class="btn btn-secondary remove-product-line">Remove This Product</button>' +
-        '</div>';
-
-      const productCode = line.querySelector(".product-code");
-      const productUnit = line.querySelector(".product-unit");
-      const productTonnage = line.querySelector(".product-tonnage");
-      const removeBtn = line.querySelector(".remove-product-line");
-
-      productCode.addEventListener("change", function () {
-        const selected = productOptions.find(function (product) {
-          return product.code === productCode.value;
-        });
-
-        if (selected) {
-          productUnit.value = selected.unit;
-          productTonnage.value = selected.tonnage;
-        }
-      });
-
-      removeBtn.addEventListener("click", function () {
-        const totalLines = productLinesContainer.querySelectorAll(".product-line-row, .product-line-row-v2").length;
-
-        if (totalLines <= 1) {
-          alert("At least one product/service line is required.");
-          return;
-        }
-
-        line.remove();
-      });
-
-      productLinesContainer.appendChild(line);
-    }
-
-    function collectQuoteLines() {
-      if (!productLinesContainer) return [];
-
-      const rows = productLinesContainer.querySelectorAll(".product-line-row, .product-line-row-v2");
-
-      return Array.from(rows).map(function (line) {
-        const codeEl = line.querySelector(".product-code, .product-code-v2");
-        const quantityEl = line.querySelector(".product-quantity, .product-quantity-v2");
-        const unitEl = line.querySelector(".product-unit, .product-unit-v2");
-        const tonnageEl = line.querySelector(".product-tonnage, .product-tonnage-v2");
-        const localEl = line.querySelector(".product-local, .product-local-v2");
-
-        const code = codeEl ? codeEl.value : "";
-        const selected = productOptions.find(function (product) {
-          return product.code === code;
-        });
-
-        return {
-          code: code,
-          item: selected ? selected.item : "",
-          quantity: quantityEl ? quantityEl.value.trim() : "",
-          unit: unitEl ? unitEl.value : "",
-          tonnage: tonnageEl ? tonnageEl.value : "",
-          localDescription: localEl ? localEl.value.trim() : "",
-          internalInterpretation: ""
-        };
-      }).filter(function (line) {
-        return line.code && line.quantity;
-      });
-    }
-
-    function buildRequestDetails() {
-      const dateOfOrderEl = document.getElementById("date_of_order");
-      const logisticsNeededEl = document.getElementById("logistic_service_needed");
-
-      const dateOfOrder = dateOfOrderEl ? dateOfOrderEl.value : "";
-      const logisticsNeeded = logisticsNeededEl ? logisticsNeededEl.value : "";
-      const customerInstruction = requestDetailsText ? requestDetailsText.value.trim() : "";
-
-      return [
-        "Date of Order: " + (dateOfOrder || "Not provided"),
-        "Logistics Service Needed: " + (logisticsNeeded || "Not provided"),
-        "",
-        "Customer Instruction / Additional Details:",
-        customerInstruction || "No additional instruction provided."
-      ].join("\n");
-    }
-
-    function showQuoteStatus(message, type) {
-      if (!quoteStatus) {
-        alert(message);
-        return;
-      }
-
-      quoteStatus.style.display = "block";
-      quoteStatus.className = "form-status " + type;
-      quoteStatus.textContent = message;
-    }
-
-    async function submitQuoteRequest(event) {
-      if (event) event.preventDefault();
-
-      if (!quoteForm) {
-        alert("Quote form was not found on this page.");
-        return;
-      }
-
-      if (!quoteForm.reportValidity()) {
-        return;
-      }
-
-      const quoteLines = collectQuoteLines();
-
-      if (!quoteLines.length) {
-        showQuoteStatus("Please add at least one product or service.", "error");
-        return;
-      }
-
-      if (quoteLinesInput) {
-        quoteLinesInput.value = JSON.stringify(quoteLines);
-      }
-
-      if (requestDetailsHidden) {
-        requestDetailsHidden.value = buildRequestDetails();
-      }
-
-      showQuoteStatus("Submitting your quote request. Please wait...", "success");
-
-      if (quoteSubmitButton) {
-        quoteSubmitButton.disabled = true;
-        quoteSubmitButton.textContent = "Submitting...";
-      }
-
-      try {
-        const response = await fetch("/api/quote-email", {
-          method: "POST",
-          body: new FormData(quoteForm)
-        });
-
-        let result = {};
-
-        try {
-          result = await response.json();
-        } catch (jsonError) {
-          result = {};
-        }
-
-        if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Quote request could not be submitted.");
-        }
-
-        quoteForm.reset();
-
-        if (productLinesContainer) {
-          productLinesContainer.innerHTML = "";
-          addProductLine();
-        }
-
-        const orderDate = document.getElementById("date_of_order");
-        if (orderDate) {
-          orderDate.value = new Date().toISOString().slice(0, 10);
-        }
-
-        showQuoteStatus(
-          "Thank you. Your quote request has been received. FTH D-UNIQ will review your request and follow up.",
-          "success"
-        );
-      } catch (error) {
-        showQuoteStatus(
-          error.message || "Your quote request could not be submitted. Please use WhatsApp or email info@fthduniq.com directly.",
-          "error"
-        );
-      } finally {
-        if (quoteSubmitButton) {
-          quoteSubmitButton.disabled = false;
-          quoteSubmitButton.textContent = "Submit Quote Request";
-        }
-      }
-    }
-
-    if (quoteForm) {
-      quoteForm.setAttribute("action", "/api/quote-email");
-      quoteForm.setAttribute("method", "POST");
-      quoteForm.addEventListener("submit", submitQuoteRequest);
-    }
-
-    if (quoteSubmitButton) {
-      quoteSubmitButton.setAttribute("type", "submit");
-      quoteSubmitButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        submitQuoteRequest(event);
-      });
-    }
-
-    if (addProductLineBtn) {
-      addProductLineBtn.addEventListener("click", addProductLine);
-    }
-
-    const orderDate = document.getElementById("date_of_order");
-    if (orderDate && !orderDate.value) {
-      orderDate.value = new Date().toISOString().slice(0, 10);
-    }
-
-    if (productLinesContainer && productLinesContainer.children.length === 0) {
-      addProductLine();
-    }
-
-    document.addEventListener("contextmenu", function (event) {
-      if (!event.target.closest("input, textarea, select, button, a, summary")) {
-        event.preventDefault();
-      }
-    });
-
-    document.addEventListener("copy", function (event) {
-      if (!event.target.closest("input, textarea")) {
-        event.preventDefault();
-      }
-    });
-
-    document.addEventListener("dragstart", function (event) {
-      if (event.target.tagName === "IMG") {
-        event.preventDefault();
-      }
-    });
-  })();
-</script>
-  <script>
-(function () {
-  const productOptions = [
-    { code: "CEM-001", item: "Cement", unit: "Bags", tonnage: "Not Applicable" },
-    { code: "BLK-004", item: "4 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-    { code: "BLK-006", item: "6 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-    { code: "BLK-009", item: "9 Inches Block", unit: "Pieces", tonnage: "Not Applicable" },
-    { code: "SND-SHP-BAG", item: "Sharp Sand - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-    { code: "SND-SHP-5T", item: "Sharp Sand - 5 Ton / 6 Tyres Trip", unit: "Trips", tonnage: "5 Ton" },
-    { code: "SND-SHP-10T", item: "Sharp Sand - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-    { code: "SND-SHP-15T", item: "Sharp Sand - 12.5 / 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-    { code: "GRT-BAG", item: "Granite - Bag Sales", unit: "Bags", tonnage: "Not Applicable" },
-    { code: "GRT-5T", item: "Granite - 5 Ton Trip", unit: "Trips", tonnage: "5 Ton" },
-    { code: "GRT-10T", item: "Granite - 10 Ton Trip", unit: "Trips", tonnage: "10 Ton" },
-    { code: "GRT-15T", item: "Granite - 15 Ton Trip", unit: "Trips", tonnage: "15 Ton" },
-    { code: "GRT-20T", item: "Granite - 20 Ton Trip", unit: "Trips", tonnage: "20 Ton" },
-    { code: "GRT-30T", item: "Granite - 30 Ton Trip", unit: "Trips", tonnage: "30 Ton" },
-    { code: "GRT-35T", item: "Granite - 35 Ton Trip", unit: "Trips", tonnage: "35 Ton" },
-    { code: "INT-001", item: "Interlocking Stones", unit: "Square Metres", tonnage: "Not Applicable" },
-    { code: "KRB-001", item: "Kerbs", unit: "Pieces", tonnage: "Not Applicable" },
-    { code: "SRV-PRC", item: "Procurement Support", unit: "Service", tonnage: "Not Applicable" },
-    { code: "SRV-LOG", item: "Logistics Coordination", unit: "Service", tonnage: "Not Applicable" },
-    { code: "SRV-PROJ", item: "Project Support", unit: "Service", tonnage: "Not Applicable" },
-    { code: "OTH-001", item: "Other / To Be Confirmed", unit: "Other", tonnage: "Not Applicable" }
-  ];
-
-  const quoteForm = document.getElementById("quoteRequestForm");
-  const quoteStatus = document.getElementById("quoteFormStatus") || document.getElementById("quoteFormMessage");
-  const quoteLinesInput = document.getElementById("quote_lines");
-  const productLinesContainer = document.getElementById("quoteProductLines");
-  const addProductLineBtn = document.getElementById("addProductLineBtn");
-  const submitBtn = quoteForm ? quoteForm.querySelector('button[type="submit"]') : null;
-
-  function productOptionsHtml() {
-    return '<option value="">Select product / service</option>' + productOptions.map(function (p) {
-      return '<option value="' + p.code + '">' + p.code + ' — ' + p.item + '</option>';
-    }).join("");
-  }
-
-  function addProductLine() {
-    if (!productLinesContainer) return;
-
-    const count = productLinesContainer.querySelectorAll(".quote-product-row").length;
-
-    if (count >= 10) {
-      alert("You can add a maximum of 10 products or services.");
-      return;
-    }
-
-    const row = document.createElement("div");
-    row.className = "quote-product-row";
-    row.style.marginTop = "14px";
-    row.style.padding = "16px";
-    row.style.border = "1px solid rgba(199,155,53,.18)";
-    row.style.borderRadius = "18px";
-    row.style.background = "rgba(255,255,255,.65)";
-
-    row.innerHTML =
-      '<div class="quote-form-grid">' +
-        '<div class="form-field">' +
-          '<label>Product / Service Needed</label>' +
-          '<select class="line-code" required>' + productOptionsHtml() + '</select>' +
-        '</div>' +
-
-        '<div class="form-field">' +
-          '<label>Quantity / Volume</label>' +
-          '<input class="line-quantity" type="text" placeholder="e.g. 30, 5, 1" required>' +
-        '</div>' +
-
-        '<div class="form-field">' +
-          '<label>Unit</label>' +
-          '<select class="line-unit" required>' +
-            '<option value="">Select unit</option>' +
-            '<option value="Bags">Bags</option>' +
-            '<option value="Pieces">Pieces</option>' +
-            '<option value="Trips">Trips</option>' +
-            '<option value="Tonnes / Tonnage">Tonnes / Tonnage</option>' +
-            '<option value="Square Metres">Square Metres</option>' +
-            '<option value="Service">Service</option>' +
-            '<option value="Other">Other</option>' +
-          '</select>' +
-        '</div>' +
-
-        '<div class="form-field">' +
-          '<label>Tonnage / Trip Size</label>' +
-          '<select class="line-tonnage">' +
-            '<option value="Not Applicable">Not Applicable</option>' +
-            '<option value="5 Ton">5 Ton</option>' +
-            '<option value="10 Ton">10 Ton</option>' +
-            '<option value="12.5 Ton">12.5 Ton</option>' +
-            '<option value="15 Ton">15 Ton</option>' +
-            '<option value="20 Ton">20 Ton</option>' +
-            '<option value="30 Ton">30 Ton</option>' +
-            '<option value="35 Ton">35 Ton</option>' +
-          '</select>' +
-        '</div>' +
-
-        '<div class="form-field full">' +
-          '<label>Local Description</label>' +
-          '<input class="line-local" type="text" placeholder="Example: 1 trip of 6 tyres sharp sand, 30 pieces of 4 inches block">' +
-        '</div>' +
-      '</div>' +
-
-      '<div class="form-submit-row" style="margin-top:12px;">' +
-        '<button type="button" class="btn btn-secondary remove-line">Remove This Product</button>' +
-      '</div>';
-
-    const codeSelect = row.querySelector(".line-code");
-    const unitSelect = row.querySelector(".line-unit");
-    const tonnageSelect = row.querySelector(".line-tonnage");
-
-    codeSelect.addEventListener("change", function () {
-      const selected = productOptions.find(function (p) {
-        return p.code === codeSelect.value;
-      });
-
-      if (selected) {
-        unitSelect.value = selected.unit;
-        tonnageSelect.value = selected.tonnage;
-      }
-    });
-
-    row.querySelector(".remove-line").addEventListener("click", function () {
-      const rows = productLinesContainer.querySelectorAll(".quote-product-row");
-
-      if (rows.length <= 1) {
-        alert("At least one product/service line is required.");
-        return;
-      }
-
-      row.remove();
-    });
-
-    productLinesContainer.appendChild(row);
-  }
-
-  function collectLines() {
-    if (!productLinesContainer) return [];
-
-    return Array.from(productLinesContainer.querySelectorAll(".quote-product-row")).map(function (row) {
-      const code = row.querySelector(".line-code").value;
-      const selected = productOptions.find(function (p) {
-        return p.code === code;
-      });
-
-      return {
-        code: code,
-        item: selected ? selected.item : "",
-        quantity: row.querySelector(".line-quantity").value.trim(),
-        unit: row.querySelector(".line-unit").value,
-        tonnage: row.querySelector(".line-tonnage").value,
-        localDescription: row.querySelector(".line-local").value.trim()
-      };
-    }).filter(function (line) {
-      return line.code && line.quantity;
-    });
-  }
-
-  function showStatus(message, type) {
-    if (!quoteStatus) {
-      alert(message);
-      return;
-    }
-
-    quoteStatus.style.display = "block";
-    quoteStatus.className = "form-status " + type;
-    quoteStatus.textContent = message;
-  }
-
-  if (addProductLineBtn) {
-    addProductLineBtn.addEventListener("click", addProductLine);
-  }
-
-  if (productLinesContainer && productLinesContainer.children.length === 0) {
-    addProductLine();
-  }
-
-  if (quoteForm) {
-    quoteForm.addEventListener("submit", async function (event) {
-      event.preventDefault();
-
-      if (!quoteForm.reportValidity()) return;
-
-      const lines = collectLines();
-
-      if (!lines.length) {
-        showStatus("Please add at least one product or material line.", "error");
-        return;
-      }
-
-      if (quoteLinesInput) {
-        quoteLinesInput.value = JSON.stringify(lines);
-      }
-
-      showStatus("Submitting your quote request. Please wait...", "success");
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting...";
-      }
-
-      try {
-        const response = await fetch("/api/quote-email", {
-          method: "POST",
-          body: new FormData(quoteForm)
-        });
-
-        const result = await response.json();
-
-        if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Quote request could not be submitted.");
-        }
-
-        quoteForm.reset();
-        productLinesContainer.innerHTML = "";
-        addProductLine();
-
-        showStatus("Thank you. Your quote request has been received. FTH D-UNIQ will review and follow up.", "success");
-      } catch (error) {
-        showStatus(error.message || "Quote request could not be submitted. Please try again.", "error");
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Submit Quote Request";
-        }
-      }
-    });
-  }
-})();
+<section id="login" class="login"><div class="card"><div class="document-logo-wrap"><img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo"></div><div class="eyebrow">Private Login</div><h2>FTH D-UNIQ Operations Workstation</h2><p>Authorized officers should log in with their assigned role, officer name, and access token.</p><form id="loginForm"><div class="grid"><div><label>Role</label><select id="role" required><option value="">Select role</option><option value="director">Director</option><option value="support">Business Support Officer</option><option value="procurement">Procurement Officer</option><option value="logistics">Logistics / Inspection Officer</option><option value="social">Client Follow-Up Officer</option></select></div><div><label>Officer Name on Duty</label><input id="officerDutyName" type="text" required placeholder="Enter officer name"></div><div><label>Access Token</label><input id="pin" type="password" required></div></div><div class="row"><button class="primary" type="submit">Enter Workstation</button></div><p id="loginMsg"></p></form></div></section>
+<div id="app" class="app wrap"><header class="top"><div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div><div class="row"><span class="chip" id="roleName"></span><span class="chip" id="officerChip"></span><span class="chip" id="dateNow"></span><button class="dark" onclick="logout()">Logout</button></div></header><select id="mobileNav" class="mobile" onchange="showPage(this.value)"></select><div class="layout"><aside class="side" id="side"></aside><main id="main"></main></div></div>
+<script>
+const KEY='fth_duniq_workstation_safe_v1';
+const API_RECORDS='/api/workstation/records';
+const LOGO_PATH='assets/fth-duniq-logo.PNG';
+const COMPANY_WHATSAPP='08061396612';
+const COMPANY_EMAIL='info@fthduniq.com';
+const COMPANY_WEBSITE='www.fthduniq.com';
+const COMPANY_ADDRESS='Plot 627A, 1st Avenue, Festac Town Lagos, Nigeria';
+const COMPANY_SITE_LOCATION='Micfen Global Enterprise Limited site, Plot 627A';
+const COMPANY_BN='BN 2660716';
+const COMPANY_BANK_NAME='Providus Bank';
+const COMPANY_ACCOUNT_NAME='FTH D-UNIQ';
+const COMPANY_ACCOUNT_NUMBER='4208676962';
+const REFUND_NOTICE='Goods supplied and received in good condition are not refundable. Refund or cancellation requests, where applicable, must be reported to FTH D-UNIQ within 24 hours of payment or delivery and will be reviewed subject to company terms, product condition, supplier/logistics status and management approval.';
+const defaultPins={director:'0000',support:'1111',procurement:'2222',logistics:'3333',social:'4444'};
+const roleNames={director:'Director',support:'Business Support Officer',procurement:'Procurement Officer',logistics:'Logistics / Inspection Officer',social:'Client Follow-Up Officer'};
+const allTabs=[['dashboard','Dashboard'],['quotes','Quotes / Requests'],['invoices','Invoices / Sales'],['payments','Payments / Receipts'],['procurementRequests','Procurement Requests'],['waybills','Waybills'],['inventory','Inventory'],['procurement','Procurement Desk'],['logistics','Logistics / Inspection'],['followup','Client Follow-Up'],['customers','Customer Profiles'],['staffAccess','Officer Access Control'],['reports','Reports'],['archive','Archive']];
+const roleTabs={director:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','procurement','logistics','followup','customers','staffAccess','reports','archive'],support:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','customers','reports'],procurement:['dashboard','procurementRequests','procurement','inventory','customers','reports'],logistics:['dashboard','logistics','waybills','customers','reports'],social:['dashboard','followup','customers','reports']};
+const productOptions=[['CEM-001','Cement','Bags','Not Applicable'],['BLK-004','4 Inches Block','Pieces','Not Applicable'],['BLK-006','6 Inches Block','Pieces','Not Applicable'],['BLK-009','9 Inches Block','Pieces','Not Applicable'],['SND-SHP-5T','Sharp Sand - 5 Ton / 6 Tyres Trip','Trips','5 Ton'],['SND-SHP-10T','Sharp Sand - 10 Ton Trip','Trips','10 Ton'],['SND-SHP-15T','Sharp Sand - 12.5 / 15 Ton Trip / 10 Tyre','Trips','12.5 / 15 Ton'],['SND-SHP-20T','Sharp Sand - 20 Ton Trip','Trips','20 Ton'],['SND-SHP-30T','Sharp Sand - 30 Ton Trip','Trips','30 Ton'],['SND-SHP-35T','Sharp Sand - 35 Ton Trip','Trips','35 Ton'],['GRT-5T','Granite - 5 Ton Trip','Trips','5 Ton'],['GRT-10T','Granite - 10 Ton Trip','Trips','10 Ton'],['GRT-15T','Granite - 15 Ton Trip','Trips','15 Ton'],['GRT-20T','Granite - 20 Ton Trip','Trips','20 Ton'],['GRT-30T','Granite - 30 Ton Trip','Trips','30 Ton'],['GRT-35T','Granite - 35 Ton Trip','Trips','35 Ton'],['INT-001','Interlocking Stones','Square Metres','Not Applicable'],['KRB-001','Kerbs','Pieces','Not Applicable'],['SRV-PRC','Procurement Support','Service','Not Applicable'],['SRV-LOG','Logistics Coordination','Service','Not Applicable'],['SRV-PROJ','Project Support','Service','Not Applicable'],['SRV-REC','Procurement Records & Expense Tracking','Service','Not Applicable'],['SRV-FOLLOW','Site Follow-Up / Customer Follow-Up','Service','Not Applicable'],['OTH-001','Other / To Be Confirmed','Other','Not Applicable']].map(x=>({code:x[0],item:x[1],unit:x[2],tonnage:x[3]}));
+const nigeriaStates=['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
+const lgaMap={'Lagos':['Agege','Ajeromi-Ifelodun','Alimosho','Amuwo-Odofin / Festac','Apapa','Badagry','Epe','Eti-Osa','Ibeju-Lekki','Ifako-Ijaiye','Ikeja','Ikorodu','Kosofe','Lagos Island','Lagos Mainland','Mushin','Ojo','Oshodi-Isolo','Shomolu','Surulere','Other Lagos Area'],'FCT Abuja':['Abaji','Bwari','Gwagwalada','Kuje','Kwali','Municipal Area Council','Other FCT Area']};
+const TYPE_COLLECTION={quote:'quotes',invoice:'invoices',payment:'payments',receipt:'receipts',waybill:'waybills',stock:'stock',procurementRequest:'procurementRequests',procurement:'procurement',logistics:'logistics',followup:'followups',customer:'customers',officer:'officers',archive:'archives',report:'dailySubmissions'};
+const COLLECTION_TYPE=Object.fromEntries(Object.entries(TYPE_COLLECTION).map(([a,b])=>[b,a]));
+let currentRole='',currentOfficerName='',currentOfficerId='',currentLoginTime='',syncTimer=null,pullTimer=null;
+let db=load();
+function blank(){return{quotes:[],invoices:[],payments:[],receipts:[],waybills:[],stock:[],procurementRequests:[],procurement:[],logistics:[],followups:[],customers:[],officers:[],archives:[],dailySubmissions:[],counts:{quote:0,invoice:0,payment:0,receipt:0,waybill:0,stock:0,procurementRequest:0,procurement:0,logistics:0,followup:0,customer:0,officer:0,archive:0,report:0}}}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY))||blank();const b=blank();return Object.assign({},b,x,{counts:Object.assign({},b.counts,x.counts||{})})}catch(e){return blank()}}
+function localSave(){localStorage.setItem(KEY,JSON.stringify(db))}
+function save(){localSave();queueSync();renderCurrentPage()}
+function nextId(type){db.counts[type]=(db.counts[type]||0)+1;return 'FTH-'+type.toUpperCase().replace('PROCUREMENTREQUEST','PROC-REQ')+'-'+new Date().getFullYear()+'-'+String(db.counts[type]).padStart(4,'0')}
+function today(){return new Date().toISOString().slice(0,10)}
+function monthNow(){return new Date().toISOString().slice(0,7)}
+function digits(v){return String(v||'').split('').filter(ch=>'0123456789'.includes(ch)).join('')}
+function cleanPhone(v){let d=digits(v);if(d.startsWith('234')&&d.length>=13)d='0'+d.slice(3);return d}
+function esc(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
+function money(n){return '₦'+Number(n||0).toLocaleString('en-NG',{maximumFractionDigits:2})}
+function num(n){return Number(n||0).toLocaleString('en-NG',{maximumFractionDigits:2})}
+function niceDate(d){if(!d)return'';try{return new Date(d).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'2-digit'})}catch(e){return d}}
+function formData(form){return Object.fromEntries(new FormData(form).entries())}
+function table(rows,heads,map,empty='No records yet.'){if(!rows||!rows.length)return '<div class="empty">'+empty+'</div>';return '<div class="table"><table><thead><tr>'+heads.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.map((r,i)=>'<tr>'+map(r,i).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
+function statusTag(s){const str=String(s||'');let c=str.includes('Approved')||str==='Paid'||str==='Closed'||str==='Active'||str.includes('Satisfied')?'ok':str.includes('Reject')||str.includes('Complaint')||str==='Inactive'?'bad':str.includes('Awaiting')||str.includes('Pending')?'warn':'info';return '<span class="tag '+c+'">'+esc(str)+'</span>'}
+function optionList(list,selected='',blank=''){return(blank?'<option value="">'+blank+'</option>':'')+list.map(x=>'<option'+(x===selected?' selected':'')+'>'+x+'</option>').join('')}
+function productSelectOptions(selected=''){return '<option value="">Code</option>'+productOptions.map(p=>'<option value="'+p.code+'"'+(selected===p.code?' selected':'')+'>'+p.code+' — '+p.item+'</option>').join('')}
+function getProduct(code){return productOptions.find(p=>p.code===code)||{code:'',item:'',unit:'',tonnage:'Not Applicable'}}
+function wnum(p){let d=digits(p);return d.startsWith('0')?'234'+d.slice(1):d}
+function fileRead(file){return new Promise(resolve=>{if(!file)return resolve({name:'',data:''});const r=new FileReader();r.onload=()=>resolve({name:file.name,data:r.result});r.readAsDataURL(file)})}
+function verifyLogin(role,token){const t=String(token||'').trim();const exact=db.officers.find(o=>o.role===role&&String(o.token).trim()===t&&o.status==='Active');if(exact)return exact;if(defaultPins[role]===t)return{id:'default-'+role,role:role,name:roleNames[role],token:t,status:'Active'};return null}
+function directorPassIsValid(token){const t=String(token||'').trim();return t===defaultPins.director||db.officers.some(o=>o.role==='director'&&String(o.token).trim()===t&&o.status==='Active')}
+function locString(o,p=''){return [o[p+'locationAddress'],o[p+'locationArea'],o[p+'locationLGA'],o[p+'locationState']].filter(Boolean).join(', ')}
+function locationFields(prefix=''){return '<div><label>State</label><select name="'+prefix+'locationState" class="loc-state"><option value="">Select State</option>'+nigeriaStates.map(s=>'<option'+(s==='Lagos'?' selected':'')+'>'+s+'</option>').join('')+'</select></div><div><label>LGA / Area</label><select name="'+prefix+'locationLGA" class="loc-lga"></select></div><div><label>Area / Town / Estate</label><input name="'+prefix+'locationArea" placeholder="e.g. Festac 1st Avenue"></div><div class="full"><label>House Number / Street / Close / Landmark</label><input name="'+prefix+'locationAddress" placeholder="Type exact address, close, house number, site direction"></div>'}
+function initLocationSelects(scope=document){scope.querySelectorAll('.loc-state').forEach(state=>{const box=state.closest('.grid,.grid3,.grid4,form');const lga=box?box.querySelector('.loc-lga'):null;if(!lga)return;function fill(){const list=lgaMap[state.value]||['Select LGA / Area manually','Other'];const old=lga.value;lga.innerHTML='<option value="">Select LGA / Area</option>'+list.map(x=>'<option>'+x+'</option>').join('');lga.value=old}state.onchange=fill;if(!lga.innerHTML)fill()})}
+function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistics Window</label><select name="deliveryWindow"><option>To Be Confirmed</option><option>Within 2 hours after payment confirmation</option><option>Within 4 hours after payment confirmation</option><option>Same day, subject to weather/loading queue/truck availability</option><option>Next day delivery</option><option>Scheduled delivery window agreed with client</option></select></div>'}
+function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
+function inferRowType(row,data){return row.type||(data&&(data._cloudType||data.type))||''}
+async function loadFromApi(){let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}try{const res=await fetch(API_RECORDS+'?t='+Date.now(),{cache:'no-store'});if(!res.ok)return false;const payload=await res.json();const arr=Array.isArray(payload)?payload:(payload.records||payload.data||[]);const fresh=blank();arr.forEach(row=>{let data=row.data||row.record||row;try{if(typeof data==='string')data=JSON.parse(data)}catch(e){}try{if(row.data_json)data=JSON.parse(row.data_json)}catch(e){}const type=inferRowType(row,data);if(!type||!TYPE_COLLECTION[type])return;data._cloudId=row.id||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;fresh[TYPE_COLLECTION[type]].push(data)});if((!fresh.officers||!fresh.officers.length)&&saved.officers&&Array.isArray(saved.officers))fresh.officers=saved.officers;db=fresh;localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){console.warn('Unable to load shared records:',e);return false}}
+async function apiSave(type,data){try{const payload={type,status:data.status||data.directorApprovalStatus||'Saved',customer_name:data.customer||data.name||'',customer_phone:data.phone||'',created_by_role:data.createdByRole||currentRole,created_by_name:data.createdByName||currentOfficerName,data};const isUpdate=!!data._cloudId;const res=await fetch(isUpdate?API_RECORDS+'/'+encodeURIComponent(data._cloudId):API_RECORDS,{method:isUpdate?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const out=await res.json().catch(()=>({}));if(res.ok){data._cloudId=out.id||out.business_ref||data._cloudId||data.id;data._cloudType=type;data._cloudSynced=true;localSave()}}catch(e){}}
+async function syncAllToApi(){for(const [collection,type] of Object.entries(COLLECTION_TYPE)){for(const item of db[collection]||[]){await apiSave(type,item)}}}
+async function deleteAllCloudOperationalRecords(){for(let round=0;round<3;round++){const res=await fetch(API_RECORDS+'?t='+Date.now(),{cache:'no-store'});if(!res.ok)break;const payload=await res.json();const records=Array.isArray(payload)?payload:(payload.records||payload.data||[]);if(!records.length)break;for(const record of records){let data=record.data||record.record||record;try{if(typeof data==='string')data=JSON.parse(data)}catch(e){}try{if(record.data_json)data=JSON.parse(record.data_json)}catch(e){}const type=inferRowType(record,data);if(type==='officer')continue;if(record.id!==undefined&&record.id!==null){await fetch(API_RECORDS+'/'+encodeURIComponent(record.id),{method:'DELETE'})}}}}
+async function authorizedClearWorkstationData(){const pass=prompt('Enter Director clear passcode to clear this workstation data.');if(!directorPassIsValid(pass)){alert('Wrong Director clear passcode. Data was not cleared.');return}const confirmText=prompt('Type CLEAR to confirm. This clears this portal/device and shared records if your API is connected.');if(confirmText!=='CLEAR'){alert('Clear action cancelled.');return}let savedOfficers=db.officers||[];try{const before=JSON.parse(localStorage.getItem(KEY)||'{}');if(before.officers&&Array.isArray(before.officers))savedOfficers=before.officers}catch(e){}try{await deleteAllCloudOperationalRecords()}catch(e){console.warn('Shared delete not available:',e)}db=blank();db.officers=savedOfficers;localStorage.setItem(KEY,JSON.stringify(db));alert('Workstation data has been cleared on this portal. If shared API is connected, other logged-in pages will clear after reload/auto-sync.');showPage('dashboard')}
+function installPage(html,after){document.getElementById('main').innerHTML=html;initLocationSelects(document.getElementById('main'));setDefaultDates();if(after)after();applyRoleVisibility()}
+function renderNav(){const tabs=allTabs.filter(t=>(roleTabs[currentRole]||[]).includes(t[0]));document.getElementById('side').innerHTML=tabs.map((t,i)=>'<button class="nav '+(i===0?'active':'')+'" onclick="showPage(\''+t[0]+'\')">'+t[1]+'</button>').join('');document.getElementById('mobileNav').innerHTML=tabs.map(t=>'<option value="'+t[0]+'">'+t[1]+'</option>').join('')}
+function markNav(page){document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));const t=allTabs.find(x=>x[0]===page);if(t){[...document.querySelectorAll('.nav')].find(n=>n.textContent===t[1])?.classList.add('active')}const m=document.getElementById('mobileNav');if(m)m.value=page;sessionStorage.setItem('fth_active_page',page)}
+function renderCurrentPage(){showPage(sessionStorage.getItem('fth_active_page')||'dashboard',false)}
+function showPage(page,mark=true){if(mark)markNav(page);if(page==='dashboard')renderDashboardPage();if(page==='quotes')renderQuotesPage();if(page==='invoices')renderInvoicesPage();if(page==='payments')renderPaymentsPage();if(page==='procurementRequests')renderProcurementRequestsPage();if(page==='waybills')renderWaybillsPage();if(page==='inventory')renderInventoryPage();if(page==='procurement')renderProcurementPage();if(page==='logistics')renderLogisticsPage();if(page==='followup')renderFollowupPage();if(page==='customers')renderCustomersPage();if(page==='staffAccess')renderStaffPage();if(page==='reports')renderReportsPage();if(page==='archive')renderArchivePage()}
+function applyRoleVisibility(){document.querySelectorAll('.director-only').forEach(el=>el.style.display=currentRole==='director'?'':'none');document.querySelectorAll('.director-only-inline').forEach(el=>el.style.display=currentRole==='director'?'inline-flex':'none');document.querySelectorAll('.support-only-inline').forEach(el=>el.style.display=currentRole==='support'?'inline-flex':'none')}
+function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
+async function startApp(){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleName').textContent=roleNames[currentRole]||currentRole;document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;document.getElementById('dateNow').textContent='Login: '+currentLoginTime;renderNav();showPage('dashboard');try{await loadFromApi();showPage('dashboard')}catch(e){}try{queueSync()}catch(e){}startAutoPull()}
+function startAutoPull(){clearInterval(pullTimer);pullTimer=setInterval(async()=>{const active=document.activeElement;if(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName))return;const before=JSON.stringify(db);const ok=await loadFromApi();if(ok&&JSON.stringify(db)!==before)renderCurrentPage()},15000)}
+function logout(){sessionStorage.removeItem('fth_login');clearInterval(pullTimer);location.reload()}
+document.getElementById('loginForm').onsubmit=async function(e){e.preventDefault();const role=document.getElementById('role').value,token=document.getElementById('pin').value.trim(),duty=document.getElementById('officerDutyName').value.trim(),msg=document.getElementById('loginMsg');msg.textContent='Checking access...';try{await Promise.race([loadFromApi(),new Promise(resolve=>setTimeout(resolve,2000))])}catch(e){}const officer=verifyLogin(role,token);if(!officer){msg.textContent='Invalid role or access token. Please confirm the role and token assigned to this officer.';return}currentRole=role;currentOfficerName=duty||officer.name||roleNames[role];currentOfficerId=officer.id||'';currentLoginTime=new Date().toLocaleString('en-NG');sessionStorage.setItem('fth_login',JSON.stringify({role:currentRole,officerName:currentOfficerName,officerId:currentOfficerId,loginTime:currentLoginTime}));msg.textContent='Opening workstation...';startApp()};
+function dutyPanels(){const d={director:'<b>Director:</b> Review company activity, approve invoices, payments, waybills, procurement requests, reports, and sensitive operational decisions before execution.',support:'<b>Business Support Officer:</b> Receive customer requests, create quotes, prepare invoices, enter payment information, prepare delivery handover/waybill drafts, update customer records, and submit daily reports to the Director.',procurement:'<b>Procurement Officer:</b> Source products not available in company stock, record supplier/vendor details, confirm price and availability, update procurement feedback, and await Director approval before proceeding with sensitive procurement actions.',logistics:'<b>Logistics / Inspection Officer:</b> Handle dispatch updates, truck/driver details, delivery proof, signed waybill uploads, inspection records, and delivery confirmation after the required approval has been granted.',social:'<b>Client Follow-Up Officer:</b> Follow up with customers after quote, payment, delivery, or complaint resolution; record satisfaction checks, testimonials, complaints, and next actions inside the workstation.'};return '<div class="panel"><div class="eyebrow">Duty Reminder</div><h2>Officer Duties & Work Responsibility</h2><p>'+(d[currentRole]||'Authorized officer: Please carry out your assigned role and record all official work inside the workstation.')+'</p><p>Where staffing is limited, an officer may support an additional approved duty area. All actions must still be recorded under the correct workstation section and must follow the required approval process.</p></div><div class="panel"><div class="eyebrow">Company Rules</div><h2>Company Rules, Data Protection & Confidentiality Reminder</h2><div class="notice"><b>Resumption:</b> Official resumption time is 8:00am. Late resumption without prior approval or acceptable emergency reason may attract a formal query.</div><p>All customer, supplier, vendor, procurement, payment, inventory, logistics, and company records must be entered and maintained inside the FTH D-UNIQ Operations Workstation.</p><p>Officers are not permitted to save customer contacts, supplier contacts, vendor contacts, delivery details, payment information, inventory records, or company transaction details on personal phones, personal notebooks, private WhatsApp chats, or any personal storage space.</p><p>Company information, customer information, supplier information, vendor details, pricing, logistics arrangements, payment records, stock records, and internal business processes are confidential and must only be used for official FTH D-UNIQ business.</p><div class="notice"><b>Permission / Absence:</b> Approved absence or permission is limited to once per month, except in serious illness, medical emergency, family emergency, or unavoidable circumstances supported with proper evidence and approved by the Director.</div></div>'}
+function renderDashboardPage(){const activeInv=db.invoices.filter(i=>i.status!=='Awaiting Director Approval'&&i.status!=='Rejected');const sales=activeInv.reduce((a,b)=>a+Number(b.total||0),0),paid=db.payments.filter(p=>p.status==='Approved').reduce((a,b)=>a+Number(b.totalPaid||0),0),out=activeInv.reduce((a,b)=>a+Number(b.balance||0),0);const pi=db.invoices.filter(i=>i.status==='Awaiting Director Approval'),pp=db.payments.filter(p=>p.status==='Awaiting Director Approval'),pw=db.waybills.filter(w=>w.status==='Awaiting Director Approval'),pr=db.procurementRequests.filter(r=>r.directorApprovalStatus==='Pending Director Approval'),pc=db.procurement.filter(p=>p.directorApprovalStatus==='Pending Director Approval');const metrics=[['Quotes',db.quotes.length],['Approved Sales',money(sales)],['Approved Paid',money(paid)],['Outstanding',money(out)],['Pending Invoices',pi.length],['Pending Payments',pp.length],['Pending Procurement',pr.length+pc.length],['Customers',db.customers.length]].map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+'</strong></div>').join('');installPage('<section>'+dutyPanels()+'<div class="panel"><div class="eyebrow">Dashboard</div><h2>Business Position</h2><div class="metrics">'+metrics+'</div></div><div class="panel director-only"><h2>Director Approval Center</h2>'+approvalList(pi,pp,pw,pr,pc)+'</div><div class="panel"><h2>Recent Workflow Movement</h2>'+workflowTable()+'</div></section>')}
+function approvalList(pi,pp,pw,pr,pc){return '<h3>Invoices Awaiting Approval</h3>'+table(pi,['Date','Invoice','Customer','Total','Action'],i=>[niceDate(i.date),i.id,esc(i.customer),money(i.total),'<button class="small secondary" onclick="viewApproval(\'invoice\',\''+i.id+'\')">Open / View</button>'],'No pending invoices.')+'<h3>Payments Awaiting Approval</h3>'+table(pp,['Date','Payment','Invoice','Customer','Amount','Action'],p=>[niceDate(p.date),p.id,p.invoiceId,esc(p.customer),money(p.totalPaid),'<button class="small secondary" onclick="viewApproval(\'payment\',\''+p.id+'\')">Open / View</button>'],'No pending payments.')+'<h3>Procurement Requests Awaiting Approval</h3>'+table(pr,['Date','Request','Customer','Item','Action'],r=>[niceDate(r.date),r.id,esc(r.customer),esc(r.itemName),'<button class="small secondary" onclick="viewApproval(\'procRequest\',\''+r.id+'\')">Open / View</button>'],'No pending procurement requests.')+'<h3>Procurement Feedback Awaiting Review</h3>'+table(pc,['Date','Record','Vendor','Item','Price','Action'],p=>[niceDate(p.date),p.id,esc(p.vendor),esc(p.itemName||p.item),money(p.sellingPrice||0),'<button class="small secondary" onclick="viewApproval(\'procurement\',\''+p.id+'\')">Open / View</button>'],'No pending procurement feedback.')+'<h3>Waybills Awaiting Approval</h3>'+table(pw,['Date','Waybill','Customer','Status','Action'],w=>[niceDate(w.date),w.id,esc(w.customer),statusTag(w.status),'<button class="small secondary" onclick="viewApproval(\'waybill\',\''+w.id+'\')">Open / View</button>'],'No pending waybills.')}
+function workflowTable(){const wf=[...db.quotes.map(x=>({date:x.date,ref:x.id,type:'Quote',customer:x.customer,status:x.status})),...db.invoices.map(x=>({date:x.date,ref:x.id,type:'Invoice',customer:x.customer,status:x.status})),...db.payments.map(x=>({date:x.date,ref:x.id,type:'Payment',customer:x.customer,status:x.status})),...db.procurementRequests.map(x=>({date:x.date,ref:x.id,type:'Procurement Request',customer:x.customer,status:x.directorApprovalStatus})),...db.waybills.map(x=>({date:x.date,ref:x.id,type:'Waybill',customer:x.customer,status:x.status}))].slice(0,30);return table(wf,['Date','Ref','Type','Customer','Status'],r=>[niceDate(r.date),r.ref,r.type,esc(r.customer),statusTag(r.status)],'No workflow movement yet.')}
+function customerByPhone(p){return db.customers.find(c=>c.cleanPhone===cleanPhone(p))}
+function refreshCustomer(c){c.invoiceIds=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone).map(i=>i.id);c.outstandingBalance=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone&&i.status!=='Rejected').reduce((a,b)=>a+Number(b.balance||0),0)}
+function upsertCustomer(q){const cp=cleanPhone(q.phone);if(!cp)return;let c=customerByPhone(q.phone);if(!c){c={id:nextId('customer'),name:q.customer||'',phone:q.phone||'',cleanPhone:cp,email:q.email||'',locations:[],siteContacts:[],quoteIds:[],invoiceIds:[],outstandingBalance:0,lastOrderDate:q.date||today()};db.customers.unshift(c)}c.name=q.customer||c.name;c.email=q.email||c.email;c.phone=q.phone||c.phone;if(q.location&&!c.locations.includes(q.location))c.locations.unshift(q.location);const sc=[q.siteContact||'',q.sitePhone||''].join(' | ').trim();if(sc&&!c.siteContacts.includes(sc))c.siteContacts.unshift(sc);if(q.id&&!c.quoteIds.includes(q.id))c.quoteIds.unshift(q.id);c.lastOrderDate=q.date||today();refreshCustomer(c)}
+function customerOptions(){return '<option value="">Select customer</option>'+db.customers.map(c=>'<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.phone)+'</option>').join('')}
+function renderQuotesPage(){installPage('<section><div class="panel"><div class="eyebrow">Customer-Facing / Sales Desk</div><h2>New Quote / Customer Request</h2><form id="quoteForm"><div class="grid"><div class="full"><label>Search Returning Customer</label><select id="customerSelect">'+customerOptions()+'</select><div id="customerHint"></div></div><div><label>Date of Order</label><input name="date" type="date" required></div><div><label>Source of Request</label><select name="source" required><option>Website Quote Form</option><option>Walk-in</option><option>Phone Call</option><option>WhatsApp</option><option>Social Media</option><option>Referral</option><option>Director Entry</option></select></div><div><label>Customer Name</label><input name="customer" required></div><div><label>Phone / WhatsApp</label><input name="phone" required></div><div><label>Email Address</label><input name="email" type="email"></div>'+locationFields('')+'<div><label>Site Contact Person</label><input name="siteContact" required></div><div><label>Site Contact Phone</label><input name="sitePhone"></div><div><label>Date Goods Needed / To Be Supplied</label><input name="deliveryDate" type="date" required></div><div><label>Preferred Delivery Time</label><input name="deliveryTime" type="time"></div>'+deliveryWindowField()+'<div><label>Entered By</label><input name="enteredBy" readonly value="'+esc(currentOfficerName)+'"></div><div class="full"><label>Customer Instruction / Request Details</label><textarea name="details"></textarea></div></div><hr><h3>Requested Products / Materials / Services</h3><div id="quoteLines"></div><div class="row"><button type="button" class="secondary" onclick="addQuoteLine()">Add Product / Material / Service Line</button><button class="primary" type="submit">Save Quote Request</button></div></form></div><div class="panel"><h2>Central Quotes</h2>'+renderQuotesTable()+'</div></section>',()=>{addQuoteLine();document.getElementById('customerSelect').onchange=e=>{const c=db.customers.find(x=>x.id===e.target.value);if(c){const f=document.getElementById('quoteForm');f.customer.value=c.name;f.phone.value=c.phone;f.email.value=c.email||''}};document.getElementById('quoteForm').onsubmit=saveQuote})}
+function addQuoteLine(line={}){const wrap=document.getElementById('quoteLines');if(!wrap)return;const div=document.createElement('div');div.className='product-box quote-line';div.innerHTML='<div class="grid3"><div><label>Code</label><select class="q-code" required>'+productSelectOptions(line.code)+'</select></div><div><label>Product / Material / Service</label><input class="q-item" value="'+esc(line.item||'')+'" required></div><div><label>Qty / Volume</label><input class="q-qty" value="'+esc(line.quantity||'')+'" required></div><div><label>Unit</label><select class="q-unit" required>'+optionList(['Bags','Pieces','Trips','Tonnes / Tonnage','Square Metres','Service','Units','Other'],line.unit,'Unit')+'</select></div><div><label>Tonnage / Trip Size</label><select class="q-tonnage">'+optionList(['Not Applicable','5 Ton','10 Ton','12.5 / 15 Ton','20 Ton','30 Ton','35 Ton'],line.tonnage)+'</select></div><div><label>Stock Availability</label><select class="q-stock">'+optionList(['Available in Stock','Partly Available','Not Available / Send to Procurement','Needs Production','Service / Not Stock Item'],line.stockAvailability)+'</select></div><div class="full"><label>Internal Interpretation / Sourcing Note</label><input class="q-note" value="'+esc(line.internalInterpretation||'')+'"></div></div><div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';div.querySelector('.q-code').onchange=e=>{const p=getProduct(e.target.value);div.querySelector('.q-item').value=p.item;div.querySelector('.q-unit').value=p.unit;div.querySelector('.q-tonnage').value=p.tonnage};wrap.appendChild(div)}
+function removeProductBox(btn){const p=btn.closest('.product-box'),c=p.parentElement;if(c.querySelectorAll('.product-box').length<=1){alert('At least one line is required.');return}p.remove()}
+function collectQuoteLines(){return[...document.querySelectorAll('#quoteLines .quote-line')].map(b=>({code:b.querySelector('.q-code').value,item:b.querySelector('.q-item').value.trim(),quantity:b.querySelector('.q-qty').value.trim(),unit:b.querySelector('.q-unit').value,tonnage:b.querySelector('.q-tonnage').value,stockAvailability:b.querySelector('.q-stock').value,internalInterpretation:b.querySelector('.q-note').value.trim()})).filter(l=>l.code&&l.item&&l.quantity)}
+function saveQuote(e){e.preventDefault();const data=formData(e.target);data.location=locString(data);const lines=collectQuoteLines();if(!lines.length)return alert('Add at least one line.');const q={id:nextId('quote'),status:'Quote received',createdByRole:currentRole,createdByName:currentOfficerName,lines,...data};db.quotes.unshift(q);upsertCustomer(q);lines.filter(l=>['Not Available / Send to Procurement','Partly Available','Needs Production'].includes(l.stockAvailability)).forEach(l=>db.procurementRequests.unshift({id:nextId('procurementRequest'),date:today(),quoteId:q.id,customer:q.customer,phone:q.phone,location:q.location,itemCode:l.code,itemName:l.item,qty:l.quantity,unit:l.unit,tonnage:l.tonnage,stockAvailability:l.stockAvailability,requestNote:l.internalInterpretation||q.details||'',createdByName:currentOfficerName,directorApprovalStatus:'Pending Director Approval',procurementStatus:'Awaiting Director Approval'}));save();alert('Quote saved.')}
+function renderQuotesTable(){return table(db.quotes,['Date','Quote','Customer','Location','Delivery','Lines / Status','Action'],q=>[niceDate(q.date),q.id,esc(q.customer)+'<br><small>'+esc(q.phone)+'</small>',esc(q.location),niceDate(q.deliveryDate)+'<br>'+esc(q.deliveryTime||'')+'<br>'+esc(q.deliveryWindow||''),(q.lines||[]).map(l=>esc(l.quantity+' '+l.unit+' '+l.item)+'<br>'+statusTag(l.stockAvailability)).join('<hr>'),'<button class="small secondary" onclick="sendQuoteToInvoice(\''+q.id+'\')">Create Invoice</button> <button class="small red" onclick="deleteRecord(\'quotes\',\''+q.id+'\')">Delete</button>'],'No quotes yet.')}
+function sendQuoteToInvoice(qid){showPage('invoices');setTimeout(()=>{const s=document.getElementById('invoiceQuoteSelect');if(s){s.value=qid;fillInvoiceFromQuote(qid)}},80)}
+function renderInvoicesPage(){installPage('<section><div class="panel"><div class="eyebrow">Invoice / Sales Ledger</div><h2>Create Invoice</h2><form id="invoiceForm"><div class="grid"><div><label>Invoice Date</label><input name="date" type="date" required></div><div><label>From Quote</label><select name="quoteId" id="invoiceQuoteSelect"><option value="">Manual invoice</option>'+db.quotes.map(q=>'<option value="'+q.id+'">'+q.id+' — '+esc(q.customer)+'</option>').join('')+'</select></div><div><label>Customer Name</label><input name="customer" required></div><div><label>Phone / WhatsApp</label><input name="phone" required></div><div><label>Email Address</label><input name="email" type="email"></div>'+locationFields('')+'<div><label>Site Contact Person</label><input name="siteContact"></div><div><label>Site Contact Phone</label><input name="sitePhone"></div><div><label>Delivery Date</label><input name="deliveryDate" type="date"></div><div><label>Delivery Time</label><input name="deliveryTime" type="time"></div>'+deliveryWindowField()+'<div><label>Officer Name</label><input name="officerName" readonly value="'+esc(currentOfficerName)+'"></div><div class="full"><label>Invoice Note / Delivery Instruction</label><textarea name="note"></textarea></div></div><hr><h3>Invoice Line Items</h3><div id="invoiceLines"></div><div class="row"><button type="button" class="secondary" onclick="addInvoiceLine()">Add Invoice Line</button></div><div class="grid" style="margin-top:14px"><div><label>Logistics Fee / Delivery Fee (₦)</label><input name="logisticsFee" type="number" step="0.01" value="0"></div><div><label>Discount (₦)</label><input name="discount" type="number" step="0.01" value="0"></div></div><div class="notice" id="invoiceCalc">Invoice calculation appears here.</div><div class="row"><button class="primary" type="submit">Submit Invoice for Director Approval</button></div></form></div><div class="panel"><h2>Invoice / Sales Ledger Records</h2>'+renderInvoicesTable()+'</div></section>',()=>{addInvoiceLine();document.getElementById('invoiceQuoteSelect').onchange=e=>fillInvoiceFromQuote(e.target.value);document.getElementById('invoiceForm').addEventListener('input',updateInvoiceCalc);document.getElementById('invoiceForm').onsubmit=saveInvoice})}
+function fillInvoiceFromQuote(qid){const q=db.quotes.find(x=>x.id===qid);if(!q)return;const f=document.getElementById('invoiceForm');f.customer.value=q.customer;f.phone.value=q.phone;f.email.value=q.email||'';f.deliveryDate.value=q.deliveryDate||'';f.deliveryTime.value=q.deliveryTime||'';f.deliveryWindow.value=q.deliveryWindow||'To Be Confirmed';f.note.value=q.details||'';document.getElementById('invoiceLines').innerHTML='';(q.lines||[]).forEach(l=>addInvoiceLine({code:l.code,desc:l.item,qty:l.quantity,unit:l.unit,rate:0}));updateInvoiceCalc()}
+function addInvoiceLine(line={}){const wrap=document.getElementById('invoiceLines');if(!wrap)return;const div=document.createElement('div');div.className='product-box invoice-line';div.innerHTML='<div class="grid3"><div><label>Product Code</label><input class="i-code" value="'+esc(line.code||'')+'"></div><div><label>Description</label><input class="i-desc" value="'+esc(line.desc||'')+'" required></div><div><label>Quantity</label><input class="i-qty" type="number" step="0.01" value="'+esc(line.qty||'')+'" required></div><div><label>Unit</label><select class="i-unit" required>'+optionList(['Bags','Pieces','Trips','Tonnes / Tonnage','Square Metres','Service','Units','Other'],line.unit,'Unit')+'</select></div><div><label>Rate</label><input class="i-rate" type="number" step="0.01" value="'+esc(line.rate||0)+'" required></div><div><label>Line Amount</label><input class="i-total" readonly></div></div><div class="row"><button type="button" class="red small" onclick="removeProductBox(this)">Remove</button></div>';div.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',updateInvoiceCalc));wrap.appendChild(div);updateInvoiceCalc()}
+function collectInvoiceLines(){return[...document.querySelectorAll('#invoiceLines .invoice-line')].map(b=>{const qty=Number(b.querySelector('.i-qty').value||0),rate=Number(b.querySelector('.i-rate').value||0);return{code:b.querySelector('.i-code').value.trim(),desc:b.querySelector('.i-desc').value.trim(),qty,unit:b.querySelector('.i-unit').value,rate,amount:qty*rate}}).filter(l=>l.desc&&l.qty>0)}
+function updateInvoiceCalc(){const f=document.getElementById('invoiceForm');if(!f)return;let subtotal=0;document.querySelectorAll('#invoiceLines .invoice-line').forEach(b=>{const t=Number(b.querySelector('.i-qty').value||0)*Number(b.querySelector('.i-rate').value||0);b.querySelector('.i-total').value=t.toFixed(2);subtotal+=t});const logisticsFee=Number(f.logisticsFee.value||0),discount=Number(f.discount.value||0),total=Math.max(subtotal+logisticsFee-discount,0);document.getElementById('invoiceCalc').innerHTML='<b>Subtotal:</b> '+money(subtotal)+' | <b>Logistics Fee:</b> '+money(logisticsFee)+' | <b>Discount:</b> '+money(discount)+' | <b>Total:</b> '+money(total)}
+function saveInvoice(e){e.preventDefault();const data=formData(e.target);data.location=locString(data);const lines=collectInvoiceLines();if(!lines.length)return alert('Please add at least one invoice line.');const subtotal=lines.reduce((a,b)=>a+b.amount,0),logisticsFee=Number(data.logisticsFee||0),discount=Number(data.discount||0),total=Math.max(subtotal+logisticsFee-discount,0),status=currentRole==='director'?'Approved':'Awaiting Director Approval';const inv={id:nextId('invoice'),lines,subtotal,logisticsFee,discount,total,paid:0,balance:total,status,createdByName:currentOfficerName,...data};db.invoices.unshift(inv);const q=db.quotes.find(x=>x.id===data.quoteId);if(q)q.status='Invoice created - '+status;save();alert(status==='Approved'?'Invoice saved and approved.':'Invoice submitted to Director for approval.')}
+function renderInvoicesTable(){return table(db.invoices,['Date','Invoice','Customer','Items','Total','Paid','Balance','Delivery','Status','Actions'],i=>[niceDate(i.date),i.id,esc(i.customer)+'<br><small>'+esc(i.phone)+'</small>',(i.lines||[]).map(l=>esc(l.qty+' '+l.unit+' '+l.desc+' @ '+money(l.rate))).join('<br>'),money(i.total),money(i.paid),money(i.balance),niceDate(i.deliveryDate)+'<br>'+esc(i.deliveryTime||'')+'<br>'+esc(i.deliveryWindow||''),statusTag(i.status),invoiceActions(i)],'No invoices yet.')}
+function invoiceActions(i){let a='';if(currentRole==='director'&&i.status==='Awaiting Director Approval')a+='<button class="small secondary" onclick="viewApproval(\'invoice\',\''+i.id+'\')">Open / View</button> ';if(['Approved','Paid','Part Paid'].includes(i.status))a+='<button class="small secondary" onclick="printInvoice(\''+i.id+'\')">Print / Save PDF</button> <button class="small green" onclick="openWhatsAppInvoice(\''+i.id+'\')">WhatsApp Template</button> ';if(i.status==='Awaiting Director Approval'||currentRole==='director')a+='<button class="small red" onclick="deleteRecord(\'invoices\',\''+i.id+'\')">Delete</button>';return a||'<span>Awaiting approval</span>'}
+function approveInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(currentRole!=='director')return alert('Only Director can approve invoices.');if(i){i.status='Approved';i.approvedBy=currentOfficerName;save()}}
+function rejectInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(currentRole!=='director')return alert('Only Director can reject invoices.');if(i){i.status='Rejected';save()}}
+function renderPaymentsPage(){installPage('<section><div class="panel"><div class="eyebrow">Payments / Receipts</div><h2>Payment Confirmation</h2><form id="paymentForm"><div class="grid"><div><label>Select Approved Invoice</label><select name="invoiceId" id="paymentInvoiceSelect" required><option value="">Select approved invoice</option>'+db.invoices.filter(i=>(i.status==='Approved'||i.status==='Part Paid')&&Number(i.balance)>0).map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.customer)+' — Balance '+money(i.balance)+'</option>').join('')+'</select></div><div><label>Customer</label><input name="customer" readonly></div><div><label>Invoice Amount (₦)</label><input name="invoiceTotal" readonly></div><div><label>Current Balance (₦)</label><input name="currentBalance" readonly></div><div><label>Transfer Amount (₦)</label><input name="transferAmount" type="number" step="0.01" value="0"></div><div><label>Cash Amount (₦)</label><input name="cashAmount" type="number" step="0.01" value="0"></div><div><label>POS Amount (₦)</label><input name="posAmount" type="number" step="0.01" value="0"></div><div><label>Cash Receiver Name</label><input name="cashReceiver"></div><div><label>Payment Proof Upload</label><input name="proof" type="file" accept=".jpg,.jpeg,.png,.pdf"></div><div><label>Payment Date</label><input name="date" type="date" required></div><div class="full"><label>Payment Note / Remarks</label><textarea name="note"></textarea></div></div><div class="row"><button class="primary" type="submit">Submit Payment for Director Approval</button></div></form></div><div class="panel"><h2>Payment Approval Records</h2>'+renderPaymentsTable()+'</div><div class="panel"><h2>Approved Receipts / Part-Payment Acknowledgements</h2>'+renderReceiptsTable()+'</div></section>',()=>{document.getElementById('paymentInvoiceSelect').onchange=function(){const inv=db.invoices.find(i=>i.id===this.value);if(!inv)return;const f=document.getElementById('paymentForm');f.customer.value=inv.customer;f.invoiceTotal.value=inv.total;f.currentBalance.value=inv.balance};document.getElementById('paymentForm').onsubmit=savePayment})}
+async function savePayment(e){e.preventDefault();const f=e.target,data=formData(f),inv=db.invoices.find(i=>i.id===data.invoiceId);if(!inv)return alert('Select a valid approved invoice.');const transferAmount=Number(data.transferAmount||0),cashAmount=Number(data.cashAmount||0),posAmount=Number(data.posAmount||0),totalPaid=transferAmount+cashAmount+posAmount;if(totalPaid<=0)return alert('Enter at least one payment amount.');const proof=await fileRead(f.proof.files[0]);const p={id:nextId('payment'),status:currentRole==='director'?'Approved':'Awaiting Director Approval',invoiceId:inv.id,customer:inv.customer,phone:inv.phone,totalPaid,transferAmount,cashAmount,posAmount,proofName:proof.name,proofData:proof.data,createdByName:currentOfficerName,...data};db.payments.unshift(p);if(currentRole==='director')applyApprovedPayment(p,inv);save();alert(currentRole==='director'?'Payment saved and approved. Receipt generated.':'Payment submitted for Director approval.')}
+function applyApprovedPayment(p,inv){if(!p||!inv||p._applied)return;p._applied=true;p.status='Approved';p.approvedBy=currentOfficerName;inv.paid=Number(inv.paid||0)+Number(p.totalPaid||0);inv.balance=Math.max(Number(inv.total||0)-Number(inv.paid||0),0);inv.status=inv.balance<=0?'Paid':'Part Paid';db.receipts.unshift({id:nextId('receipt'),date:today(),invoiceId:inv.id,paymentId:p.id,customer:inv.customer,phone:inv.phone,receiptType:inv.balance<=0?'Payment Receipt':'Part-Payment Acknowledgement',amount:p.totalPaid,balance:inv.balance,transferAmount:p.transferAmount,cashAmount:p.cashAmount,posAmount:p.posAmount,approvedBy:currentOfficerName})}
+function renderPaymentsTable(){return table(db.payments,['Date','Payment','Invoice','Customer','Transfer','Cash','POS','Total','Proof','Status','Action'],p=>[niceDate(p.date),p.id,p.invoiceId,esc(p.customer),money(p.transferAmount),money(p.cashAmount),money(p.posAmount),money(p.totalPaid),p.proofName?'<a href="'+p.proofData+'" target="_blank">'+esc(p.proofName)+'</a>':'-',statusTag(p.status),currentRole==='director'&&p.status==='Awaiting Director Approval'?'<button class="small secondary" onclick="viewApproval(\'payment\',\''+p.id+'\')">Open / View</button>':(p.status==='Approved'?'Approved - receipt generated':'Awaiting approval')],'No payment records yet.')}
+function approvePayment(pid){if(currentRole!=='director')return alert('Only Director can approve payments.');const p=db.payments.find(x=>x.id===pid),inv=db.invoices.find(i=>i.id===(p?p.invoiceId:''));if(!p||!inv)return;applyApprovedPayment(p,inv);save()}
+function rejectPayment(pid){if(currentRole!=='director')return alert('Only Director can reject payments.');const p=db.payments.find(x=>x.id===pid);if(p){p.status='Rejected';save()}}
+function renderReceiptsTable(){return table(db.receipts,['Date','Receipt','Type','Invoice','Customer','Amount','Balance','Actions'],r=>[niceDate(r.date),r.id,esc(r.receiptType),r.invoiceId,esc(r.customer),money(r.amount),money(r.balance),'<button class="small secondary" onclick="printReceipt(\''+r.id+'\')">Print / Save PDF</button> <button class="small green" onclick="openWhatsAppReceipt(\''+r.id+'\')">WhatsApp Template</button>'],'No approved receipts yet.')}
+function renderProcurementRequestsPage(){installPage('<section><div class="panel"><div class="eyebrow">Stock Gap / Sourcing Requests</div><h2>Procurement Requests from Business Support</h2>'+table(db.procurementRequests,['Date','Request','Quote','Customer','Item','Qty','Approval','Status','Actions'],r=>[niceDate(r.date),r.id,r.quoteId,esc(r.customer),esc(r.itemName),esc(r.qty)+' '+esc(r.unit),statusTag(r.directorApprovalStatus),statusTag(r.procurementStatus),procReqActions(r)],'No procurement requests yet.')+'</div></section>')}
+function procReqActions(r){let a='';if(currentRole==='director'&&r.directorApprovalStatus==='Pending Director Approval')a+='<button class="small secondary" onclick="viewApproval(\'procRequest\',\''+r.id+'\')">Open / View</button> ';if((currentRole==='procurement'||currentRole==='director')&&r.directorApprovalStatus==='Approved to Source / Procure')a+='<button class="small secondary" onclick="openProcFromRequest(\''+r.id+'\')">Record Vendor Feedback</button> ';return a||'-'}
+function approveProcRequest(rid){if(currentRole!=='director')return alert('Only Director can approve sourcing.');const r=db.procurementRequests.find(x=>x.id===rid);if(r){r.directorApprovalStatus='Approved to Source / Procure';r.procurementStatus='Approved - Procurement Officer to check vendors/source';save()}}
+function rejectProcRequest(rid){if(currentRole!=='director')return alert('Only Director can reject sourcing.');const r=db.procurementRequests.find(x=>x.id===rid);if(r){r.directorApprovalStatus='Rejected / Do Not Proceed';r.procurementStatus='Rejected';save()}}
+function openProcFromRequest(rid){showPage('procurement');setTimeout(()=>{const s=document.getElementById('procRequestSelect');if(s){s.value=rid;fillProcFromRequest(rid)}},80)}
+function renderWaybillsPage(){installPage('<section><div class="panel"><div class="eyebrow">Delivery / Logistics Handover Desk</div><h2>Create Waybill / Delivery Instruction</h2><form id="waybillForm"><div class="grid"><div><label>Select Approved Invoice</label><select name="invoiceId" id="waybillInvoiceSelect" required><option value="">Select approved invoice</option>'+db.invoices.filter(i=>['Paid','Part Paid','Approved'].includes(i.status)).map(i=>'<option value="'+i.id+'">'+i.id+' — '+esc(i.customer)+' — '+esc(i.status)+'</option>').join('')+'</select></div><div><label>Waybill Date</label><input name="date" type="date" required></div><div><label>Customer Name</label><input name="customer" required></div><div><label>Phone / WhatsApp</label><input name="phone" required></div>'+locationFields('')+'<div><label>Site Contact Person</label><input name="siteContact"></div><div><label>Site Contact Phone</label><input name="sitePhone"></div><div><label>Logistics Fee / Delivery Fee (₦)</label><input name="logisticsFee" type="number" step="0.01" value="0"></div><div><label>Delivery Date</label><input name="deliveryDate" type="date"></div><div><label>Delivery Time</label><input name="deliveryTime" type="time"></div>'+deliveryWindowField()+'<div><label>Prepared By</label><input name="preparedBy" readonly value="'+esc(currentOfficerName)+'"></div><div class="full"><label>Products / Materials for Delivery</label><textarea name="products" required></textarea></div><div class="full"><label>Delivery Instruction</label><textarea name="instruction"></textarea></div></div><div class="row"><button class="primary" type="submit">Submit Waybill for Director Approval</button></div></form></div><div class="panel"><h2>Waybill / Delivery Instruction Records</h2>'+renderWaybillsTable()+'</div></section>',()=>{document.getElementById('waybillInvoiceSelect').onchange=e=>fillWaybillFromInvoice(e.target.value);document.getElementById('waybillForm').onsubmit=saveWaybill})}
+function fillWaybillFromInvoice(id){const inv=db.invoices.find(i=>i.id===id);if(!inv)return;const f=document.getElementById('waybillForm');f.customer.value=inv.customer;f.phone.value=inv.phone;f.logisticsFee.value=inv.logisticsFee||0;f.deliveryDate.value=inv.deliveryDate||'';f.deliveryTime.value=inv.deliveryTime||'';f.deliveryWindow.value=inv.deliveryWindow||'To Be Confirmed';f.products.value=(inv.lines||[]).map(l=>l.qty+' '+l.unit+' '+l.desc).join('\n');f.instruction.value=inv.note||''}
+function saveWaybill(e){e.preventDefault();const data=formData(e.target);data.location=locString(data);const status=currentRole==='director'?'Approved for Dispatch':'Awaiting Director Approval';db.waybills.unshift({id:nextId('waybill'),status,createdByName:currentOfficerName,...data});save();alert(status==='Approved for Dispatch'?'Waybill created and approved.':'Waybill submitted for Director approval.')}
+function renderWaybillsTable(){return table(db.waybills,['Date','Waybill','Invoice','Customer','Location','Products','Logistics Fee','Delivery','Status','Actions'],w=>[niceDate(w.date),w.id,w.invoiceId,esc(w.customer),esc(w.location),esc(w.products).split('\n').join('<br>'),money(w.logisticsFee),niceDate(w.deliveryDate)+'<br>'+esc(w.deliveryTime||'')+'<br>'+esc(w.deliveryWindow||''),statusTag(w.status),waybillActions(w)],'No waybills yet.')}
+function waybillActions(w){let a='';if(currentRole==='director'&&w.status==='Awaiting Director Approval')a+='<button class="small secondary" onclick="viewApproval(\'waybill\',\''+w.id+'\')">Open / View</button> ';if((currentRole==='director'||currentRole==='logistics')&&w.status!=='Awaiting Director Approval')a+='<button class="small secondary" onclick="printWaybill(\''+w.id+'\')">Print / Save PDF</button> ';if((currentRole==='director'||currentRole==='logistics')&&w.status==='Approved for Dispatch')a+='<button class="small blue" onclick="quickDispatch(\''+w.id+'\')">Dispatch</button> ';if(currentRole==='director'||w.status==='Awaiting Director Approval')a+='<button class="small red" onclick="deleteRecord(\'waybills\',\''+w.id+'\')">Delete</button>';return a||'-'}
+function approveWaybill(wid){if(currentRole!=='director')return alert('Only Director can approve dispatch.');const w=db.waybills.find(x=>x.id===wid);if(w){w.status='Approved for Dispatch';save()}}
+function quickDispatch(wid){const w=db.waybills.find(x=>x.id===wid);if(w){w.status='Dispatched';save()}}
+function renderInventoryPage(){installPage('<section><div class="panel"><div class="eyebrow">Inventory / Company Stock Desk</div><h2>Stock Movement Ledger</h2><form id="stockForm"><div class="grid"><div><label>Date</label><input name="date" type="date" required></div><div><label>Product / Material</label><select name="item" required>'+productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')+'</select></div><div><label>Movement Type</label><select name="type" required><option>Opening Stock</option><option>Received Product</option><option>Produced Product</option><option>Sales Out</option><option>Production Usage</option><option>Damage / Loss</option><option>Shortage</option><option>Excess</option><option>Adjustment</option></select></div><div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div><div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div><div><label>Stock / Inventory Location</label><input name="location" value="'+COMPANY_SITE_LOCATION+'"></div><div class="full"><label>Notes / Remarks</label><textarea name="notes"></textarea></div></div><div class="row"><button class="primary" type="submit">Record Stock Movement</button></div></form></div><div class="panel"><h2>Current Stock Position</h2>'+renderStockPosition()+'</div><div class="panel"><h2>Stock Movement Records</h2>'+renderStockTable()+'</div></section>',()=>{document.getElementById('stockForm').onsubmit=saveStock})}
+function saveStock(e){e.preventDefault();const data=formData(e.target);db.stock.unshift({id:nextId('stock'),enteredBy:currentOfficerName,...data,qty:Number(data.qty||0)});save()}
+function stockSign(type){return['Sales Out','Production Usage','Damage / Loss','Shortage'].includes(type)?-1:1}
+function stockPosition(){const map={};db.stock.forEach(m=>{const k=String(m.item||'').toLowerCase();if(!map[k])map[k]={item:m.item,qty:0,unit:m.unit};map[k].qty+=Number(m.qty||0)*stockSign(m.type);map[k].unit=m.unit});return Object.values(map)}
+function renderStockPosition(){return table(stockPosition(),['Product / Material','Closing Stock','Unit'],s=>[esc(s.item),num(s.qty),esc(s.unit)],'No stock position yet.')}
+function renderStockTable(){return table(db.stock,['Date','Stock ID','Item','Type','Qty','Unit','Location','Notes','Action'],s=>[niceDate(s.date),s.id,esc(s.item),statusTag(s.type),num(s.qty),esc(s.unit),esc(s.location),esc(s.notes||'-'),'<button class="small red" onclick="deleteRecord(\'stock\',\''+s.id+'\')">Delete</button>'],'No stock movement yet.')}
+function renderProcurementPage(){installPage('<section><div class="panel"><div class="eyebrow">Procurement Officer</div><h2>Procurement / Sourcing Register</h2><form id="procurementForm"><div class="grid"><div><label>Date</label><input name="date" type="date" required></div><div><label>Linked Procurement Request</label><select name="requestId" id="procRequestSelect"><option value="">Not linked</option>'+db.procurementRequests.filter(r=>r.directorApprovalStatus==='Approved to Source / Procure').map(r=>'<option value="'+r.id+'">'+r.id+' — '+esc(r.customer)+' — '+esc(r.itemName)+'</option>').join('')+'</select></div><div><label>Customer Name</label><input name="customer"></div><div><label>Material / Product</label><select name="item" required>'+productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')+'</select></div><div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div><div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div><div><label>Vendor</label><input name="vendor"></div><div><label>Vendor Cost Price</label><input name="costPrice" type="number" step="0.01"></div><div><label>Suggested Selling Price</label><input name="sellingPrice" type="number" step="0.01"></div><div class="full"><label>Procurement Feedback / Remarks</label><textarea name="feedbackToSupport"></textarea></div></div><div class="row"><button class="primary" type="submit">Submit Procurement Record</button></div></form></div><div class="panel"><h2>Procurement Records</h2>'+renderProcurementTable()+'</div></section>',()=>{document.getElementById('procRequestSelect').onchange=e=>fillProcFromRequest(e.target.value);document.getElementById('procurementForm').onsubmit=saveProcurement})}
+function fillProcFromRequest(rid){const r=db.procurementRequests.find(x=>x.id===rid);if(!r)return;const f=document.getElementById('procurementForm');f.customer.value=r.customer||'';f.item.value=r.itemName||'';f.qty.value=r.qty||'';f.unit.value=r.unit||'';f.feedbackToSupport.value=r.requestNote||''}
+function saveProcurement(e){e.preventDefault();const data=formData(e.target);const directorApprovalStatus=currentRole==='director'?'Director Price/Instruction Sent to Business Support':'Pending Director Approval';db.procurement.unshift({id:nextId('procurement'),directorApprovalStatus,itemName:data.item,createdByName:currentOfficerName,...data,qty:Number(data.qty||0)});const r=db.procurementRequests.find(x=>x.id===data.requestId);if(r){r.procurementStatus='Sourcing feedback submitted';r.procurementFeedback=data.feedbackToSupport||'';r.approvedSellingPrice=data.sellingPrice||''}save();alert('Procurement record submitted.')}
+function renderProcurementTable(){return table(db.procurement,['Date','Record','Request','Customer','Vendor','Item','Qty','Cost','Suggested Selling','Director Status','Action'],p=>[niceDate(p.date),p.id,esc(p.requestId||'-'),esc(p.customer||'-'),esc(p.vendor||'-'),esc(p.itemName||p.item),num(p.qty)+' '+esc(p.unit),money(p.costPrice||0),money(p.sellingPrice||0),statusTag(p.directorApprovalStatus),currentRole==='director'&&p.directorApprovalStatus==='Pending Director Approval'?'<button class="small secondary" onclick="viewApproval(\'procurement\',\''+p.id+'\')">Open / Send Price</button>':'-'],'No procurement records yet.')}
+function approveProcurement(pid){if(currentRole!=='director')return alert('Only Director can approve procurement records.');const p=db.procurement.find(x=>x.id===pid);if(p){p.directorApprovalStatus='Director Price/Instruction Sent to Business Support';save()}}
+function rejectProcurement(pid){if(currentRole!=='director')return alert('Only Director can reject procurement records.');const p=db.procurement.find(x=>x.id===pid);if(p){p.directorApprovalStatus='Rejected by Director';save()}}
+function renderLogisticsPage(){installPage('<section><div class="panel"><div class="eyebrow">Logistics / Inspection Officer</div><h2>Delivery Dispatch / Inspection Update</h2><form id="logisticsForm"><div class="grid"><div><label>Select Approved Waybill</label><select name="waybillId" required><option value="">Select approved waybill</option>'+db.waybills.filter(w=>w.status!=='Closed'&&w.status!=='Awaiting Director Approval').map(w=>'<option value="'+w.id+'">'+w.id+' — '+esc(w.customer)+' — '+esc(w.status)+'</option>').join('')+'</select></div><div><label>Status</label><select name="status" required><option>Dispatched</option><option>In Transit</option><option>Delivered</option><option>Signed Waybill Uploaded</option><option>Goods Confirmed and Supplied</option><option>Closed</option></select></div><div><label>Vehicle Capacity</label><input name="vehicleCapacity"></div><div><label>Number of Trips / Movements</label><input name="trips" type="number" step="1" value="1"></div><div><label>Driver / Truck Details</label><input name="driverDetails"></div><div><label>Loading Point</label><input name="loadingPoint"></div><div><label>Dispatch Date</label><input name="dispatchDate" type="date" required></div><div><label>Dispatch Time</label><input name="dispatchTime" type="time"></div><div class="full"><label>Logistics / Inspection Remarks</label><textarea name="remarks"></textarea></div></div><div class="row"><button class="primary" type="submit">Update Delivery / Inspection Record</button></div></form></div><div class="panel"><h2>Delivery / Logistics Jobs</h2>'+renderLogisticsTable()+'</div></section>',()=>{document.getElementById('logisticsForm').onsubmit=saveLogistics})}
+function saveLogistics(e){e.preventDefault();const data=formData(e.target),w=db.waybills.find(x=>x.id===data.waybillId);if(!w)return alert('Select a valid approved waybill.');if(w.status==='Awaiting Director Approval')return alert('Director approval is required before logistics can proceed.');db.logistics.unshift({id:nextId('logistics'),waybillId:w.id,invoiceId:w.invoiceId,customer:w.customer,location:w.location,updatedByName:currentOfficerName,...data});Object.assign(w,{status:data.status,vehicleCapacity:data.vehicleCapacity,trips:data.trips,driverDetails:data.driverDetails,loadingPoint:data.loadingPoint,dispatchDate:data.dispatchDate,dispatchTime:data.dispatchTime});save()}
+function renderLogisticsTable(){return table(db.waybills,['Waybill','Invoice','Customer','Location','Status','Vehicle Capacity','Trips','Driver'],w=>[w.id,w.invoiceId,esc(w.customer),esc(w.location),statusTag(w.status),esc(w.vehicleCapacity||'-'),esc(w.trips||'-'),esc(w.driverDetails||'-')],'No logistics jobs yet.')}
+function followupTemplates(){return{'After Delivery Satisfaction Check':'Good day [Customer Name], this is FTH D-UNIQ. We are following up to confirm if your materials were delivered satisfactorily and if everything was received in good condition. Kindly let us know if you need any further support.','Thank You Message':'Good day [Customer Name], thank you for choosing FTH D-UNIQ. We appreciate your trust in us for your building materials, procurement, and logistics support. We look forward to serving you again.','Balance Reminder':'Good day [Customer Name], this is a friendly reminder from FTH D-UNIQ regarding your outstanding balance. Kindly reach out to us if you need any clarification. Thank you.','Reorder Reminder':'Good day [Customer Name], this is FTH D-UNIQ checking in to know if you need a fresh supply of cement, blocks, sand, granite, interlocking stones, procurement support, or logistics coordination. We are available to assist.'}}
+function renderFollowupPage(){installPage('<section><div class="panel"><div class="eyebrow">Client Follow-Up</div><h2>Customer Follow-Up Desk</h2><form id="followupForm"><div class="grid"><div><label>Select Existing Customer</label><select id="followupCustomerSelect">'+customerOptions()+'</select></div><div><label>Date</label><input name="date" type="date" required></div><div><label>Customer Name</label><input name="customer" required></div><div><label>Phone / WhatsApp</label><input name="phone"></div><div><label>Message Channel</label><select name="channel"><option>WhatsApp</option><option>SMS</option><option>Email</option><option>Phone Call</option></select></div><div><label>Follow-Up Purpose / Template</label><select name="purpose" id="followupPurpose">'+Object.keys(followupTemplates()).map(k=>'<option>'+k+'</option>').join('')+'</select></div><div><label>Outcome</label><select name="outcome"><option>Message Prepared</option><option>Message Sent</option><option>Customer Replied</option><option>Customer Did Not Reply</option><option>Customer Was Satisfied</option><option>Customer Complained</option><option>Escalated to Director</option></select></div><div><label>Handled By</label><input name="handledBy" readonly value="'+esc(currentOfficerName)+'"></div><div class="full"><label>Editable Message Template</label><textarea name="messageText" id="followupMessageText"></textarea></div><div class="full"><label>Follow-Up Notes</label><textarea name="notes"></textarea></div></div><div class="row"><button type="button" class="green" onclick="openPreparedFollowupWhatsApp()">Open WhatsApp</button><button class="primary" type="submit">Submit Follow-Up Report</button></div></form></div><div class="panel"><h2>Follow-Up Records</h2>'+renderFollowupsTable()+'</div></section>',()=>{document.getElementById('followupCustomerSelect').onchange=e=>{const c=db.customers.find(x=>x.id===e.target.value);if(c){const f=document.getElementById('followupForm');f.customer.value=c.name;f.phone.value=c.phone;applyFollowupTemplate()}};document.getElementById('followupPurpose').onchange=applyFollowupTemplate;applyFollowupTemplate();document.getElementById('followupForm').onsubmit=saveFollowup})}
+function applyFollowupTemplate(){const f=document.getElementById('followupForm'),p=document.getElementById('followupPurpose'),m=document.getElementById('followupMessageText');if(!f||!p||!m)return;m.value=(followupTemplates()[p.value]||'').replaceAll('[Customer Name]',f.customer.value||'Customer')}
+function openPreparedFollowupWhatsApp(){const f=document.getElementById('followupForm'),phone=f.phone.value,msg=document.getElementById('followupMessageText').value;if(!phone)return alert('Enter customer phone number first.');window.open('https://wa.me/'+wnum(phone)+'?text='+encodeURIComponent(msg),'_blank')}
+function saveFollowup(e){e.preventDefault();const data=formData(e.target);db.followups.unshift({id:nextId('followup'),createdByName:currentOfficerName,...data});save()}
+function renderFollowupsTable(){return table(db.followups,['Date','ID','Customer','Phone','Channel','Purpose','Outcome','Message','Action'],f=>[niceDate(f.date),f.id,esc(f.customer),esc(f.phone),esc(f.channel||'-'),esc(f.purpose||'-'),statusTag(f.outcome),esc(f.messageText||f.notes||'-'),'<button class="small green" onclick="openFollowupWhatsApp(\''+f.id+'\')">WhatsApp</button>'],'No follow-up records yet.')}
+function openFollowupWhatsApp(fid){const f=db.followups.find(x=>x.id===fid);if(f)window.open('https://wa.me/'+wnum(f.phone)+'?text='+encodeURIComponent(f.messageText||f.notes||''),'_blank')}
+function renderCustomersPage(){db.customers.forEach(refreshCustomer);installPage('<section><div class="panel"><div class="eyebrow">Customer Profiles</div><h2>Customer Auto-Fill / History</h2>'+table(db.customers,['Customer','Phone','Email','Locations','Site Contacts','Quotes','Invoices','Outstanding','Last Order','Action'],c=>[esc(c.name),esc(c.phone),esc(c.email||'-'),(c.locations||[]).map(esc).join('<br>')||'-',(c.siteContacts||[]).map(esc).join('<br>')||'-',String((c.quoteIds||[]).length),String((c.invoiceIds||[]).length),money(c.outstandingBalance),niceDate(c.lastOrderDate),currentRole==='director'?'<button class="small red" onclick="deleteRecord(\'customers\',\''+c.id+'\')">Delete</button>':'-'],'No customer profiles yet.')+'</div></section>')}
+function renderStaffPage(){installPage('<section><div class="panel director-only"><div class="eyebrow">Director Access Control</div><h2>Officer Profiles / Tokens</h2><form id="officerForm"><div class="grid"><div><label>Officer Role</label><select name="role" required><option value="support">Business Support Officer</option><option value="procurement">Procurement Officer</option><option value="logistics">Logistics / Inspection Officer</option><option value="social">Client Follow-Up Officer</option><option value="director">Director</option></select></div><div><label>Officer Name</label><input name="name" required></div><div><label>Access Token</label><input name="token" id="officerToken" required></div><div><label>Status</label><select name="status"><option>Active</option><option>Inactive</option></select></div></div><div class="row"><button type="button" class="secondary" onclick="generateOfficerToken()">Generate Token</button><button class="primary" type="submit">Save Officer Profile</button></div></form></div><div class="panel director-only"><h2>Registered Officers</h2>'+table(db.officers,['Role','Officer Name','Token','Status','Actions'],o=>[esc(roleNames[o.role]||o.role),esc(o.name),esc(o.token),statusTag(o.status),'<button class="small secondary" onclick="resetOfficerToken(\''+o.id+'\')">New Token</button> <button class="small red" onclick="deactivateOfficer(\''+o.id+'\')">Deactivate</button> <button class="small red" onclick="deleteRecord(\'officers\',\''+o.id+'\')">Wipe</button>'],'No registered officers yet. Default demo PINs are still active.')+'</div></section>',()=>{document.getElementById('officerForm').onsubmit=saveOfficer})}
+function generateOfficerToken(){document.getElementById('officerToken').value=Math.random().toString(36).slice(2,8).toUpperCase()}
+function saveOfficer(e){e.preventDefault();if(currentRole!=='director')return alert('Only Director can manage officer profiles.');const data=formData(e.target);const old=db.officers.find(o=>o.role===data.role&&o.name.toLowerCase()===data.name.toLowerCase());if(old)Object.assign(old,data);else db.officers.unshift({id:nextId('officer'),...data});save();alert('Officer profile saved.')}
+function resetOfficerToken(oid){const o=db.officers.find(x=>x.id===oid);if(o){o.token=Math.random().toString(36).slice(2,8).toUpperCase();o.status='Active';save();alert('New token: '+o.token)}}
+function deactivateOfficer(oid){const o=db.officers.find(x=>x.id===oid);if(o){o.status='Inactive';save()}}
+function dayStats(date){const invoices=db.invoices.filter(i=>i.date===date&&i.status!=='Awaiting Director Approval'&&i.status!=='Rejected');const payments=db.payments.filter(p=>p.date===date&&p.status==='Approved');return{date,quotes:db.quotes.filter(x=>x.date===date).length,invoices:invoices.length,sales:invoices.reduce((a,b)=>a+Number(b.total||0),0),paid:payments.reduce((a,b)=>a+Number(b.totalPaid||0),0),balance:invoices.reduce((a,b)=>a+Number(b.balance||0),0),procurement:db.procurementRequests.filter(x=>x.date===date).length,waybills:db.waybills.filter(x=>x.date===date).length,followups:db.followups.filter(x=>x.date===date).length}}
+function dateRange(start,end){const out=[];let d=new Date(start),e=new Date(end);while(d<=e){out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}return out}
+function dailyReportHtml(date){const s=dayStats(date);return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Daily Operations Report</h2><p><b>Date:</b> '+niceDate(date)+'</p>'+table([s],['Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],x=>[x.quotes,x.invoices,money(x.sales),money(x.paid),money(x.balance),x.procurement,x.waybills,x.followups])+'</div>'}
+function weeklyReportHtml(start,end){return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Weekly Statement Report</h2><p><b>Period:</b> '+niceDate(start)+' to '+niceDate(end)+'</p>'+table(dateRange(start,end).map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'</div>'}
+function monthlyReportHtml(month){const first=month+'-01',d=new Date(first),days=[];while(d.toISOString().slice(0,7)===month){days.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Monthly Reconciliation</h2><p><b>Month:</b> '+esc(month)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'</div>'}
+function renderReportsPage(){installPage('<section><div class="panel"><div class="eyebrow">Reports</div><h2>Daily, Weekly & Monthly Reports</h2><div class="grid4"><div><label>Daily Report Date</label><input id="reportDate" type="date"></div><div><label>Weekly Start Date</label><input id="weekStartDate" type="date"></div><div><label>Weekly End Date</label><input id="weekEndDate" type="date"></div><div><label>Monthly Report</label><input id="reportMonth" type="month"></div></div><div class="row"><button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button><button class="blue director-only-inline" type="button" onclick="renderWeeklyReport()">Generate Weekly Statement</button><button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button><button class="secondary director-only-inline" type="button" onclick="printCurrentReport()">Director Print / Save PDF</button><button class="dark director-only-inline" type="button" onclick="archiveCurrentReport()">Director Archive Current Report</button><button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button><button class="red" type="button" onclick="authorizedClearWorkstationData()">Clear Workstation Data</button></div><div class="notice">The clear button is available in every officer portal under Reports, but it requires the Director clear passcode before anything is deleted. Header refresh/clear-device buttons have been removed.</div></div><div id="reportBox"></div></section>');setDefaultDates();renderDailyReport()}
+let currentReportHtml='',currentReportTitle='';
+function renderDailyReport(){const d=document.getElementById('reportDate')?.value||today();currentReportHtml=dailyReportHtml(d);currentReportTitle='Daily Report '+d;document.getElementById('reportBox').innerHTML=currentReportHtml}
+function renderWeeklyReport(){if(currentRole!=='director')return alert('Only Director can generate weekly report.');const s=document.getElementById('weekStartDate').value||today(),e=document.getElementById('weekEndDate').value||today();currentReportHtml=weeklyReportHtml(s,e);currentReportTitle='Weekly Report '+s+' to '+e;document.getElementById('reportBox').innerHTML=currentReportHtml}
+function renderMonthlyReport(){if(currentRole!=='director')return alert('Only Director can generate monthly report.');const m=document.getElementById('reportMonth').value||monthNow();currentReportHtml=monthlyReportHtml(m);currentReportTitle='Monthly Report '+m;document.getElementById('reportBox').innerHTML=currentReportHtml}
+function printCurrentReport(){if(currentRole!=='director')return alert('Only Director can print reports.');if(!currentReportHtml)renderDailyReport();printWin(currentReportHtml,currentReportTitle)}
+function archiveCurrentReport(){if(currentRole!=='director')return alert('Only Director can archive reports.');if(!currentReportHtml)renderDailyReport();db.archives.unshift({id:nextId('archive'),date:today(),type:currentReportTitle,title:currentReportTitle,html:currentReportHtml});save();alert('Report archived.')}
+function submitDailyReportToDirector(){if(currentRole!=='support')return alert('Only Business Support can submit daily report.');db.dailySubmissions.unshift({id:nextId('report'),date:document.getElementById('reportDate')?.value||today(),submittedBy:currentOfficerName,status:'Submitted to Director Dashboard'});save();alert('Daily report submitted.')}
+function renderArchivePage(){installPage('<section><div class="panel"><div class="eyebrow">Director Archive</div><h2>Archived Reports</h2>'+table(db.archives,['Date','Archive ID','Type','Title','Action'],a=>[niceDate(a.date),a.id,esc(a.type),esc(a.title),'<button class="small secondary" onclick="printArchive(\''+a.id+'\')">Print</button>'],'No archived report yet.')+'</div></section>')}
+function printArchive(aid){const a=db.archives.find(x=>x.id===aid);if(a)printWin(a.html,a.title)}
+function docHeader(title,ref){return '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:4px solid #d4a62a;padding-bottom:14px;margin-bottom:20px"><div style="display:flex;align-items:center;gap:16px"><img src="'+LOGO_PATH+'" style="width:82px;height:82px;object-fit:contain"><div><h1 style="margin:0;font-family:Cormorant Garamond,serif;font-size:38px">FTH D-UNIQ</h1><b>'+title+'</b><br><span>'+ref+'</span><br><span>'+COMPANY_BN+'</span></div></div><div style="font-size:12px;line-height:1.65;text-align:right;max-width:280px"><b>WhatsApp:</b> '+COMPANY_WHATSAPP+'<br><b>Email:</b> '+COMPANY_EMAIL+'<br><b>Website:</b> '+COMPANY_WEBSITE+'<br><b>Address:</b> '+COMPANY_ADDRESS+'<br><b>Site:</b> '+COMPANY_SITE_LOCATION+'</div></div>'}
+function accountBlock(){return '<div class="table"><table><tr><th>Bank Name</th><td>'+COMPANY_BANK_NAME+'</td></tr><tr><th>Account Name</th><td>'+COMPANY_ACCOUNT_NAME+'</td></tr><tr><th>Account Number</th><td>'+COMPANY_ACCOUNT_NUMBER+'</td></tr></table></div>'}
+function invoiceHtml(iid){const i=db.invoices.find(x=>x.id===iid);if(!i)return'';return '<div class="panel">'+docHeader('CUSTOMER INVOICE',i.id)+'<p><b>Customer:</b> '+esc(i.customer)+'<br><b>Phone:</b> '+esc(i.phone)+'<br><b>Location:</b> '+esc(i.location)+'<br><b>Delivery:</b> '+niceDate(i.deliveryDate)+' '+esc(i.deliveryTime||'')+'</p>'+table(i.lines,['Description','Qty','Unit','Rate','Amount'],l=>[esc(l.desc),num(l.qty),esc(l.unit),money(l.rate),money(l.amount)])+'<div class="table"><table><tr><td>Subtotal</td><td>'+money(i.subtotal)+'</td></tr><tr><td>Logistics / Delivery Fee</td><td>'+money(i.logisticsFee)+'</td></tr><tr><td>Discount</td><td>'+money(i.discount)+'</td></tr><tr><th>Grand Total</th><th>'+money(i.total)+'</th></tr><tr><td>Paid</td><td>'+money(i.paid)+'</td></tr><tr><th>Balance</th><th>'+money(i.balance)+'</th></tr></table></div><h3>Payment Details</h3>'+accountBlock()+'<div class="notice"><b>Terms / Refund Notice:</b><br>'+esc(REFUND_NOTICE)+'</div></div>'}
+function receiptHtml(rid){const r=db.receipts.find(x=>x.id===rid);if(!r)return'';return '<div class="panel">'+docHeader(r.receiptType.toUpperCase(),r.id)+'<p><b>Customer:</b> '+esc(r.customer)+'<br><b>Invoice:</b> '+esc(r.invoiceId)+'</p><div class="table"><table><tr><th>Total Paid</th><th>'+money(r.amount)+'</th></tr><tr><th>Balance</th><th>'+money(r.balance)+'</th></tr></table></div></div>'}
+function waybillHtml(wid){const w=db.waybills.find(x=>x.id===wid);if(!w)return'';return '<div class="panel">'+docHeader('DELIVERY WAYBILL',w.id)+'<div class="table"><table><tr><th>Invoice</th><td>'+esc(w.invoiceId)+'</td></tr><tr><th>Customer</th><td>'+esc(w.customer)+'</td></tr><tr><th>Phone</th><td>'+esc(w.phone)+'</td></tr><tr><th>Delivery Location</th><td>'+esc(w.location)+'</td></tr><tr><th>Products / Materials</th><td>'+esc(w.products).split('\n').join('<br>')+'</td></tr><tr><th>Status</th><td>'+esc(w.status)+'</td></tr></table></div></div>'}
+function approvalDetails(type,idv){if(type==='invoice')return invoiceHtml(idv);if(type==='waybill')return waybillHtml(idv);if(type==='payment'){const p=db.payments.find(x=>x.id===idv);return p?'<div class="panel">'+docHeader('PAYMENT APPROVAL REVIEW',p.id)+table([p],['Invoice','Customer','Transfer','Cash','POS','Total'],x=>[x.invoiceId,esc(x.customer),money(x.transferAmount),money(x.cashAmount),money(x.posAmount),money(x.totalPaid)])+'</div>':''}if(type==='procRequest'){const r=db.procurementRequests.find(x=>x.id===idv);return r?'<div class="panel">'+docHeader('PROCUREMENT SOURCING REQUEST',r.id)+table([r],['Quote','Customer','Product','Quantity','Location','Request Note'],x=>[x.quoteId,esc(x.customer),esc(x.itemName),esc(x.qty)+' '+esc(x.unit),esc(x.location),esc(x.requestNote||'-')])+'</div>':''}if(type==='procurement'){const p=db.procurement.find(x=>x.id===idv);return p?'<div class="panel">'+docHeader('PROCUREMENT FEEDBACK REVIEW',p.id)+table([p],['Vendor','Product','Cost','Suggested Selling','Feedback'],x=>[esc(x.vendor||'-'),esc(x.itemName||x.item||'-'),money(x.costPrice||0),money(x.sellingPrice||0),esc(x.feedbackToSupport||'-')])+'</div>':''}return''}
+function viewApproval(type,idv){let modal=document.getElementById('approvalReviewModal');if(!modal){modal=document.createElement('div');modal.id='approvalReviewModal';modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:none;padding:20px;overflow:auto';document.body.appendChild(modal)}const approve={invoice:'approveInvoice',payment:'approvePayment',waybill:'approveWaybill',procRequest:'approveProcRequest',procurement:'approveProcurement'},reject={invoice:'rejectInvoice',payment:'rejectPayment',procRequest:'rejectProcRequest',procurement:'rejectProcurement'};modal.innerHTML='<div style="background:#fff;max-width:1050px;margin:20px auto;padding:22px;border-radius:18px"><div style="display:flex;justify-content:space-between;gap:14px"><h2>Open / View Approval Details</h2><button class="small red" onclick="document.getElementById(\'approvalReviewModal\').style.display=\'none\'">Close</button></div>'+approvalDetails(type,idv)+'<div class="row"><button class="small green" onclick="'+approve[type]+'(\''+idv+'\');document.getElementById(\'approvalReviewModal\').style.display=\'none\'">I have reviewed — Approve / Proceed</button>'+(reject[type]?'<button class="small red" onclick="'+reject[type]+'(\''+idv+'\');document.getElementById(\'approvalReviewModal\').style.display=\'none\'">Reject / Return</button>':'')+'</div></div>';modal.style.display='block'}
+function printInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(!i||i.status==='Awaiting Director Approval'||i.status==='Rejected')return alert('Invoice must be approved before printing.');printWin(invoiceHtml(iid),'Invoice '+iid)}
+function printReceipt(rid){printWin(receiptHtml(rid),'Receipt '+rid)}
+function printWaybill(wid){const w=db.waybills.find(x=>x.id===wid);if(!w||w.status==='Awaiting Director Approval')return alert('Waybill must be approved before printing.');printWin(waybillHtml(wid),'Waybill '+wid)}
+function printWin(content,title){const w=window.open('','_blank');w.document.write('<html><head><title>'+esc(title)+'</title><style>@page{size:A4;margin:14mm}body{font-family:Arial,sans-serif;color:#1b1714}.panel{max-width:900px;margin:auto}table{width:100%;border-collapse:collapse;font-size:11px}th,td{border:1px solid #999;padding:7px;text-align:left;vertical-align:top}th{background:#eee}.notice{border:1px solid #d4a62a;padding:10px;border-radius:8px;margin-top:10px;font-size:11px;line-height:1.5}@media print{button{display:none!important}}</style></head><body>'+content+'<script>window.onload=function(){setTimeout(function(){window.print()},400)}<\/script></body></html>');w.document.close()}
+function openWhatsAppInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(!i)return;const msg='Good day '+(i.customer||'Customer')+', kindly find attached your invoice from FTH D-UNIQ.\n\nInvoice No: '+i.id+'\nTotal Amount: '+money(i.total)+'\nAmount Paid: '+money(i.paid)+'\nBalance: '+money(i.balance)+'\n\nPlease review and send proof of payment after payment. Thank you.';window.open('https://wa.me/'+wnum(i.phone)+'?text='+encodeURIComponent(msg),'_blank')}
+function openWhatsAppReceipt(rid){const r=db.receipts.find(x=>x.id===rid);if(!r)return;const msg='Good day '+(r.customer||'Customer')+', kindly find attached your payment receipt / part-payment acknowledgement from FTH D-UNIQ.\n\nReceipt No: '+r.id+'\nInvoice No: '+r.invoiceId+'\nAmount Paid: '+money(r.amount)+'\nBalance: '+money(r.balance)+'\n\nThank you.';window.open('https://wa.me/'+wnum(r.phone)+'?text='+encodeURIComponent(msg),'_blank')}
+async function deleteRecord(collection,idv){if(!db[collection])return;if(currentRole!=='director'&&!['quotes','stock','followups'].includes(collection))return alert('Only Director can delete approved or sensitive records.');if(!confirm('Delete/correct this record?'))return;const item=db[collection].find(x=>x.id===idv);if(item&&item._cloudId){try{await fetch(API_RECORDS+'/'+encodeURIComponent(item._cloudId),{method:'DELETE'})}catch(e){}}db[collection]=db[collection].filter(x=>x.id!==idv);localSave();renderCurrentPage()}
+document.addEventListener('contextmenu',e=>{if(!e.target.closest('input,textarea,select,button,a,summary,canvas'))e.preventDefault()});document.addEventListener('copy',e=>{if(!e.target.closest('input,textarea'))e.preventDefault()});
+const oldLogin=sessionStorage.getItem('fth_login');if(oldLogin){try{const l=JSON.parse(oldLogin);if(l.role){currentRole=l.role;currentOfficerName=l.officerName||roleNames[l.role];currentOfficerId=l.officerId||'';currentLoginTime=l.loginTime||new Date().toLocaleString('en-NG');startApp()}}catch(e){}}
 </script>
 </body>
 </html>
