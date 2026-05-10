@@ -15,7 +15,7 @@
 </head>
 <body>
 <section id="login" class="login"><div class="card"><div class="document-logo-wrap"><img src="assets/fth-duniq-logo.PNG" class="document-logo" alt="FTH D-UNIQ Logo"></div><div class="eyebrow">Private Login</div><h2>FTH D-UNIQ Operations Workstation</h2><p>Authorized officers should log in with their assigned role, officer name, and access token.</p><form id="loginForm"><div class="grid"><div><label>Role</label><select id="role" required><option value="">Select role</option><option value="director">Director</option><option value="support">Business Support Officer</option><option value="procurement">Procurement Officer</option><option value="logistics">Logistics / Inspection Officer</option><option value="social">Client Follow-Up Officer</option></select></div><div><label>Officer Name on Duty</label><input id="officerDutyName" type="text" required placeholder="Enter officer name"></div><div><label>Access Token</label><input id="pin" type="password" required></div></div><div class="row"><button class="primary" type="submit">Enter Workstation</button></div><p id="loginMsg"></p></form></div></section>
-<div id="app" class="app wrap"><header class="top"><div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div><div class="row"><span class="chip" id="roleName"></span><span class="chip" id="officerChip"></span><span class="chip" id="dateNow"></span><button class="secondary" onclick="refreshThisDeviceFromCloud()">Refresh Records</button><button class="dark" onclick="logout()">Logout</button></div></header><select id="mobileNav" class="mobile" onchange="showPage(this.value)"></select><div class="layout"><aside class="side" id="side"></aside><main id="main"></main></div></div>
+<div id="app" class="app wrap"><header class="top"><div class="brand"><img src="assets/fth-duniq-logo.PNG" class="brand-logo" alt="FTH D-UNIQ Logo"><div><h1>FTH D-UNIQ</h1><p>Operations Workstation</p></div></div><div class="row"><span class="chip" id="roleName"></span><span class="chip" id="officerChip"></span><span class="chip" id="dateNow"></span><button class="secondary" onclick="refreshThisDeviceFromCloud()">Refresh Records</button><button class="red" onclick="clearThisDeviceOnly()">Clear This Device</button><button class="dark" onclick="logout()">Logout</button></div></header><select id="mobileNav" class="mobile" onchange="showPage(this.value)"></select><div class="layout"><aside class="side" id="side"></aside><main id="main"></main></div></div>
 <script>
 const KEY='fth_duniq_workstation_safe_v1';
 const API_RECORDS='/api/workstation/records';
@@ -180,6 +180,37 @@ function applyRoleVisibility(){document.querySelectorAll('.director-only').forEa
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
 async function startApp(){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleName').textContent=roleNames[currentRole]||currentRole;document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;document.getElementById('dateNow').textContent='Login: '+currentLoginTime;renderNav();showPage('dashboard');try{await loadFromApi();showPage('dashboard')}catch(error){console.warn('Shared records could not load immediately:',error)}try{queueSync()}catch(error){}}
 function logout(){sessionStorage.removeItem('fth_login');location.reload()}
+
+function clearThisDeviceOnly(){
+  const confirmText = prompt('This will clear only this device/browser memory. It will not delete company database records. Type CLEAR to continue.');
+
+  if(confirmText !== 'CLEAR'){
+    alert('Device clear cancelled.');
+    return;
+  }
+
+  try{
+    sessionStorage.clear();
+
+    Object.keys(localStorage).forEach(function(k){
+      const key = k.toLowerCase();
+      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
+        localStorage.removeItem(k);
+      }
+    });
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    alert('This device has been cleared. Please log in again.');
+
+    window.location.href = window.location.pathname + '?v=' + Date.now();
+
+  }catch(error){
+    alert('Unable to clear this device. Please try again.');
+    console.error(error);
+  }
+}
 document.getElementById('loginForm').onsubmit=async function(e){e.preventDefault();const role=document.getElementById('role').value;const token=document.getElementById('pin').value.trim();const duty=document.getElementById('officerDutyName').value.trim();const msg=document.getElementById('loginMsg');msg.textContent='Checking access...';try{await Promise.race([loadFromApi(),new Promise(resolve=>setTimeout(resolve,2000))])}catch(error){}const officer=verifyLogin(role,token);if(!officer){msg.textContent='Invalid role or access token. Please confirm the role and token assigned to this officer.';return}currentRole=role;currentOfficerName=duty||officer.name||roleNames[role];currentOfficerId=officer.id||'';currentLoginTime=new Date().toLocaleString('en-NG');sessionStorage.setItem('fth_login',JSON.stringify({role:currentRole,officerName:currentOfficerName,officerId:currentOfficerId,loginTime:currentLoginTime}));msg.textContent='Opening workstation...';startApp()};
 function customerByPhone(p){return db.customers.find(c=>c.cleanPhone===cleanPhone(p))}
 function refreshCustomer(c){c.invoiceIds=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone).map(i=>i.id);c.paymentIds=db.payments.filter(p=>db.invoices.find(i=>i.id===p.invoiceId&&cleanPhone(i.phone)===c.cleanPhone)).map(p=>p.id);c.outstandingBalance=db.invoices.filter(i=>cleanPhone(i.phone)===c.cleanPhone&&i.status!=='Rejected').reduce((a,b)=>a+Number(b.balance||0),0)}
