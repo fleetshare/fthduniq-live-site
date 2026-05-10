@@ -109,6 +109,9 @@ function deliveryWindowField(){return '<div><label>Estimated Delivery / Logistic
 function queueSync(){clearTimeout(syncTimer);syncTimer=setTimeout(syncAllToApi,600)}
 function inferRowType(row,data){return row.type || (data && (data._cloudType || data.type)) || ''}
 async function loadFromApi(){
+    if(localStorage.getItem(DEVICE_RESET_LOCK)==='LOCKED'){
+    return;
+  }
   let savedBefore={};
   try{savedBefore=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){savedBefore={}}
   try{
@@ -172,8 +175,27 @@ async function clearOperationalData(){
   }catch(error){alert('Unable to clear shared records. Please check the connection and try again.');console.error(error)}
 }
 async function refreshThisDeviceFromCloud(){
-  if(!confirm('This will refresh this device and reload the latest shared workstation records. Continue?'))return;
-  try{sessionStorage.removeItem('fth_active_page');db=blank();localStorage.setItem(KEY,JSON.stringify(db));await loadFromApi();alert('This device has been refreshed from the shared workstation records.');showPage('dashboard')}catch(error){alert('Unable to refresh this device. Please check the connection and try again.');console.error(error)}
+  if(!confirm('This will refresh this device and reload the latest shared workstation records. Continue?')){
+    return;
+  }
+
+  try{
+    localStorage.removeItem(DEVICE_RESET_LOCK);
+
+    sessionStorage.removeItem('fth_active_page');
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    await loadFromApi();
+
+    alert('This device has been refreshed from the shared workstation records.');
+    showPage('dashboard');
+
+  }catch(error){
+    alert('Unable to refresh this device. Please check the connection and try again.');
+    console.error(error);
+  }
 }
 function installPage(html,after){document.getElementById('main').innerHTML=html;initLocationSelects(document.getElementById('main'));setDefaultDates();if(after)after();applyRoleVisibility()}
 function renderNav(){const tabs=allTabs.filter(t=>(roleTabs[currentRole]||[]).includes(t[0]));document.getElementById('side').innerHTML=tabs.map((t,i)=>'<button class="nav '+(i===0?'active':'')+'" onclick="showPage(\''+t[0]+'\')">'+t[1]+'</button>').join('');document.getElementById('mobileNav').innerHTML=tabs.map(t=>'<option value="'+t[0]+'">'+t[1]+'</option>').join('')}
@@ -184,7 +206,64 @@ function applyRoleVisibility(){document.querySelectorAll('.director-only').forEa
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
 async function startApp(){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleName').textContent=roleNames[currentRole]||currentRole;document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;document.getElementById('dateNow').textContent='Login: '+currentLoginTime;renderNav();showPage('dashboard');try{await loadFromApi();showPage('dashboard')}catch(error){console.warn('Shared records could not load immediately:',error)}try{queueSync()}catch(error){}}
 function logout(){sessionStorage.removeItem('fth_login');location.reload()}
+async function directorResetThisDevice(){
+  const code = prompt('Director authorization required. Enter Director reset code to clear this device.');
 
+  if(code !== DIRECTOR_RESET_CODE){
+    alert('Wrong reset code. Device reset cancelled.');
+    return;
+  }
+
+  const confirmText = prompt('This will force-clear this officer device/browser and stop old records from loading back. Type CLEAR to continue.');
+
+  if(confirmText !== 'CLEAR'){
+    alert('Device reset cancelled.');
+    return;
+  }
+
+  try{
+    sessionStorage.clear();
+
+    Object.keys(localStorage).forEach(function(k){
+      const key = k.toLowerCase();
+      if(key.includes('fth') || key.includes('duniq') || key.includes('workstation')){
+        localStorage.removeItem(k);
+      }
+    });
+
+    db = blank();
+    localStorage.setItem(KEY, JSON.stringify(db));
+
+    // This lock stops old cloud/shared records from loading back immediately
+    localStorage.setItem(DEVICE_RESET_LOCK, 'LOCKED');
+
+    // Clear browser cache where possible
+    if('caches' in window){
+      const names = await caches.keys();
+      for(const name of names){
+        await caches.delete(name);
+      }
+    }
+
+    // Clear IndexedDB where browser allows it
+    if(window.indexedDB && indexedDB.databases){
+      const databases = await indexedDB.databases();
+      for(const database of databases){
+        if(database.name){
+          indexedDB.deleteDatabase(database.name);
+        }
+      }
+    }
+
+    alert('This officer device has been force-cleared. Please log in again.');
+
+    window.location.href = window.location.pathname + '?reset=' + Date.now();
+
+  }catch(error){
+    alert('Unable to fully reset this device. Please try again.');
+    console.error(error);
+  }
+}
 function clearThisDeviceOnly(){
   const confirmText = prompt('This will clear only this device/browser memory. It will not delete company database records. Type CLEAR to continue.');
 
