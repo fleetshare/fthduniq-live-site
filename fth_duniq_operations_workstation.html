@@ -32,63 +32,7 @@ const defaultPins={director:'0000',support:'1111',procurement:'2222',logistics:'
 const roleNames={director:'Director',support:'Business Support Officer',procurement:'Procurement Officer',logistics:'Logistics / Inspection Officer',social:'Client Follow-Up Officer'};
 const allTabs=[['dashboard','Dashboard'],['quotes','Quotes / Requests'],['invoices','Invoices / Sales'],['payments','Payments / Receipts'],['procurementRequests','Procurement Requests'],['waybills','Waybills'],['inventory','Inventory'],['procurement','Procurement Desk'],['logistics','Logistics / Inspection'],['followup','Client Follow-Up'],['customers','Customer Profiles'],['staffAccess','Officer Access Control'],['reports','Reports'],['archive','Archive']];
 const roleTabs={director:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','procurement','logistics','followup','customers','staffAccess','reports','archive'],support:['dashboard','quotes','invoices','payments','procurementRequests','waybills','inventory','customers','reports'],procurement:['dashboard','procurementRequests','procurement','inventory','customers','reports'],logistics:['dashboard','logistics','waybills','customers','reports'],social:['dashboard','followup','customers','reports']};
-const productOptions=[
-['CEM-001','Cement','Bags','Not Applicable'],
-['BLK-004','4 Inches Block','Pieces','Not Applicable'],
-['BLK-006','6 Inches Block','Pieces','Not Applicable'],
-['BLK-009','9 Inches Block','Pieces','Not Applicable'],
-
-['SND-SHP-BAG','Sharp Sand — Bags','Bags','Not Applicable'],
-['SND-SHP-5T','Sharp Sand - 5 Ton / 6 Tyres Trip','Trips','5 Ton'],
-['SND-SHP-10T','Sharp Sand - 10 Ton Trip','Trips','10 Ton'],
-['SND-SHP-15T','Sharp Sand - 12.5 / 15 Ton Trip / 10 Tyre','Trips','12.5 / 15 Ton'],
-['SND-SHP-20T','Sharp Sand - 20 Ton Trip','Trips','20 Ton'],
-['SND-SHP-30T','Sharp Sand - 30 Ton Trip','Trips','30 Ton'],
-['SND-SHP-35T','Sharp Sand - 35 Ton Trip','Trips','35 Ton'],
-
-['SND-PLS-BAG','Plaster Sand — Bags','Bags','Not Applicable'],
-['SND-PLS-5T','Plaster Sand - 5 Ton Trip','Trips','5 Ton'],
-['SND-PLS-10T','Plaster Sand - 10 Ton Trip','Trips','10 Ton'],
-['SND-PLS-15T','Plaster Sand - 12.5 / 15 Ton Trip / 10 Tyre','Trips','12.5 / 15 Ton'],
-['SND-PLS-20T','Plaster Sand - 20 Ton Trip','Trips','20 Ton'],
-['SND-PLS-30T','Plaster Sand - 30 Ton Trip','Trips','30 Ton'],
-
-['SND-FIL-BAG','Filling Sand — Bags','Bags','Not Applicable'],
-['SND-FIL-5T','Filling Sand - 5 Ton Trip','Trips','5 Ton'],
-['SND-FIL-10T','Filling Sand - 10 Ton Trip','Trips','10 Ton'],
-['SND-FIL-15T','Filling Sand - 12.5 / 15 Ton Trip / 10 Tyre','Trips','12.5 / 15 Ton'],
-['SND-FIL-20T','Filling Sand - 20 Ton Trip','Trips','20 Ton'],
-['SND-FIL-30T','Filling Sand - 30 Ton Trip','Trips','30 Ton'],
-['SND-FIL-35T','Filling Sand - 35 Ton Trip','Trips','35 Ton'],
-
-['GRT-BAG','Granite — Bags','Bags','Not Applicable'],
-['GRT-5T','Granite - 5 Ton Trip','Trips','5 Ton'],
-['GRT-10T','Granite - 10 Ton Trip','Trips','10 Ton'],
-['GRT-15T','Granite - 15 Ton Trip','Trips','15 Ton'],
-['GRT-20T','Granite - 20 Ton Trip','Trips','20 Ton'],
-['GRT-30T','Granite - 30 Ton Trip','Trips','30 Ton'],
-['GRT-35T','Granite - 35 Ton Trip','Trips','35 Ton'],
-
-['INT-NORMAL','Interlocking Stone — Normal','Square Metres','Not Applicable'],
-['INT-LINE-ROMA','Interlocking Stone — Line Roma','Square Metres','Not Applicable'],
-['INT-DOUBLET','Interlocking Stone — Double-T / Doublet','Square Metres','Not Applicable'],
-['INT-ZENITH','Interlocking Stone — Zenith','Square Metres','Not Applicable'],
-['INT-ISTONE-8MM','Interlocking Stone — I Stone (8 mm)','Square Metres','Not Applicable'],
-['INT-ISTONE-6MM','Interlocking Stone — I Stone (6 mm)','Square Metres','Not Applicable'],
-['INT-OTHER','Interlocking Stone — Other','Square Metres','Not Applicable'],
-
-['KRB-JUMBO','Kerb — Jumbo','Pieces','Not Applicable'],
-['KRB-GARDEN','Kerb — Garden','Pieces','Not Applicable'],
-['KRB-BIG','Kerb — Big Kerb / Big Case','Pieces','Not Applicable'],
-['KRB-OTHER','Kerb — Other','Pieces','Not Applicable'],
-
-['SRV-PRC','Procurement Support','Service','Not Applicable'],
-['SRV-LOG','Logistics Coordination','Service','Not Applicable'],
-['SRV-PROJ','Project Support','Service','Not Applicable'],
-['SRV-REC','Procurement Records & Expense Tracking','Service','Not Applicable'],
-['SRV-FOLLOW','Site Follow-Up / Customer Follow-Up','Service','Not Applicable'],
-['OTH-001','Other / To Be Confirmed','Other','Not Applicable']
-].map(x=>({code:x[0],item:x[1],unit:x[2],tonnage:x[3]}));
+const productOptions=[['CEM-001','Cement','Bags','Not Applicable'],['BLK-004','4 Inches Block','Pieces','Not Applicable'],['BLK-006','6 Inches Block','Pieces','Not Applicable'],['BLK-009','9 Inches Block','Pieces','Not Applicable'],['SND-SHP-5T','Sharp Sand - 5 Ton / 6 Tyres Trip','Trips','5 Ton'],['SND-SHP-10T','Sharp Sand - 10 Ton Trip','Trips','10 Ton'],['SND-SHP-15T','Sharp Sand - 12.5 / 15 Ton Trip / 10 Tyre','Trips','12.5 / 15 Ton'],['SND-SHP-20T','Sharp Sand - 20 Ton Trip','Trips','20 Ton'],['SND-SHP-30T','Sharp Sand - 30 Ton Trip','Trips','30 Ton'],['SND-SHP-35T','Sharp Sand - 35 Ton Trip','Trips','35 Ton'],['GRT-5T','Granite - 5 Ton Trip','Trips','5 Ton'],['GRT-10T','Granite - 10 Ton Trip','Trips','10 Ton'],['GRT-15T','Granite - 15 Ton Trip','Trips','15 Ton'],['GRT-20T','Granite - 20 Ton Trip','Trips','20 Ton'],['GRT-30T','Granite - 30 Ton Trip','Trips','30 Ton'],['GRT-35T','Granite - 35 Ton Trip','Trips','35 Ton'],['INT-001','Interlocking Stones','Square Metres','Not Applicable'],['KRB-001','Kerbs','Pieces','Not Applicable'],['SRV-PRC','Procurement Support','Service','Not Applicable'],['SRV-LOG','Logistics Coordination','Service','Not Applicable'],['SRV-PROJ','Project Support','Service','Not Applicable'],['SRV-REC','Procurement Records & Expense Tracking','Service','Not Applicable'],['SRV-FOLLOW','Site Follow-Up / Customer Follow-Up','Service','Not Applicable'],['OTH-001','Other / To Be Confirmed','Other','Not Applicable']].map(x=>({code:x[0],item:x[1],unit:x[2],tonnage:x[3]}));
 const nigeriaStates=['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
 const lgaMap={'Lagos':['Agege','Ajeromi-Ifelodun','Alimosho','Amuwo-Odofin / Festac','Apapa','Badagry','Epe','Eti-Osa','Ibeju-Lekki','Ifako-Ijaiye','Ikeja','Ikorodu','Kosofe','Lagos Island','Lagos Mainland','Mushin','Ojo','Oshodi-Isolo','Shomolu','Surulere','Other Lagos Area'],'FCT Abuja':['Abaji','Bwari','Gwagwalada','Kuje','Kwali','Municipal Area Council','Other FCT Area']};
 const TYPE_COLLECTION={quote:'quotes',invoice:'invoices',payment:'payments',receipt:'receipts',waybill:'waybills',stock:'stock',procurementRequest:'procurementRequests',procurement:'procurement',logistics:'logistics',followup:'followups',customer:'customers',officer:'officers',archive:'archives',report:'dailySubmissions'};
@@ -162,11 +106,6 @@ function showPage(page,mark=true){if(mark)markNav(page);if(page==='dashboard')re
 function applyRoleVisibility(){document.querySelectorAll('.director-only').forEach(el=>el.style.display=currentRole==='director'?'':'none');document.querySelectorAll('.director-only-inline').forEach(el=>el.style.display=currentRole==='director'?'inline-flex':'none');document.querySelectorAll('.support-only-inline').forEach(el=>el.style.display=currentRole==='support'?'inline-flex':'none')}
 function setDefaultDates(){document.querySelectorAll('input[type=date]').forEach(i=>{if(!i.value)i.value=today()});document.querySelectorAll('input[type=month]').forEach(i=>{if(!i.value)i.value=monthNow()})}
 async function loadFromApi(){
-  let savedBefore = blank();
-  try{
-    savedBefore = JSON.parse(localStorage.getItem(KEY) || '{}');
-  }catch(e){}
-
   try{
     const res = await fetch(API_RECORDS + '?t=' + Date.now(), {
       cache: 'no-store'
@@ -179,6 +118,7 @@ async function loadFromApi(){
 
     const payload = await res.json();
     const records = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+
     const fresh = blank();
 
     records.forEach(row=>{
@@ -202,12 +142,6 @@ async function loadFromApi(){
       fresh[TYPE_COLLECTION[type]].push(data);
     });
 
-    // Do not wipe Director/officer tokens if cloud response does not return officers
-    if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
-      fresh.officers = savedBefore.officers;
-    }
-
-    fresh.counts = Object.assign({}, blank().counts, savedBefore.counts || {}, fresh.counts || {});
     db = fresh;
     localStorage.setItem(KEY, JSON.stringify(db));
     return true;
@@ -343,62 +277,12 @@ function renderWaybillsTable(){return table(db.waybills,['Date','Waybill','Invoi
 function waybillActions(w){let a='';if(currentRole==='director'&&w.status==='Awaiting Director Approval')a+='<button class="small secondary" onclick="viewApproval(\'waybill\',\''+w.id+'\')">Open / View</button> ';if((currentRole==='director'||currentRole==='logistics')&&w.status!=='Awaiting Director Approval')a+='<button class="small secondary" onclick="printWaybill(\''+w.id+'\')">Print / Save PDF</button> ';if((currentRole==='director'||currentRole==='logistics')&&w.status==='Approved for Dispatch')a+='<button class="small blue" onclick="quickDispatch(\''+w.id+'\')">Dispatch</button> ';if(currentRole==='director'||w.status==='Awaiting Director Approval')a+='<button class="small red" onclick="deleteRecord(\'waybills\',\''+w.id+'\')">Delete</button>';return a||'-'}
 function approveWaybill(wid){if(currentRole!=='director')return alert('Only Director can approve dispatch.');const w=db.waybills.find(x=>x.id===wid);if(w){w.status='Approved for Dispatch';save()}}
 function quickDispatch(wid){const w=db.waybills.find(x=>x.id===wid);if(w){w.status='Dispatched';save()}}
-function renderInventoryPage(){installPage('<section><div class="panel"><div class="eyebrow">Inventory / Company Stock Desk</div><h2>Stock Movement Ledger</h2><form id="stockForm"><div class="grid"><div><label>Date</label><input name="date" type="date" required></div><div><label>Product / Material</label><select name="item" required>'+productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')+'</select></div><div><label>Movement Type</label><select name="type" required><option>Opening Stock</option><option>Received Stock</option><option>Received Product</option><option>Produced Product</option><option>Procured Goods Received</option><option>Sales Out</option><option>Goods Supplied</option><option>Production Usage</option><option>Damage / Loss</option><option>Damages</option><option>Shortage</option><option>Shortages</option><option>Excess</option><option>Adjustment</option><option>Closing Stock</option></select></div><div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div><div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Service</option><option>Units</option><option>Other</option></select></div><div><label>Stock / Inventory Location</label><input name="location" value="'+COMPANY_SITE_LOCATION+'"></div><div class="full"><label>Notes / Remarks</label><textarea name="notes"></textarea></div></div><div class="row"><button class="primary" type="submit">Record Stock Movement</button></div></form></div><div class="panel"><h2>Current Stock Position</h2>'+renderStockPosition()+'</div><div class="panel"><h2>Stock Movement Records</h2>'+renderStockTable()+'</div></section>',()=>{document.getElementById('stockForm').onsubmit=saveStock})}
+function renderInventoryPage(){installPage('<section><div class="panel"><div class="eyebrow">Inventory / Company Stock Desk</div><h2>Stock Movement Ledger</h2><form id="stockForm"><div class="grid"><div><label>Date</label><input name="date" type="date" required></div><div><label>Product / Material</label><select name="item" required>'+productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')+'</select></div><div><label>Movement Type</label><select name="type" required><option>Opening Stock</option><option>Received Product</option><option>Produced Product</option><option>Sales Out</option><option>Production Usage</option><option>Damage / Loss</option><option>Shortage</option><option>Excess</option><option>Adjustment</option></select></div><div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div><div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div><div><label>Stock / Inventory Location</label><input name="location" value="'+COMPANY_SITE_LOCATION+'"></div><div class="full"><label>Notes / Remarks</label><textarea name="notes"></textarea></div></div><div class="row"><button class="primary" type="submit">Record Stock Movement</button></div></form></div><div class="panel"><h2>Current Stock Position</h2>'+renderStockPosition()+'</div><div class="panel"><h2>Stock Movement Records</h2>'+renderStockTable()+'</div></section>',()=>{document.getElementById('stockForm').onsubmit=saveStock})}
 function saveStock(e){e.preventDefault();const data=formData(e.target);db.stock.unshift({id:nextId('stock'),enteredBy:currentOfficerName,...data,qty:Number(data.qty||0)});save()}
-function stockSign(type){
-  return ['Sales Out','Goods Supplied','Production Usage','Damage / Loss','Damages','Shortage','Shortages'].includes(type)?-1:1
-}
-function stockPosition(){
-  const map={};
-  db.stock.forEach(m=>{
-    const k=String(m.item||'').toLowerCase()+'|'+String(m.unit||'').toLowerCase()+'|'+String(m.location||'').toLowerCase();
-    if(!map[k])map[k]={item:m.item,qty:0,unit:m.unit,location:m.location};
-    if(m.type==='Closing Stock'){
-      map[k].qty=Number(m.qty||0);
-    }else{
-      map[k].qty+=Number(m.qty||0)*stockSign(m.type);
-    }
-    map[k].unit=m.unit;
-    map[k].location=m.location;
-  });
-  return Object.values(map)
-}
-function inventoryDayRows(date){return db.stock.filter(m=>m.date===date)}
-function inventorySummaryRows(date){
-  const rows=inventoryDayRows(date);
-  const map={};
-  rows.forEach(r=>{
-    const k=String(r.item||'')+'|'+String(r.unit||'')+'|'+String(r.location||'');
-    if(!map[k])map[k]={item:r.item,unit:r.unit,location:r.location,opening:0,received:0,produced:0,procured:0,salesOut:0,supplied:0,damages:0,shortages:0,excess:0,adjustment:0,closing:0};
-    const q=Number(r.qty||0);
-    if(r.type==='Opening Stock')map[k].opening+=q;
-    else if(['Received Stock','Received Product'].includes(r.type))map[k].received+=q;
-    else if(r.type==='Produced Product')map[k].produced+=q;
-    else if(r.type==='Procured Goods Received')map[k].procured+=q;
-    else if(r.type==='Sales Out')map[k].salesOut+=q;
-    else if(r.type==='Goods Supplied')map[k].supplied+=q;
-    else if(['Damage / Loss','Damages'].includes(r.type))map[k].damages+=q;
-    else if(['Shortage','Shortages'].includes(r.type))map[k].shortages+=q;
-    else if(r.type==='Excess')map[k].excess+=q;
-    else if(r.type==='Adjustment')map[k].adjustment+=q;
-    else if(r.type==='Closing Stock')map[k].closing=q;
-  });
-  Object.values(map).forEach(x=>{
-    if(!x.closing){
-      x.closing=x.opening+x.received+x.produced+x.procured+x.excess+x.adjustment-x.salesOut-x.supplied-x.damages-x.shortages;
-    }
-  });
-  return Object.values(map)
-}
-function renderStockPosition(){return table(stockPosition(),['Product / Material','Closing Stock','Unit','Location'],s=>[esc(s.item),num(s.qty),esc(s.unit),esc(s.location||'')],'No stock position yet.')}
-function renderStockTable(){return table(db.stock,['Date','Stock ID','Item','Type','Qty','Unit','Location','Notes','Action'],s=>[niceDate(s.date),s.id,esc(s.item),statusTag(s.type),num(s.qty),esc(s.unit),esc(s.location),esc(s.notes||'-'),'<button class="small red" onclick="deleteRecord(\\'stock\\',\\''+s.id+'\\')">Delete</button>'],'No stock movement yet.')}
-function inventoryReportHtml(date){
-  const summary=inventorySummaryRows(date);
-  const movement=inventoryDayRows(date);
-  return '<h3>Inventory Summary</h3>'+table(summary,['Product / Material','Opening','Received','Produced','Procured','Sales Out','Supplied','Damages','Shortages','Excess','Adjustments','Closing','Unit','Location'],r=>[esc(r.item),num(r.opening),num(r.received),num(r.produced),num(r.procured),num(r.salesOut),num(r.supplied),num(r.damages),num(r.shortages),num(r.excess),num(r.adjustment),num(r.closing),esc(r.unit),esc(r.location||'')],'No inventory summary for this date.')+
-  '<h3>Inventory Movement Breakdown</h3>'+table(movement,['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location','Entered By','Remarks'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location||''),esc(m.enteredBy||''),esc(m.notes||'')],'No inventory movement for this date.')
-}
-
+function stockSign(type){return['Sales Out','Production Usage','Damage / Loss','Shortage'].includes(type)?-1:1}
+function stockPosition(){const map={};db.stock.forEach(m=>{const k=String(m.item||'').toLowerCase();if(!map[k])map[k]={item:m.item,qty:0,unit:m.unit};map[k].qty+=Number(m.qty||0)*stockSign(m.type);map[k].unit=m.unit});return Object.values(map)}
+function renderStockPosition(){return table(stockPosition(),['Product / Material','Closing Stock','Unit'],s=>[esc(s.item),num(s.qty),esc(s.unit)],'No stock position yet.')}
+function renderStockTable(){return table(db.stock,['Date','Stock ID','Item','Type','Qty','Unit','Location','Notes','Action'],s=>[niceDate(s.date),s.id,esc(s.item),statusTag(s.type),num(s.qty),esc(s.unit),esc(s.location),esc(s.notes||'-'),'<button class="small red" onclick="deleteRecord(\'stock\',\''+s.id+'\')">Delete</button>'],'No stock movement yet.')}
 function renderProcurementPage(){installPage('<section><div class="panel"><div class="eyebrow">Procurement Officer</div><h2>Procurement / Sourcing Register</h2><form id="procurementForm"><div class="grid"><div><label>Date</label><input name="date" type="date" required></div><div><label>Linked Procurement Request</label><select name="requestId" id="procRequestSelect"><option value="">Not linked</option>'+db.procurementRequests.filter(r=>r.directorApprovalStatus==='Approved to Source / Procure').map(r=>'<option value="'+r.id+'">'+r.id+' — '+esc(r.customer)+' — '+esc(r.itemName)+'</option>').join('')+'</select></div><div><label>Customer Name</label><input name="customer"></div><div><label>Material / Product</label><select name="item" required>'+productOptions.map(p=>'<option value="'+esc(p.item)+'">'+p.code+' — '+esc(p.item)+'</option>').join('')+'</select></div><div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div><div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Units</option></select></div><div><label>Vendor</label><input name="vendor"></div><div><label>Vendor Cost Price</label><input name="costPrice" type="number" step="0.01"></div><div><label>Suggested Selling Price</label><input name="sellingPrice" type="number" step="0.01"></div><div class="full"><label>Procurement Feedback / Remarks</label><textarea name="feedbackToSupport"></textarea></div></div><div class="row"><button class="primary" type="submit">Submit Procurement Record</button></div></form></div><div class="panel"><h2>Procurement Records</h2>'+renderProcurementTable()+'</div></section>',()=>{document.getElementById('procRequestSelect').onchange=e=>fillProcFromRequest(e.target.value);document.getElementById('procurementForm').onsubmit=saveProcurement})}
 function fillProcFromRequest(rid){const r=db.procurementRequests.find(x=>x.id===rid);if(!r)return;const f=document.getElementById('procurementForm');f.customer.value=r.customer||'';f.item.value=r.itemName||'';f.qty.value=r.qty||'';f.unit.value=r.unit||'';f.feedbackToSupport.value=r.requestNote||''}
 function saveProcurement(e){e.preventDefault();const data=formData(e.target);const directorApprovalStatus=currentRole==='director'?'Director Price/Instruction Sent to Business Support':'Pending Director Approval';db.procurement.unshift({id:nextId('procurement'),directorApprovalStatus,itemName:data.item,createdByName:currentOfficerName,...data,qty:Number(data.qty||0)});const r=db.procurementRequests.find(x=>x.id===data.requestId);if(r){r.procurementStatus='Sourcing feedback submitted';r.procurementFeedback=data.feedbackToSupport||'';r.approvedSellingPrice=data.sellingPrice||''}save();alert('Procurement record submitted.')}
@@ -423,20 +307,9 @@ function resetOfficerToken(oid){const o=db.officers.find(x=>x.id===oid);if(o){o.
 function deactivateOfficer(oid){const o=db.officers.find(x=>x.id===oid);if(o){o.status='Inactive';save()}}
 function dayStats(date){const invoices=db.invoices.filter(i=>i.date===date&&i.status!=='Awaiting Director Approval'&&i.status!=='Rejected');const payments=db.payments.filter(p=>p.date===date&&p.status==='Approved');return{date,quotes:db.quotes.filter(x=>x.date===date).length,invoices:invoices.length,sales:invoices.reduce((a,b)=>a+Number(b.total||0),0),paid:payments.reduce((a,b)=>a+Number(b.totalPaid||0),0),balance:invoices.reduce((a,b)=>a+Number(b.balance||0),0),procurement:db.procurementRequests.filter(x=>x.date===date).length,waybills:db.waybills.filter(x=>x.date===date).length,followups:db.followups.filter(x=>x.date===date).length}}
 function dateRange(start,end){const out=[];let d=new Date(start),e=new Date(end);while(d<=e){out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}return out}
-function dailyReportHtml(date){
-  const s=dayStats(date);
-  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Daily Operations Report</h2><p><b>Date:</b> '+niceDate(date)+'</p>'+table([s],['Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],x=>[x.quotes,x.invoices,money(x.sales),money(x.paid),money(x.balance),x.procurement,x.waybills,x.followups])+'<h3>Sales Breakdown</h3>'+table(db.invoices.filter(i=>i.date===date),['Invoice','Customer','Total','Paid','Balance','Status'],i=>[i.id,esc(i.customer),money(i.total),money(i.paid),money(i.balance),statusTag(i.status)],'No sales breakdown for this date.')+'<h3>Payment Breakdown</h3>'+table(db.payments.filter(p=>p.date===date),['Payment','Invoice','Customer','Transfer','Cash','POS','Total','Status'],p=>[p.id,p.invoiceId,esc(p.customer),money(p.transferAmount),money(p.cashAmount),money(p.posAmount),money(p.totalPaid),statusTag(p.status)],'No payment breakdown for this date.')+inventoryReportHtml(date)+'</div>'
-}
-function weeklyReportHtml(start,end){
-  const days=dateRange(start,end);
-  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Weekly Statement Report</h2><p><b>Period:</b> '+niceDate(start)+' to '+niceDate(end)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'<h3>Weekly Inventory Movement</h3>'+table(db.stock.filter(m=>m.date>=start&&m.date<=end),['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location)],'No inventory movement for this week.')+'</div>'
-}
-function monthlyReportHtml(month){
-  const first=month+'-01',d=new Date(first),days=[];
-  while(d.toISOString().slice(0,7)===month){days.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}
-  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Monthly Reconciliation</h2><p><b>Month:</b> '+esc(month)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'<h3>Monthly Inventory Movement</h3>'+table(db.stock.filter(m=>String(m.date||'').slice(0,7)===month),['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location)],'No inventory movement for this month.')+'</div>'
-}
-
+function dailyReportHtml(date){const s=dayStats(date);return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Daily Operations Report</h2><p><b>Date:</b> '+niceDate(date)+'</p>'+table([s],['Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],x=>[x.quotes,x.invoices,money(x.sales),money(x.paid),money(x.balance),x.procurement,x.waybills,x.followups])+'</div>'}
+function weeklyReportHtml(start,end){return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Weekly Statement Report</h2><p><b>Period:</b> '+niceDate(start)+' to '+niceDate(end)+'</p>'+table(dateRange(start,end).map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'</div>'}
+function monthlyReportHtml(month){const first=month+'-01',d=new Date(first),days=[];while(d.toISOString().slice(0,7)===month){days.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1)}return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Monthly Reconciliation</h2><p><b>Month:</b> '+esc(month)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'</div>'}
 function renderReportsPage(){installPage('<section><div class="panel"><div class="eyebrow">Reports</div><h2>Daily, Weekly & Monthly Reports</h2><div class="grid4"><div><label>Daily Report Date</label><input id="reportDate" type="date"></div><div><label>Weekly Start Date</label><input id="weekStartDate" type="date"></div><div><label>Weekly End Date</label><input id="weekEndDate" type="date"></div><div><label>Monthly Report</label><input id="reportMonth" type="month"></div></div><div class="row"><button class="primary" type="button" onclick="renderDailyReport()">Generate Daily Report</button><button class="blue director-only-inline" type="button" onclick="renderWeeklyReport()">Generate Weekly Statement</button><button class="blue director-only-inline" type="button" onclick="renderMonthlyReport()">Generate Monthly Reconciliation</button><button class="secondary director-only-inline" type="button" onclick="printCurrentReport()">Director Print / Save PDF</button><button class="dark director-only-inline" type="button" onclick="archiveCurrentReport()">Director Archive Current Report</button><button class="green support-only-inline" type="button" onclick="submitDailyReportToDirector()">Submit Daily Report to Director</button><button class="red" type="button" onclick="authorizedClearWorkstationData()">Clear Workstation Data</button></div><div class="notice">The clear button is available in every officer portal under Reports, but it requires the Director clear passcode before anything is deleted. Header refresh/clear-device buttons have been removed.</div></div><div id="reportBox"></div></section>');setDefaultDates();renderDailyReport()}
 let currentReportHtml='',currentReportTitle='';
 function renderDailyReport(){const d=document.getElementById('reportDate')?.value||today();currentReportHtml=dailyReportHtml(d);currentReportTitle='Daily Report '+d;document.getElementById('reportBox').innerHTML=currentReportHtml}
@@ -461,6 +334,225 @@ function printWin(content,title){const w=window.open('','_blank');w.document.wri
 function openWhatsAppInvoice(iid){const i=db.invoices.find(x=>x.id===iid);if(!i)return;const msg='Good day '+(i.customer||'Customer')+', kindly find attached your invoice from FTH D-UNIQ.\n\nInvoice No: '+i.id+'\nTotal Amount: '+money(i.total)+'\nAmount Paid: '+money(i.paid)+'\nBalance: '+money(i.balance)+'\n\nPlease review and send proof of payment after payment. Thank you.';window.open('https://wa.me/'+wnum(i.phone)+'?text='+encodeURIComponent(msg),'_blank')}
 function openWhatsAppReceipt(rid){const r=db.receipts.find(x=>x.id===rid);if(!r)return;const msg='Good day '+(r.customer||'Customer')+', kindly find attached your payment receipt / part-payment acknowledgement from FTH D-UNIQ.\n\nReceipt No: '+r.id+'\nInvoice No: '+r.invoiceId+'\nAmount Paid: '+money(r.amount)+'\nBalance: '+money(r.balance)+'\n\nThank you.';window.open('https://wa.me/'+wnum(r.phone)+'?text='+encodeURIComponent(msg),'_blank')}
 async function deleteRecord(collection,idv){if(!db[collection])return;if(currentRole!=='director'&&!['quotes','stock','followups'].includes(collection))return alert('Only Director can delete approved or sensitive records.');if(!confirm('Delete/correct this record?'))return;const item=db[collection].find(x=>x.id===idv);if(item&&item._cloudId){try{await fetch(API_RECORDS+'/'+encodeURIComponent(item._cloudId),{method:'DELETE'})}catch(e){}}db[collection]=db[collection].filter(x=>x.id!==idv);localSave();renderCurrentPage()}
+
+
+/* =========================================================
+   OLD WORKSTATION PERMANENT CORRECTION PATCH
+   - Restores default login pins for cross-browser opening
+   - Prevents cloud/API failure from blocking login
+   - Adds missing FTH D-UNIQ product codes
+   - Strengthens inventory reporting
+   - Adds inventory report into daily/weekly/monthly reports
+   ========================================================= */
+
+Object.assign(defaultPins, {
+  director: '0000',
+  support: '1111',
+  procurement: '2222',
+  logistics: '3333',
+  social: '4444'
+});
+
+(function addMissingProductCodes(){
+  const moreProducts = [
+    {code:'SND-SHP-BAG',item:'Sharp Sand — Bags',unit:'Bags',tonnage:'Not Applicable'},
+    {code:'SND-PLS-BAG',item:'Plaster Sand — Bags',unit:'Bags',tonnage:'Not Applicable'},
+    {code:'SND-FIL-BAG',item:'Filling Sand — Bags',unit:'Bags',tonnage:'Not Applicable'},
+    {code:'SND-FIL-5T',item:'Filling Sand - 5 Ton Trip',unit:'Trips',tonnage:'5 Ton'},
+    {code:'SND-FIL-10T',item:'Filling Sand - 10 Ton Trip',unit:'Trips',tonnage:'10 Ton'},
+    {code:'SND-FIL-15T',item:'Filling Sand - 12.5 / 15 Ton Trip / 10 Tyre',unit:'Trips',tonnage:'12.5 / 15 Ton'},
+    {code:'SND-FIL-20T',item:'Filling Sand - 20 Ton Trip',unit:'Trips',tonnage:'20 Ton'},
+    {code:'SND-FIL-30T',item:'Filling Sand - 30 Ton Trip',unit:'Trips',tonnage:'30 Ton'},
+    {code:'SND-FIL-35T',item:'Filling Sand - 35 Ton Trip',unit:'Trips',tonnage:'35 Ton'},
+    {code:'GRT-BAG',item:'Granite — Bags',unit:'Bags',tonnage:'Not Applicable'},
+    {code:'INT-NORMAL',item:'Interlocking Stone — Normal',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-LINE-ROMA',item:'Interlocking Stone — Line Roma',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-DOUBLET',item:'Interlocking Stone — Double-T / Doublet',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-ZENITH',item:'Interlocking Stone — Zenith',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-ISTONE-8MM',item:'Interlocking Stone — I Stone (8 mm)',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-ISTONE-6MM',item:'Interlocking Stone — I Stone (6 mm)',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'INT-OTHER',item:'Interlocking Stone — Other',unit:'Square Metres',tonnage:'Not Applicable'},
+    {code:'KRB-JUMBO',item:'Kerb — Jumbo',unit:'Pieces',tonnage:'Not Applicable'},
+    {code:'KRB-GARDEN',item:'Kerb — Garden',unit:'Pieces',tonnage:'Not Applicable'},
+    {code:'KRB-BIG',item:'Kerb — Big Kerb / Big Case',unit:'Pieces',tonnage:'Not Applicable'},
+    {code:'KRB-OTHER',item:'Kerb — Other',unit:'Pieces',tonnage:'Not Applicable'}
+  ];
+  moreProducts.forEach(p => {
+    if(!productOptions.some(existing => existing.code === p.code || existing.item === p.item)){
+      productOptions.push(p);
+    }
+  });
+})();
+
+verifyLogin = function(role, token){
+  const t = String(token || '').trim();
+  const exact = db.officers.find(o =>
+    o.role === role &&
+    String(o.token || '').trim() === t &&
+    o.status === 'Active'
+  );
+  if(exact) return exact;
+  if(defaultPins[role] === t){
+    return { id:'default-'+role, role:role, name:roleNames[role], token:t, status:'Active' };
+  }
+  return null;
+};
+
+loadFromApi = async function(){
+  let savedBefore = blank();
+  try{
+    savedBefore = JSON.parse(localStorage.getItem(KEY) || '{}');
+  }catch(e){}
+
+  try{
+    const res = await fetch(API_RECORDS + '?t=' + Date.now(), { cache:'no-store' });
+    if(!res.ok) return false;
+
+    const payload = await res.json();
+    const arr = Array.isArray(payload) ? payload : (payload.records || payload.data || []);
+    const fresh = blank();
+
+    arr.forEach(row => {
+      let data = row.data || row.record || row;
+      try{ if(typeof data === 'string') data = JSON.parse(data); }catch(e){}
+      try{ if(row.data_json) data = JSON.parse(row.data_json); }catch(e){}
+      const type = row.type || data._cloudType || data.type;
+      if(!type || !TYPE_COLLECTION[type]) return;
+      data._cloudId = row.id || data._cloudId || data.id;
+      data._cloudType = type;
+      data._cloudSynced = true;
+      fresh[TYPE_COLLECTION[type]].push(data);
+    });
+
+    if((!fresh.officers || !fresh.officers.length) && savedBefore.officers && Array.isArray(savedBefore.officers)){
+      fresh.officers = savedBefore.officers;
+    }
+    fresh.counts = Object.assign({}, blank().counts, savedBefore.counts || {}, fresh.counts || {});
+    db = fresh;
+    localStorage.setItem(KEY, JSON.stringify(db));
+    return true;
+  }catch(e){
+    console.warn('Cloud records could not load; opening local workstation instead.', e);
+    return false;
+  }
+};
+
+startApp = async function(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('roleName').textContent=roleNames[currentRole] || currentRole;
+  document.getElementById('officerChip').textContent='Officer: '+currentOfficerName;
+  document.getElementById('dateNow').textContent='Login: '+currentLoginTime;
+  renderNav();
+  showPage('dashboard');
+
+  try{
+    await Promise.race([loadFromApi(), new Promise(resolve => setTimeout(resolve, 1800))]);
+    showPage('dashboard');
+  }catch(e){
+    console.warn('Startup cloud sync skipped.', e);
+  }
+
+  try{ queueSync(); }catch(e){}
+};
+
+function enhancedInventoryMovementTypes(){
+  return ['Opening Stock','Received Stock','Received Product','Produced Product','Procured Goods Received','Sales Out','Goods Supplied','Production Usage','Damage / Loss','Damages','Shortage','Shortages','Excess','Adjustment','Closing Stock'];
+}
+
+renderInventoryPage = function(){
+  installPage(`<section>
+    <div class="panel"><div class="eyebrow">Inventory / Company Stock Desk</div><h2>Stock Movement Ledger</h2>
+      <form id="stockForm"><div class="grid">
+        <div><label>Date</label><input name="date" type="date" required></div>
+        <div><label>Product / Material</label><select name="item" required>${productOptions.map(p=>`<option value="${esc(p.item)}">${p.code} — ${esc(p.item)}</option>`).join('')}</select></div>
+        <div><label>Movement Type</label><select name="type" required>${enhancedInventoryMovementTypes().map(t=>`<option>${t}</option>`).join('')}</select></div>
+        <div><label>Quantity</label><input name="qty" type="number" step="0.01" required></div>
+        <div><label>Unit</label><select name="unit" required><option>Bags</option><option>Pieces</option><option>Trips</option><option>Tonnes</option><option>Square Metres</option><option>Service</option><option>Units</option><option>Other</option></select></div>
+        <div><label>Stock / Inventory Location</label><input name="location" value="${COMPANY_SITE_LOCATION}"></div>
+        <div class="full"><label>Notes / Remarks</label><textarea name="notes"></textarea></div>
+      </div><div class="row"><button class="primary" type="submit">Record Stock Movement</button></div></form>
+    </div>
+    <div class="panel"><h2>Current Stock Position</h2>${renderStockPosition()}</div>
+    <div class="panel"><h2>Stock Movement Records</h2>${renderStockTable()}</div>
+  </section>`,()=>{document.getElementById('stockForm').onsubmit=saveStock});
+};
+
+stockSign = function(type){
+  return ['Sales Out','Goods Supplied','Production Usage','Damage / Loss','Damages','Shortage','Shortages'].includes(type)?-1:1;
+};
+
+stockPosition = function(){
+  const map = {};
+  db.stock.forEach(m => {
+    const k = String(m.item||'').toLowerCase()+'|'+String(m.unit||'').toLowerCase()+'|'+String(m.location||'').toLowerCase();
+    if(!map[k]) map[k] = { item:m.item, qty:0, unit:m.unit, location:m.location };
+    if(m.type === 'Closing Stock') map[k].qty = Number(m.qty||0);
+    else map[k].qty += Number(m.qty||0) * stockSign(m.type);
+    map[k].unit = m.unit;
+    map[k].location = m.location;
+  });
+  return Object.values(map);
+};
+
+renderStockPosition = function(){
+  return table(stockPosition(), ['Product / Material','Closing Stock','Unit','Location'], s=>[esc(s.item),num(s.qty),esc(s.unit),esc(s.location||'')], 'No stock position yet.');
+};
+
+renderStockTable = function(){
+  return table(db.stock, ['Date','Stock ID','Item','Type','Qty','Unit','Location','Notes','Action'], s=>[niceDate(s.date),s.id,esc(s.item),statusTag(s.type),num(s.qty),esc(s.unit),esc(s.location),esc(s.notes||'-'),`<button class="small red" onclick="deleteRecord('stock','${s.id}')">Delete</button>`], 'No stock movement yet.');
+};
+
+function inventoryDayRows(date){ return db.stock.filter(m => m.date === date); }
+
+function inventorySummaryRows(date){
+  const rows = inventoryDayRows(date);
+  const map = {};
+  rows.forEach(r => {
+    const k = String(r.item||'')+'|'+String(r.unit||'')+'|'+String(r.location||'');
+    if(!map[k]) map[k] = { item:r.item, unit:r.unit, location:r.location, opening:0, received:0, produced:0, procured:0, salesOut:0, supplied:0, damages:0, shortages:0, excess:0, adjustment:0, closing:0 };
+    const q = Number(r.qty||0);
+    if(r.type === 'Opening Stock') map[k].opening += q;
+    else if(['Received Stock','Received Product'].includes(r.type)) map[k].received += q;
+    else if(r.type === 'Produced Product') map[k].produced += q;
+    else if(r.type === 'Procured Goods Received') map[k].procured += q;
+    else if(r.type === 'Sales Out') map[k].salesOut += q;
+    else if(r.type === 'Goods Supplied') map[k].supplied += q;
+    else if(['Damage / Loss','Damages'].includes(r.type)) map[k].damages += q;
+    else if(['Shortage','Shortages'].includes(r.type)) map[k].shortages += q;
+    else if(r.type === 'Excess') map[k].excess += q;
+    else if(r.type === 'Adjustment') map[k].adjustment += q;
+    else if(r.type === 'Closing Stock') map[k].closing = q;
+  });
+  Object.values(map).forEach(x => {
+    if(!x.closing) x.closing = x.opening + x.received + x.produced + x.procured + x.excess + x.adjustment - x.salesOut - x.supplied - x.damages - x.shortages;
+  });
+  return Object.values(map);
+}
+
+function inventoryReportHtml(date){
+  const summary = inventorySummaryRows(date);
+  const movement = inventoryDayRows(date);
+  return '<h3>Inventory Summary</h3>'+table(summary,['Product / Material','Opening','Received','Produced','Procured','Sales Out','Supplied','Damages','Shortages','Excess','Adjustments','Closing','Unit','Location'],r=>[esc(r.item),num(r.opening),num(r.received),num(r.produced),num(r.procured),num(r.salesOut),num(r.supplied),num(r.damages),num(r.shortages),num(r.excess),num(r.adjustment),num(r.closing),esc(r.unit),esc(r.location||'')],'No inventory summary for this date.')+
+  '<h3>Inventory Movement Breakdown</h3>'+table(movement,['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location','Entered By','Remarks'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location||''),esc(m.enteredBy||''),esc(m.notes||'')],'No inventory movement for this date.');
+}
+
+dailyReportHtml = function(date){
+  const s = dayStats(date);
+  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Daily Operations Report</h2><p><b>Date:</b> '+niceDate(date)+'</p>'+table([s],['Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],x=>[x.quotes,x.invoices,money(x.sales),money(x.paid),money(x.balance),x.procurement,x.waybills,x.followups])+'<h3>Sales Breakdown</h3>'+table(db.invoices.filter(i=>i.date===date),['Invoice','Customer','Total','Paid','Balance','Status'],i=>[i.id,esc(i.customer),money(i.total),money(i.paid),money(i.balance),statusTag(i.status)],'No sales breakdown for this date.')+'<h3>Payment Breakdown</h3>'+table(db.payments.filter(p=>p.date===date),['Payment','Invoice','Customer','Transfer','Cash','POS','Total','Status'],p=>[p.id,p.invoiceId,esc(p.customer),money(p.transferAmount),money(p.cashAmount),money(p.posAmount),money(p.totalPaid),statusTag(p.status)],'No payment breakdown for this date.')+inventoryReportHtml(date)+'</div>';
+};
+
+weeklyReportHtml = function(start,end){
+  const days = dateRange(start,end);
+  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Weekly Statement Report</h2><p><b>Period:</b> '+niceDate(start)+' to '+niceDate(end)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'<h3>Weekly Inventory Movement</h3>'+table(db.stock.filter(m=>m.date>=start&&m.date<=end),['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location)],'No inventory movement for this week.')+'</div>';
+};
+
+monthlyReportHtml = function(month){
+  const first = month+'-01', d = new Date(first), days = [];
+  while(d.toISOString().slice(0,7) === month){ days.push(d.toISOString().slice(0,10)); d.setDate(d.getDate()+1); }
+  return '<div class="panel"><div class="document-logo-wrap"><img src="'+LOGO_PATH+'" class="document-logo"></div><h2>FTH D-UNIQ Monthly Reconciliation</h2><p><b>Month:</b> '+esc(month)+'</p>'+table(days.map(dayStats),['Day','Quotes','Invoices','Sales','Paid','Balance','Procurement','Waybills','Follow-ups'],s=>[niceDate(s.date),s.quotes,s.invoices,money(s.sales),money(s.paid),money(s.balance),s.procurement,s.waybills,s.followups])+'<h3>Monthly Inventory Movement</h3>'+table(db.stock.filter(m=>String(m.date||'').slice(0,7)===month),['Date','Stock ID','Product / Material','Movement Type','Qty','Unit','Location'],m=>[niceDate(m.date),m.id,esc(m.item),statusTag(m.type),num(m.qty),esc(m.unit),esc(m.location)],'No inventory movement for this month.')+'</div>';
+};
+
 document.addEventListener('contextmenu',e=>{if(!e.target.closest('input,textarea,select,button,a,summary,canvas'))e.preventDefault()});document.addEventListener('copy',e=>{if(!e.target.closest('input,textarea'))e.preventDefault()});
 const oldLogin=sessionStorage.getItem('fth_login');if(oldLogin){try{const l=JSON.parse(oldLogin);if(l.role){currentRole=l.role;currentOfficerName=l.officerName||roleNames[l.role];currentOfficerId=l.officerId||'';currentLoginTime=l.loginTime||new Date().toLocaleString('en-NG');startApp()}}catch(e){}}
 </script>
